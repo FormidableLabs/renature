@@ -17,6 +17,7 @@
   "author": "Parker Ziegler",
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "^6.2.1"
+    "bs-platform": "^6.2.1",
+    "gentype": "^3.6.0"
   }
 }

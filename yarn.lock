@@ -6,3 +6,8 @@ bs-platform@^6.2.1:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-6.2.1.tgz#30266c7f23a3b323e1fc9596a9a6eb9f053981b4"
   integrity sha512-FmQ8kYV52A0Y302qh6o0/J9TO+kHzsjGQnsjrg/ONUYIY/jWzBnt9dCBO6EBnaEKfFJLqk5JrUDCxuihqtTcnw==
+
+gentype@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/gentype/-/gentype-3.6.0.tgz#8d913d7e3d4909c7c690f9b96a60e6d093b60a63"
+  integrity sha512-2lcnaOORjYkRyoexz5wVYh6uQ7/XFAcY+v4w1yfP7FuNbkdhh/BSRSLXj32gO4AVaDSGKTQeix6eeCNlLw0+CQ==

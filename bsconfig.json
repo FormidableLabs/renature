@@ -2,7 +2,7 @@
   "name": "renature",
   "version": "0.1.0",
   "sources": {
-    "dir": "src",
+    "dir": "src/core",
     "subdirs": true
   },
   "package-specs": {
@@ -15,5 +15,8 @@
     "error": "+5"
   },
   "refmt": 3,
-  "bsc-flags": ["-bs-super-errors"]
+  "bsc-flags": ["-bs-super-errors"],
+  "gentypeconfig": {
+    "language": "typescript"
+  }
 }
