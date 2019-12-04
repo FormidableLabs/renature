@@ -2,7 +2,7 @@
 
 import * as $$Math from "./Math.bs.js";
 import * as Utils from "./Utils.bs.js";
-import * as Caml_int32 from "../../node_modules/bs-platform/lib/es6/caml_int32.js";
+import * as Caml_int32 from "bs-platform/lib/es6/caml_int32.js";
 
 function add(v1, v2) {
   return /* tuple */[
