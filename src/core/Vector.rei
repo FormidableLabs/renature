@@ -1,5 +1,6 @@
 [@genType]
 type vector('a) = ('a, 'a);
+type t('a) = vector('a);
 
 [@genType]
 let add: (~v1: vector(int), ~v2: vector(int)) => vector(int);
@@ -33,7 +34,7 @@ let normf: vector(float) => vector(float);
 
 [@genType]
 let lerp:
-  (~acc: vector(float), ~target: vector(float), ~roundness: float) =>
+  (~acc: vector(int), ~target: vector(int), ~roundness: float) =>
   vector(int);
 [@genType]
 let lerpf:

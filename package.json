@@ -4,7 +4,8 @@
   "scripts": {
     "clean": "bsb -clean-world",
     "build": "bsb -make-world",
-    "start": "bsb -make-world -w"
+    "start": "bsb -make-world -w",
+    "test": "jest"
   },
   "keywords": [
     "ReasonML",
@@ -14,10 +15,26 @@
     "Animation",
     "Physics"
   ],
-  "author": "Parker Ziegler",
+  "author": "Parker Ziegler <parker.ziegler@formidable.com>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@glennsl/bs-jest": "^0.4.9",
+    "babel-jest": "^24.9.0",
     "bs-platform": "^6.2.1",
-    "gentype": "^3.6.0"
+    "gentype": "^3.6.0",
+    "jest": "^24.9.0"
+  },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/__tests__/**/*_test.bs.js"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@glennsl/bs-jest|bs-platform)/)"
+    ]
   }
 }

@@ -11,17 +11,30 @@ function sqf(x) {
   return x * x;
 }
 
+function pow(base, exp) {
+  if (exp !== 0) {
+    if (exp !== 1) {
+      return Caml_int32.imul(base, pow(base, exp - 1 | 0));
+    } else {
+      return base;
+    }
+  } else {
+    return 1;
+  }
+}
+
 function lerpf(acc, target, roundness) {
   return (1.0 - roundness) * acc + roundness * target;
 }
 
 function lerp(acc, target, roundness) {
-  return Utils.iof(lerpf(acc, target, roundness));
+  return Utils.iof(lerpf(Utils.foi(acc), Utils.foi(target), roundness));
 }
 
 export {
   sq ,
   sqf ,
+  pow ,
   lerp ,
   lerpf ,
   

@@ -1,5 +1,6 @@
 // The core vector type.
 type vector('a) = ('a, 'a);
+type t('a) = vector('a);
 
 // Vector addition.
 let add = (~v1, ~v2) => (fst(v1) + fst(v2), snd(v1) + snd(v2));
@@ -54,6 +55,11 @@ let lerpf = (~acc, ~target, ~roundness) => {
 };
 
 let lerp = (~acc, ~target, ~roundness) => {
-  let (xf, yf) = lerpf(~acc, ~target, ~roundness);
+  let (xf, yf) =
+    lerpf(
+      ~acc=(fst(acc) |> Utils.foi, snd(acc) |> Utils.foi),
+      ~target=(fst(target) |> Utils.foi, snd(target) |> Utils.foi),
+      ~roundness,
+    );
   (xf |> Utils.iof, yf |> Utils.iof);
 };

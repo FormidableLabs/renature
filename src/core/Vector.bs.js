@@ -107,7 +107,13 @@ function lerpf(acc, target, roundness) {
 }
 
 function lerp(acc, target, roundness) {
-  var match = lerpf(acc, target, roundness);
+  var match = lerpf(/* tuple */[
+        Utils.foi(acc[0]),
+        Utils.foi(acc[1])
+      ], /* tuple */[
+        Utils.foi(target[0]),
+        Utils.foi(target[1])
+      ], roundness);
   return /* tuple */[
           Utils.iof(match[0]),
           Utils.iof(match[1])

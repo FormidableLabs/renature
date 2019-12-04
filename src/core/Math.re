@@ -1,8 +1,19 @@
+// Square.
 let sq = x => x * x;
 let sqf = x => x *. x;
+
+// Exponents.
+let rec pow = (~base, ~exp) => {
+  switch (exp) {
+  | 0 => 1
+  | 1 => base
+  | _ => base * pow(~base, ~exp=exp - 1)
+  };
+};
 
 // Linear interpolation.
 let lerpf = (~acc, ~target, ~roundness) =>
   (1.0 -. roundness) *. acc +. roundness *. target;
 let lerp = (~acc, ~target, ~roundness) =>
-  lerpf(~acc, ~target, ~roundness) |> Utils.iof;
+  lerpf(~acc=Utils.foi(acc), ~target=Utils.foi(target), ~roundness)
+  |> Utils.iof;
