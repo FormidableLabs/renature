@@ -2,7 +2,7 @@
 
 import * as $$Math from "./Math.bs.js";
 import * as Utils from "./Utils.bs.js";
-import * as Caml_int32 from "bs-platform/lib/es6/caml_int32.js";
+import * as Caml_int32 from "../../node_modules/bs-platform/lib/es6/caml_int32.js";
 
 function add(v1, v2) {
   return /* tuple */[
@@ -107,7 +107,13 @@ function lerpf(acc, target, roundness) {
 }
 
 function lerp(acc, target, roundness) {
-  var match = lerpf(acc, target, roundness);
+  var match = lerpf(/* tuple */[
+        Utils.foi(acc[0]),
+        Utils.foi(acc[1])
+      ], /* tuple */[
+        Utils.foi(target[0]),
+        Utils.foi(target[1])
+      ], roundness);
   return /* tuple */[
           Utils.iof(match[0]),
           Utils.iof(match[1])

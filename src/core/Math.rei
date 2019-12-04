@@ -4,6 +4,9 @@ let sq: int => int;
 let sqf: float => float;
 
 [@genType]
-let lerp: (~acc: float, ~target: float, ~roundness: float) => int;
+let pow: (~base: int, ~exp: int) => int;
+
+[@genType]
+let lerp: (~acc: int, ~target: int, ~roundness: float) => int;
 [@genType]
 let lerpf: (~acc: float, ~target: float, ~roundness: float) => float;

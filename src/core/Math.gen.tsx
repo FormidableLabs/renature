@@ -12,6 +12,11 @@ export const sq: (_1:number) => number = MathBS.sq;
 
 export const sqf: (_1:number) => number = MathBS.sqf;
 
+export const pow: (_1:{ readonly base: number; readonly exp: number }) => number = function (Arg1: any) {
+  const result = Curry._2(MathBS.pow, Arg1.base, Arg1.exp);
+  return result
+};
+
 export const lerp: (_1:{
   readonly acc: number; 
   readonly target: number; 
