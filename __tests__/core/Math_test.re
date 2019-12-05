@@ -15,11 +15,15 @@ describe("Math", () => {
     )
   );
 
-  describe("pow", () =>
+  describe("pow", () => {
     it("should raise base to the exp power", () =>
-      Expect.(expect(Math.pow(~base=10, ~exp=5)) |> toEqual(100000))
-    )
-  );
+      Expect.(expect(Math.pow(~base=10, ~exp=5)) |> toEqual(100000.))
+    );
+
+    it("should handle negative exponents", () =>
+      Expect.(expect(Math.pow(~base=10, ~exp=-5)) |> toBeCloseTo(0.00001))
+    );
+  });
 
   describe("lerp", () =>
     it("should linear interpolate between integer values", () =>
