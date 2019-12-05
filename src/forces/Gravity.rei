@@ -2,9 +2,14 @@
 let g: float;
 
 [@genType]
-let force: (~m1: float, ~m2: float, ~r: float) => float;
+let force: (~attractorMass: float, ~moverMass: float, ~r: float) => float;
 
 [@genType]
 let forceV:
-  (~m1: float, ~m2: float, ~v1: Vector.t(float), ~v2: Vector.t(float)) =>
+  (
+    ~attractorMass: float,
+    ~moverMass: float,
+    ~attractor: Vector.t(float),
+    ~mover: Vector.t(float)
+  ) =>
   Vector.t(float);

@@ -13,20 +13,20 @@ import {t as Vector_t} from '../../src/core/Vector.gen';
 export const g: number = GravityBS.g;
 
 export const force: (_1:{
-  readonly m1: number; 
-  readonly m2: number; 
+  readonly attractorMass: number; 
+  readonly moverMass: number; 
   readonly r: number
 }) => number = function (Arg1: any) {
-  const result = Curry._3(GravityBS.force, Arg1.m1, Arg1.m2, Arg1.r);
+  const result = Curry._3(GravityBS.force, Arg1.attractorMass, Arg1.moverMass, Arg1.r);
   return result
 };
 
 export const forceV: (_1:{
-  readonly m1: number; 
-  readonly m2: number; 
-  readonly v1: Vector_t<number>; 
-  readonly v2: Vector_t<number>
+  readonly attractorMass: number; 
+  readonly moverMass: number; 
+  readonly attractor: Vector_t<number>; 
+  readonly mover: Vector_t<number>
 }) => Vector_t<number> = function (Arg1: any) {
-  const result = Curry._4(GravityBS.forceV, Arg1.m1, Arg1.m2, Arg1.v1, Arg1.v2);
+  const result = Curry._4(GravityBS.forceV, Arg1.attractorMass, Arg1.moverMass, Arg1.attractor, Arg1.mover);
   return result
 };

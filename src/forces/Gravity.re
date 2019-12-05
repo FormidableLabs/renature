@@ -1,9 +1,10 @@
 let g = 6.67428 *. Math.pow(~base=10, ~exp=-11);
-let force = (~m1, ~m2, ~r) => g *. m1 *. m2 /. Math.sqf(r);
+let force = (~attractorMass, ~moverMass, ~r) =>
+  g *. attractorMass *. moverMass /. Math.sqf(r);
 
-let forceV = (~m1, ~m2, ~v1, ~v2) => {
-  // Derive the vector pointing from m2 to m1.
-  let v = Vector.subf(~v1, ~v2);
+let forceV = (~attractorMass, ~moverMass, ~attractor, ~mover) => {
+  // Derive the vector pointing from attractor to mover.
+  let v = Vector.subf(~v1=attractor, ~v2=mover);
 
   // Derive the magnitude of the above vector.
   let mag = Vector.magf(v);
@@ -12,5 +13,5 @@ let forceV = (~m1, ~m2, ~v1, ~v2) => {
   let dir = Vector.normf(v);
 
   // Multiply the unit vector by the size of the force.
-  Vector.multf(~v=dir, ~s=force(~m1, ~m2, ~r=mag));
+  Vector.multf(~v=dir, ~s=force(~attractorMass, ~moverMass, ~r=mag));
 };

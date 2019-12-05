@@ -6,7 +6,7 @@ describe("Gravity", () => {
   describe("force", () => {
     it("should derive the force of gravity between two objects", () =>
       Expect.(
-        expect(Gravity.force(~m1=1., ~m2=1., ~r=1.))
+        expect(Gravity.force(~attractorMass=1., ~moverMass=1., ~r=1.))
         |> toBeCloseTo(Gravity.g)
       )
     );
@@ -16,10 +16,14 @@ describe("Gravity", () => {
       let massEarth = 5.97 *. Math.pow(~base=10, ~exp=24);
       let massObject = 25.;
       let rEarth = 6.371 *. Math.pow(~base=10, ~exp=6);
-      
+
       Expect.(
         expect(
-          Gravity.force(~m1=massEarth, ~m2=massObject, ~r=rEarth)
+          Gravity.force(
+            ~attractorMass=massEarth,
+            ~moverMass=massObject,
+            ~r=rEarth,
+          )
           |> Printf.printf("%0.*f\n", 2),
         )
         |> toEqual(0.098 *. massObject |> Printf.printf("%0.*f\n", 2))
@@ -28,16 +32,19 @@ describe("Gravity", () => {
   });
 
   describe("forceV", () => {
-    let m1 = 25.;
-    let m2 = 50.;
-    let v1 = (5., 10.);
-    let v2 = (20., 50.);
+    let attractorMass = 25.;
+    let moverMass = 50.;
+    let attractor = (5., 10.);
+    let mover = (20., 50.);
 
     it(
       "should correctly derive the vector of the force of gravity in two dimensions",
       () =>
       Expect.(
-        expect(Gravity.forceV(~m1, ~m2, ~v1, ~v2) |> fst)
+        expect(
+          Gravity.forceV(~attractorMass, ~moverMass, ~attractor, ~mover)
+          |> fst,
+        )
         |> toBeCloseTo(-0.00002680847)
       )
     );
@@ -46,7 +53,10 @@ describe("Gravity", () => {
       "should correctly derive the vector of the force of gravity in two dimensions",
       () =>
       Expect.(
-        expect(Gravity.forceV(~m1, ~m2, ~v1, ~v2) |> snd)
+        expect(
+          Gravity.forceV(~attractorMass, ~moverMass, ~attractor, ~mover)
+          |> snd,
+        )
         |> toBeCloseTo(-0.0000714892571)
       )
     );
