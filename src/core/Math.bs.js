@@ -14,9 +14,13 @@ function sqf(x) {
 function pow(base, exp) {
   if (exp !== 0) {
     if (exp !== 1) {
-      return Caml_int32.imul(base, pow(base, exp - 1 | 0));
+      if (exp < 0) {
+        return 1 / Utils.foi(base) * pow(base, exp + 1 | 0);
+      } else {
+        return Utils.foi(base) * pow(base, exp - 1 | 0);
+      }
     } else {
-      return base;
+      return Utils.foi(base);
     }
   } else {
     return 1;

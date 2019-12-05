@@ -7,6 +7,10 @@
       "subdirs": true
     },
     {
+      "dir": "src/forces",
+      "subdirs": true
+    },
+    {
       "dir": "__tests__",
       "subdirs": true,
       "type": "dev"
