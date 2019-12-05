@@ -16,6 +16,7 @@ describe("Gravity", () => {
       let massEarth = 5.97 *. Math.pow(~base=10, ~exp=24);
       let massObject = 25.;
       let rEarth = 6.371 *. Math.pow(~base=10, ~exp=6);
+      
       Expect.(
         expect(
           Gravity.force(~m1=massEarth, ~m2=massObject, ~r=rEarth)
