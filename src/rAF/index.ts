@@ -30,6 +30,7 @@ export const rAF = () => {
 
   const draw = (timestamp: DOMHighResTimeStamp) => {
     state.mover = state.listener(timestamp, state.lastFrame, state.mover);
+    console.log(state.mover);
     state.lastFrame = timestamp;
     state.animationFrameId = requestAnimationFrame(timestamp => {
       draw(timestamp);

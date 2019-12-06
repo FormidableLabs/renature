@@ -6,6 +6,25 @@ interface UseGravityArgs {
   attractor: Vector<number>;
 }
 
+const applyForceForStep = (
+  config: UseGravityArgs,
+  mover: Entity,
+  entity: Entity
+) => {
+  const force = forceV({
+    ...config,
+    mover: mover.position
+  });
+
+  return applyForce({
+    force,
+    moverMass: config.moverMass,
+    acceleration: mover.acceleration,
+    velocity: mover.velocity,
+    position: mover.position
+  });
+};
+
 const run = (config: UseGravityArgs) => {
   const { start, stop } = rAF();
 
@@ -13,39 +32,17 @@ const run = (config: UseGravityArgs) => {
     const diffTime = timestamp > lastFrame + 64 ? 0 : lastFrame;
     const steps = Math.floor(timestamp - diffTime);
 
+    let entity: Entity;
+
     if (steps > 0) {
-      let entity: Entity;
-
       for (let i = 0; i < steps; i++) {
-        const force = forceV({
-          ...config,
-          mover: mover.position
-        });
-
-        entity = applyForce({
-          force,
-          moverMass: config.moverMass,
-          acceleration: mover.acceleration,
-          velocity: mover.velocity,
-          position: mover.position
-        });
+        entity = applyForceForStep(config, mover, entity);
       }
-
-      return entity;
+    } else {
+      entity = applyForceForStep(config, mover, entity);
     }
 
-    const force = forceV({
-      ...config,
-      mover: mover.position
-    });
-
-    return applyForce({
-      force,
-      moverMass: config.moverMass,
-      acceleration: mover.acceleration,
-      velocity: mover.velocity,
-      position: mover.position
-    });
+    return entity;
   });
 
   setTimeout(() => {
