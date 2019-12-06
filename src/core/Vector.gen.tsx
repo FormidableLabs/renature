@@ -10,6 +10,10 @@ const VectorBS = require('./Vector.bs');
 
 // tslint:disable-next-line:interface-over-type-literal
 export type vector<a> = [a, a];
+export type Vector = vector;
+
+// tslint:disable-next-line:interface-over-type-literal
+export type t<a> = vector<a>;
 
 export const add: (_1:{ readonly v1: vector<number>; readonly v2: vector<number> }) => vector<number> = function (Arg1: any) {
   const result = Curry._2(VectorBS.add, Arg1.v1, Arg1.v2);

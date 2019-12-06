@@ -2,3 +2,5 @@ lib
 node_modules
 .merlin
 __tests__/**/*.bs.js
+.cache
+example/build

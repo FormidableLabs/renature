@@ -1,5 +1,6 @@
-[@genType]
+[@genType "Vector"]
 type vector('a) = ('a, 'a);
+[@genType]
 type t('a) = vector('a);
 
 [@genType]
