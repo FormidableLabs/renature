@@ -6,11 +6,7 @@ interface UseGravityArgs {
   attractor: Vector<number>;
 }
 
-const applyForceForStep = (
-  config: UseGravityArgs,
-  mover: Entity,
-  entity: Entity
-) => {
+const applyForceForStep = (config: UseGravityArgs, mover: Entity) => {
   const force = forceV({
     ...config,
     mover: mover.position
@@ -18,10 +14,12 @@ const applyForceForStep = (
 
   return applyForce({
     force,
-    moverMass: config.moverMass,
-    acceleration: mover.acceleration,
-    velocity: mover.velocity,
-    position: mover.position
+    entity: {
+      mass: config.moverMass,
+      acceleration: mover.acceleration,
+      velocity: mover.velocity,
+      position: mover.position
+    }
   });
 };
 
@@ -36,10 +34,10 @@ const run = (config: UseGravityArgs) => {
 
     if (steps > 0) {
       for (let i = 0; i < steps; i++) {
-        entity = applyForceForStep(config, mover, entity);
+        entity = applyForceForStep(config, mover);
       }
     } else {
-      entity = applyForceForStep(config, mover, entity);
+      entity = applyForceForStep(config, mover);
     }
 
     return entity;

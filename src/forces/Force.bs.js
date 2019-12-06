@@ -2,11 +2,12 @@
 
 import * as Vector from "../core/Vector.bs.js";
 
-function applyForce(force, moverMass, acceleration, velocity, position) {
-  var nextAcceleration = Vector.addf(acceleration, Vector.divf(force, moverMass));
-  var nextVelocity = Vector.addf(velocity, nextAcceleration);
-  var nextPosition = Vector.addf(position, nextVelocity);
+function applyForce(force, entity) {
+  var nextAcceleration = Vector.addf(entity[/* acceleration */1], Vector.divf(force, entity[/* mass */0]));
+  var nextVelocity = Vector.addf(entity[/* velocity */2], nextAcceleration);
+  var nextPosition = Vector.addf(entity[/* position */3], nextVelocity);
   return /* record */[
+          /* mass */entity[/* mass */0],
           /* acceleration */nextAcceleration,
           /* velocity */nextVelocity,
           /* position */nextPosition

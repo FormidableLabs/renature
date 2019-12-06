@@ -17,6 +17,7 @@ export const rAF = () => {
     animationFrameId: null,
     listener: ((() => {}) as unknown) as RAFState["listener"],
     mover: {
+      mass: 0,
       acceleration: [0, 0],
       velocity: [0, 0],
       position: [0, 0]

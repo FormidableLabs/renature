@@ -12,19 +12,14 @@ import {t as Vector_t} from '../../src/core/Vector.gen';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type entity = {
+  readonly mass: number; 
   readonly acceleration: Vector_t<number>; 
   readonly velocity: Vector_t<number>; 
   readonly position: Vector_t<number>
 };
 export type Entity = entity;
 
-export const applyForce: (_1:{
-  readonly force: Vector_t<number>; 
-  readonly moverMass: number; 
-  readonly acceleration: Vector_t<number>; 
-  readonly velocity: Vector_t<number>; 
-  readonly position: Vector_t<number>
-}) => entity = function (Arg1: any) {
-  const result = Curry._5(ForceBS.applyForce, Arg1.force, Arg1.moverMass, Arg1.acceleration, Arg1.velocity, Arg1.position);
-  return {acceleration:result[0], velocity:result[1], position:result[2]}
+export const applyForce: (_1:{ readonly force: Vector_t<number>; readonly entity: entity }) => entity = function (Arg1: any) {
+  const result = Curry._2(ForceBS.applyForce, Arg1.force, [Arg1.entity.mass, Arg1.entity.acceleration, Arg1.entity.velocity, Arg1.entity.position]);
+  return {mass:result[0], acceleration:result[1], velocity:result[2], position:result[3]}
 };
