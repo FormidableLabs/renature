@@ -46,6 +46,7 @@ let normf = v => {
   };
 };
 
+// Vector linear interpolation.
 let lerpf = (~acc, ~target, ~roundness) => {
   let (accX, accY) = acc;
   let (targetX, targetY) = target;

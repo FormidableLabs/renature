@@ -2,10 +2,13 @@
   "name": "renature",
   "version": "0.1.0",
   "scripts": {
-    "clean": "bsb -clean-world",
-    "build": "bsb -make-world",
-    "start": "bsb -make-world -w",
-    "test": "jest"
+    "clean:re": "bsb -clean-world",
+    "build:re": "bsb -make-world",
+    "start:re": "bsb -make-world -w",
+    "build:ts": "tsc",
+    "check:ts": "tsc --noEmit",
+    "test": "jest",
+    "start:example": "parcel example/index.html --out-dir example/build"
   },
   "keywords": [
     "ReasonML",
@@ -24,7 +27,9 @@
     "babel-jest": "^24.9.0",
     "bs-platform": "^6.2.1",
     "gentype": "^3.6.0",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.7.3"
   },
   "jest": {
     "testMatch": [

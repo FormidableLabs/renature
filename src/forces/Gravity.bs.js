@@ -5,15 +5,15 @@ import * as Vector from "../core/Vector.bs.js";
 
 var g = 6.67428 * $$Math.pow(10, -11);
 
-function force(m1, m2, r) {
-  return g * m1 * m2 / $$Math.sqf(r);
+function force(attractorMass, moverMass, r) {
+  return g * attractorMass * moverMass / $$Math.sqf(r);
 }
 
-function forceV(m1, m2, v1, v2) {
-  var v = Vector.subf(v1, v2);
+function forceV(attractorMass, moverMass, attractor, mover) {
+  var v = Vector.subf(attractor, mover);
   var mag = Vector.magf(v);
   var dir = Vector.normf(v);
-  return Vector.multf(dir, force(m1, m2, mag));
+  return Vector.multf(dir, force(attractorMass, moverMass, mag));
 }
 
 export {
