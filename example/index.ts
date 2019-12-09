@@ -25,13 +25,12 @@ const [stop] = gravity({
     moverMass: 2000,
     attractorMass: 100000000,
     attractor: positionAttractor,
-    initialVelocity: [0.01, 0.05],
     threshold: {
       min: 10,
       max: 750
     }
   },
-  onFrame: ([x, y]) => {
+  onUpdate: ({ position: [x, y] }) => {
     el.style.transform = `translate(${x}px, ${y}px)`;
   }
 });

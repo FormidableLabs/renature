@@ -14,7 +14,10 @@ export interface GravityParams {
       max: number;
     };
   };
-  onFrame: (position: Vector<number>) => void;
+  onUpdate: (values: {
+    position: Vector<number>;
+    velocity: Vector<number>;
+  }) => void;
 }
 
 interface GravityState {
@@ -111,7 +114,10 @@ export const gravity = (params: GravityParams): [() => void] => {
       // Mover has reached attractor or mover has exceeded the limits, stop animation.
       stop();
     } else {
-      params.onFrame(state.mover.position);
+      params.onUpdate({
+        position: state.mover.position,
+        velocity: state.mover.velocity
+      });
     }
   });
 
