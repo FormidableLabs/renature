@@ -18,3 +18,12 @@ let lerpf = (~acc, ~target, ~roundness) =>
 let lerp = (~acc, ~target, ~roundness) =>
   lerpf(~acc=Utils.foi(acc), ~target=Utils.foi(target), ~roundness)
   |> Utils.iof;
+
+// Constrain a range.
+let constrain = (~low, ~high, n) => {
+  switch (n) {
+  | n when n < low => low
+  | n when n > high => high
+  | _ => n
+  };
+};

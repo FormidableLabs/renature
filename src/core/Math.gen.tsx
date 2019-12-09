@@ -34,3 +34,8 @@ export const lerpf: (_1:{
   const result = Curry._3(MathBS.lerpf, Arg1.acc, Arg1.target, Arg1.roundness);
   return result
 };
+
+export const constrain: <a>(_1:{ readonly low: a; readonly high: a }, _2:a) => a = function <a>(Arg1: any, Arg2: any) {
+  const result = Curry._3(MathBS.constrain, Arg1.low, Arg1.high, Arg2);
+  return result
+};

@@ -9,11 +9,18 @@ function force(attractorMass, moverMass, r) {
   return g * attractorMass * moverMass / $$Math.sqf(r);
 }
 
-function forceV(attractorMass, moverMass, attractor, mover) {
+function forceV(attractorMass, moverMass, attractor, mover, threshold, param) {
   var v = Vector.subf(attractor, mover);
   var mag = Vector.magf(v);
+  var distance;
+  if (threshold !== undefined) {
+    var th = threshold;
+    distance = $$Math.constrain(th[0], th[1], mag);
+  } else {
+    distance = mag;
+  }
   var dir = Vector.normf(v);
-  return Vector.multf(dir, force(attractorMass, moverMass, mag));
+  return Vector.multf(dir, force(attractorMass, moverMass, distance));
 }
 
 export {
