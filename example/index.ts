@@ -1,55 +1,36 @@
-import { rAF, forceV, applyForce, vector as Vector, Entity } from "../src";
+import { gravity, vector } from "../src";
 
-interface UseGravityArgs {
-  moverMass: number;
-  attractorMass: number;
-  attractor: Vector<number>;
-}
+const el = document.createElement("div");
+document.body.appendChild(el);
 
-const applyForceForStep = (config: UseGravityArgs, mover: Entity) => {
-  const force = forceV({
-    ...config,
-    mover: mover.position
-  });
+const positionAttractor = [500, 500] as vector<number>;
+const attractorEl = document.createElement("div");
+document.body.appendChild(attractorEl);
 
-  return applyForce({
-    force,
-    entity: {
-      mass: config.moverMass,
-      acceleration: mover.acceleration,
-      velocity: mover.velocity,
-      position: mover.position
+el.style.height = "10px";
+el.style.width = "10px";
+el.style.borderRadius = "50%";
+el.style.background = "steelblue";
+
+attractorEl.style.height = "25px";
+attractorEl.style.width = "25px";
+attractorEl.style.borderRadius = "50%";
+attractorEl.style.background = "orange";
+attractorEl.style.left = `${positionAttractor[0]}px`;
+attractorEl.style.top = `${positionAttractor[1]}px`;
+attractorEl.style.position = "absolute";
+
+const [stop] = gravity({
+  config: {
+    moverMass: 2000,
+    attractorMass: 100000000,
+    attractor: positionAttractor,
+    threshold: {
+      min: 10,
+      max: 750
     }
-  });
-};
-
-const run = (config: UseGravityArgs) => {
-  const { start, stop } = rAF();
-
-  start((timestamp, lastFrame, mover) => {
-    const diffTime = timestamp > lastFrame + 64 ? 0 : lastFrame;
-    const steps = Math.floor(timestamp - diffTime);
-
-    let entity: Entity;
-
-    if (steps > 0) {
-      for (let i = 0; i < steps; i++) {
-        entity = applyForceForStep(config, mover);
-      }
-    } else {
-      entity = applyForceForStep(config, mover);
-    }
-
-    return entity;
-  });
-
-  setTimeout(() => {
-    stop();
-  }, 1000);
-};
-
-run({
-  moverMass: 20,
-  attractorMass: 10000,
-  attractor: [500, 500]
+  },
+  onUpdate: ({ position: [x, y] }) => {
+    el.style.transform = `translate(${x}px, ${y}px)`;
+  }
 });

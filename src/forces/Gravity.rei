@@ -10,6 +10,8 @@ let forceV:
     ~attractorMass: float,
     ~moverMass: float,
     ~attractor: Vector.t(float),
-    ~mover: Vector.t(float)
+    ~mover: Vector.t(float),
+    ~threshold: (float, float)=?,
+    unit
   ) =>
   Vector.t(float);

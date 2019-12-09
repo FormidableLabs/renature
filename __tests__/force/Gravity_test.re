@@ -42,7 +42,7 @@ describe("Gravity", () => {
       () =>
       Expect.(
         expect(
-          Gravity.forceV(~attractorMass, ~moverMass, ~attractor, ~mover)
+          Gravity.forceV(~attractorMass, ~moverMass, ~attractor, ~mover, ())
           |> fst,
         )
         |> toBeCloseTo(-0.00002680847)
@@ -54,7 +54,7 @@ describe("Gravity", () => {
       () =>
       Expect.(
         expect(
-          Gravity.forceV(~attractorMass, ~moverMass, ~attractor, ~mover)
+          Gravity.forceV(~attractorMass, ~moverMass, ~attractor, ~mover, ())
           |> snd,
         )
         |> toBeCloseTo(-0.0000714892571)

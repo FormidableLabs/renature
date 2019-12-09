@@ -25,8 +25,9 @@ export const forceV: (_1:{
   readonly attractorMass: number; 
   readonly moverMass: number; 
   readonly attractor: Vector_t<number>; 
-  readonly mover: Vector_t<number>
-}) => Vector_t<number> = function (Arg1: any) {
-  const result = Curry._4(GravityBS.forceV, Arg1.attractorMass, Arg1.moverMass, Arg1.attractor, Arg1.mover);
+  readonly mover: Vector_t<number>; 
+  readonly threshold?: [number, number]
+}, _2:void) => Vector_t<number> = function (Arg1: any, Arg2: any) {
+  const result = Curry._6(GravityBS.forceV, Arg1.attractorMass, Arg1.moverMass, Arg1.attractor, Arg1.mover, Arg1.threshold, Arg2);
   return result
 };
