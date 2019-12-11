@@ -1,0 +1,43 @@
+.grid {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.panel {
+  border: 1px solid palevioletred;
+}
+
+.mover--transform {
+  background: steelblue;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+}
+
+.attractor--transform {
+  position: relative;
+  top: 100px;
+  left: 100px;
+  background: orange;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.mover--opacity {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  background: violet;
+  height: 100px;
+  width: 100px;
+  transform: translate(-50%, -50%);
+}

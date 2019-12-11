@@ -7,11 +7,7 @@ type entity = {
 
 let applyForce = (~force, ~entity) => {
   // Derive the acceleration created by the force and add it to the current acceleration.
-  let nextAcceleration =
-    Vector.addf(
-      ~v1=entity.acceleration,
-      ~v2=Vector.divf(~v=force, ~s=entity.mass),
-    );
+  let nextAcceleration = Vector.divf(~v=force, ~s=entity.mass);
 
   // Add the acceleration to the current velocity.
   let nextVelocity = Vector.addf(~v1=entity.velocity, ~v2=nextAcceleration);
