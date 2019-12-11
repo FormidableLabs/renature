@@ -4,7 +4,7 @@ import { gravity1D, gravity2D, vector as Vector, normNumber } from "../src";
 
 import "./index.css";
 
-const positionAttractor: Vector<number> = [100, 100];
+const positionAttractor: Vector<number> = [150, 150];
 
 const App: React.FC = () => {
   const m1 = React.useRef<HTMLDivElement>(null);
@@ -24,7 +24,7 @@ const App: React.FC = () => {
     },
     onUpdate: ({ position: [x, y] }) => {
       if (m1.current) {
-        m1.current.style.transform = `translate(${x}px, ${y}px)`;
+        m1.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
       }
     }
   });
