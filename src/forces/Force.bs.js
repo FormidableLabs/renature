@@ -3,7 +3,7 @@
 import * as Vector from "../core/Vector.bs.js";
 
 function applyForce(force, entity) {
-  var nextAcceleration = Vector.addf(entity[/* acceleration */1], Vector.divf(force, entity[/* mass */0]));
+  var nextAcceleration = Vector.divf(force, entity[/* mass */0]);
   var nextVelocity = Vector.addf(entity[/* velocity */2], nextAcceleration);
   var nextPosition = Vector.addf(entity[/* position */3], nextVelocity);
   return /* record */[
