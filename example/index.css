@@ -23,21 +23,21 @@
 }
 
 .attractor--transform {
+  position: relative;
+  top: 100px;
+  left: 100px;
   background: orange;
   height: 100px;
   width: 100px;
   border-radius: 50%;
-  position: relative;
-  top: 100px;
-  left: 100px;
 }
 
 .mover--opacity {
   position: relative;
   top: 50%;
   left: 50%;
+  background: violet;
   height: 100px;
   width: 100px;
   transform: translate(-50%, -50%);
-  background: violet;
 }

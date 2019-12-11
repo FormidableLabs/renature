@@ -90,16 +90,16 @@ export const gravity1D = (params: Gravity1DParams) => {
     /**
      * Conditions for stopping the physics animation. For single animations with
      * a discrete from / to pair, we want to stop the animation once the mover has
-     * reached the attractor. We can know its done by checking that the mover has
-     * not overshot the attractor.
+     * reached the attractor. We can know it's done by checking that the mover has
+     * overshot the attractor.
      */
 
-    // Obtain the horizontal component of the vector pointing from attractor to mover.
-    const dir = normf(
+    // Obtain the horizontal component of the vector pointing from mover to attractor.
+    const [dir] = normf(
       subf({ v1: state.mover.position, v2: state.attractor.position })
-    )[0];
+    );
 
-    // If it's positive, we can be confident that the mover has moved past the attractor.
+    // If it's positive, we can be confident that the mover has overshot the attractor.
     const isOvershooting = Math.sign(dir) === 1;
 
     if (isOvershooting) {
