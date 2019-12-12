@@ -10,7 +10,6 @@ import {
 } from "../src";
 
 import "./index.css";
-import { pow } from "../src/core/Math.gen";
 
 const positionAttractor: Vector<number> = [150, 150];
 
