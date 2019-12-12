@@ -63,20 +63,20 @@ export const norm: (_1:vector<number>) => vector<number> = VectorBS.norm;
 
 export const normf: (_1:vector<number>) => vector<number> = VectorBS.normf;
 
-export const lerp: (_1:{
+export const lerpV: (_1:{
   readonly acc: vector<number>; 
   readonly target: vector<number>; 
   readonly roundness: number
 }) => vector<number> = function (Arg1: any) {
-  const result = Curry._3(VectorBS.lerp, Arg1.acc, Arg1.target, Arg1.roundness);
+  const result = Curry._3(VectorBS.lerpV, Arg1.acc, Arg1.target, Arg1.roundness);
   return result
 };
 
-export const lerpf: (_1:{
+export const lerpfV: (_1:{
   readonly acc: vector<number>; 
   readonly target: vector<number>; 
   readonly roundness: number
 }) => vector<number> = function (Arg1: any) {
-  const result = Curry._3(VectorBS.lerpf, Arg1.acc, Arg1.target, Arg1.roundness);
+  const result = Curry._3(VectorBS.lerpfV, Arg1.acc, Arg1.target, Arg1.roundness);
   return result
 };

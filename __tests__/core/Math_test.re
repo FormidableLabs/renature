@@ -24,22 +24,4 @@ describe("Math", () => {
       Expect.(expect(Math.pow(~base=10, ~exp=-5)) |> toBeCloseTo(0.00001))
     );
   });
-
-  describe("lerp", () =>
-    it("should linear interpolate between integer values", () =>
-      Expect.(
-        expect(Math.lerp(~acc=5, ~target=25, ~roundness=0.35))
-        |> toEqual(12)
-      )
-    )
-  );
-
-  describe("lerpf", () =>
-    it("should linear interpolate between float values", () =>
-      Expect.(
-        expect(Math.lerpf(~acc=5., ~target=25., ~roundness=0.35))
-        |> toEqual(12.)
-      )
-    )
-  );
 });

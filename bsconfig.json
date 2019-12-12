@@ -11,6 +11,10 @@
       "subdirs": true
     },
     {
+      "dir": "src/interpolate",
+      "subdirs": true
+    },
+    {
       "dir": "__tests__",
       "subdirs": true,
       "type": "dev"

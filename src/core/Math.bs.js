@@ -28,26 +28,6 @@ function pow(base, exp) {
   }
 }
 
-function lerpf(acc, target, roundness) {
-  return (1.0 - roundness) * acc + roundness * target;
-}
-
-function lerp(acc, target, roundness) {
-  return Utils.iof(lerpf(Utils.foi(acc), Utils.foi(target), roundness));
-}
-
-function remapf(value, low1, high1, low2, high2) {
-  return low2 + (high2 - low2) * ((value - low1) / (high1 - low1));
-}
-
-function remap(value, low1, high1, low2, high2) {
-  return Utils.iof(remapf(Utils.foi(value), Utils.foi(low1), Utils.foi(high1), Utils.foi(low2), Utils.foi(high2)));
-}
-
-function norm(value, low, high) {
-  return remapf(value, low, high, 0, 1);
-}
-
 function constrain(low, high, n) {
   if (Caml_obj.caml_lessthan(n, low)) {
     return low;
@@ -62,11 +42,6 @@ export {
   sq ,
   sqf ,
   pow ,
-  lerp ,
-  lerpf ,
-  remap ,
-  remapf ,
-  norm ,
   constrain ,
   
 }

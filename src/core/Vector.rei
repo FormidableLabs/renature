@@ -34,10 +34,10 @@ let norm: vector(int) => vector(float);
 let normf: vector(float) => vector(float);
 
 [@genType]
-let lerp:
+let lerpV:
   (~acc: vector(int), ~target: vector(int), ~roundness: float) =>
   vector(int);
 [@genType]
-let lerpf:
+let lerpfV:
   (~acc: vector(float), ~target: vector(float), ~roundness: float) =>
   vector(float);
