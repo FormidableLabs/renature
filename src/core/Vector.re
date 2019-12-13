@@ -47,17 +47,17 @@ let normf = v => {
 };
 
 // Vector linear interpolation.
-let lerpf = (~acc, ~target, ~roundness) => {
+let lerpfV = (~acc, ~target, ~roundness) => {
   let (accX, accY) = acc;
   let (targetX, targetY) = target;
-  let x = Math.lerpf(~acc=accX, ~target=targetX, ~roundness);
-  let y = Math.lerpf(~acc=accY, ~target=targetY, ~roundness);
+  let x = Lerp_number.lerpf(~acc=accX, ~target=targetX, ~roundness);
+  let y = Lerp_number.lerpf(~acc=accY, ~target=targetY, ~roundness);
   (x, y);
 };
 
-let lerp = (~acc, ~target, ~roundness) => {
+let lerpV = (~acc, ~target, ~roundness) => {
   let (xf, yf) =
-    lerpf(
+    lerpfV(
       ~acc=(fst(acc) |> Utils.foi, snd(acc) |> Utils.foi),
       ~target=(fst(target) |> Utils.foi, snd(target) |> Utils.foi),
       ~roundness,

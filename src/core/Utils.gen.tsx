@@ -3,32 +3,8 @@
 
 
 // tslint:disable-next-line:no-var-requires
-const Curry = require('bs-platform/lib/es6/curry.js');
-
-// tslint:disable-next-line:no-var-requires
 const UtilsBS = require('./Utils.bs');
-
-// tslint:disable-next-line:interface-over-type-literal
-export type scanfState = {
-  accumulator: number; 
-  reducer: (_1:{
-    readonly accumulator: number; 
-    readonly value: number
-  }) => number; 
-  listener: (_1:number) => void
-};
-
-// tslint:disable-next-line:interface-over-type-literal
-export type scanfRecord = { readonly start: (_1:((_1:number) => void)) => void; readonly next: (_1:number) => void };
 
 export const foi: (_1:number) => number = UtilsBS.foi;
 
 export const iof: (_1:number) => number = UtilsBS.iof;
-
-export const scanf: (_1:{ readonly reducer: ((_1:{ readonly accumulator: number; readonly value: number }) => number); readonly init: number }) => scanfRecord = function (Arg1: any) {
-  const result = Curry._2(UtilsBS.scanf, function (Argaccumulator: any, Argvalue: any) {
-      const result1 = Arg1.reducer({accumulator:Argaccumulator, value:Argvalue});
-      return result1
-    }, Arg1.init);
-  return {start:result[0], next:result[1]}
-};

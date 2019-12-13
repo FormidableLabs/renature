@@ -41,3 +41,11 @@
   width: 100px;
   transform: translate(-50%, -50%);
 }
+
+.mover--background {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  height: 100px;
+  width: 100px;
+}

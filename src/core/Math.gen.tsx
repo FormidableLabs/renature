@@ -17,55 +17,6 @@ export const pow: (_1:{ readonly base: number; readonly exp: number }) => number
   return result
 };
 
-export const lerp: (_1:{
-  readonly acc: number; 
-  readonly target: number; 
-  readonly roundness: number
-}) => number = function (Arg1: any) {
-  const result = Curry._3(MathBS.lerp, Arg1.acc, Arg1.target, Arg1.roundness);
-  return result
-};
-
-export const lerpf: (_1:{
-  readonly acc: number; 
-  readonly target: number; 
-  readonly roundness: number
-}) => number = function (Arg1: any) {
-  const result = Curry._3(MathBS.lerpf, Arg1.acc, Arg1.target, Arg1.roundness);
-  return result
-};
-
-export const remap: (_1:{
-  readonly value: number; 
-  readonly low1: number; 
-  readonly high1: number; 
-  readonly low2: number; 
-  readonly high2: number
-}) => number = function (Arg1: any) {
-  const result = Curry._5(MathBS.remap, Arg1.value, Arg1.low1, Arg1.high1, Arg1.low2, Arg1.high2);
-  return result
-};
-
-export const remapf: (_1:{
-  readonly value: number; 
-  readonly low1: number; 
-  readonly high1: number; 
-  readonly low2: number; 
-  readonly high2: number
-}) => number = function (Arg1: any) {
-  const result = Curry._5(MathBS.remapf, Arg1.value, Arg1.low1, Arg1.high1, Arg1.low2, Arg1.high2);
-  return result
-};
-
-export const norm: (_1:{
-  readonly value: number; 
-  readonly low: number; 
-  readonly high: number
-}) => number = function (Arg1: any) {
-  const result = Curry._3(MathBS.norm, Arg1.value, Arg1.low, Arg1.high);
-  return result
-};
-
 export const constrain: <a>(_1:{ readonly low: a; readonly high: a }, _2:a) => a = function <a>(Arg1: any, Arg2: any) {
   const result = Curry._3(MathBS.constrain, Arg1.low, Arg1.high, Arg2);
   return result

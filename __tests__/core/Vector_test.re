@@ -189,7 +189,7 @@ describe("Vector", () => {
       "should expose a function for linearly interpolating between two integer vectors",
       () =>
       Expect.(
-        expect(Vector.lerp(~acc=v1Int, ~target=v2Int, ~roundness))
+        expect(Vector.lerpV(~acc=v1Int, ~target=v2Int, ~roundness))
         |> toEqual((6, 2))
       )
     )
@@ -201,7 +201,7 @@ describe("Vector", () => {
       () =>
       Expect.(
         expect(
-          Vector.lerpf(~acc=v1Float, ~target=v2Float, ~roundness) |> fst,
+          Vector.lerpfV(~acc=v1Float, ~target=v2Float, ~roundness) |> fst,
         )
         |> toBeCloseTo(6.3)
       )
@@ -212,7 +212,7 @@ describe("Vector", () => {
       () =>
       Expect.(
         expect(
-          Vector.lerpf(~acc=v1Float, ~target=v2Float, ~roundness) |> snd,
+          Vector.lerpfV(~acc=v1Float, ~target=v2Float, ~roundness) |> snd,
         )
         |> toBeCloseTo(2.1)
       )

@@ -1,6 +1,5 @@
-export { rAF } from "./rAF";
-export * from "./forces/Gravity.gen";
-export * from "./forces/Force.gen";
-export * from "./core/Vector.gen";
-export { lerpf as lerpNumber, norm as normNumber } from "./core/Math.gen";
 export * from "./animation";
+export * from "./core";
+export * from "./forces";
+export * from "./interpolate";
+export * from "./rAF";
