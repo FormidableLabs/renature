@@ -40,7 +40,7 @@ const applyForceForStep = (
  * attractor as well.
  */
 
-interface Gravity1DParams {
+export interface Gravity1DParams {
   config: {
     moverMass: number;
     attractorMass: number;

@@ -50,8 +50,8 @@ let normf = v => {
 let lerpfV = (~acc, ~target, ~roundness) => {
   let (accX, accY) = acc;
   let (targetX, targetY) = target;
-  let x = Lerp_number.lerpf(~acc=accX, ~target=targetX, ~roundness);
-  let y = Lerp_number.lerpf(~acc=accY, ~target=targetY, ~roundness);
+  let x = Interpolate_number.lerpf(~acc=accX, ~target=targetX, ~roundness);
+  let y = Interpolate_number.lerpf(~acc=accY, ~target=targetY, ~roundness);
   (x, y);
 };
 

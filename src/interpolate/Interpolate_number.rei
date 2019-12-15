@@ -1,4 +1,9 @@
 [@genType]
+let lerp: (~acc: int, ~target: int, ~roundness: float) => int;
+[@genType]
+let lerpf: (~acc: float, ~target: float, ~roundness: float) => float;
+
+[@genType]
 let remapf:
   (~range: (float, float), ~domain: (float, float), ~value: float) => float;
 [@genType]

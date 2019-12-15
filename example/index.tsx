@@ -1,13 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import {
-  gravity1D,
-  gravity2D,
-  vector as Vector,
-  normalizef,
-  lerpColorRGBA
-} from "../src";
+import { gravity2D, vector as Vector, useGravity } from "../src";
 
 import "./index.css";
 
@@ -15,8 +9,6 @@ const positionAttractor: Vector<number> = [150, 150];
 
 const App: React.FC = () => {
   const m1 = React.useRef<HTMLDivElement>(null);
-  const m2 = React.useRef<HTMLDivElement>(null);
-  const m3 = React.useRef<HTMLDivElement>(null);
 
   // Gravity force for the transform demo.
   gravity2D({
@@ -37,47 +29,23 @@ const App: React.FC = () => {
     }
   });
 
-  // Gravity force for the opacity demo.
-  gravity1D({
+  const [propsBackground] = useGravity<HTMLDivElement>({
+    from: { background: "rgba(100, 0, 100, 0.5)" },
+    to: { background: "rgba(100, 200, 200, 1)" },
     config: {
       moverMass: 100000,
       attractorMass: 1000000000,
       r: positionAttractor[0]
-    },
-    onUpdate: ({ position: [x] }) => {
-      if (m2.current) {
-        const opacity = normalizef({
-          range: [0, positionAttractor[0]],
-          value: x
-        });
-        m2.current.style.opacity = `${opacity}`;
-      }
     }
   });
 
-  // Gravity force for the background demo.
-  gravity1D({
+  const [propsOpacity] = useGravity<HTMLDivElement>({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
     config: {
       moverMass: 100000,
       attractorMass: 1000000000,
       r: positionAttractor[0]
-    },
-    onUpdate: ({ position: [x] }) => {
-      if (m3.current) {
-        const progress = normalizef({
-          range: [0, positionAttractor[0]],
-          value: x
-        });
-
-        const { r, g, b, a } = lerpColorRGBA({
-          acc: { r: 100, g: 0, b: 100, a: 0.5 },
-          target: { r: 100, g: 200, b: 200, a: 1 },
-          roundness: progress
-        });
-
-        m3.current.style.transform = `translate(-50%, -50%) translateX(${x}px)`;
-        m3.current.style.background = `rgba(${r}, ${g}, ${b}, ${a})`;
-      }
     }
   });
 
@@ -88,10 +56,10 @@ const App: React.FC = () => {
         <div className="attractor--transform" />
       </div>
       <div className="panel">
-        <div className="mover--opacity" ref={m2} />
+        <div className="mover mover--opacity" {...propsOpacity} />
       </div>
       <div className="panel">
-        <div className="mover--background" ref={m3} />
+        <div className="mover" {...propsBackground} />
       </div>
       <div className="panel"></div>
     </div>

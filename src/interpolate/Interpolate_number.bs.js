@@ -2,6 +2,14 @@
 
 import * as Utils from "../core/Utils.bs.js";
 
+function lerpf(acc, target, roundness) {
+  return (1.0 - roundness) * acc + roundness * target;
+}
+
+function lerp(acc, target, roundness) {
+  return Utils.iof(lerpf(Utils.foi(acc), Utils.foi(target), roundness));
+}
+
 function remapf(param, param$1, value) {
   var dl = param$1[0];
   var rl = param[0];
@@ -33,6 +41,8 @@ function normalize(range, value) {
 }
 
 export {
+  lerp ,
+  lerpf ,
   remapf ,
   remap ,
   normalizef ,
