@@ -19,14 +19,14 @@ export const parsePairs = ({ from, to }: CSSPairs) => ({
   to: parsePair(to)
 });
 
-type Interpolator<T> = (params: {
+type Interpolator<T, R> = (params: {
   readonly range: [number, number];
   readonly domain: [T, T];
   readonly value: number;
-}) => T;
+}) => R;
 
-interface InterpolatedResult<T> {
-  interpolator: Interpolator<T>;
+interface InterpolatedResult<T, R> {
+  interpolator: Interpolator<T, R>;
   property: CSSProperty;
   values: {
     from: any;
@@ -36,14 +36,17 @@ interface InterpolatedResult<T> {
 
 export function getInterpolatorForPair(
   pairs: CSSPairs
-): InterpolatedResult<number>;
+): InterpolatedResult<number, number>;
 export function getInterpolatorForPair(
   pairs: CSSPairs
-): InterpolatedResult<RGBA<number>>;
+): InterpolatedResult<RGBA<number>, string>;
 
 export function getInterpolatorForPair({ from, to }: CSSPairs) {
-  const { value: fromValue, property: fromProperty } = parsePair(from);
-  const { value: toValue, property: toProperty } = parsePair(to);
+  const {
+    from: { value: fromValue, property: fromProperty },
+    to: { value: toValue, property: toProperty }
+  } = parsePairs({ from, to });
+
   const typeFrom = typeof fromValue;
   const typeTo = typeof toValue;
 
