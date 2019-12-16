@@ -25,7 +25,9 @@
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
+    "@babel/preset-typescript": "^7.7.4",
     "@glennsl/bs-jest": "^0.4.9",
+    "@types/jest": "^24.0.23",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
@@ -50,10 +52,11 @@
   },
   "jest": {
     "testMatch": [
-      "<rootDir>/__tests__/**/*_test.bs.js"
+      "<rootDir>/__tests__/**/*_test.bs.js",
+      "<rootDir>/__tests__/**/*.spec.ts"
     ],
     "transform": {
-      "^.+\\.js$": "babel-jest"
+      "^.+\\.(js|ts)x?$": "babel-jest"
     },
     "transformIgnorePatterns": [
       "node_modules/(?!(@glennsl/bs-jest|bs-platform)/)"

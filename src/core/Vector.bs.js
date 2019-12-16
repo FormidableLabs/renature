@@ -3,7 +3,7 @@
 import * as $$Math from "./Math.bs.js";
 import * as Utils from "./Utils.bs.js";
 import * as Caml_int32 from "bs-platform/lib/es6/caml_int32.js";
-import * as Lerp_number from "../interpolate/Lerp_number.bs.js";
+import * as Interpolate_number from "../interpolate/Interpolate_number.bs.js";
 
 function add(v1, v2) {
   return /* tuple */[
@@ -99,8 +99,8 @@ function normf(v) {
 }
 
 function lerpfV(acc, target, roundness) {
-  var x = Lerp_number.lerpf(acc[0], target[0], roundness);
-  var y = Lerp_number.lerpf(acc[1], target[1], roundness);
+  var x = Interpolate_number.lerpf(acc[0], target[0], roundness);
+  var y = Interpolate_number.lerpf(acc[1], target[1], roundness);
   return /* tuple */[
           x,
           y
