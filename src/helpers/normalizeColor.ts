@@ -158,7 +158,7 @@ const colorNames = {
   white: 0xffffffff,
   whitesmoke: 0xf5f5f5ff,
   yellow: 0xffff00ff,
-  yellowgreen: 0x9acd32ff
+  yellowgreen: 0x9acd32ff,
 };
 
 type ColorName = keyof typeof colorNames;
@@ -166,7 +166,7 @@ type ColorName = keyof typeof colorNames;
 export function normalizeColor(color: number | string) {
   let match;
 
-  if (typeof color === "number") {
+  if (typeof color === 'number') {
     return color >>> 0 === color && color >= 0 && color <= 0xffffffff
       ? color
       : null;
@@ -174,7 +174,7 @@ export function normalizeColor(color: number | string) {
 
   // Ordered based on occurrences on Facebook codebase.
   if ((match = matchers.hex6.exec(color))) {
-    return parseInt(match[1] + "ff", 16) >>> 0;
+    return parseInt(match[1] + 'ff', 16) >>> 0;
   }
 
   if (colorNames.hasOwnProperty(color)) {
@@ -210,7 +210,7 @@ export function normalizeColor(color: number | string) {
         match[2] + // g
         match[3] +
         match[3] + // b
-          "ff", // a
+          'ff', // a
         16
       ) >>> 0
     );
@@ -297,22 +297,22 @@ function hslToRgb(h: number, s: number, l: number) {
   );
 }
 
-const NUMBER = "[-+]?\\d*\\.?\\d+";
-const PERCENTAGE = NUMBER + "%";
+const NUMBER = '[-+]?\\d*\\.?\\d+';
+const PERCENTAGE = NUMBER + '%';
 
 function call(...args: string[]) {
-  return "\\(\\s*(" + args.join(")\\s*,\\s*(") + ")\\s*\\)";
+  return '\\(\\s*(' + args.join(')\\s*,\\s*(') + ')\\s*\\)';
 }
 
 const matchers = {
-  rgb: new RegExp("rgb" + call(NUMBER, NUMBER, NUMBER)),
-  rgba: new RegExp("rgba" + call(NUMBER, NUMBER, NUMBER, NUMBER)),
-  hsl: new RegExp("hsl" + call(NUMBER, PERCENTAGE, PERCENTAGE)),
-  hsla: new RegExp("hsla" + call(NUMBER, PERCENTAGE, PERCENTAGE, NUMBER)),
+  rgb: new RegExp('rgb' + call(NUMBER, NUMBER, NUMBER)),
+  rgba: new RegExp('rgba' + call(NUMBER, NUMBER, NUMBER, NUMBER)),
+  hsl: new RegExp('hsl' + call(NUMBER, PERCENTAGE, PERCENTAGE)),
+  hsla: new RegExp('hsla' + call(NUMBER, PERCENTAGE, PERCENTAGE, NUMBER)),
   hex3: /^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
   hex4: /^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
   hex6: /^#([0-9a-fA-F]{6})$/,
-  hex8: /^#([0-9a-fA-F]{8})$/
+  hex8: /^#([0-9a-fA-F]{8})$/,
 };
 
 function parse255(str: string) {
@@ -362,6 +362,6 @@ export function rgba(colorInt: number) {
     r,
     g,
     b,
-    a
+    a,
   };
 }

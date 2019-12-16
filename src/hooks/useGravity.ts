@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import { CSSPairs, getInterpolatorForPair } from "../helpers/pairs";
-import { Gravity1DParams, gravity1D } from "../animation/gravity";
+import { CSSPairs, getInterpolatorForPair } from '../helpers/pairs';
+import { Gravity1DParams, gravity1D } from '../animation/gravity';
 
-type UseGravityArgs = CSSPairs & Omit<Gravity1DParams, "onUpdate">;
+type UseGravityArgs = CSSPairs & Omit<Gravity1DParams, 'onUpdate'>;
 
 export const useGravity = <T extends HTMLElement>({
   from,
   to,
-  config
+  config,
 }: UseGravityArgs) => {
   /**
    * Store a ref to the DOM element we'll be attaching to.
@@ -25,17 +25,17 @@ export const useGravity = <T extends HTMLElement>({
         onUpdate: ({ position }) => {
           const { interpolator, property, values } = getInterpolatorForPair({
             from,
-            to
+            to,
           });
 
           const value = interpolator({
             range: [0, config.r],
             domain: [values.from, values.to],
-            value: position[0]
+            value: position[0],
           });
 
           ref.current && (ref.current.style[property as any] = `${value}`);
-        }
+        },
       }),
     [from, to, config]
   );

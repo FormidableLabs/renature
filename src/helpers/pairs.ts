@@ -1,5 +1,5 @@
-import { remapf, remapColor, rgba as RGBA } from "../interpolate";
-import { normalizeColor, rgba } from "./normalizeColor";
+import { remapf, remapColor, rgba as RGBA } from '../interpolate';
+import { normalizeColor, rgba } from './normalizeColor';
 
 export interface CSSPairs {
   from: React.CSSProperties;
@@ -11,12 +11,12 @@ export type CSSProperty = keyof React.CSSProperties;
 const parsePair = (pairs: React.CSSProperties) =>
   Object.entries(pairs).map(([k, v]) => ({
     property: k as CSSProperty,
-    value: v
+    value: v,
   }))[0];
 
 export const parsePairs = ({ from, to }: CSSPairs) => ({
   from: parsePair(from),
-  to: parsePair(to)
+  to: parsePair(to),
 });
 
 type Interpolator<T, R> = (params: {
@@ -44,7 +44,7 @@ export function getInterpolatorForPair(
 export function getInterpolatorForPair({ from, to }: CSSPairs) {
   const {
     from: { value: fromValue, property: fromProperty },
-    to: { value: toValue, property: toProperty }
+    to: { value: toValue, property: toProperty },
   } = parsePairs({ from, to });
 
   const typeFrom = typeof fromValue;
@@ -66,14 +66,14 @@ export function getInterpolatorForPair({ from, to }: CSSPairs) {
    * range of the animation, [0, position], to the output domain provided by the
    * consumer, i.e. [0, 1].
    */
-  if (typeFrom === "number" && typeTo === "number") {
+  if (typeFrom === 'number' && typeTo === 'number') {
     return {
       interpolator: remapf,
       property: fromProperty,
       values: {
         from: fromValue,
-        to: toValue
-      }
+        to: toValue,
+      },
     };
 
     /**
@@ -81,7 +81,7 @@ export function getInterpolatorForPair({ from, to }: CSSPairs) {
      * are both strings, we'll need to check a few more conditions to ensure we
      * return the proper interpolator.
      */
-  } else if (typeFrom === "string" && typeTo === "string") {
+  } else if (typeFrom === 'string' && typeTo === 'string') {
     const normalizedFrom = normalizeColor(fromValue);
     const normalizedTo = normalizeColor(toValue);
 
@@ -90,8 +90,8 @@ export function getInterpolatorForPair({ from, to }: CSSPairs) {
       property: fromProperty,
       values: {
         from: rgba(normalizedFrom !== null ? normalizedFrom : fromValue),
-        to: rgba(normalizedTo !== null ? normalizedTo : fromValue)
-      }
+        to: rgba(normalizedTo !== null ? normalizedTo : fromValue),
+      },
     };
   }
 
@@ -101,7 +101,7 @@ export function getInterpolatorForPair({ from, to }: CSSPairs) {
     property: fromProperty,
     values: {
       from: fromValue,
-      to: toValue
-    }
+      to: toValue,
+    },
   };
 }

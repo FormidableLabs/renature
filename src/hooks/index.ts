@@ -1,1 +1,1 @@
-export * from "./useGravity";
+export * from './useGravity';
