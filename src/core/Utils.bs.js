@@ -9,9 +9,14 @@ function iof(prim) {
   return prim | 0;
 }
 
+function sof(prim) {
+  return prim.toString();
+}
+
 export {
   foi ,
   iof ,
+  sof ,
   
 }
 /* No side effect */

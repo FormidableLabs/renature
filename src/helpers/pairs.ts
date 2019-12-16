@@ -1,4 +1,10 @@
-import { remapf, remapColor, rgba as RGBA } from '../interpolate';
+import {
+  remapf,
+  remapColor,
+  rgba as RGBA,
+  parseUnit,
+  remapUnit,
+} from '../interpolate';
 import { normalizeColor, rgba } from './normalizeColor';
 
 export interface CSSPairs {
@@ -19,7 +25,7 @@ export const parsePairs = ({ from, to }: CSSPairs) => ({
   to: parsePair(to),
 });
 
-type Interpolator<T, R> = (params: {
+export type Interpolator<T, R> = (params: {
   readonly range: [number, number];
   readonly domain: [T, T];
   readonly value: number;
@@ -40,6 +46,9 @@ export function getInterpolatorForPair(
 export function getInterpolatorForPair(
   pairs: CSSPairs
 ): InterpolatedResult<RGBA<number>, string>;
+export function getInterpolatorForPair(
+  pairs: CSSPairs
+): InterpolatedResult<string, string>;
 
 export function getInterpolatorForPair({ from, to }: CSSPairs) {
   const {
@@ -52,7 +61,7 @@ export function getInterpolatorForPair({ from, to }: CSSPairs) {
 
   if (typeFrom !== typeTo) {
     throw new Error(
-      `from and to values have mismatching types. fromValue: ${fromValue} does not match toValue: ${toValue}.`
+      `from and to values have mismatching types. from type: ${typeFrom} does not match to type: ${typeTo}.`
     );
   } else if (fromProperty !== toProperty) {
     throw new Error(
@@ -82,17 +91,35 @@ export function getInterpolatorForPair({ from, to }: CSSPairs) {
      * return the proper interpolator.
      */
   } else if (typeFrom === 'string' && typeTo === 'string') {
-    const normalizedFrom = normalizeColor(fromValue);
-    const normalizedTo = normalizeColor(toValue);
+    // Check if the string can be parsed to a color.
+    const colorFrom = normalizeColor(fromValue);
+    const colorTo = normalizeColor(toValue);
 
-    return {
-      interpolator: remapColor,
-      property: fromProperty,
-      values: {
-        from: rgba(normalizedFrom !== null ? normalizedFrom : fromValue),
-        to: rgba(normalizedTo !== null ? normalizedTo : fromValue),
-      },
-    };
+    if (colorFrom && colorTo) {
+      return {
+        interpolator: remapColor,
+        property: fromProperty,
+        values: {
+          from: rgba(colorFrom),
+          to: rgba(colorTo),
+        },
+      };
+    }
+
+    // Check if the string can be parsed to a unit-based number.
+    const unitFrom = parseUnit(fromValue);
+    const unitTo = parseUnit(toValue);
+
+    if (unitFrom.unit && unitTo.unit) {
+      return {
+        interpolator: remapUnit,
+        property: fromProperty,
+        values: {
+          from: fromValue,
+          to: toValue,
+        },
+      };
+    }
   }
 
   // If no conditions are matched, just return the values passed in with no interpolation.
