@@ -1,2 +1,2 @@
-export * from "./Vector.gen";
-export * from "./Math.gen";
+export * from './Vector.gen';
+export * from './Math.gen';

@@ -1,7 +1,7 @@
-import { vector as Vector, subf, normf } from "../core/Vector.gen";
-import { Entity, applyForce } from "../forces/Force.gen";
-import { forceV } from "../forces/Gravity.gen";
-import { rAF } from "../rAF";
+import { vector as Vector, subf, normf } from '../core/Vector.gen';
+import { Entity, applyForce } from '../forces/Force.gen';
+import { forceV } from '../forces/Gravity.gen';
+import { rAF } from '../rAF';
 
 interface GravityState {
   mover: Entity;
@@ -23,12 +23,12 @@ const applyForceForStep = (
     moverMass: mover.mass,
     attractor: attractor.position,
     attractorMass: attractor.mass,
-    threshold: threshold && [threshold.min, threshold.max]
+    threshold: threshold && [threshold.min, threshold.max],
   });
 
   return applyForce({
     force,
-    entity: mover
+    entity: mover,
   });
 };
 
@@ -59,14 +59,14 @@ export const gravity1D = (params: Gravity1DParams) => {
       mass: params.config.moverMass,
       acceleration: [0, 0],
       velocity: [params.config.initialVelocity || 0, 0],
-      position: [0, 0]
+      position: [0, 0],
     },
     attractor: {
       mass: params.config.attractorMass,
       acceleration: [0, 0],
       velocity: [0, 0],
-      position: [params.config.r, 0]
-    }
+      position: [params.config.r, 0],
+    },
   };
 
   const { stop } = rAF().start((timestamp, lastFrame, stop) => {
@@ -107,7 +107,7 @@ export const gravity1D = (params: Gravity1DParams) => {
     } else {
       params.onUpdate({
         position: state.mover.position,
-        velocity: state.mover.velocity
+        velocity: state.mover.velocity,
       });
     }
   });
@@ -139,14 +139,14 @@ export const gravity2D = (params: Gravity2DParams): [() => void] => {
       mass: params.config.moverMass,
       acceleration: [0, 0],
       velocity: params.config.initialMoverVelocity || [0, 0],
-      position: params.config.initialMoverPosition || [0, 0]
+      position: params.config.initialMoverPosition || [0, 0],
     },
     attractor: {
       mass: params.config.attractorMass,
       acceleration: [0, 0],
       velocity: [0, 0],
-      position: params.config.attractorPosition
-    }
+      position: params.config.attractorPosition,
+    },
   };
 
   const { stop } = rAF().start((timestamp, lastFrame) => {
@@ -169,7 +169,7 @@ export const gravity2D = (params: Gravity2DParams): [() => void] => {
 
     params.onUpdate({
       position: state.mover.position,
-      velocity: state.mover.velocity
+      velocity: state.mover.velocity,
     });
   });
 

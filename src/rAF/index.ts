@@ -12,14 +12,12 @@ export const rAF = () => {
   const state: RAFState = {
     lastFrame: performance.now(),
     animationFrameId: null,
-    listener: ((() => {}) as unknown) as RAFState["listener"]
+    listener: ((() => {}) as unknown) as RAFState['listener'],
   };
 
-  const start = (listener: RAFState["listener"]) => {
-    state.listener = listener;
-    draw(state.lastFrame);
-
-    return { stop };
+  const stop = () => {
+    state.animationFrameId !== null &&
+      cancelAnimationFrame(state.animationFrameId);
   };
 
   const draw = (timestamp: DOMHighResTimeStamp) => {
@@ -31,12 +29,14 @@ export const rAF = () => {
     state.lastFrame = timestamp;
   };
 
-  const stop = () => {
-    state.animationFrameId !== null &&
-      cancelAnimationFrame(state.animationFrameId);
+  const start = (listener: RAFState['listener']) => {
+    state.listener = listener;
+    draw(state.lastFrame);
+
+    return { stop };
   };
 
   return {
-    start
+    start,
   };
 };

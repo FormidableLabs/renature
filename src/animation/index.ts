@@ -1,1 +1,1 @@
-export * from "./gravity";
+export * from './gravity';

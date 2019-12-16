@@ -4,3 +4,4 @@ node_modules
 __tests__/**/*.bs.js
 .cache
 example/build
+.vscode
