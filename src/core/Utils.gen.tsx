@@ -8,3 +8,5 @@ const UtilsBS = require('./Utils.bs');
 export const foi: (_1:number) => number = UtilsBS.foi;
 
 export const iof: (_1:number) => number = UtilsBS.iof;
+
+export const sof: (_1:number) => string = UtilsBS.sof;

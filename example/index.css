@@ -42,5 +42,10 @@
 }
 
 .mover--opacity {
-  background: violet;
+  background: #f25050;
+}
+
+.mover--left {
+  background: #a04ad9;
+  transform: translate(0, -50%);
 }

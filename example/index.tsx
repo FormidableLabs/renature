@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import { gravity2D, vector as Vector, useGravity } from "../src";
+import { gravity2D, vector as Vector, useGravity } from '../src';
 
-import "./index.css";
+import './index.css';
 
 const positionAttractor: Vector<number> = [150, 150];
 
@@ -19,24 +19,24 @@ const App: React.FC = () => {
       initialMoverVelocity: [0.1, 0],
       threshold: {
         min: 10,
-        max: 200
-      }
+        max: 200,
+      },
     },
     onUpdate: ({ position: [x, y] }) => {
       if (m1.current) {
         m1.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
       }
-    }
+    },
   });
 
   const [propsBackground] = useGravity<HTMLDivElement>({
-    from: { background: "rgba(100, 0, 100, 0.5)" },
-    to: { background: "rgba(100, 200, 200, 1)" },
+    from: { background: 'rgba(100, 0, 100, 0.5)' },
+    to: { background: 'rgba(100, 200, 200, 1)' },
     config: {
       moverMass: 100000,
       attractorMass: 1000000000,
-      r: positionAttractor[0]
-    }
+      r: positionAttractor[0],
+    },
   });
 
   const [propsOpacity] = useGravity<HTMLDivElement>({
@@ -45,8 +45,18 @@ const App: React.FC = () => {
     config: {
       moverMass: 100000,
       attractorMass: 1000000000,
-      r: positionAttractor[0]
-    }
+      r: positionAttractor[0],
+    },
+  });
+
+  const [propsLeft] = useGravity<HTMLDivElement>({
+    from: { left: '10px' },
+    to: { left: '160px' },
+    config: {
+      moverMass: 100000,
+      attractorMass: 1000000000,
+      r: positionAttractor[0],
+    },
   });
 
   return (
@@ -61,9 +71,11 @@ const App: React.FC = () => {
       <div className="panel">
         <div className="mover" {...propsBackground} />
       </div>
-      <div className="panel"></div>
+      <div className="panel">
+        <div className="mover mover--left" {...propsLeft} />
+      </div>
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
