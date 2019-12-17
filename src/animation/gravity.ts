@@ -8,6 +8,11 @@ interface GravityState {
   attractor: Entity;
 }
 
+export type VectorSetter = (values: {
+  position: Vector<number>;
+  velocity?: Vector<number>;
+}) => void;
+
 /**
  * A function to apply the gravitational force on each step in the course
  * of the animation. First, we derive the force vector applied by the
@@ -47,10 +52,7 @@ export interface Gravity1DParams {
     r: number;
     initialVelocity?: number;
   };
-  onUpdate: (values: {
-    position: Vector<number>;
-    velocity: Vector<number>;
-  }) => void;
+  onUpdate: VectorSetter;
 }
 
 export const gravity1D = (params: Gravity1DParams) => {
@@ -115,7 +117,7 @@ export const gravity1D = (params: Gravity1DParams) => {
   return [stop];
 };
 
-interface Gravity2DParams {
+export interface Gravity2DParams {
   config: {
     attractorMass: number;
     moverMass: number;
@@ -127,13 +129,12 @@ interface Gravity2DParams {
       max: number;
     };
   };
-  onUpdate: (values: {
-    position: Vector<number>;
-    velocity: Vector<number>;
-  }) => void;
+  onUpdate: VectorSetter;
 }
 
-export const gravity2D = (params: Gravity2DParams): [() => void] => {
+export const gravity2D = (
+  params: Gravity2DParams
+): [() => void, VectorSetter] => {
   const state: GravityState = {
     mover: {
       mass: params.config.moverMass,
@@ -173,5 +174,19 @@ export const gravity2D = (params: Gravity2DParams): [() => void] => {
     });
   });
 
-  return [stop];
+  const updateAttractor: VectorSetter = ({ position, velocity }) => {
+    state.attractor = {
+      ...state.attractor,
+      position,
+    };
+
+    if (velocity) {
+      state.attractor = {
+        ...state.attractor,
+        velocity,
+      };
+    }
+  };
+
+  return [stop, updateAttractor];
 };
