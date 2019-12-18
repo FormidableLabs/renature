@@ -27,7 +27,7 @@ type transformProperties = [
 let parseTransform = transform => {
   switch (String.index(transform, '(')) {
   | idx =>
-    /* Decompose the translate string into the translate property, i.e. translateX, skew, etc.
+    /* Decompose the transform string into the transform property, i.e. translateX, skew, etc.
        Then, extract the value, i.e. 20px, 50deg, so we can begin to interpolate it. */
     let property =
       Js.String.substring(~from=0, ~to_=idx, transform)

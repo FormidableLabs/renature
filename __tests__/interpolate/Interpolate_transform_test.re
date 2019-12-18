@@ -26,6 +26,7 @@ describe("Interpolate_transform", () => {
         let skew = Interpolate_transform.parseTransform("skewZ(1.5rad)");
         let perspective =
           Interpolate_transform.parseTransform("perspective(10px)");
+
         Expect.(
           expect((translate, scale, rotate, skew, perspective))
           |> toEqual((
