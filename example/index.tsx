@@ -1,31 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { gravity2D, vector as Vector, useGravity } from '../src';
+import { vector as Vector, useGravity, useGravity2D } from '../src';
 
 import './index.css';
 
 const positionAttractor: Vector<number> = [150, 150];
 
 const App: React.FC = () => {
-  const m1 = React.useRef<HTMLDivElement>(null);
-
-  // Gravity force for the transform demo.
-  gravity2D({
+  const [propsTranslate, , updateAttractor] = useGravity2D<HTMLDivElement>({
     config: {
       attractorMass: 100000000000,
-      moverMass: 2000000,
+      moverMass: 20000000,
       attractorPosition: positionAttractor,
       initialMoverVelocity: [0.1, 0],
       threshold: {
         min: 10,
-        max: 200,
+        max: 100,
       },
-    },
-    onUpdate: ({ position: [x, y] }) => {
-      if (m1.current) {
-        m1.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-      }
     },
   });
 
@@ -60,9 +52,16 @@ const App: React.FC = () => {
   });
 
   return (
-    <div className="grid">
+    <div
+      className="grid"
+      onMouseMove={(ev: React.MouseEvent<HTMLDivElement>) => {
+        updateAttractor({
+          position: [ev.pageX, ev.pageY],
+        });
+      }}
+    >
       <div className="panel">
-        <div className="mover--transform" ref={m1} />
+        <div className="mover--transform" {...propsTranslate} />
         <div className="attractor--transform" />
       </div>
       <div className="panel">

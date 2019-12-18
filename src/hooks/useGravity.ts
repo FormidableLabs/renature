@@ -5,18 +5,18 @@ import { Gravity1DParams, gravity1D } from '../animation/gravity';
 
 type UseGravityArgs = CSSPairs & Omit<Gravity1DParams, 'onUpdate'>;
 
-export const useGravity = <T extends HTMLElement>({
+export const useGravity = <M extends HTMLElement>({
   from,
   to,
   config,
-}: UseGravityArgs) => {
+}: UseGravityArgs): [{ ref: React.MutableRefObject<M | null> }, () => void] => {
   /**
-   * Store a ref to the DOM element we'll be attaching to.
+   * Store a ref to the DOM element we'll be animating.
    * A user will spread this ref onto their own element, which
    * is what allows us to directly update the style property
    * without triggering rerenders.
    */
-  const ref = React.useRef<T>(null);
+  const ref = React.useRef<M>(null);
 
   const [stop] = React.useMemo(
     () =>
