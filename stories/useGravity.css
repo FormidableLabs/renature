@@ -6,6 +6,14 @@
   bottom: 0;
 }
 
+:root {
+  --color-red: #f25050;
+  --color-magenta: #d90467;
+  --color-purple: #a04ad9;
+  --color-orange: #f29441;
+  --color-yellow: #f2cf63;
+}
+
 .mover {
   position: relative;
   top: 50%;
@@ -17,13 +25,13 @@
 }
 
 .mover--opacity {
-  background: #f25050;
+  background: var(--color-red);
 }
 
 .mover--translate {
-  background: #d90467;
+  background: var(--color-magenta);
 }
 
 .mover--rotate {
-  background: linear-gradient(#a04ad9 50%, #f29441 50%);
+  background: linear-gradient(var(--color-purple) 50%, var(--color-orange) 50%);
 }
