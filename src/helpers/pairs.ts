@@ -4,6 +4,8 @@ import {
   rgba as RGBA,
   parseUnit,
   remapUnit,
+  parseTransform,
+  remapTransform,
 } from '../interpolate';
 import { normalizeColor, rgba } from './normalizeColor';
 
@@ -113,6 +115,21 @@ export function getInterpolatorForPair({ from, to }: CSSPairs) {
     if (unitFrom.unit && unitTo.unit) {
       return {
         interpolator: remapUnit,
+        property: fromProperty,
+        values: {
+          from: fromValue,
+          to: toValue,
+        },
+      };
+    }
+
+    // Check if the string can be parsed to a transform property.
+    const transformFrom = parseTransform(fromValue);
+    const transformTo = parseTransform(toValue);
+
+    if (transformFrom.transformProperty && transformTo.transformProperty) {
+      return {
+        interpolator: remapTransform,
         property: fromProperty,
         values: {
           from: fromValue,

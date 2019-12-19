@@ -4,11 +4,21 @@ type cssUnit = {
 };
 
 [@bs.deriving jsConverter]
-type measurement = [ | `px | `em | `rem | `vw | `vh | [@bs.as "%"] `pct];
+type measurement = [
+  | `px
+  | `em
+  | `rem
+  | `vw
+  | `vh
+  | [@bs.as "%"] `pct
+  | `deg
+  | `rad
+  | `turn
+];
 
 [@bs.val] external parseFloat: string => float = "parseFloat";
 
-let parseUnit = (value: string) => {
+let parseUnit = value => {
   let num = parseFloat(value);
   let unit = Js.String.replace(Utils.sof(num), "", value)->measurementFromJs;
 

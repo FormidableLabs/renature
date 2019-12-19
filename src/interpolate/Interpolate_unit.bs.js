@@ -6,6 +6,10 @@ import * as Interpolate_number from "./Interpolate_number.bs.js";
 
 var jsMapperConstantArray = /* array */[
   /* tuple */[
+    -855250051,
+    "turn"
+  ],
+  /* tuple */[
     22632,
     "em"
   ],
@@ -22,8 +26,16 @@ var jsMapperConstantArray = /* array */[
     "vw"
   ],
   /* tuple */[
+    4995526,
+    "deg"
+  ],
+  /* tuple */[
     5591841,
     "%"
+  ],
+  /* tuple */[
+    5690837,
+    "rad"
   ],
   /* tuple */[
     5691738,
@@ -34,11 +46,11 @@ var jsMapperConstantArray = /* array */[
 function parseUnit(value) {
   var num = parseFloat(value);
   var param = value.replace(Utils.sof(num), "");
-  var unit = Js_mapperRt.revSearch(6, jsMapperConstantArray, param);
+  var unit = Js_mapperRt.revSearch(9, jsMapperConstantArray, param);
   if (unit !== undefined) {
     return /* record */[
             /* num */num,
-            /* unit */Js_mapperRt.binarySearch(6, unit, jsMapperConstantArray)
+            /* unit */Js_mapperRt.binarySearch(9, unit, jsMapperConstantArray)
           ];
   } else {
     return /* record */[

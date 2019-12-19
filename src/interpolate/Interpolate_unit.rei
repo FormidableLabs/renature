@@ -3,6 +3,18 @@ type cssUnit = {
   unit: Js.Nullable.t(string),
 };
 
+type measurement = [
+  | `px
+  | `em
+  | `rem
+  | `vw
+  | `vh
+  | `pct
+  | `deg
+  | `rad
+  | `turn
+];
+
 [@genType]
 let parseUnit: string => cssUnit;
 

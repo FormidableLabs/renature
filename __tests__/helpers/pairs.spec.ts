@@ -66,6 +66,23 @@ describe('pairs', () => {
       expect(result).toEqual('57.5px');
     });
 
+    it('should infer a from / to pair of type string that matches a transform and return a transform interpolator', () => {
+      const pair = {
+        from: { transform: 'rotate(20rad)' },
+        to: { transform: 'rotate(50rad)' },
+      };
+      const { interpolator } = (getInterpolatorForPair(pair) as unknown) as {
+        interpolator: Interpolator<string, string>;
+      };
+
+      const result = interpolator({
+        range: [100, 400],
+        domain: ['rotate(20rad)', 'rotate(50rad)'],
+        value: 175,
+      });
+      expect(result).toEqual('rotate(27.5rad)');
+    });
+
     it('should throw an error if attempting to animate two different properties', () => {
       const pair = {
         from: { left: '10px' },
