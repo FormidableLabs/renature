@@ -1,0 +1,29 @@
+#root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.mover {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  height: 100px;
+  width: 100px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.mover--opacity {
+  background: #f25050;
+}
+
+.mover--translate {
+  background: #d90467;
+}
+
+.mover--rotate {
+  background: linear-gradient(#a04ad9 50%, #f29441 50%);
+}

@@ -53,6 +53,7 @@ export interface Gravity1DParams {
     initialVelocity?: number;
   };
   onUpdate: VectorSetter;
+  onComplete: () => void;
 }
 
 export const gravity1D = (params: Gravity1DParams) => {
@@ -105,6 +106,7 @@ export const gravity1D = (params: Gravity1DParams) => {
     const isOvershooting = Math.sign(dir) === 1;
 
     if (isOvershooting) {
+      params.onComplete();
       stop();
     } else {
       params.onUpdate({

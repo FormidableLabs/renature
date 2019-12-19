@@ -3,7 +3,8 @@ import React from 'react';
 import { CSSPairs, getInterpolatorForPair } from '../helpers/pairs';
 import { Gravity1DParams, gravity1D } from '../animation/gravity';
 
-type UseGravityArgs = CSSPairs & Omit<Gravity1DParams, 'onUpdate'>;
+type UseGravityArgs = CSSPairs &
+  Omit<Gravity1DParams, 'onUpdate' | 'onComplete'>;
 
 export const useGravity = <M extends HTMLElement>({
   from,
@@ -18,27 +19,36 @@ export const useGravity = <M extends HTMLElement>({
    */
   const ref = React.useRef<M>(null);
 
-  const [stop] = React.useMemo(
-    () =>
-      gravity1D({
-        config,
-        onUpdate: ({ position }) => {
-          const { interpolator, property, values } = getInterpolatorForPair({
-            from,
-            to,
-          });
+  const [stop] = React.useMemo(() => {
+    const { interpolator, property, values } = getInterpolatorForPair({
+      from,
+      to,
+    });
 
-          const value = interpolator({
-            range: [0, config.r],
-            domain: [values.from, values.to],
-            value: position[0],
-          });
+    return gravity1D({
+      config,
+      onUpdate: ({ position }) => {
+        const value = interpolator({
+          range: [0, config.r],
+          domain: [values.from, values.to],
+          value: position[0],
+        });
 
-          ref.current && (ref.current.style[property as any] = `${value}`);
-        },
-      }),
-    [from, to, config]
-  );
+        if (ref.current) {
+          ref.current.style[property as any] = `${value}`;
+        }
+      },
+      onComplete: () => {
+        /**
+         * Ensure our animation has reached the to value when the physics stopping
+         * condition has been reached.
+         */
+        if (ref.current && ref.current.style[property as any] !== values.to) {
+          ref.current.style[property as any] = values.to;
+        }
+      },
+    });
+  }, [from, to, config]);
 
   return [{ ref }, stop];
 };

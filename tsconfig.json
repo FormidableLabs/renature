@@ -5,7 +5,7 @@
     "jsx": "react",
     "lib": ["esnext", "dom"],
     "noUnusedLocals": true,
-    "rootDir": "./src",
+    "rootDirs": ["./src", "./stories"],
     "module": "es2015",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -15,6 +15,6 @@
     "strict": true,
     "target": "esnext"
   },
-  "include": ["src/**/*", "__tests__/**/*.ts", "example/*.tsx"],
+  "include": ["src/**/*", "__tests__/**/*.ts", "stories/*.tsx"],
   "exclude": ["src/**/*.gen.tsx"]
 }
