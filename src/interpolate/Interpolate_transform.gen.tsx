@@ -11,9 +11,23 @@ const Interpolate_transformBS = require('./Interpolate_transform.bs');
 // tslint:disable-next-line:interface-over-type-literal
 export type cssTransform = { readonly transform: string; readonly transformProperty: (null | undefined | string) };
 
-export const parseTransform: (_1:string) => cssTransform = function (Arg1: any) {
-  const result = Interpolate_transformBS.parseTransform(Arg1);
-  return {transform:result[0], transformProperty:result[1]}
+export const parseTransformSingle: (_1:string) => cssTransform[] = function (Arg1: any) {
+  const result = Interpolate_transformBS.parseTransformSingle(Arg1);
+  return result.map(function _element(ArrayItem: any) { return {transform:ArrayItem[0], transformProperty:ArrayItem[1]}})
+};
+
+export const remapTransformSingle: (_1:{
+  readonly range: [number, number]; 
+  readonly domain: [string, string]; 
+  readonly value: number
+}) => string = function (Arg1: any) {
+  const result = Curry._3(Interpolate_transformBS.remapTransformSingle, Arg1.range, Arg1.domain, Arg1.value);
+  return result
+};
+
+export const splitTransform: (_1:{ readonly transform: string; readonly matches?: Array<(null | undefined | string)> }, _2:void) => string[] = function (Arg1: any, Arg2: any) {
+  const result = Curry._3(Interpolate_transformBS.splitTransform, Arg1.transform, Arg1.matches, Arg2);
+  return result
 };
 
 export const remapTransform: (_1:{
