@@ -1,0 +1,37 @@
+#root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+:root {
+  --color-red: #f25050;
+  --color-magenta: #d90467;
+  --color-purple: #a04ad9;
+  --color-orange: #f29441;
+  --color-yellow: #f2cf63;
+}
+
+.mover {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  height: 100px;
+  width: 100px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.mover--opacity {
+  background: var(--color-red);
+}
+
+.mover--translate {
+  background: var(--color-magenta);
+}
+
+.mover--rotate {
+  background: linear-gradient(var(--color-purple) 50%, var(--color-orange) 50%);
+}

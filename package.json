@@ -10,7 +10,7 @@
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts",
     "test": "jest",
-    "start:example": "parcel example/index.html --out-dir example/build"
+    "storybook": "start-storybook -p 6006"
   },
   "keywords": [
     "ReasonML",
@@ -27,12 +27,18 @@
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-typescript": "^7.7.4",
     "@glennsl/bs-jest": "^0.4.9",
+    "@storybook/addon-actions": "^5.2.8",
+    "@storybook/addon-knobs": "^5.2.8",
+    "@storybook/addon-links": "^5.2.8",
+    "@storybook/addons": "^5.2.8",
+    "@storybook/react": "^5.2.8",
     "@types/jest": "^24.0.23",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
     "babel-jest": "^24.9.0",
+    "babel-loader": "^8.0.6",
     "bs-platform": "^6.2.1",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
@@ -40,7 +46,6 @@
     "eslint-plugin-react-hooks": "^2.3.0",
     "gentype": "^3.6.0",
     "jest": "^24.9.0",
-    "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -65,5 +70,6 @@
   "prettier": {
     "singleQuote": true,
     "trailingComma": "es5"
-  }
+  },
+  "dependencies": {}
 }

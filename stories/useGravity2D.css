@@ -1,0 +1,23 @@
+#root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.mover-2d {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background: var(--color-magenta);
+}
+
+.attractor-2d {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: var(--color-yellow);
+  transform: translate(-50%, -50%);
+}
