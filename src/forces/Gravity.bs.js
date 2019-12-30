@@ -9,7 +9,7 @@ function force(attractorMass, moverMass, r) {
   return g * attractorMass * moverMass / $$Math.sqf(r);
 }
 
-function forceV(attractorMass, moverMass, attractor, mover, threshold, param) {
+function gravityForceV(attractorMass, moverMass, attractor, mover, threshold, param) {
   var v = Vector.subf(attractor, mover);
   var mag = Vector.magf(v);
   var distance;
@@ -26,7 +26,7 @@ function forceV(attractorMass, moverMass, attractor, mover, threshold, param) {
 export {
   g ,
   force ,
-  forceV ,
+  gravityForceV ,
   
 }
 /* g Not a pure module */

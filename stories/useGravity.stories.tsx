@@ -2,7 +2,7 @@ import React from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useGravity } from '../src';
-import './useGravity.css';
+import './index.css';
 
 export default {
   title: 'Gravity',

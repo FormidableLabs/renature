@@ -2,7 +2,7 @@ let g = 6.67428 *. Math.pow(~base=10, ~exp=-11);
 let force = (~attractorMass, ~moverMass, ~r) =>
   g *. attractorMass *. moverMass /. Math.sqf(r);
 
-let forceV =
+let gravityForceV =
     (~attractorMass, ~moverMass, ~attractor, ~mover, ~threshold=?, ()) => {
   // Derive the vector pointing from attractor to mover.
   let v = Vector.subf(~v1=attractor, ~v2=mover);

@@ -5,7 +5,7 @@ let g: float;
 let force: (~attractorMass: float, ~moverMass: float, ~r: float) => float;
 
 [@genType]
-let forceV:
+let gravityForceV:
   (
     ~attractorMass: float,
     ~moverMass: float,
