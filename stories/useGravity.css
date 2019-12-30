@@ -35,3 +35,7 @@
 .mover--rotate {
   background: linear-gradient(var(--color-purple) 50%, var(--color-orange) 50%);
 }
+
+.mover--scale {
+  background: var(--color-purple);
+}

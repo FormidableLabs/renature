@@ -24,7 +24,17 @@ type transformProperties = [
 ];
 
 [@genType]
-let parseTransform: string => cssTransform;
+let parseTransformSingle: string => array(cssTransform);
+
+[@genType]
+let remapTransformSingle:
+  (~range: (float, float), ~domain: (string, string), ~value: float) =>
+  string;
+
+[@genType]
+let splitTransform:
+  (~transform: string, ~matches: array(Js.Nullable.t(string))=?, unit) =>
+  array(string);
 
 [@genType]
 let remapTransform:

@@ -41,4 +41,8 @@ export const Gravity2D: React.FC = () => {
   );
 };
 
-Gravity2D.displayName = 'Gravity2D';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+Gravity2D.story = {
+  name: 'Gravity2D',
+};
