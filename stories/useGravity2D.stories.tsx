@@ -1,10 +1,12 @@
 import React from 'react';
+import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useGravity2D, vector as Vector } from '../src';
 import './useGravity2D.css';
 
 export default {
   title: 'Gravity2D',
+  decorators: [withKnobs],
 };
 
 export const Gravity2D: React.FC = () => {
@@ -19,13 +21,17 @@ export const Gravity2D: React.FC = () => {
 
   const [props] = useGravity2D({
     config: {
-      attractorMass: 100000000000,
-      moverMass: 20000000,
+      attractorMass: number('attractorMass', 100000000000),
+      moverMass: number('moverMass', 20000000),
       attractorPosition: center,
-      initialMoverVelocity: [0.1, 0.2],
+      initialMoverPosition: [center[0] - 200, center[1] - 200],
+      initialMoverVelocity: [
+        number('initialMoverVelocityX', 0.1),
+        number('initialMoverVelocityY', 0),
+      ],
       threshold: {
-        min: 10,
-        max: 100,
+        min: number('thresholdMin', 10),
+        max: number('thresholdMax', 100),
       },
     },
   });
