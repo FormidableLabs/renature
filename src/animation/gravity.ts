@@ -78,15 +78,23 @@ export const gravity1D = (params: Gravity1DParams) => {
      * and the last frame. If more than four frames have been dropped, assuming
      * a 60fps interval, just use the timestamp of the current frame.
      */
-    const diffTime = timestamp > lastFrame + 64 ? 0 : lastFrame;
-    const steps = Math.floor(timestamp - diffTime);
 
-    if (steps > 0) {
-      // Apply the gravitational force once for each step.
-      for (let i = 0; i < steps; i++) {
-        state.mover = applyForceForStep(state);
-      }
-    } else {
+    // Obtain the timestamp of the last frame. If this is the first frame, use the current frame timestamp.
+    let lastTime = lastFrame !== undefined ? lastFrame : timestamp;
+
+    /**
+     * If more than four frames have been dropped since the last frame,
+     * just use the current frame timestamp.
+     */
+    if (timestamp > lastTime + 64) {
+      lastTime = timestamp;
+    }
+
+    // Determine the number of steps between the current frame and last recorded frame.
+    const steps = Math.floor(timestamp - lastTime);
+
+    // Apply the gravitational force once for each step.
+    for (let i = 0; i < steps; i++) {
       state.mover = applyForceForStep(state);
     }
 
@@ -158,16 +166,25 @@ export const gravity2D = (
      * and the last frame. If more than four frames have been dropped, assuming
      * a 60fps interval, just use the timestamp of the current frame.
      */
-    const diffTime = timestamp > lastFrame + 64 ? 0 : lastFrame;
-    const steps = Math.floor(timestamp - diffTime);
 
-    if (steps > 0) {
-      // Apply the gravitational force once for each step.
-      for (let i = 0; i < steps; i++) {
-        state.mover = applyForceForStep(state, params.config.threshold);
-      }
-    } else {
-      state.mover = applyForceForStep(state, params.config.threshold);
+    // Obtain the timestamp of the last frame. If this is the first frame, use the current frame timestamp.
+    let lastTime = lastFrame !== undefined ? lastFrame : timestamp;
+
+    /**
+     * If more than four frames have been dropped since the last frame,
+     * just use the current frame timestamp.
+     */
+
+    if (timestamp > lastTime + 64) {
+      lastTime = timestamp;
+    }
+
+    // Determine the number of steps between the current frame and last recorded frame.
+    const steps = Math.floor(timestamp - lastTime);
+
+    // Apply the gravitational force once for each step.
+    for (let i = 0; i < steps; i++) {
+      state.mover = applyForceForStep(state);
     }
 
     params.onUpdate({

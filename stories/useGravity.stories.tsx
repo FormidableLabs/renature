@@ -30,7 +30,7 @@ export const GravityBackground: React.FC = () => {
     config: {
       moverMass: number('moverMass', 100000),
       attractorMass: number('attractorMass', 1000000000),
-      r: number('r', 150),
+      r: number('r', 50),
     },
   });
 
@@ -39,8 +39,8 @@ export const GravityBackground: React.FC = () => {
 
 export const GravityTranslateX: React.FC = () => {
   const [props] = useGravity<HTMLDivElement>({
-    from: { transform: 'translateX(0px)' },
-    to: { transform: 'translateX(300px)' },
+    from: { transform: 'translateX(0px) translate(-50%, -50%)' },
+    to: { transform: 'translateX(300px) translate(-50%, -50%)' },
     config: {
       moverMass: number('moverMass', 100000),
       attractorMass: number('attractorMass', 1000000000),
@@ -53,8 +53,8 @@ export const GravityTranslateX: React.FC = () => {
 
 export const GravityRotate: React.FC = () => {
   const [props] = useGravity<HTMLDivElement>({
-    from: { transform: 'rotate(0deg)' },
-    to: { transform: 'rotate(360deg)' },
+    from: { transform: 'rotate(0deg) translate(-50%, -50%)' },
+    to: { transform: 'rotate(360deg) translate(-50%, -50%)' },
     config: {
       moverMass: number('moverMass', 100000),
       attractorMass: number('attractorMass', 1000000000),
