@@ -1,11 +1,15 @@
 [@genType]
-let g: float;
+let gU: float;
 
 [@genType]
-let force: (~attractorMass: float, ~moverMass: float, ~r: float) => float;
+let gE: float;
 
 [@genType]
-let forceV:
+let gravityForceMag:
+  (~attractorMass: float, ~moverMass: float, ~r: float) => float;
+
+[@genType]
+let gravityForceV:
   (
     ~attractorMass: float,
     ~moverMass: float,

@@ -1,29 +1,25 @@
 import { vector as Vector, subf, normf } from '../core/Vector.gen';
 import { Entity, applyForce } from '../forces/Force.gen';
-import { forceV } from '../forces/Gravity.gen';
+import { gravityForceV } from '../forces/Gravity.gen';
 import { rAF } from '../rAF';
+import { VectorSetter } from './types';
 
 interface GravityState {
   mover: Entity;
   attractor: Entity;
 }
 
-export type VectorSetter = (values: {
-  position: Vector<number>;
-  velocity?: Vector<number>;
-}) => void;
-
 /**
  * A function to apply the gravitational force on each step in the course
  * of the animation. First, we derive the force vector applied by the
- * attractor on the mover using forceV. Then we apply that vector to the
+ * attractor on the mover using gravityForceV. Then we apply that vector to the
  * mover to determine its next acceleration, velocity, and position.
  */
 const applyForceForStep = (
   { mover, attractor }: GravityState,
   threshold?: { min: number; max: number }
 ): Entity => {
-  const force = forceV({
+  const force = gravityForceV({
     mover: mover.position,
     moverMass: mover.mass,
     attractor: attractor.position,
@@ -184,7 +180,7 @@ export const gravity2D = (
 
     // Apply the gravitational force once for each step.
     for (let i = 0; i < steps; i++) {
-      state.mover = applyForceForStep(state);
+      state.mover = applyForceForStep(state, params.config.threshold);
     }
 
     params.onUpdate({

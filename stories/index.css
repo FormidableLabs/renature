@@ -39,3 +39,19 @@
 .mover--scale {
   background: var(--color-purple);
 }
+
+.mover-2d {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background: var(--color-magenta);
+}
+
+.attractor-2d {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: var(--color-yellow);
+  transform: translate(-50%, -50%);
+}

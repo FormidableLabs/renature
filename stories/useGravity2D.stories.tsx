@@ -2,7 +2,7 @@ import React from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useGravity2D, vector as Vector } from '../src';
-import './useGravity2D.css';
+import './index.css';
 
 export default {
   title: 'Gravity2D',
