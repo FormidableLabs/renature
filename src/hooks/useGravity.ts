@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CSSPairs, getInterpolatorForPair } from '../helpers/pairs';
-import { Gravity1DParams, gravity1D } from '../animation/gravity';
+import { Gravity1DParams, gravity1D, Controller } from '../animation';
 
 type UseGravityArgs = CSSPairs &
   Omit<Gravity1DParams, 'onUpdate' | 'onComplete'>;
@@ -10,7 +10,7 @@ export const useGravity = <M extends HTMLElement>({
   from,
   to,
   config,
-}: UseGravityArgs): [{ ref: React.MutableRefObject<M | null> }, () => void] => {
+}: UseGravityArgs): [{ ref: React.MutableRefObject<M | null> }, Controller] => {
   /**
    * Store a ref to the DOM element we'll be animating.
    * A user will spread this ref onto their own element, which
@@ -19,7 +19,7 @@ export const useGravity = <M extends HTMLElement>({
    */
   const ref = React.useRef<M>(null);
 
-  const [stop] = React.useMemo(() => {
+  const { controller } = React.useMemo(() => {
     const { interpolator, property, values } = getInterpolatorForPair({
       from,
       to,
@@ -50,5 +50,5 @@ export const useGravity = <M extends HTMLElement>({
     });
   }, [from, to, config]);
 
-  return [{ ref }, stop];
+  return [{ ref }, controller];
 };

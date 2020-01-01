@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { Gravity2DParams, gravity2D, VectorSetter } from '../animation/gravity';
+import {
+  Gravity2DParams,
+  gravity2D,
+  Controller,
+  Gravity2DController,
+} from '../animation';
 
 type UseGravity2DArgs = Omit<Gravity2DParams, 'onUpdate'>;
 
@@ -8,8 +13,7 @@ export const useGravity2D = <M extends HTMLElement = any>({
   config,
 }: UseGravity2DArgs): [
   { ref: React.MutableRefObject<M | null> },
-  () => void,
-  VectorSetter
+  Controller & Gravity2DController
 ] => {
   /**
    * Store a ref to the mover element we'll be animating.
@@ -19,7 +23,7 @@ export const useGravity2D = <M extends HTMLElement = any>({
    */
   const moverRef = React.useRef<M>(null);
 
-  const [stop, updateAttractor] = React.useMemo(
+  const { controller } = React.useMemo(
     () =>
       gravity2D({
         config,
@@ -31,5 +35,5 @@ export const useGravity2D = <M extends HTMLElement = any>({
     [config]
   );
 
-  return [{ ref: moverRef }, stop, updateAttractor];
+  return [{ ref: moverRef }, controller];
 };

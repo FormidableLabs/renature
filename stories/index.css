@@ -1,3 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-white: #fff;
+  --color-red: #f25050;
+  --color-magenta: #d90467;
+  --color-purple: #a04ad9;
+  --color-orange: #f29441;
+  --color-yellow: #f2cf63;
+  --color-near-black: #011826;
+  --color-deep-blue: #053959;
+}
+
 #root {
   position: absolute;
   top: 0;
@@ -6,12 +21,10 @@
   bottom: 0;
 }
 
-:root {
-  --color-red: #f25050;
-  --color-magenta: #d90467;
-  --color-purple: #a04ad9;
-  --color-orange: #f29441;
-  --color-yellow: #f2cf63;
+.space {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(var(--color-near-black), var(--color-deep-blue));
 }
 
 .mover {
@@ -44,7 +57,15 @@
   height: 25px;
   width: 25px;
   border-radius: 50%;
-  background: var(--color-magenta);
+  background: var(--color-white);
+  box-shadow: 0 0 4px 2px var(--color-white);
+}
+
+.mover-2d--secondary {
+  height: 45px;
+  width: 45px;
+  background: var(--color-red);
+  box-shadow: 0 0 10px 5px var(--color-red);
 }
 
 .attractor-2d {
@@ -54,4 +75,5 @@
   border-radius: 50%;
   background: var(--color-yellow);
   transform: translate(-50%, -50%);
+  box-shadow: 0 0 30px 15px var(--color-yellow);
 }

@@ -14,9 +14,9 @@ export const GravityOpacity: React.FC = () => {
     from: { opacity: 0 },
     to: { opacity: 1 },
     config: {
-      moverMass: number('moverMass', 100000),
+      moverMass: number('moverMass', 10000000),
       attractorMass: number('attractorMass', 1000000000),
-      r: number('r', 150),
+      r: number('r', 100),
     },
   });
 
@@ -44,7 +44,7 @@ export const GravityTranslateX: React.FC = () => {
     config: {
       moverMass: number('moverMass', 100000),
       attractorMass: number('attractorMass', 1000000000),
-      r: number('r', 150),
+      r: number('r', 75),
     },
   });
 
@@ -58,7 +58,7 @@ export const GravityRotate: React.FC = () => {
     config: {
       moverMass: number('moverMass', 100000),
       attractorMass: number('attractorMass', 1000000000),
-      r: number('r', 150),
+      r: number('r', 100),
     },
   });
 

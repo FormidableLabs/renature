@@ -1,7 +1,6 @@
 import { rAF } from '../rAF';
-import { Entity, applyForce } from '../forces/Force.gen';
-import { frictionForceV } from '../forces/Friction.gen';
-import { VectorSetter } from './types';
+import { Entity, applyForce, frictionForceV } from '../forces';
+import { VectorSetter, Controller } from './types';
 
 export interface Friction1DParams {
   config: {
@@ -17,7 +16,13 @@ interface FrictionState {
   mover: Entity;
 }
 
-const applyForceForStep = (
+/**
+ * A function to apply the frictional force on each step in the course
+ * of the animation. First, we derive the force vector exerted by the
+ * surface on the mover. Then we apply that vector to the mover to determine
+ * its next acceleration, velocity, and position.
+ */
+const applyFrictionForceForStep = (
   { mover }: FrictionState,
   config: Friction1DParams['config']
 ) => {
@@ -30,7 +35,13 @@ const applyForceForStep = (
   return applyForce({ force, entity: mover });
 };
 
-export const friction1D = (params: Friction1DParams) => {
+/**
+ * The friction function. This function tracks the internal state of the
+ * mover and starts the frame loop to apply the frictional force as it moves.
+ */
+export const friction1D = (
+  params: Friction1DParams
+): { controller: Controller } => {
   const state: FrictionState = {
     mover: {
       mass: params.config.mass,
@@ -40,7 +51,8 @@ export const friction1D = (params: Friction1DParams) => {
     },
   };
 
-  const { stop } = rAF().start((timestamp, lastFrame, stop) => {
+  const { start } = rAF();
+  const { stop } = start((timestamp, lastFrame, stop) => {
     /**
      * Determine the number of milliseconds elapsed between the current frame
      * and the last frame. If more than four frames have been dropped, assuming
@@ -63,7 +75,7 @@ export const friction1D = (params: Friction1DParams) => {
 
     // Apply the gravitational force once for each step.
     for (let i = 0; i < steps; i++) {
-      state.mover = applyForceForStep(state, params.config);
+      state.mover = applyFrictionForceForStep(state, params.config);
     }
 
     /**
@@ -82,5 +94,5 @@ export const friction1D = (params: Friction1DParams) => {
     }
   });
 
-  return [stop];
+  return { controller: { start, stop } };
 };

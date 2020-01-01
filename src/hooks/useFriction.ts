@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { CSSPairs, getInterpolatorForPair } from '../helpers/pairs';
-import { Friction1DParams, friction1D } from '../animation/friction';
-import { getMaxDistanceFriction } from '../forces/Friction.gen';
+import { Friction1DParams, friction1D, Controller } from '../animation';
+import { getMaxDistanceFriction } from '../forces';
 
 type UseFrictionArgs = CSSPairs &
   Omit<Friction1DParams, 'onUpdate' | 'onComplete'>;
@@ -13,7 +13,7 @@ export const useFriction = <M extends HTMLElement>({
   config,
 }: UseFrictionArgs): [
   { ref: React.MutableRefObject<M | null> },
-  () => void
+  Controller
 ] => {
   /**
    * Store a ref to the DOM element we'll be animating.
@@ -23,7 +23,7 @@ export const useFriction = <M extends HTMLElement>({
    */
   const ref = React.useRef<M>(null);
 
-  const [stop] = React.useMemo(() => {
+  const { controller } = React.useMemo(() => {
     const { interpolator, property, values } = getInterpolatorForPair({
       from,
       to,
@@ -60,5 +60,5 @@ export const useFriction = <M extends HTMLElement>({
     });
   }, [from, to, config]);
 
-  return [{ ref }, stop];
+  return [{ ref }, controller];
 };
