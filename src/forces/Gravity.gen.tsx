@@ -10,14 +10,16 @@ const GravityBS = require('./Gravity.bs');
 
 import {t as Vector_t} from '../../src/core/Vector.gen';
 
-export const g: number = GravityBS.g;
+export const gU: number = GravityBS.gU;
 
-export const force: (_1:{
+export const gE: number = GravityBS.gE;
+
+export const gravityForceMag: (_1:{
   readonly attractorMass: number; 
   readonly moverMass: number; 
   readonly r: number
 }) => number = function (Arg1: any) {
-  const result = Curry._3(GravityBS.force, Arg1.attractorMass, Arg1.moverMass, Arg1.r);
+  const result = Curry._3(GravityBS.gravityForceMag, Arg1.attractorMass, Arg1.moverMass, Arg1.r);
   return result
 };
 

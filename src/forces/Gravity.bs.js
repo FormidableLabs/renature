@@ -3,10 +3,10 @@
 import * as $$Math from "../core/Math.bs.js";
 import * as Vector from "../core/Vector.bs.js";
 
-var g = 6.67428 * $$Math.pow(10, -11);
+var gU = 6.67428 * $$Math.pow(10, -11);
 
-function force(attractorMass, moverMass, r) {
-  return g * attractorMass * moverMass / $$Math.sqf(r);
+function gravityForceMag(attractorMass, moverMass, r) {
+  return gU * attractorMass * moverMass / $$Math.sqf(r);
 }
 
 function gravityForceV(attractorMass, moverMass, attractor, mover, threshold, param) {
@@ -20,13 +20,16 @@ function gravityForceV(attractorMass, moverMass, attractor, mover, threshold, pa
     distance = mag;
   }
   var dir = Vector.normf(v);
-  return Vector.multf(dir, force(attractorMass, moverMass, distance));
+  return Vector.multf(dir, gravityForceMag(attractorMass, moverMass, distance));
 }
 
+var gE = 9.80665;
+
 export {
-  g ,
-  force ,
+  gU ,
+  gE ,
+  gravityForceMag ,
   gravityForceV ,
   
 }
-/* g Not a pure module */
+/* gU Not a pure module */

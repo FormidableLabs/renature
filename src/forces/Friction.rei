@@ -1,4 +1,9 @@
 [@genType]
+let frictionForceMag: (~mu: float, ~mass: float) => float;
+
+[@genType]
 let frictionForceV:
-  (~mu: float, ~normal: float=?, ~velocity: Vector.t(float), unit) =>
-  Vector.t(float);
+  (~mu: float, ~mass: float, ~velocity: Vector.t(float)) => Vector.t(float);
+
+[@genType]
+let getMaxDistanceFriction: (~mu: float, ~initialVelocity: float) => float;

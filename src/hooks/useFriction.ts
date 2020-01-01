@@ -2,6 +2,7 @@ import React from 'react';
 
 import { CSSPairs, getInterpolatorForPair } from '../helpers/pairs';
 import { Friction1DParams, friction1D } from '../animation/friction';
+import { getMaxDistanceFriction } from '../forces/Friction.gen';
 
 type UseFrictionArgs = CSSPairs &
   Omit<Friction1DParams, 'onUpdate' | 'onComplete'>;
@@ -30,11 +31,17 @@ export const useFriction = <M extends HTMLElement>({
 
     return friction1D({
       config,
-      onUpdate: ({ velocity }) => {
+      onUpdate: ({ position }) => {
         const value = interpolator({
-          range: [config.velocity, 0],
+          range: [
+            0,
+            getMaxDistanceFriction({
+              mu: config.mu,
+              initialVelocity: config.initialVelocity,
+            }),
+          ],
           domain: [values.from, values.to],
-          value: velocity[0],
+          value: position[0],
         });
 
         if (ref.current) {

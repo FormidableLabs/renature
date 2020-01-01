@@ -1,7 +1,14 @@
-let g = 6.67428 *. Math.pow(~base=10, ~exp=-11);
-let force = (~attractorMass, ~moverMass, ~r) =>
-  g *. attractorMass *. moverMass /. Math.sqf(r);
+// The Universal Gravitational Constant, G.
+let gU = 6.67428 *. Math.pow(~base=10, ~exp=-11);
 
+// The acceleration due to gravity at Earth's surface.
+let gE = 9.80665;
+
+// The magnitude of the gravitational force.
+let gravityForceMag = (~attractorMass, ~moverMass, ~r) =>
+  gU *. attractorMass *. moverMass /. Math.sqf(r);
+
+// The gravitational force vector.
 let gravityForceV =
     (~attractorMass, ~moverMass, ~attractor, ~mover, ~threshold=?, ()) => {
   // Derive the vector pointing from attractor to mover.
@@ -21,5 +28,8 @@ let gravityForceV =
   let dir = Vector.normf(v);
 
   // Multiply the unit vector by the size of the force.
-  Vector.multf(~v=dir, ~s=force(~attractorMass, ~moverMass, ~r=distance));
+  Vector.multf(
+    ~v=dir,
+    ~s=gravityForceMag(~attractorMass, ~moverMass, ~r=distance),
+  );
 };

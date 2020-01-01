@@ -14,9 +14,9 @@ export const FrictionOpacity: React.FC = () => {
     from: { opacity: 0 },
     to: { opacity: 1 },
     config: {
-      mu: number('mu', 0.05),
-      normal: number('normal', 1),
-      velocity: number('velocity', 100),
+      mu: number('mu', 0.25),
+      mass: number('mass', 50),
+      initialVelocity: number('initialVelocity', 5000),
     },
   });
 
@@ -29,8 +29,22 @@ export const FrictionTranslateX: React.FC = () => {
     to: { transform: 'translateX(300px) translate(-50%, -50%)' },
     config: {
       mu: number('mu', 0.05),
-      normal: number('normal', 1),
-      velocity: number('velocity', 100),
+      mass: number('mass', 300),
+      initialVelocity: number('velocity', 1000),
+    },
+  });
+
+  return <div className="mover mover--translate" {...props} />;
+};
+
+export const FrictionTransformMultiple: React.FC = () => {
+  const [props] = useFriction<HTMLDivElement>({
+    from: { transform: 'translate(0px, 200px) translate(-50%, -50%)' },
+    to: { transform: 'translate(400px, -200px) translate(-50%, -50%)' },
+    config: {
+      mu: number('mu', 0.05),
+      mass: number('mass', 300),
+      initialVelocity: number('velocity', 1000),
     },
   });
 

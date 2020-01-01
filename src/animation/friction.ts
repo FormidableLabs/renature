@@ -6,31 +6,38 @@ import { VectorSetter } from './types';
 export interface Friction1DParams {
   config: {
     mu: number;
-    normal?: number;
-    velocity: number;
+    mass: number;
+    initialVelocity: number;
   };
   onUpdate: VectorSetter;
   onComplete: () => void;
 }
 
-type FrictionState = Entity;
+interface FrictionState {
+  mover: Entity;
+}
 
 const applyForceForStep = (
-  entity: FrictionState,
-  mu: number,
-  normal?: number
+  { mover }: FrictionState,
+  config: Friction1DParams['config']
 ) => {
-  const force = frictionForceV({ mu, normal, velocity: entity.velocity });
+  const force = frictionForceV({
+    mu: config.mu,
+    mass: config.mass,
+    velocity: mover.velocity,
+  });
 
-  return applyForce({ force, entity });
+  return applyForce({ force, entity: mover });
 };
 
 export const friction1D = (params: Friction1DParams) => {
-  let state: FrictionState = {
-    mass: 1,
-    acceleration: [0, 0],
-    velocity: [params.config.velocity, 0],
-    position: [0, 0],
+  const state: FrictionState = {
+    mover: {
+      mass: params.config.mass,
+      acceleration: [0, 0],
+      velocity: [params.config.initialVelocity, 0],
+      position: [0, 0],
+    },
   };
 
   const { stop } = rAF().start((timestamp, lastFrame, stop) => {
@@ -56,7 +63,7 @@ export const friction1D = (params: Friction1DParams) => {
 
     // Apply the gravitational force once for each step.
     for (let i = 0; i < steps; i++) {
-      state = applyForceForStep(state, params.config.mu, params.config.normal);
+      state.mover = applyForceForStep(state, params.config);
     }
 
     /**
@@ -64,13 +71,13 @@ export const friction1D = (params: Friction1DParams) => {
      * a discrete from / to pair, we want to stop the animation once the moving
      * object has a velocity of 0 (has come to rest).
      */
-    if (state.velocity[0] <= 0) {
+    if (state.mover.velocity[0] <= 0) {
       params.onComplete();
       stop();
     } else {
       params.onUpdate({
-        position: state.position,
-        velocity: state.velocity,
+        velocity: state.mover.velocity,
+        position: state.mover.position,
       });
     }
   });

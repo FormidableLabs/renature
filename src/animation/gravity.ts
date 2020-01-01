@@ -180,7 +180,7 @@ export const gravity2D = (
 
     // Apply the gravitational force once for each step.
     for (let i = 0; i < steps; i++) {
-      state.mover = applyForceForStep(state);
+      state.mover = applyForceForStep(state, params.config.threshold);
     }
 
     params.onUpdate({
