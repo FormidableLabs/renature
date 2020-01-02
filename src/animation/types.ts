@@ -5,13 +5,23 @@ export type VectorSetter = (values: {
   velocity?: Vector<number>;
 }) => void;
 
-type Listener = (
-  timestamp: number,
-  lastFrame: number,
+export type Listener = (
+  timestamp: DOMHighResTimeStamp,
+  lastFrame: DOMHighResTimeStamp,
   stop: () => void
 ) => void;
 
-export interface Controller {
-  start: (listener: Listener) => void;
+export interface AnimationInitializer {
+  start: () => { stop: () => void };
+}
+
+export interface Controller extends AnimationInitializer {
   stop: () => void;
+}
+
+export interface AnimationParams {
+  onUpdate: VectorSetter;
+  onComplete: () => void;
+  immediate?: boolean;
+  delay?: number;
 }

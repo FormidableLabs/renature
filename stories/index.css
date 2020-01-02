@@ -13,6 +13,11 @@
   --color-deep-blue: #053959;
 }
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
+    helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+}
+
 #root {
   position: absolute;
   top: 0;
@@ -34,7 +39,8 @@
   height: 100px;
   width: 100px;
   transform: translate(-50%, -50%);
-  border-radius: 50%;
+  border-radius: 10px;
+  transform-origin: top left;
 }
 
 .mover--opacity {

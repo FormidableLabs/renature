@@ -1,0 +1,26 @@
+button {
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button {
+  position: relative;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, -50%);
+  background: var(--color-near-black);
+  color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.2);
+  font-size: 1em;
+  font-weight: 700;
+  border-radius: 5px;
+  transition: transform 0.2s ease;
+}
+
+.button:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}

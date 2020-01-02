@@ -1,11 +1,9 @@
+import { Listener } from '../animation';
+
 interface RAFState {
   lastFrame: DOMHighResTimeStamp;
   animationFrameId: number | null;
-  listener: (
-    timestamp: DOMHighResTimeStamp,
-    lastFrame: DOMHighResTimeStamp,
-    stop: () => void
-  ) => void;
+  listener: Listener;
 }
 
 export const rAF = () => {
