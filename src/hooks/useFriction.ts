@@ -90,7 +90,7 @@ export const useFriction = <M extends HTMLElement>({
     return () => {
       timerId && clearTimeout(timerId);
     };
-  }, [immediate, controller]);
+  }, [immediate, delay, controller]);
 
   return [{ ref }, controllerRef.current];
 };
