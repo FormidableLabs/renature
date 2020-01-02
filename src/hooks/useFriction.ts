@@ -29,10 +29,6 @@ export const useFriction = <M extends HTMLElement>({
    * Store a ref to the controller. This will allow a user to
    * start and stop animations at will.
    */
-  const controllerRef = React.useRef<Controller>({
-    start: () => ({ stop: () => {} }),
-    stop: () => {},
-  });
 
   const { controller } = React.useMemo(() => {
     const interpolators = getInterpolatorsForPairs({ from, to });
@@ -72,10 +68,10 @@ export const useFriction = <M extends HTMLElement>({
     });
   }, [from, to, config]);
 
-  controllerRef.current = {
-    ...controllerRef.current,
-    ...controller,
-  };
+  const controllerRef = React.useRef<Controller>({
+    start: controller.start,
+    stop: () => {},
+  });
 
   React.useLayoutEffect(() => {
     if (immediate && !delay) {
