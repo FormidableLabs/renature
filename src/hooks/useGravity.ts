@@ -10,6 +10,8 @@ export const useGravity = <M extends HTMLElement>({
   from,
   to,
   config,
+  immediate = true,
+  delay,
 }: UseGravityArgs): [{ ref: React.MutableRefObject<M | null> }, Controller] => {
   /**
    * Store a ref to the DOM element we'll be animating.
@@ -51,5 +53,29 @@ export const useGravity = <M extends HTMLElement>({
     });
   }, [from, to, config]);
 
-  return [{ ref }, controller];
+  const controllerRef = React.useRef<Controller>({
+    start: controller.start,
+    stop: () => {},
+  });
+
+  React.useLayoutEffect(() => {
+    if (immediate && !delay) {
+      const { stop } = controller.start();
+      controllerRef.current.stop = stop;
+    }
+
+    let timerId: number;
+    if (immediate && delay) {
+      timerId = setTimeout(() => {
+        const { stop } = controller.start();
+        controllerRef.current.stop = stop;
+      }, delay);
+    }
+
+    return () => {
+      timerId && clearTimeout(timerId);
+    };
+  }, [immediate, delay, controller]);
+
+  return [{ ref }, controllerRef.current];
 };

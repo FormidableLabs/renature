@@ -1,14 +1,19 @@
 import { vector as Vector } from '../core';
 import { Entity, applyForce, gravityForceV } from '../forces';
 import { rAF } from '../rAF';
-import { VectorSetter, Controller } from './types';
+import {
+  VectorSetter,
+  Listener,
+  AnimationInitializer,
+  AnimationParams,
+} from './types';
 
 interface Gravity2DState {
   mover: Entity;
   attractor: Entity;
 }
 
-export interface Gravity2DParams {
+export interface Gravity2DParams extends AnimationParams {
   config: {
     attractorMass: number;
     moverMass: number;
@@ -58,7 +63,7 @@ const applyGravitationalForceForStep = (
  */
 export const gravity2D = (
   params: Gravity2DParams
-): { controller: Controller & Gravity2DController } => {
+): { controller: AnimationInitializer & Gravity2DController } => {
   const state: Gravity2DState = {
     mover: {
       mass: params.config.moverMass,
@@ -74,8 +79,7 @@ export const gravity2D = (
     },
   };
 
-  const { start } = rAF();
-  const { stop } = start((timestamp, lastFrame) => {
+  const listener: Listener = (timestamp, lastFrame) => {
     /**
      * Determine the number of milliseconds elapsed between the current frame
      * and the last frame. If more than four frames have been dropped, assuming
@@ -106,7 +110,10 @@ export const gravity2D = (
       position: state.mover.position,
       velocity: state.mover.velocity,
     });
-  });
+  };
+
+  const { start } = rAF();
+  const runAnimation = () => start(listener);
 
   const updateAttractor: VectorSetter = ({ position }) => {
     state.attractor = {
@@ -117,8 +124,7 @@ export const gravity2D = (
 
   return {
     controller: {
-      start,
-      stop,
+      start: runAnimation,
       updateAttractor,
     },
   };

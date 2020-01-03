@@ -2,16 +2,35 @@ import React from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useFriction } from '../src';
+import Button from './components/Button';
+import Toggle from './components/Toggle';
+
 import './index.css';
-import './toggle.css';
-import './button.css';
 
 export default {
   title: 'Friction',
   decorators: [withKnobs],
 };
 
-export const FrictionMultiple: React.FC = () => {
+export const FrictionBasic: React.FC = () => {
+  const [props] = useFriction<HTMLDivElement>({
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    config: {
+      mu: number('mu', 0.5),
+      mass: number('mass', 300),
+      initialVelocity: number('velocity', 10),
+    },
+  });
+
+  return <div className="mover mover--opacity" {...props} />;
+};
+
+export const FrictionControlled: React.FC = () => {
   const [toggle, setToggle] = React.useState(true);
 
   const [props] = useFriction<HTMLDivElement>({
@@ -36,24 +55,18 @@ export const FrictionMultiple: React.FC = () => {
 
   return (
     <>
-      <div className="toggle">
-        <input
-          type="checkbox"
-          name="toggle"
-          id="toggle"
-          checked={toggle}
-          onChange={() => {
-            setToggle(prevToggle => !prevToggle);
-          }}
-        />
-        <label htmlFor="toggle"></label>
-      </div>
-      <div className="mover mover--opacity" {...props} />
+      <Toggle
+        checked={toggle}
+        onChange={() => {
+          setToggle(prevToggle => !prevToggle);
+        }}
+      />
+      <div className="mover mover--rotate" {...props} />
     </>
   );
 };
 
-export const FrictionTranslateX: React.FC = () => {
+export const FrictionEventBased: React.FC = () => {
   const [props, controller] = useFriction<HTMLDivElement>({
     from: { transform: 'translateX(0px) translate(-50%, -50%)' },
     to: { transform: 'translateX(300px) translate(-50%, -50%)' },
@@ -67,15 +80,13 @@ export const FrictionTranslateX: React.FC = () => {
 
   return (
     <>
-      <button className="button" onClick={controller.start}>
-        Run Animation
-      </button>
+      <Button onClick={controller.start}>Run Animation</Button>
       <div className="mover mover--translate" {...props} />
     </>
   );
 };
 
-export const FrictionTransformDelay: React.FC = () => {
+export const FrictionDelay: React.FC = () => {
   const [props] = useFriction<HTMLDivElement>({
     from: {
       background: '#f25050',
@@ -93,5 +104,5 @@ export const FrictionTransformDelay: React.FC = () => {
     delay: 2000,
   });
 
-  return <div className="mover mover--translate" {...props} />;
+  return <div className="mover mover--scale" {...props} />;
 };

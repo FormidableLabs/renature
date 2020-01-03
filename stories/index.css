@@ -44,7 +44,7 @@ body {
 }
 
 .mover--opacity {
-  background: var(--color-red);
+  background: var(--color-purple);
 }
 
 .mover--translate {
@@ -52,11 +52,11 @@ body {
 }
 
 .mover--rotate {
-  background: linear-gradient(var(--color-purple) 50%, var(--color-orange) 50%);
+  background: var(--color-yellow);
 }
 
 .mover--scale {
-  background: var(--color-purple);
+  background: var(--color-red);
 }
 
 .mover-2d {
@@ -64,7 +64,7 @@ body {
   width: 25px;
   border-radius: 50%;
   background: var(--color-white);
-  box-shadow: 0 0 4px 2px var(--color-white);
+  box-shadow: 0 0 8px 4px var(--color-white), 0 0 16px 8px var(--color-purple);
 }
 
 .mover-2d--secondary {

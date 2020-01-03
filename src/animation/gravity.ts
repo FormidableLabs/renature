@@ -1,11 +1,15 @@
 import { subf, normf } from '../core';
 import { Entity, applyForce, gravityForceV } from '../forces';
 import { rAF } from '../rAF';
-import { VectorSetter, Controller } from './types';
+import {
+  VectorSetter,
+  Listener,
+  AnimationInitializer,
+  AnimationParams,
+} from './types';
 
 interface Gravity1DState {
   mover: Entity;
-  attractor: Entity;
 }
 
 /**
@@ -14,15 +18,15 @@ interface Gravity1DState {
  * attractor on the mover using gravityForceV. Then we apply that vector to the
  * mover to determine its next acceleration, velocity, and position.
  */
-const applyGravitationalForceForStep = ({
-  mover,
-  attractor,
-}: Gravity1DState): Entity => {
+const applyGravitationalForceForStep = (
+  { mover }: Gravity1DState,
+  config: Gravity1DParams['config']
+): Entity => {
   const force = gravityForceV({
     mover: mover.position,
     moverMass: mover.mass,
-    attractor: attractor.position,
-    attractorMass: attractor.mass,
+    attractor: [config.r, 0],
+    attractorMass: config.attractorMass,
   });
 
   return applyForce({
@@ -31,7 +35,7 @@ const applyGravitationalForceForStep = ({
   });
 };
 
-export interface Gravity1DParams {
+export interface Gravity1DParams extends AnimationParams {
   config: {
     moverMass: number;
     attractorMass: number;
@@ -49,7 +53,7 @@ export interface Gravity1DParams {
  */
 export const gravity1D = (
   params: Gravity1DParams
-): { controller: Controller } => {
+): { controller: AnimationInitializer } => {
   const state: Gravity1DState = {
     mover: {
       mass: params.config.moverMass,
@@ -57,16 +61,9 @@ export const gravity1D = (
       velocity: [params.config.initialVelocity || 0, 0],
       position: [0, 0],
     },
-    attractor: {
-      mass: params.config.attractorMass,
-      acceleration: [0, 0],
-      velocity: [0, 0],
-      position: [params.config.r, 0],
-    },
   };
 
-  const { start } = rAF();
-  const { stop } = start((timestamp, lastFrame, stop) => {
+  const listener: Listener = (timestamp, lastFrame, stop) => {
     /**
      * Determine the number of milliseconds elapsed between the current frame
      * and the last frame. If more than four frames have been dropped, assuming
@@ -89,7 +86,7 @@ export const gravity1D = (
 
     // Apply the gravitational force once for each step.
     for (let i = 0; i < steps; i++) {
-      state.mover = applyGravitationalForceForStep(state);
+      state.mover = applyGravitationalForceForStep(state, params.config);
     }
 
     /**
@@ -101,7 +98,7 @@ export const gravity1D = (
 
     // Obtain the horizontal component of the vector pointing from mover to attractor.
     const [dir] = normf(
-      subf({ v1: state.mover.position, v2: state.attractor.position })
+      subf({ v1: state.mover.position, v2: [params.config.r, 0] })
     );
 
     // If it's positive, we can be confident that the mover has overshot the attractor.
@@ -116,7 +113,10 @@ export const gravity1D = (
         velocity: state.mover.velocity,
       });
     }
-  });
+  };
 
-  return { controller: { start, stop } };
+  const { start } = rAF();
+  const runAnimation = () => start(listener);
+
+  return { controller: { start: runAnimation } };
 };
