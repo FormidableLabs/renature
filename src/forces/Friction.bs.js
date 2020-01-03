@@ -16,7 +16,7 @@ function frictionForceV(mu, mass, velocity) {
 
 function getMaxDistanceFriction(mu, initialVelocity) {
   var accelerationF = -1 * mu * Gravity.gE;
-  return $$Math.sqf(initialVelocity) / (-2 * accelerationF);
+  return $$Math.sqf(initialVelocity * 1000) / (-2 * accelerationF);
 }
 
 export {

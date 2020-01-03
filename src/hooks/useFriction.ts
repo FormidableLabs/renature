@@ -25,11 +25,6 @@ export const useFriction = <M extends HTMLElement>({
    */
   const ref = React.useRef<M>(null);
 
-  /**
-   * Store a ref to the controller. This will allow a user to
-   * start and stop animations at will.
-   */
-
   const { controller } = React.useMemo(() => {
     const interpolators = getInterpolatorsForPairs({ from, to });
 
@@ -42,7 +37,7 @@ export const useFriction = <M extends HTMLElement>({
               0,
               getMaxDistanceFriction({
                 mu: config.mu,
-                initialVelocity: config.initialVelocity * 1000,
+                initialVelocity: config.initialVelocity,
               }),
             ],
             domain: [values.from, values.to],
@@ -68,6 +63,10 @@ export const useFriction = <M extends HTMLElement>({
     });
   }, [from, to, config]);
 
+  /**
+   * Store a ref to the controller. This will allow a user to
+   * start and stop animations at will.
+   */
   const controllerRef = React.useRef<Controller>({
     start: controller.start,
     stop: () => {},

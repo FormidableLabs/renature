@@ -44,6 +44,7 @@ export const friction1D = (
     mover: {
       mass: params.config.mass,
       acceleration: [0, 0],
+      // Initial velocity is provided in m / ms. Multiply by 1000 to derive m / s.
       velocity: [params.config.initialVelocity * 1000, 0],
       position: [0, 0],
     },

@@ -75,7 +75,7 @@ export const FrictionTranslateX: React.FC = () => {
   );
 };
 
-export const FrictionTransform: React.FC = () => {
+export const FrictionTransformDelay: React.FC = () => {
   const [props] = useFriction<HTMLDivElement>({
     from: {
       background: '#f25050',
