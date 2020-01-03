@@ -67,8 +67,8 @@ export const GravityRotate: React.FC = () => {
 
 export const GravityScale: React.FC = () => {
   const [props] = useGravity<HTMLDivElement>({
-    from: { transform: 'scale(1, 1)' },
-    to: { transform: 'scale(2, 4)' },
+    from: { transform: 'scale(1, 1) translate(-50%, -50%)' },
+    to: { transform: 'scale(2, 4) translate(-50%, -50%)' },
     config: {
       moverMass: number('moverMass', 100000),
       attractorMass: number('attractorMass', 1000000000),
@@ -83,11 +83,11 @@ export const GravityTransformMultiple: React.FC = () => {
   const [props] = useGravity<HTMLDivElement>({
     from: {
       transform:
-        'scale(1, 1) rotate(0deg) translate(0px, 0px) skew(0deg, 0deg)',
+        'scale(1, 1) rotate(0deg) translate(0px, 0px) skew(0deg, 0deg) translate(-50%, -50%)',
     },
     to: {
       transform:
-        'scale(4, 4) rotate(180deg) translate(-50px, 50px) skew(30deg, 70deg)',
+        'scale(4, 4) rotate(180deg) translate(-50px, 50px) skew(30deg, 70deg) translate(-50%, -50%)',
     },
     config: {
       moverMass: number('moverMass', 100000),

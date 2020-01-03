@@ -5,6 +5,8 @@ let frictionForceMag = (~mu, ~mass) => {
 
 // The frictional force vector.
 let frictionForceV = (~mu, ~mass, ~velocity) => {
+  // let velocity = Vector.multf(~v=velocity, ~s=1000.);
+
   // Derive the magnitude of the frictive force.
   let mag = frictionForceMag(~mu, ~mass);
 
@@ -18,8 +20,13 @@ let frictionForceV = (~mu, ~mass, ~velocity) => {
   Vector.multf(~v=dir, ~s=mag);
 };
 
-// The kinematic equation for deriving distance traveled by a body to reach rest assuming constant acceleration.
+/**
+ * The kinematic equation for deriving distance traveled
+ * by a body to reach rest assuming constant acceleration.
+ */
 let getMaxDistanceFriction = (~mu, ~initialVelocity) => {
   let accelerationF = (-1.) *. mu *. Gravity.gE;
-  Math.sqf(initialVelocity) /. ((-2.) *. accelerationF);
+
+  // Initial velocity is provided in m / ms. Multiply by 1000 to derive m / s.
+  Math.sqf(initialVelocity *. 1000.) /. ((-2.) *. accelerationF);
 };

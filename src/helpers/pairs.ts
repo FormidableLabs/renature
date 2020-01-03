@@ -149,3 +149,12 @@ export function getInterpolatorForPair({ from, to }: CSSPairs) {
     },
   };
 }
+
+export function getInterpolatorsForPairs({ from, to }: CSSPairs) {
+  return Object.keys(from).map(key => {
+    const f = { [key]: (from as { [cssProperty: string]: any })[key] };
+    const t = { [key]: (to as { [cssProperty: string]: any })[key] };
+
+    return getInterpolatorForPair({ from: f, to: t });
+  });
+}

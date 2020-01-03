@@ -1,15 +1,13 @@
 import { rAF } from '../rAF';
 import { Entity, applyForce, frictionForceV } from '../forces';
-import { VectorSetter, Controller } from './types';
+import { Listener, AnimationParams, AnimationInitializer } from './types';
 
-export interface Friction1DParams {
+export interface Friction1DParams extends AnimationParams {
   config: {
     mu: number;
     mass: number;
     initialVelocity: number;
   };
-  onUpdate: VectorSetter;
-  onComplete: () => void;
 }
 
 interface FrictionState {
@@ -41,18 +39,18 @@ const applyFrictionForceForStep = (
  */
 export const friction1D = (
   params: Friction1DParams
-): { controller: Controller } => {
+): { controller: AnimationInitializer } => {
   const state: FrictionState = {
     mover: {
       mass: params.config.mass,
       acceleration: [0, 0],
-      velocity: [params.config.initialVelocity, 0],
+      // Initial velocity is provided in m / ms. Multiply by 1000 to derive m / s.
+      velocity: [params.config.initialVelocity * 1000, 0],
       position: [0, 0],
     },
   };
 
-  const { start } = rAF();
-  const { stop } = start((timestamp, lastFrame, stop) => {
+  const listener: Listener = (timestamp, lastFrame, stop) => {
     /**
      * Determine the number of milliseconds elapsed between the current frame
      * and the last frame. If more than four frames have been dropped, assuming
@@ -92,7 +90,10 @@ export const friction1D = (
         position: state.mover.position,
       });
     }
-  });
+  };
 
-  return { controller: { start, stop } };
+  const { start } = rAF();
+  const runAnimation = () => start(listener);
+
+  return { controller: { start: runAnimation } };
 };
