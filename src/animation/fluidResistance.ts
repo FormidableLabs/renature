@@ -21,7 +21,6 @@ export interface FluidResistance1DParams extends AnimationParams {
 
 interface FluidResistanceState {
   mover: Entity;
-  startTime: DOMHighResTimeStamp;
 }
 
 /**
@@ -66,7 +65,6 @@ export const fluidResistance1D = ({
       velocity: [0, 0],
       position: [0, 0],
     },
-    startTime: performance.now(),
   };
 
   const tvPosition = getFluidPositionAtTerminalVelocity(config);
@@ -79,10 +77,7 @@ export const fluidResistance1D = ({
      */
 
     // Obtain the timestamp of the last frame. If this is the first frame, use the current frame timestamp.
-    let lastTime =
-      lastFrame !== undefined
-        ? lastFrame
-        : (state.startTime = timestamp) && timestamp;
+    let lastTime = lastFrame !== undefined ? lastFrame : timestamp;
 
     /**
      * If more than four frames have been dropped since the last frame,
@@ -95,8 +90,9 @@ export const fluidResistance1D = ({
     // Determine the number of steps between the current frame and last recorded frame.
     const steps = Math.floor(timestamp - lastTime);
 
-    // Apply the gravitational force once for each step.
+    // Apply the drag force once for each step.
     for (let i = 0; i < steps; i++) {
+      // If applying a settle effect, reverse and scale down the mover's velocity.
       if (config.settle && state.mover.position[1] >= tvPosition) {
         state.mover = {
           ...state.mover,
@@ -111,7 +107,8 @@ export const fluidResistance1D = ({
     /**
      * Conditions for stopping the physics animation. For single animations with
      * a discrete from / to pair, we want to stop the animation once the moving
-     * object has a velocity of 0 (has come to rest).
+     * object has achieved terminal velocity. If the animation has been set to use
+     * a settling effect, we'll wait until the velocity has neared 0.
      */
     if (!config.settle && state.mover.position[1] >= tvPosition) {
       onComplete();
@@ -121,7 +118,6 @@ export const fluidResistance1D = ({
       state.mover.position[1] >= tvPosition &&
       state.mover.velocity[1] <= 0.01
     ) {
-      console.log('Stopping animation with settle');
       onComplete();
       stop();
     } else {
