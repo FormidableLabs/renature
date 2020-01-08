@@ -19,8 +19,8 @@ export const FluidResistanceBasic: React.FC = () => {
       transform: 'translateY(200%) translate(-50%, -50%)',
     },
     config: {
-      mass: number('mass', 250),
-      rho: number('rho', 1),
+      mass: number('mass', 25),
+      rho: number('rho', 10),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
       settle: boolean('settle', false),
@@ -47,8 +47,8 @@ export const FluidResistanceControlled: React.FC = () => {
         : 'scale(0) rotate(0deg) translate(-50%, -50%)',
     },
     config: {
-      mass: number('mass', 250),
-      rho: number('rho', 1),
+      mass: number('mass', 25),
+      rho: number('rho', 10),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
       settle: boolean('settle', false),
@@ -73,8 +73,8 @@ export const FluidResistanceEventBased: React.FC = () => {
     from: { transform: 'translateX(0px) translate(-50%, -50%)' },
     to: { transform: 'translateX(300px) translate(-50%, -50%)' },
     config: {
-      mass: number('mass', 250),
-      rho: number('rho', 1),
+      mass: number('mass', 25),
+      rho: number('rho', 10),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
       settle: boolean('settle', false),
@@ -101,8 +101,8 @@ export const FluidResistanceDelay: React.FC = () => {
       transform: 'scale(1.5) rotate(720deg) translate(-50%, -50%)',
     },
     config: {
-      mass: number('mass', 250),
-      rho: number('rho', 1),
+      mass: number('mass', 25),
+      rho: number('rho', 10),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
       settle: boolean('settle', false),

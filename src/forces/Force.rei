@@ -7,4 +7,5 @@ type entity = {
 };
 
 [@genType]
-let applyForce: (~force: Vector.t(float), ~entity: entity) => entity;
+let applyForce:
+  (~force: Vector.t(float), ~entity: entity, ~time: float) => entity;

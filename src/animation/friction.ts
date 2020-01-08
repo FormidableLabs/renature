@@ -30,7 +30,7 @@ const applyFrictionForceForStep = (
     velocity: mover.velocity,
   });
 
-  return applyForce({ force, entity: mover });
+  return applyForce({ force, entity: mover, time: 0.001 });
 };
 
 /**
@@ -44,8 +44,7 @@ export const friction1D = (
     mover: {
       mass: params.config.mass,
       acceleration: [0, 0],
-      // Initial velocity is provided in m / ms. Multiply by 1000 to derive m / s.
-      velocity: [params.config.initialVelocity * 1000, 0],
+      velocity: [params.config.initialVelocity, 0],
       position: [0, 0],
     },
   };

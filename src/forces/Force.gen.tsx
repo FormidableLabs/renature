@@ -19,7 +19,11 @@ export type entity = {
 };
 export type Entity = entity;
 
-export const applyForce: (_1:{ readonly force: Vector_t<number>; readonly entity: entity }) => entity = function (Arg1: any) {
-  const result = Curry._2(ForceBS.applyForce, Arg1.force, [Arg1.entity.mass, Arg1.entity.acceleration, Arg1.entity.velocity, Arg1.entity.position]);
+export const applyForce: (_1:{
+  readonly force: Vector_t<number>; 
+  readonly entity: entity; 
+  readonly time: number
+}) => entity = function (Arg1: any) {
+  const result = Curry._3(ForceBS.applyForce, Arg1.force, [Arg1.entity.mass, Arg1.entity.acceleration, Arg1.entity.velocity, Arg1.entity.position], Arg1.time);
   return {mass:result[0], acceleration:result[1], velocity:result[2], position:result[3]}
 };

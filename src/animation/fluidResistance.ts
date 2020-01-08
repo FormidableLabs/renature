@@ -41,12 +41,9 @@ const applyFluidResistanceForceForStep = (
   });
 
   const gravitationalForce: Vector<number> = [0, mover.mass * gE];
-  const force = multf({
-    v: addf({ v1: dragForce, v2: gravitationalForce }),
-    s: 0.001,
-  });
+  const netForce = addf({ v1: dragForce, v2: gravitationalForce });
 
-  return applyForce({ force, entity: mover });
+  return applyForce({ force: netForce, entity: mover, time: 0.001 });
 };
 
 /**
@@ -96,7 +93,7 @@ export const fluidResistance1D = ({
       if (config.settle && state.mover.position[1] >= tvPosition) {
         state.mover = {
           ...state.mover,
-          velocity: multf({ v: state.mover.velocity, s: -0.75 }),
+          velocity: multf({ v: state.mover.velocity, s: -1 }),
           position: [0, tvPosition],
         };
       }

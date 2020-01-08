@@ -5,15 +5,23 @@ type entity = {
   position: Vector.t(float),
 };
 
-let applyForce = (~force, ~entity) => {
+let applyForce = (~force, ~entity, ~time) => {
   // Derive the acceleration created by the force and add it to the current acceleration.
   let nextAcceleration = Vector.divf(~v=force, ~s=entity.mass);
 
   // Add the acceleration to the current velocity.
-  let nextVelocity = Vector.addf(~v1=entity.velocity, ~v2=nextAcceleration);
+  let nextVelocity =
+    Vector.addf(
+      ~v1=entity.velocity,
+      ~v2=Vector.multf(~v=nextAcceleration, ~s=time),
+    );
 
   // Add the velocity to the position.
-  let nextPosition = Vector.addf(~v1=entity.position, ~v2=nextVelocity);
+  let nextPosition =
+    Vector.addf(
+      ~v1=entity.position,
+      ~v2=Vector.multf(~v=nextVelocity, ~s=time),
+    );
 
   {
     mass: entity.mass,

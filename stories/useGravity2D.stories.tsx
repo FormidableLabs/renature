@@ -21,18 +21,19 @@ export const Gravity2DBasic: React.FC = () => {
 
   const [props] = useGravity2D({
     config: {
-      attractorMass: number('attractorMass', 100000000000),
-      moverMass: number('moverMass', 20000000),
+      attractorMass: number('attractorMass', 1000000000000),
+      moverMass: number('moverMass', 10000),
       attractorPosition: center,
       initialMoverPosition: [center[0], center[1] - 200],
       initialMoverVelocity: [
-        number('initialMoverVelocityX', 0.3),
+        number('initialMoverVelocityX', 1),
         number('initialMoverVelocityY', 0),
       ],
       threshold: {
         min: number('thresholdMin', 20),
         max: number('thresholdMax', 100),
       },
+      timeScale: number('timeScale', 100),
     },
   });
 

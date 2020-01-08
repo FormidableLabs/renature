@@ -20,6 +20,7 @@ export interface Gravity2DParams extends AnimationParams {
     attractorPosition: Vector<number>;
     initialMoverPosition?: Vector<number>;
     initialMoverVelocity?: Vector<number>;
+    timeScale?: number;
     threshold?: {
       min: number;
       max: number;
@@ -53,6 +54,7 @@ const applyGravitationalForceForStep = (
   return applyForce({
     force,
     entity: mover,
+    time: (config.timeScale || 1) * 0.001,
   });
 };
 
@@ -61,21 +63,24 @@ const applyGravitationalForceForStep = (
  * attractor and the mover and starts the frame loop to apply the gravitational
  * force.
  */
-export const gravity2D = (
-  params: Gravity2DParams
-): { controller: AnimationInitializer & Gravity2DController } => {
+export const gravity2D = ({
+  config,
+  onUpdate,
+}: Gravity2DParams): {
+  controller: AnimationInitializer & Gravity2DController;
+} => {
   const state: Gravity2DState = {
     mover: {
-      mass: params.config.moverMass,
+      mass: config.moverMass,
       acceleration: [0, 0],
-      velocity: params.config.initialMoverVelocity || [0, 0],
-      position: params.config.initialMoverPosition || [0, 0],
+      velocity: config.initialMoverVelocity || [0, 0],
+      position: config.initialMoverPosition || [0, 0],
     },
     attractor: {
-      mass: params.config.attractorMass,
+      mass: config.attractorMass,
       acceleration: [0, 0],
       velocity: [0, 0],
-      position: params.config.attractorPosition,
+      position: config.attractorPosition,
     },
   };
 
@@ -103,10 +108,10 @@ export const gravity2D = (
 
     // Apply the gravitational force once for each step.
     for (let i = 0; i < steps; i++) {
-      state.mover = applyGravitationalForceForStep(state, params.config);
+      state.mover = applyGravitationalForceForStep(state, config);
     }
 
-    params.onUpdate({
+    onUpdate({
       position: state.mover.position,
       velocity: state.mover.velocity,
     });
