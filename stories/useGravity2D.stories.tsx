@@ -33,7 +33,7 @@ export const Gravity2DBasic: React.FC = () => {
         min: number('thresholdMin', 20),
         max: number('thresholdMax', 100),
       },
-      timescale: number('timescale', 0.1),
+      timeScale: number('timeScale', 100),
     },
   });
 

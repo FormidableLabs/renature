@@ -20,7 +20,7 @@ export interface Gravity2DParams extends AnimationParams {
     attractorPosition: Vector<number>;
     initialMoverPosition?: Vector<number>;
     initialMoverVelocity?: Vector<number>;
-    timescale?: number;
+    timeScale?: number;
     threshold?: {
       min: number;
       max: number;
@@ -54,7 +54,7 @@ const applyGravitationalForceForStep = (
   return applyForce({
     force,
     entity: mover,
-    time: config.timescale || 0.1,
+    time: (config.timeScale || 1) * 0.001,
   });
 };
 
