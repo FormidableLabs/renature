@@ -5,8 +5,6 @@ let frictionForceMag = (~mu, ~mass) => {
 
 // The frictional force vector.
 let frictionForceV = (~mu, ~mass, ~velocity) => {
-  // let velocity = Vector.multf(~v=velocity, ~s=1000.);
-
   // Derive the magnitude of the frictive force.
   let mag = frictionForceMag(~mu, ~mass);
 
