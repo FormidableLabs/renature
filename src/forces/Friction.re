@@ -25,6 +25,5 @@ let frictionForceV = (~mu, ~mass, ~velocity) => {
 let getMaxDistanceFriction = (~mu, ~initialVelocity) => {
   let accelerationF = (-1.) *. mu *. Gravity.gE;
 
-  // Initial velocity is provided in m / ms. Multiply by 1000 to derive m / s.
-  Math.sqf(initialVelocity *. 1000.) /. ((-2.) *. accelerationF);
+  initialVelocity ** 2. /. ((-2.) *. accelerationF);
 };

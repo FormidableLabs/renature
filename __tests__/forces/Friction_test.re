@@ -44,7 +44,7 @@ describe("Friction", () => {
         expect(
           Friction.getMaxDistanceFriction(~mu=0.1, ~initialVelocity=50.),
         )
-        |> toBeCloseTo(1274645266.22)
+        |> toBeCloseTo(1274.645266)
       )
     )
   );

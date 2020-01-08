@@ -17,9 +17,9 @@ export const GravityBasic: React.FC = () => {
     from: { opacity: 0 },
     to: { opacity: 1 },
     config: {
-      moverMass: number('moverMass', 10000000),
-      attractorMass: number('attractorMass', 1000000000),
-      r: number('r', 100),
+      moverMass: number('moverMass', 10000),
+      attractorMass: number('attractorMass', 1000000000000),
+      r: number('r', 10),
     },
   });
 
@@ -43,9 +43,9 @@ export const GravityControlled: React.FC = () => {
         : 'scale(0) rotate(0deg) translate(-50%, -50%)',
     },
     config: {
-      moverMass: number('moverMass', 100000),
-      attractorMass: number('attractorMass', 1000000000),
-      r: number('r', 100),
+      moverMass: number('moverMass', 10000),
+      attractorMass: number('attractorMass', 1000000000000),
+      r: number('r', 10),
     },
   });
 
@@ -67,9 +67,9 @@ export const GravityEventBased: React.FC = () => {
     from: { transform: 'translateX(0px) translate(-50%, -50%)' },
     to: { transform: 'translateX(300px) translate(-50%, -50%)' },
     config: {
-      moverMass: number('moverMass', 100000),
-      attractorMass: number('attractorMass', 1000000000),
-      r: number('r', 75),
+      moverMass: number('moverMass', 10000),
+      attractorMass: number('attractorMass', 1000000000000),
+      r: number('r', 7.5),
     },
     immediate: false,
   });
@@ -93,9 +93,9 @@ export const GravityDelay: React.FC = () => {
       transform: 'scale(1.5) rotate(720deg) translate(-50%, -50%)',
     },
     config: {
-      moverMass: number('moverMass', 100000),
-      attractorMass: number('attractorMass', 1000000000),
-      r: number('r', 150),
+      moverMass: number('moverMass', 10000),
+      attractorMass: number('attractorMass', 1000000000000),
+      r: number('r', 7.5),
     },
     delay: 2000,
   });

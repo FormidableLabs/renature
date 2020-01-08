@@ -32,6 +32,7 @@ const applyGravitationalForceForStep = (
   return applyForce({
     force,
     entity: mover,
+    time: 0.001,
   });
 };
 
@@ -40,7 +41,6 @@ export interface Gravity1DParams extends AnimationParams {
     moverMass: number;
     attractorMass: number;
     r: number;
-    initialVelocity?: number;
   };
   onUpdate: VectorSetter;
   onComplete: () => void;
@@ -58,7 +58,7 @@ export const gravity1D = (
     mover: {
       mass: params.config.moverMass,
       acceleration: [0, 0],
-      velocity: [params.config.initialVelocity || 0, 0],
+      velocity: [0, 0],
       position: [0, 0],
     },
   };
