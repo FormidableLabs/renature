@@ -106,3 +106,24 @@ export const FrictionDelay: React.FC = () => {
 
   return <div className="mover mover--scale" {...props} />;
 };
+
+export const FrictionInfinite: React.FC = () => {
+  const [props] = useFriction<HTMLDivElement>({
+    from: {
+      background: '#f25050',
+      transform: 'scale(1) rotate(0deg) translate(-50%, -50%)',
+    },
+    to: {
+      background: '#a04ad9',
+      transform: 'scale(1.5) rotate(720deg) translate(-50%, -50%)',
+    },
+    config: {
+      mu: number('mu', 0.5),
+      mass: number('mass', 300),
+      initialVelocity: number('velocity', 10),
+    },
+    infinite: true,
+  });
+
+  return <div className="mover mover--opacity" {...props} />;
+};

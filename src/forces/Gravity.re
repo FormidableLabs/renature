@@ -1,12 +1,12 @@
 // The Universal Gravitational Constant, G.
-let gU = 6.67428 *. Math.pow(~base=10, ~exp=-11);
+let gU = 6.67428 *. 10. ** (-11.);
 
 // The acceleration due to gravity at Earth's surface.
 let gE = 9.80665;
 
 // The magnitude of the gravitational force.
 let gravityForceMag = (~attractorMass, ~moverMass, ~r) =>
-  gU *. attractorMass *. moverMass /. Math.sqf(r);
+  gU *. attractorMass *. moverMass /. r ** 2.;
 
 // The gravitational force vector.
 let gravityForceV =

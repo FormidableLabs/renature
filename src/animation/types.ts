@@ -24,4 +24,10 @@ export interface AnimationParams {
   onComplete: () => void;
   immediate?: boolean;
   delay?: number;
+  infinite?: boolean;
+}
+
+export enum PlayState {
+  Forward = 'forward',
+  Reverse = 'reverse',
 }

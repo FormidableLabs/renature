@@ -3,10 +3,10 @@
 import * as $$Math from "../core/Math.bs.js";
 import * as Vector from "../core/Vector.bs.js";
 
-var gU = 6.67428 * $$Math.pow(10, -11);
+var gU = 6.67428 * Math.pow(10, -11);
 
 function gravityForceMag(attractorMass, moverMass, r) {
-  return gU * attractorMass * moverMass / $$Math.sqf(r);
+  return gU * attractorMass * moverMass / Math.pow(r, 2);
 }
 
 function gravityForceV(attractorMass, moverMass, attractor, mover, threshold, param) {
