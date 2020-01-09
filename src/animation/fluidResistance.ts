@@ -27,7 +27,6 @@ export interface FluidResistance1DParams extends AnimationParams {
 interface FluidResistanceState {
   mover: Entity;
   playState: PlayState;
-  settleComplete: boolean;
 }
 
 /**
@@ -107,7 +106,6 @@ export const fluidResistance1D = ({
       position: [0, 0],
     },
     playState: PlayState.Forward,
-    settleComplete: false,
   };
 
   const tvPosition = getFluidPositionAtTerminalVelocity(config);
