@@ -53,7 +53,7 @@ const reversePlayState = (
   state: Gravity1DState,
   config: Gravity1DParams['config']
 ) => {
-  if (state.mover.position[0] > config.r) {
+  if (state.mover.position[0] >= config.r) {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],
@@ -65,7 +65,7 @@ const reversePlayState = (
       position: [0, 0],
     };
     state.playState = PlayState.Reverse;
-  } else if (state.mover.position[0] < 0) {
+  } else if (state.mover.position[0] <= 0) {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],

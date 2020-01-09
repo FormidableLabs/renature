@@ -49,7 +49,7 @@ const reversePlayState = (
   config: Friction1DParams['config'],
   maxDistance: number
 ) => {
-  if (state.mover.velocity[0] < 0 && state.playState === PlayState.Forward) {
+  if (state.mover.velocity[0] <= 0 && state.playState === PlayState.Forward) {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],
@@ -58,7 +58,7 @@ const reversePlayState = (
     };
     state.playState = PlayState.Reverse;
   } else if (
-    state.mover.velocity[0] > 0 &&
+    state.mover.velocity[0] >= 0 &&
     state.playState === PlayState.Reverse
   ) {
     state.mover = {
