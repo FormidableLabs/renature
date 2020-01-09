@@ -44,6 +44,33 @@ const applyFrictionForceForStep = (
   return applyForce({ force, entity: mover, time: 0.001 });
 };
 
+const reversePlayState = (
+  state: FrictionState,
+  config: Friction1DParams['config'],
+  maxDistance: number
+) => {
+  if (state.mover.velocity[0] < 0 && state.playState === PlayState.Forward) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [config.initialVelocity * -1, 0],
+      position: [maxDistance, 0],
+    };
+    state.playState = PlayState.Reverse;
+  } else if (
+    state.mover.velocity[0] > 0 &&
+    state.playState === PlayState.Reverse
+  ) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [config.initialVelocity, 0],
+      position: [0, 0],
+    };
+    state.playState = PlayState.Forward;
+  }
+};
+
 /**
  * The friction function. This function tracks the internal state of the
  * mover and starts the frame loop to apply the frictional force as it moves.
@@ -63,6 +90,11 @@ export const friction1D = ({
     },
     playState: PlayState.Forward,
   };
+
+  const maxDistance = getMaxDistanceFriction({
+    mu: config.mu,
+    initialVelocity: config.initialVelocity,
+  });
 
   const listener: Listener = (timestamp, lastFrame, stop) => {
     /**
@@ -87,38 +119,8 @@ export const friction1D = ({
 
     // Apply the force of friction once for each step.
     for (let i = 0; i < steps; i++) {
-      /**
-       * For infinitely running animations, we want to reverse the animation once we've hit
-       * the stopping condition. Reverse the initial velocity and re-position the mover.
-       */
       if (infinite) {
-        if (
-          state.mover.velocity[0] <= 0 &&
-          state.playState === PlayState.Forward
-        ) {
-          state.mover = {
-            ...state.mover,
-            acceleration: [0, 0],
-            velocity: [config.initialVelocity * -1, 0],
-            position: [
-              getMaxDistanceFriction({
-                mu: config.mu,
-                initialVelocity: config.initialVelocity,
-              }),
-              0,
-            ],
-          };
-        } else if (
-          state.mover.velocity[0] >= 0 &&
-          state.playState === PlayState.Reverse
-        ) {
-          state.mover = {
-            ...state.mover,
-            acceleration: [0, 0],
-            velocity: [config.initialVelocity, 0],
-            position: [0, 0],
-          };
-        }
+        reversePlayState(state, config, maxDistance);
       }
 
       state.mover = applyFrictionForceForStep(state, config);
@@ -132,18 +134,6 @@ export const friction1D = ({
     if (!infinite && state.mover.velocity[0] <= 0) {
       onComplete();
       stop();
-    } else if (
-      infinite &&
-      state.mover.velocity[0] <= 0 &&
-      state.playState === PlayState.Forward
-    ) {
-      state.playState = PlayState.Reverse;
-    } else if (
-      infinite &&
-      state.mover.velocity[0] >= 0 &&
-      state.playState === PlayState.Reverse
-    ) {
-      state.playState = PlayState.Forward;
     } else {
       onUpdate({
         velocity: state.mover.velocity,

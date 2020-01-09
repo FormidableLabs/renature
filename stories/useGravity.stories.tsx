@@ -102,3 +102,24 @@ export const GravityDelay: React.FC = () => {
 
   return <div className="mover mover--scale" {...props} />;
 };
+
+export const GravityInfinite: React.FC = () => {
+  const [props] = useGravity<HTMLDivElement>({
+    from: {
+      background: '#f25050',
+      transform: 'scale(1) rotate(0deg) translate(-50%, -50%)',
+    },
+    to: {
+      background: '#a04ad9',
+      transform: 'scale(1.5) rotate(720deg) translate(-50%, -50%)',
+    },
+    config: {
+      moverMass: number('moverMass', 10000),
+      attractorMass: number('attractorMass', 1000000000000),
+      r: number('r', 7.5),
+    },
+    infinite: true,
+  });
+
+  return <div className="mover mover--opacity" {...props} />;
+};
