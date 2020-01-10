@@ -125,10 +125,10 @@ export const FluidResistanceInfinite: React.FC = () => {
     },
     config: {
       mass: number('mass', 25),
-      rho: number('rho', 10),
+      rho: number('rho', 20),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
-      settle: boolean('settle', false),
+      settle: boolean('settle', true),
     },
     infinite: true,
   });

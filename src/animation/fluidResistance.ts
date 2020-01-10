@@ -63,10 +63,7 @@ const applyFluidResistanceForceForStep = (
 };
 
 const reversePlayState = (state: FluidResistanceState, tvPosition: number) => {
-  if (
-    state.mover.position[1] >= tvPosition &&
-    state.playState === PlayState.Forward
-  ) {
+  if (state.playState === PlayState.Forward) {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],
@@ -74,10 +71,7 @@ const reversePlayState = (state: FluidResistanceState, tvPosition: number) => {
       position: [0, tvPosition],
     };
     state.playState = PlayState.Reverse;
-  } else if (
-    state.mover.position[1] <= 0 &&
-    state.playState === PlayState.Reverse
-  ) {
+  } else if (state.playState === PlayState.Reverse) {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],
@@ -134,15 +128,44 @@ export const fluidResistance1D = ({
     // Apply the drag force once for each step.
     for (let i = 0; i < steps; i++) {
       // If applying a settle effect, reverse the mover's velocity.
-      if (config.settle && state.mover.position[1] >= tvPosition) {
+      if (
+        config.settle &&
+        state.playState === PlayState.Forward &&
+        state.mover.position[1] >= tvPosition
+      ) {
         state.mover = {
           ...state.mover,
           velocity: multf({ v: state.mover.velocity, s: -1 }),
           position: [0, tvPosition],
         };
+      } else if (
+        config.settle &&
+        state.playState === PlayState.Reverse &&
+        state.mover.position[1] <= 0
+      ) {
+        state.mover = {
+          ...state.mover,
+          velocity: multf({ v: state.mover.velocity, s: -1 }),
+          position: [0, 0],
+        };
       }
 
-      if (infinite) {
+      const isOvershootingForward =
+        state.playState === PlayState.Forward &&
+        state.mover.position[1] >= tvPosition;
+      const isOvershootingReverse =
+        state.playState === PlayState.Reverse && state.mover.position[1] <= 0;
+      // If applying a settle effect with looping, allow the settling to finish before reversing the animation.
+      // We arbitrarily set this for now as a velocity <= 0.5 m/s.
+      const isSettled = config.settle
+        ? Math.abs(state.mover.velocity[1]) <= 0.5
+        : true;
+
+      if (
+        infinite &&
+        (isOvershootingForward || isOvershootingReverse) &&
+        isSettled
+      ) {
         reversePlayState(state, tvPosition);
       }
 
