@@ -15,9 +15,9 @@ describe("Gravity", () => {
 
     it(
       "should correctly derive the force of gravity at the Earth's surface", () => {
-      let massEarth = 5.97 *. Math.pow(~base=10, ~exp=24);
+      let massEarth = 5.97 *. 10. ** 24.;
       let massObject = 25.;
-      let rEarth = 6.371 *. Math.pow(~base=10, ~exp=6);
+      let rEarth = 6.371 *. 10. ** 6.;
 
       Expect.(
         expect(

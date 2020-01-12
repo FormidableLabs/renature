@@ -1,7 +1,7 @@
 let fluidResistanceForceMag = (~rho, ~velocity, ~area, ~cDrag) => {
   let speed = Vector.magf(velocity);
 
-  0.5 *. rho *. Math.sqf(speed) *. area *. cDrag;
+  0.5 *. rho *. speed ** 2. *. area *. cDrag;
 };
 
 let fluidResistanceForceV = (~rho, ~velocity, ~area, ~cDrag) => {

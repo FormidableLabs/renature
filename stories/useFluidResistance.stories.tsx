@@ -23,7 +23,7 @@ export const FluidResistanceBasic: React.FC = () => {
       rho: number('rho', 10),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
-      settle: boolean('settle', false),
+      settle: boolean('settle', true),
     },
   });
 
@@ -111,4 +111,27 @@ export const FluidResistanceDelay: React.FC = () => {
   });
 
   return <div className="mover mover--scale" {...props} />;
+};
+
+export const FluidResistanceInfinite: React.FC = () => {
+  const [props] = useFluidResistance<HTMLDivElement>({
+    from: {
+      background: '#f25050',
+      transform: 'scale(1) rotate(0deg) translate(-50%, -50%)',
+    },
+    to: {
+      background: '#a04ad9',
+      transform: 'scale(1.5) rotate(720deg) translate(-50%, -50%)',
+    },
+    config: {
+      mass: number('mass', 25),
+      rho: number('rho', 20),
+      area: number('area', 20),
+      cDrag: number('cDrag', 0.1),
+      settle: boolean('settle', true),
+    },
+    infinite: true,
+  });
+
+  return <div className="mover mover--opacity" {...props} />;
 };

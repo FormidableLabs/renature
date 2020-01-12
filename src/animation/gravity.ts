@@ -6,35 +6,14 @@ import {
   Listener,
   AnimationInitializer,
   AnimationParams,
+  PlayState,
 } from './types';
 
 interface Gravity1DState {
   mover: Entity;
+  attractor: Entity;
+  playState: PlayState;
 }
-
-/**
- * A function to apply the gravitational force on each step in the course
- * of the animation. First, we derive the force vector applied by the
- * attractor on the mover using gravityForceV. Then we apply that vector to the
- * mover to determine its next acceleration, velocity, and position.
- */
-const applyGravitationalForceForStep = (
-  { mover }: Gravity1DState,
-  config: Gravity1DParams['config']
-): Entity => {
-  const force = gravityForceV({
-    mover: mover.position,
-    moverMass: mover.mass,
-    attractor: [config.r, 0],
-    attractorMass: config.attractorMass,
-  });
-
-  return applyForce({
-    force,
-    entity: mover,
-    time: 0.001,
-  });
-};
 
 export interface Gravity1DParams extends AnimationParams {
   config: {
@@ -47,20 +26,85 @@ export interface Gravity1DParams extends AnimationParams {
 }
 
 /**
+ * A function to apply the gravitational force on each step in the course
+ * of the animation. First, we derive the force vector applied by the
+ * attractor on the mover using gravityForceV. Then we apply that vector to the
+ * mover to determine its next acceleration, velocity, and position.
+ */
+const applyGravitationalForceForStep = (
+  { mover, attractor }: Gravity1DState,
+  config: Gravity1DParams['config']
+): Entity => {
+  const force = gravityForceV({
+    mover: mover.position,
+    moverMass: mover.mass,
+    attractor: attractor.position,
+    attractorMass: config.attractorMass,
+  });
+
+  return applyForce({
+    force,
+    entity: mover,
+    time: 0.001,
+  });
+};
+
+const reversePlayState = (
+  state: Gravity1DState,
+  config: Gravity1DParams['config']
+) => {
+  if (state.mover.position[0] >= config.r) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [config.r, 0],
+    };
+    state.attractor = {
+      ...state.attractor,
+      position: [0, 0],
+    };
+    state.playState = PlayState.Reverse;
+  } else if (state.mover.position[0] <= 0) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [0, config.r],
+    };
+    state.attractor = {
+      ...state.attractor,
+      position: [config.r, 0],
+    };
+    state.playState = PlayState.Forward;
+  }
+};
+
+/**
  * The gravity function. This function tracks the internal state of the
  * attractor and the mover and starts the frame loop to apply the gravitational
  * force.
  */
-export const gravity1D = (
-  params: Gravity1DParams
-): { controller: AnimationInitializer } => {
+export const gravity1D = ({
+  config,
+  onUpdate,
+  onComplete,
+  infinite,
+}: Gravity1DParams): { controller: AnimationInitializer } => {
   const state: Gravity1DState = {
     mover: {
-      mass: params.config.moverMass,
+      mass: config.moverMass,
       acceleration: [0, 0],
       velocity: [0, 0],
       position: [0, 0],
     },
+    attractor: {
+      mass: config.attractorMass,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [config.r, 0],
+    },
+    playState: PlayState.Forward,
   };
 
   const listener: Listener = (timestamp, lastFrame, stop) => {
@@ -86,7 +130,11 @@ export const gravity1D = (
 
     // Apply the gravitational force once for each step.
     for (let i = 0; i < steps; i++) {
-      state.mover = applyGravitationalForceForStep(state, params.config);
+      if (infinite) {
+        reversePlayState(state, config);
+      }
+
+      state.mover = applyGravitationalForceForStep(state, config);
     }
 
     /**
@@ -97,18 +145,16 @@ export const gravity1D = (
      */
 
     // Obtain the horizontal component of the vector pointing from mover to attractor.
-    const [dir] = normf(
-      subf({ v1: state.mover.position, v2: [params.config.r, 0] })
-    );
+    const [dir] = normf(subf({ v1: state.mover.position, v2: [config.r, 0] }));
 
     // If it's positive, we can be confident that the mover has overshot the attractor.
     const isOvershooting = Math.sign(dir) === 1;
 
-    if (isOvershooting) {
-      params.onComplete();
+    if (!infinite && isOvershooting) {
+      onComplete();
       stop();
     } else {
-      params.onUpdate({
+      onUpdate({
         position: state.mover.position,
         velocity: state.mover.velocity,
       });

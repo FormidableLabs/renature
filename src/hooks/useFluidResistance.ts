@@ -17,6 +17,7 @@ export const useFluidResistance = <M extends HTMLElement>({
   config,
   immediate = true,
   delay,
+  infinite,
 }: UseFluidResistanceArgs): [
   { ref: React.MutableRefObject<M | null> },
   Controller
@@ -58,8 +59,9 @@ export const useFluidResistance = <M extends HTMLElement>({
           }
         });
       },
+      infinite,
     });
-  }, [from, to, config]);
+  }, [from, to, config, infinite]);
 
   /**
    * Store a ref to the controller. This will allow a user to

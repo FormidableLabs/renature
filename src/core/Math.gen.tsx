@@ -8,15 +8,6 @@ const Curry = require('bs-platform/lib/es6/curry.js');
 // tslint:disable-next-line:no-var-requires
 const MathBS = require('./Math.bs');
 
-export const sq: (_1:number) => number = MathBS.sq;
-
-export const sqf: (_1:number) => number = MathBS.sqf;
-
-export const pow: (_1:{ readonly base: number; readonly exp: number }) => number = function (Arg1: any) {
-  const result = Curry._2(MathBS.pow, Arg1.base, Arg1.exp);
-  return result
-};
-
 export const constrain: <a>(_1:{ readonly low: a; readonly high: a }, _2:a) => a = function <a>(Arg1: any, Arg2: any) {
   const result = Curry._3(MathBS.constrain, Arg1.low, Arg1.high, Arg2);
   return result

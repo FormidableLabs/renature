@@ -21,12 +21,12 @@ let divf = (~v, ~s) => (fst(v) /. s, snd(v) /. s);
 // Vector magnitude.
 let mag = v => {
   let (x, y) = (fst(v) |> Utils.foi, snd(v) |> Utils.foi);
-  sqrt(Math.sqf(x) +. Math.sqf(y));
+  sqrt(x ** 2. +. y ** 2.);
 };
 
 let magf = v => {
   let (x, y) = v;
-  sqrt(Math.sqf(x) +. Math.sqf(y));
+  sqrt(x ** 2. +. y ** 2.);
 };
 
 // Vector normalization.

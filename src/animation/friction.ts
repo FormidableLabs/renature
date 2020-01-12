@@ -1,6 +1,16 @@
 import { rAF } from '../rAF';
-import { Entity, applyForce, frictionForceV } from '../forces';
-import { Listener, AnimationParams, AnimationInitializer } from './types';
+import {
+  Entity,
+  applyForce,
+  frictionForceV,
+  getMaxDistanceFriction,
+} from '../forces';
+import {
+  Listener,
+  AnimationParams,
+  AnimationInitializer,
+  PlayState,
+} from './types';
 
 export interface Friction1DParams extends AnimationParams {
   config: {
@@ -12,6 +22,7 @@ export interface Friction1DParams extends AnimationParams {
 
 interface FrictionState {
   mover: Entity;
+  playState: PlayState;
 }
 
 /**
@@ -33,21 +44,57 @@ const applyFrictionForceForStep = (
   return applyForce({ force, entity: mover, time: 0.001 });
 };
 
+const reversePlayState = (
+  state: FrictionState,
+  config: Friction1DParams['config'],
+  maxDistance: number
+) => {
+  if (state.mover.velocity[0] <= 0 && state.playState === PlayState.Forward) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [config.initialVelocity * -1, 0],
+      position: [maxDistance, 0],
+    };
+    state.playState = PlayState.Reverse;
+  } else if (
+    state.mover.velocity[0] >= 0 &&
+    state.playState === PlayState.Reverse
+  ) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [config.initialVelocity, 0],
+      position: [0, 0],
+    };
+    state.playState = PlayState.Forward;
+  }
+};
+
 /**
  * The friction function. This function tracks the internal state of the
  * mover and starts the frame loop to apply the frictional force as it moves.
  */
-export const friction1D = (
-  params: Friction1DParams
-): { controller: AnimationInitializer } => {
+export const friction1D = ({
+  config,
+  onUpdate,
+  onComplete,
+  infinite,
+}: Friction1DParams): { controller: AnimationInitializer } => {
   const state: FrictionState = {
     mover: {
-      mass: params.config.mass,
+      mass: config.mass,
       acceleration: [0, 0],
-      velocity: [params.config.initialVelocity, 0],
+      velocity: [config.initialVelocity, 0],
       position: [0, 0],
     },
+    playState: PlayState.Forward,
   };
+
+  const maxDistance = getMaxDistanceFriction({
+    mu: config.mu,
+    initialVelocity: config.initialVelocity,
+  });
 
   const listener: Listener = (timestamp, lastFrame, stop) => {
     /**
@@ -70,9 +117,13 @@ export const friction1D = (
     // Determine the number of steps between the current frame and last recorded frame.
     const steps = Math.floor(timestamp - lastTime);
 
-    // Apply the gravitational force once for each step.
+    // Apply the force of friction once for each step.
     for (let i = 0; i < steps; i++) {
-      state.mover = applyFrictionForceForStep(state, params.config);
+      if (infinite) {
+        reversePlayState(state, config, maxDistance);
+      }
+
+      state.mover = applyFrictionForceForStep(state, config);
     }
 
     /**
@@ -80,11 +131,11 @@ export const friction1D = (
      * a discrete from / to pair, we want to stop the animation once the moving
      * object has a velocity of 0 (has come to rest).
      */
-    if (state.mover.velocity[0] <= 0) {
-      params.onComplete();
+    if (!infinite && state.mover.velocity[0] <= 0) {
+      onComplete();
       stop();
     } else {
-      params.onUpdate({
+      onUpdate({
         velocity: state.mover.velocity,
         position: state.mover.position,
       });

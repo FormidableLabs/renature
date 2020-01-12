@@ -7,7 +7,12 @@ import {
   getFluidPositionAtTerminalVelocity,
 } from '../forces';
 import { vector as Vector, addf, multf } from '../core';
-import { Listener, AnimationParams, AnimationInitializer } from './types';
+import {
+  Listener,
+  AnimationParams,
+  AnimationInitializer,
+  PlayState,
+} from './types';
 
 export interface FluidResistance1DParams extends AnimationParams {
   config: {
@@ -21,6 +26,7 @@ export interface FluidResistance1DParams extends AnimationParams {
 
 interface FluidResistanceState {
   mover: Entity;
+  playState: PlayState;
 }
 
 /**
@@ -30,7 +36,7 @@ interface FluidResistanceState {
  * its next acceleration, velocity, and position.
  */
 const applyFluidResistanceForceForStep = (
-  { mover }: FluidResistanceState,
+  { mover, playState }: FluidResistanceState,
   config: FluidResistance1DParams['config']
 ) => {
   const dragForce = fluidResistanceForceV({
@@ -41,9 +47,39 @@ const applyFluidResistanceForceForStep = (
   });
 
   const gravitationalForce: Vector<number> = [0, mover.mass * gE];
-  const netForce = addf({ v1: dragForce, v2: gravitationalForce });
+  const netForce = addf({
+    v1: dragForce,
+    v2:
+      playState === PlayState.Forward
+        ? gravitationalForce
+        : multf({ v: gravitationalForce, s: -1 }),
+  });
 
-  return applyForce({ force: netForce, entity: mover, time: 0.001 });
+  return applyForce({
+    force: netForce,
+    entity: mover,
+    time: 0.001,
+  });
+};
+
+const reversePlayState = (state: FluidResistanceState, tvPosition: number) => {
+  if (state.playState === PlayState.Forward) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [0, tvPosition],
+    };
+    state.playState = PlayState.Reverse;
+  } else if (state.playState === PlayState.Reverse) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [0, 0],
+    };
+    state.playState = PlayState.Forward;
+  }
 };
 
 /**
@@ -54,6 +90,7 @@ export const fluidResistance1D = ({
   config,
   onUpdate,
   onComplete,
+  infinite,
 }: FluidResistance1DParams): { controller: AnimationInitializer } => {
   const state: FluidResistanceState = {
     mover: {
@@ -62,6 +99,7 @@ export const fluidResistance1D = ({
       velocity: [0, 0],
       position: [0, 0],
     },
+    playState: PlayState.Forward,
   };
 
   const tvPosition = getFluidPositionAtTerminalVelocity(config);
@@ -89,13 +127,46 @@ export const fluidResistance1D = ({
 
     // Apply the drag force once for each step.
     for (let i = 0; i < steps; i++) {
-      // If applying a settle effect, reverse and scale down the mover's velocity.
-      if (config.settle && state.mover.position[1] >= tvPosition) {
+      // If applying a settle effect, reverse the mover's velocity.
+      if (
+        config.settle &&
+        state.playState === PlayState.Forward &&
+        state.mover.position[1] >= tvPosition
+      ) {
         state.mover = {
           ...state.mover,
           velocity: multf({ v: state.mover.velocity, s: -1 }),
           position: [0, tvPosition],
         };
+      } else if (
+        config.settle &&
+        state.playState === PlayState.Reverse &&
+        state.mover.position[1] <= 0
+      ) {
+        state.mover = {
+          ...state.mover,
+          velocity: multf({ v: state.mover.velocity, s: -1 }),
+          position: [0, 0],
+        };
+      }
+
+      const isOvershootingForward =
+        state.playState === PlayState.Forward &&
+        state.mover.position[1] >= tvPosition;
+      const isOvershootingReverse =
+        state.playState === PlayState.Reverse && state.mover.position[1] <= 0;
+      // If applying a settle effect with looping, allow the settling to finish before reversing the animation.
+      // We arbitrarily set this for now as a velocity <= 0.5 m/s.
+      const isSettled = config.settle
+        ? Math.abs(state.mover.velocity[1]) <= 0.5
+        : true;
+
+      if (
+        infinite &&
+        (isOvershootingForward || isOvershootingReverse) &&
+        isSettled
+      ) {
+        reversePlayState(state, tvPosition);
       }
 
       state.mover = applyFluidResistanceForceForStep(state, config);
@@ -107,14 +178,7 @@ export const fluidResistance1D = ({
      * object has achieved terminal velocity. If the animation has been set to use
      * a settling effect, we'll wait until the velocity has neared 0.
      */
-    if (!config.settle && state.mover.position[1] >= tvPosition) {
-      onComplete();
-      stop();
-    } else if (
-      config.settle &&
-      state.mover.position[1] >= tvPosition &&
-      state.mover.velocity[1] <= 0.01
-    ) {
+    if (!infinite && state.mover.position[1] >= tvPosition) {
       onComplete();
       stop();
     } else {
