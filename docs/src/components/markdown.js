@@ -73,22 +73,18 @@ export const Markdown = styled.article`
   }
 
   & pre code {
-    padding: 10px;
     color: #333;
+  }
+
+  & pre[class*='language-'] {
+    margin: 1em 0;
+    overflow: auto;
   }
 
   & p {
     font-family: Helvetica;
     font-size: 1.7rem;
     line-height: 1.6;
-  }
-
-  & p code {
-    border: 1px solid lightgrey;
-    opacity: 0.8;
-    padding: 0.5rem;
-    font-size: 1.5rem;
-    margin: 0 0.5rem 0 0.5rem;
   }
 
   & li {
@@ -101,16 +97,17 @@ export const Markdown = styled.article`
     }
   }
 
+  & p code,
   & li code {
-    border: 1px solid lightgrey;
-    opacity: 0.8;
-    padding: 0.5rem;
+    background: ${({ theme }) => theme.colors.syntaxBg} !important;
+    color: ${({ theme }) => theme.colors.syntax};
+    padding: 0.25rem !important;
     font-size: 1.5rem;
     margin: 0 0.5rem 0 0.5rem;
   }
 
   & a {
-    color: #895160;
+    color: ${({ theme }) => theme.colors.link};
 
     &:target {
       display: block;
@@ -118,8 +115,14 @@ export const Markdown = styled.article`
       top: -60px;
       visibility: hidden;
     }
+
     &:hover {
-      color: black;
+      color: ${({ theme }) => theme.colors.linkHover};
     }
+  }
+
+  .equation {
+    position: relative;
+    left: 1em;
   }
 `;

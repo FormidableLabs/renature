@@ -3,23 +3,23 @@
   "trailingSlash": true,
   "rewrites": [
     {
-      "source": "open-source/spectacle",
+      "source": "open-source/renature",
       "destination": "/index.html"
     },
     {
-      "source": "open-source/spectacle/:file",
+      "source": "open-source/renature/:file",
       "destination": "/:file"
     },
     {
-      "source": "open-source/spectacle/:one/:file",
+      "source": "open-source/renature/:one/:file",
       "destination": "/:one/:file"
     },
     {
-      "source": "open-source/spectacle/:one/:two/:file",
+      "source": "open-source/renature/:one/:two/:file",
       "destination": "/:one/:two/:file"
     },
     {
-      "source": "open-source/spectacle/:one/:two/:three/:file",
+      "source": "open-source/renature/:one/:two/:three/:file",
       "destination": "/:one/:two/:three/:file"
     }
   ]

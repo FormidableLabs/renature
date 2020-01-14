@@ -5,7 +5,7 @@ const path = require('path');
 const chalk = require('chalk');
 const execa = require('execa');
 
-const PROJECT = 'spectacle';
+const PROJECT = 'renature';
 // TODO(docs): Convert to real location when ready for full release.
 const DOCS_PATH = `open-source/${PROJECT}-TODO-TESTING`;
 
@@ -20,7 +20,7 @@ const AWS_EXCLUDES = ['*.DS_Store*'];
 const CACHE_MAX_AGE_DEFAULT = 10 * 60; // eslint-disable-line no-magic-numbers
 
 const EXECA_OPTS = {
-  stdio: 'inherit'
+  stdio: 'inherit',
 };
 
 const { log } = console;
@@ -42,7 +42,7 @@ const main = async ({ isDryRun }) => {
         []
       ),
       SRC,
-      DEST
+      DEST,
     ].filter(Boolean),
     EXECA_OPTS
   );
@@ -50,7 +50,7 @@ const main = async ({ isDryRun }) => {
 
 if (require.main === module) {
   main({
-    isDryRun: process.argv.indexOf('--dryrun') > -1
+    isDryRun: process.argv.indexOf('--dryrun') > -1,
   }).catch(err => {
     console.error(err); // eslint-disable-line no-console
     process.exit(1); // eslint-disable-line no-process-exit

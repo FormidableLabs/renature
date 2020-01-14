@@ -87,7 +87,7 @@ function slugWithLink() {
 
 const subHeadingRangeDefaults = {
   start: 1,
-  end: 3
+  end: 3,
 };
 
 function setYamlToFile(subHeadingRange = subHeadingRangeDefaults) {
@@ -103,7 +103,7 @@ function setYamlToFile(subHeadingRange = subHeadingRangeDefaults) {
 
       Object.defineProperty(file, 'raw', {
         value: file.contents,
-        enumerable: true
+        enumerable: true,
       });
 
       file.data.subHeadings = children
@@ -117,7 +117,7 @@ function setYamlToFile(subHeadingRange = subHeadingRangeDefaults) {
           type: c.type,
           value: c.children[0].value,
           depth: c.depth,
-          slug: _.kebabCase(c.children[0].value).toLowerCase()
+          slug: _.kebabCase(c.children[0].value).toLowerCase(),
         }));
     }
   }
@@ -142,8 +142,8 @@ const baseConfig = {
   outputHarmonizer: result => ({
     content: result.contents,
     data: result.data,
-    raw: result.raw
-  })
+    raw: result.raw,
+  }),
 };
 
 // eslint-disable-next-line max-params

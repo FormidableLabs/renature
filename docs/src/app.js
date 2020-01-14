@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Router } from 'react-static';
+import { ThemeProvider } from 'styled-components';
 import { hot } from 'react-hot-loader';
 import Template from './template';
 import Analytics from './google-analytics';
+import { theme } from './theme';
 // Routes generated at build-time
 // eslint-disable-next-line import/no-unresolved
 import Routes from 'react-static-routes';
@@ -45,7 +47,7 @@ class ScrollToTop extends Component {
 
 ScrollToTop.propTypes = {
   children: PropTypes.object,
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 const WrappedScrollToTop = withRouter(ScrollToTop);
@@ -70,11 +72,13 @@ const App = () => (
     history={history}
   >
     <WrappedScrollToTop>
-      <Analytics id="UA-43290258-1">
-        <Template>
-          <Routes />
-        </Template>
-      </Analytics>
+      <ThemeProvider theme={theme}>
+        <Analytics id="UA-43290258-1">
+          <Template>
+            <Routes />
+          </Template>
+        </Analytics>
+      </ThemeProvider>
     </WrappedScrollToTop>
   </Router>
 );

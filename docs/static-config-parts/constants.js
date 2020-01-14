@@ -7,12 +7,12 @@ const stage =
   process.env.REACT_STATIC_STAGING === 'true'
     ? 'staging'
     : process.env.REACT_STATIC_ENV;
-const landerBasePath = 'open-source/spectacle';
+const landerBasePath = 'open-source/renature';
 const metaData = {
-  title: 'Spectacle',
+  title: 'Renature',
   description:
-    'A React.js based library for creating sleek presentations using JSX syntax (with the ability to live demo your code!)',
-  url: 'http://www.formidable.com/open-source/spectacle/'
+    'A physics-based animation library for React inspired by the natural world.',
+  url: 'http://www.formidable.com/open-source/renature/',
 };
 
 module.exports = { stage, landerBasePath, metaData };

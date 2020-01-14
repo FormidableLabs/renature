@@ -6,7 +6,7 @@ import {
   SidebarNavItem,
   SidebarNavSubItem,
   SidebarContainer,
-  SidebarWrapper
+  SidebarWrapper,
 } from '../../components/navigation';
 import closeButton from '../../static/svgs/x.svg';
 import logoSidebar from '../../static/svgs/logo-sidebar.svg';
@@ -144,7 +144,7 @@ Sidebar.propTypes = {
   history: PropTypes.object,
   overlay: PropTypes.bool,
   sidebarHeaders: PropTypes.array,
-  tocArray: PropTypes.array
+  tocArray: PropTypes.array,
 };
 
 export default withRouter(withRouteData(Sidebar));

@@ -7,296 +7,206 @@ order: 0
 
 # Getting Started
 
-[Setup](#setup)
+[Installation](#installation)
 
-[Development](#development)
+[Using Your First Hook](#using-your-first-hook)
 
-[Build and Deployment](#build-and-deployment)
+[Controlling Animation States](#controlling-animation-states)
 
-[Presenting](#presenting)
+<a name="installation"></a>
 
-[Controls](#controls)
+## Installation
 
-[Fullscreen](#fullscreen)
+To begin using `renature`, install it from the package manager of your choice:
 
-[PDF Export](#pdf-export)
-
-[Query Parameters](#query-parameters)
-
-<a name="setup"></a>
-
-## Setup
-
-First, decide whether you want to use [classic Spectacle](#classic-spectacle), [Spectacle MDX](#spectacle-mdx), which has all the same functionality but allows you to write your Spectacle presentation in markdown, or using only [one HTML page](#one-page).
-
-<a name="classic-spectacle"></a>
-
-### Classic Spectacle
-
-There are four ways to get started building your presentation using the classic JSX Spectacle syntax.
-
-1.  **Option #1:** Run the following command in your terminal:
-
-    `npx create-react-app my-presentation --scripts-version spectacle-scripts`
-
-2.  **Option #2:** Using the [Spectacle Boilerplate](https://github.com/FormidableLabs/spectacle-boilerplate).
-
-3.  **Option #3:** Following along the [Spectacle Tutorial](./docs/tutorial.md), which also involves downloading the [Spectacle Boilerplate](https://github.com/FormidableLabs/spectacle-boilerplate).
-
-All three of the above ways will give you everything you'll need to get started, including a sample presentation in the `presentation` folder. You can change the props and tags as needed for your presentation or delete everything in `presentation/index.js` to start from scratch. From here you can go to [Development](#development) to get started.
-
-3.  **Option #4:** Run `npm install spectacle` in your terminal and writing your own build configurations. We also provide full UMD builds (with a `Spectacle` global variable) of the library at `dist/spectacle.js` and `dist/spectacle.min.js` for more general use cases. You could, for example, include the library via a script tag with: `https://unpkg.com/spectacle@VERSION/dist/spectacle.min.js`.
-
-<a name="spectacle-mdx"></a>
-
-### Spectacle MDX
-
-Download the [Spectacle MDX Boilerplate](https://github.com/FormidableLabs/spectacle-boilerplate-mdx).
-
-This repository will give you everything you'll need to get started, including a sample presentation in the `presentation` folder. You can change the props and tags as needed for your presentation or delete everything in the `index.mdx` file to start from scratch. From here you can go to [Development](#development) to get started.
-
-_NOTE: We have webpack externals for `react`, `react-dom`, and `prop-types`, so you will need to provide them in your upstream build or something like linking in via `script` tags in your HTML page for all three libraries. This comports with our project dependencies which place these three libraries in `peerDependencies`._
-
-<a name="one-page"></a>
-
-### One Page
-
-To aid with speedy development we've provided a simple boilerplate HTML page with a bespoke script tag that contains your entire presentation. The rest of the setup will take care of transpiling your React/ESnext code, providing Spectacle, React, and ReactDOM libraries, and being raring to go with a minimum of effort.
-
-We can start with this project's sample at [`one-page.html`](./one-page.html). It's the same presentation as the fully-built-from-source version, with a few notable exceptions:
-
-1.  There are no `import`s or `require`s. Everything must come from the global namespace. This includes `Spectacle`, `React`, `ReactDOM` and all the Spectacle exports from [`./src/index.js`](./src/index.js) -- `Deck`, `Slide`, `themes`, etc.
-
-2.  The presentation must include exactly **one** script tag with the type `text/spectacle` that is a function. Presently, that function is directly inserted inline into a wrapper code boilerplate as a React Component `render` function. The wrapper is transpiled. There should not be any extraneous content around it like outer variables or comments.
-
-    **Good** examples:
-
-    ```html
-    <script type="text/spectacle">
-      () => (
-        <Deck>{/* SLIDES */}</Deck>
-      )
-    </script>
-    ```
-
-    ```html
-    <script type="text/spectacle">
-      () => {
-        // Code-y code stuff in JS...
-
-        return (
-          <Deck>{/* SLIDES */}</Deck>
-        );
-      }
-    </script>
-    ```
-
-    **Bad** examples of what not to do:
-
-    ```html
-    <script type="text/spectacle">
-      // Outer comment (BAD)
-      const outerVariable = "BAD";
-
-      () => (
-        <Deck>{/* SLIDES */}</Deck>
-      )
-    </script>
-    ```
-
-3.  If you want to create your own theme settings, you can use the following code snippet to change the [themes](./docs/basic-concepts#createthemecolors-fonts) default settings.
-
-    ```html
-    <script type="text/spectacle">
-      () => {
-        const { themes: { defaultTheme } } = Spectacle;
-        const theme = defaultTheme({
-          // Change default settings
-          primary: "blue",
-          secondary: "red"
-        },
-        {
-          primary: "Helvetica",
-        });
-
-        return (
-          <Deck transition={['zoom']} theme={theme}>
-            <Slide>some stuff</Slide>
-            <Slide>other stuff</Slide>
-            <Slide>some more stuff</Slide>
-          </Deck>
-        );
-      }
-    </script>
-    ```
-
-... with those guidelines in mind, here's the boilerplate that you can copy-and-paste into an HTML file and start a Spectacle presentation that works from the get go!
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width initial-scale=1 user-scalable=no"
-    />
-    <title>Spectacle</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Lobster+Two:400,700"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://unpkg.com/normalize.css@7/normalize.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script src="https://unpkg.com/prop-types@15/prop-types.js"></script>
-    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
-    <script src="https://unpkg.com/spectacle@^5/dist/spectacle.js"></script>
-    <script src="https://unpkg.com/spectacle@^5/lib/one-page.js"></script>
-    <script type="text/spectacle">
-      () => {
-        // Your JS Code goes here
-
-        return (
-          <Deck>
-          {/* Throw in some slides here! */}
-          </Deck>
-        );
-      }
-    </script>
-  </body>
-</html>
+```bash
+npm install --save renature
+# or
+yarn add renature
 ```
 
-<a name="development"></a>
+Also make sure you install its `peerDependencies`, `react` and `react-dom`, if you haven't already. You'll need to use a hooks compatible version of `react` and `react-dom`, i.e. `>=16.8.0`.
 
-## Development
+```sh
+npm install --save react react-dom
+# or
+yarn add react react-dom
+```
 
-After downloading the boilerplate, run the following commands on the project's root directory...
+That's it! You're now ready to use `renature`.
 
-- `npm install` (you can also use `yarn`)
-- `rm -R .git` to remove the existing version control
-- `npm start` to start up the local server or visit [http://localhost:3000/#/](http://localhost:3000/#/)
+<a name="using-your-first-hook"></a>
 
-... and we are ready to roll
+## Using Your First Hook
 
-<a name="build-and-deployment"></a>
+Once you've installed `renature`, you can start off by `import`ing one of the hooks exposed by the library. Let's start off by using the `useFriction` hook.
 
-## Build and Deployment
+```typescript
+import React from 'react';
+import { useFriction } from 'renature';
 
-Building the dist version of the slides is as easy as running `npm run build:dist`
+const MyAnimatingElement: React.FC = () => {
+  const [props] = useFriction<HTMLDivElement>({
+    from: {
+      transform: 'translateX(0px)',
+    },
+    to: {
+      transform: 'translateX(200px)',
+    },
+    config: {
+      mu: 0.1,
+      mass: 20,
+      initialVelocity: 5,
+    },
+  });
 
-If you want to deploy the slideshow to [surge](https://surge.sh/), run `npm run deploy`
+  return <div {...props} />;
+};
+```
 
-_<span role="img" aria-label="Warning Sign">⚠️ </span> WARNING: If you are deploying the dist version to [GitHub Pages](https://pages.github.com/ 'GitHub Pages'), note that the built bundle uses an absolute path to the `/dist/` directory while GitHub Pages requires the relative `./dist/` to find any embedded assets and/or images. A very hacky way to fix this is to edit one place in the produced bundle, as shown [in this GitHub issue](https://github.com/FormidableLabs/spectacle/issues/326#issue-233283633 'GitHub: spectacle issue #326')._
+`useFriction`, like the others hooks in `renature`, expects a `from` and `to` configuration describing the CSS states you want to animate from and to. You can pass any known CSS property in here, and you can combine multiple properties in your animation.
 
-<a name="presenting"></a>
+The `config` object represents the parameters that can be used to tweak your physics simulations. These will vary from hook to hook depending on the force that you are using (i.e. gravity, friction, fluid resistance, etc).
 
-## Presenting
+### What is the props object returned by the hook?
 
-Spectacle comes with a built in presenter mode. It shows you a slide lookahead, current time and your current slide:
+The `props` object returned by the hooks in `renature` is just a mutable React `ref` object. We attach that `ref` using the object spread operator to your DOM node, which allows `renature` to update that node's `style` attribute during the course of the `requestAnimationFrame` loop. In this way, we can animate UI elements synchronously without re-rendering your entire component on every frame. This is a must to keep your animations performing at 60 frames per second, as tracking animation values in React state would be lead to too many enqueued re-renders.
 
-![http://i.imgur.com/jW8uMYY.png](http://i.imgur.com/jW8uMYY.png)
+<a name="controlling-animation-states"></a>
 
-You also have the option of a stopwatch to count the elapsed time:
+## Controlling Animation States
 
-![http://i.imgur.com/VDltgmZ.png](http://i.imgur.com/VDltgmZ.png)
+By default, all animations in `renature` will run immediately when the associated component mounts. However, you can alter this behavior using `renature`'s `controller` API.
 
-To present:
+The `controller` is the second object returned by a `renature` hook, and comes with two methods, `start` and `stop`, for interacting with your animation's play state. If you want to start your animation in response to an event, for example, you can call `controller.start`. Note that you'll need to combine this with `immediate: false` in your animation configuration.
 
-- Run `npm start`. You will be redirected to a URL containing your presentation or visit [http://localhost:3000/#/](http://localhost:3000/#/)
-- Open a second browser window on a different screen
-- Add `?presenter` or `?presenter&timer` immediately after the `/`, e.g.: [http://localhost:3000/#/0?presenter](http://localhost:3000/#/0?presenter) or [http://localhost:3000/#/?presenter&timer](http://localhost:3000/#/?presenter&timer)
-- Give an amazingly stylish presentation
+```typescript
+import React from 'react';
+import { useGravity } from 'renature';
 
-_NOTE: Any windows/tabs in the same browser that are running Spectacle will sync to one another, even if you don't want to use presentation mode_
+const MyAnimatingElement: React.FC = () => {
+  const [props, controller] = useGravity<HTMLDivElement>({
+    from: {
+      transform: 'rotate(0deg) scale(0)',
+    },
+    to: {
+      transform: 'rotate(720deg) scale(2)',
+    },
+    config: {
+      moverMass: 10000,
+      attractorMass: 1000000000,
+      r: 75,
+    },
+    immediate: false // Signal that the animation should not run on mount.
+  });
 
-Check it out:
+  return (
+    <>
+      /* Call controller.start when a user clicks on a button. */
+      <button onClick={controller.start}>Run The Animation!</button>
+      <div {...props}>
+    </>
+  )
+};
+```
 
-![http://i.imgur.com/H7o2qHI.gif](http://i.imgur.com/H7o2qHI.gif_)
+### Stopping Animations
 
-You can toggle the presenter or overview mode by pressing respectively `alt+p` and `alt+o`.
+By default, once the backing physics simulation has completed `renature` will stop your animation. However, there may be cases where you want to preemptively stop your animation in response to some user event or side effect. In those cases, you can access `controller.stop`.
 
-<a name="controls"></a>
+```typescript
+import React from 'react';
+import { useGravity } from 'renature';
 
-## Controls
+const MyAnimatingElement: React.FC = () => {
+  const [props, controller] = useGravity<HTMLDivElement>({
+    from: {
+      transform: 'rotate(0deg) scale(0)',
+    },
+    to: {
+      transform: 'rotate(720deg) scale(2)',
+    },
+    config: {
+      moverMass: 10000,
+      attractorMass: 1000000000,
+      r: 75,
+    },
+  });
 
-| Key Combination | Function                       |
-| --------------- | ------------------------------ |
-| Right Arrow     | Next Slide                     |
-| Left Arrow      | Previous Slide                 |
-| Space           | Next Slide                     |
-| Shift+Space     | Previous Slide                 |
-| Alt/Option + O  | Toggle Overview Mode           |
-| Alt/Option + P  | Toggle Presenter Mode          |
-| Alt/Option + T  | Toggle Timer in Presenter Mode |
-| Alt/Option + A  | Toggle autoplay (if enabled)   |
-| Alt/Option + F  | Toggle Fullscreen Mode         |
+  React.useEffect(() => {
+    someSubscription.subscribe((message) => {
+      if (message.done) {
+        // Stop the animation in response to a side effect or state change.
+        controller.stop();
+      }
+    });
 
-<a name="fullscreen"></a>
+    return () => someSubscription.unsubscribe();
+  }, [controller]);
 
-## Fullscreen
+  return <div {...props}>;
+};
+```
 
-Fullscreen can be toggled via browser options, <kbd>Alt/Option</kbd> + <kbd>F</kbd>, or by pressing the button in the bottom right corner of your window.
+### Delaying Animations
 
-Note: Right now, this works well when browser window itself is not full screen. When the browser is in fullscreen, there is an issue [#654](https://github.com/FormidableLabs/spectacle/issues/654). This is because we use the browser's FullScreen API methods. It still works but has some inconstiency (if you reveal the browser window, it will again work as expected).
+You can also delay animations in `renature` by specifying the `delay` property in your animation configuration. `delay` expects a number in milliseconds and will start the animation once the specified `delay` has elapsed. For example, if you wanted your animation to run two seconds after your component has mounted:
 
-<a name="pdf-export"></a>
+```typescript
+import React from 'react';
+import { useGravity } from 'renature';
 
-## PDF Export
+const MyAnimatingElement: React.FC = () => {
+  const [props] = useGravity<HTMLDivElement>({
+    from: {
+      transform: 'rotate(0deg) scale(0)',
+    },
+    to: {
+      transform: 'rotate(720deg) scale(2)',
+    },
+    config: {
+      moverMass: 10000,
+      attractorMass: 1000000000,
+      r: 75,
+    },
+    delay: 2000, // Wait 2s before starting the animation.
+  });
 
-You can export a PDF from your Spectacle presentation either from the command line or browser:
+  return <div {...props} />;
+};
+```
 
-### CLI
+### Running Animations Infinitely
 
-- Run `npm install spectacle-renderer -g`
-- Run `npm start` on your project and wait for it to build and be available
-- Run `spectacle-renderer`
+Sometimes you want your animations to run infinitely, without stopping. You can do this with `renature` by applying `infinite` to your animation configuration. Of course, you can still use `controller.stop` to end the animation whenever you want to.
 
-A PDF is created in your project directory. For more options and configuration of this tool, check out:
+```typescript
+import React from 'react';
+import { useGravity } from 'renature';
 
-[https://github.com/FormidableLabs/spectacle-renderer](https://github.com/FormidableLabs/spectacle-renderer)
+const MyAnimatingElement: React.FC = () => {
+  const [props, conntroller] = useGravity<HTMLDivElement>({
+    from: {
+      transform: 'rotate(0deg) scale(0)',
+    },
+    to: {
+      transform: 'rotate(720deg) scale(2)',
+    },
+    config: {
+      moverMass: 10000,
+      attractorMass: 1000000000,
+      r: 75,
+    },
+    infinite: true, // Run the animation infinitely.
+  });
 
-### Browser
+  // Use controller.stop to stop your animation whenever you want to.
+  React.useEffect(() => {
+    if (someStoppingConditionMet) {
+      controller.stop();
+    }
+  }, [controller]);
 
-After running `npm start` and opening [http://localhost:3000/#/](http://localhost:3000/#/) in your browser...
-
-- Add `?export` after the `/` on the URL of the page you are redirected to, e.g.: [http://localhost:3000/#/?export](http://localhost:3000/#/?export)
-- Bring up the print dialog `(ctrl or cmd + p)`
-- Change destination to "Save as PDF", as shown below:
-
-![https://i.imgur.com/fLeYrZC.png](https://i.imgur.com/fLeYrZC.png)
-
-If you want a printer friendly version, repeat the above process but instead print from [http://localhost:3000/#/?export&print](http://localhost:3000/#/?export&print).
-
-If you want to export your slides with your [notes](#notes) included, repeat the above process but instead print from [http://localhost:3000/#/?export&notes](http://localhost:3000/#/?export&notes).
-
-## Query Parameters
-
-Here is a list of all valid query parameters that can be placed after `/#/` on the URL.
-
-| Query               | Description                                                                                                          |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| 0, 1, 2, 3... etc.  | Will take you to the corresponding slide, with `0` being the first slide in the presentation.                        |
-| ?export             | Creates a single-page overview of your slides, that you can then print.                                              |
-| ?export&notes       | Creates a single-page overview of your slides, including any [notes](#notes), that you can then print.               |
-| ?export&print       | Creates a black & white single-page overview of your slides.                                                         |
-| ?export&print&notes | Creates a black & white single-page overview of your slides, including any [notes](#notes), that you can then print. |
-| ?presenter          | Takes you to presenter mode where you’ll see current slide, next slide, current time, and your [notes](#notes).      |
-| ?presenter&timer    | Takes you to presenter mode where you’ll see current slide, next slide, timer, and your [notes](#notes).             |
-| ?overview           | Take you to overview mode where you’ll see all your slides.                                                          |
-
-_NOTE: If you add a non-valid query parameter, you will be taken to a blank page. Removing or replacing the query parameter with a valid query parameter and refreshing the page will return you to the correct destination._
+  return <div {...props} />;
+};
+```

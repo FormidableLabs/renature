@@ -5,13 +5,13 @@ const path = require('path');
 const chalk = require('chalk');
 const execa = require('execa');
 
-const PROJECT = 'spectacle';
+const PROJECT = 'renature';
 const { TRAVIS_PULL_REQUEST, TRAVIS_JOB_NUMBER } = process.env;
 const SRC = path.resolve(__dirname, '../../dist');
 const DOMAIN = `formidable-com-${PROJECT}-staging-${TRAVIS_PULL_REQUEST}.surge.sh`;
 
 const EXECA_OPTS = {
-  stdio: 'inherit'
+  stdio: 'inherit',
 };
 
 const { log } = console;
