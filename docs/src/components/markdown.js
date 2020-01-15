@@ -98,7 +98,8 @@ export const Markdown = styled.article`
   }
 
   & p code,
-  & li code {
+  & li code,
+  & table code {
     background: ${({ theme }) => theme.colors.syntaxBg} !important;
     color: ${({ theme }) => theme.colors.syntax};
     padding: 0.25rem !important;

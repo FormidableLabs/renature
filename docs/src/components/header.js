@@ -1,24 +1,15 @@
 import React from 'react';
 import Hero from '../screens/home/hero';
-import bgImg from '../static/bg_hero_feather.jpg';
+import bgImg from '../static/background_renature/background_renature@2x.png';
 import headerTriangle from '../static/svgs/header-triangle.svg';
 import logoFormidableWhite from '../static/svgs/logo_formidable_white.png';
 import styled from 'styled-components';
 
 const Container = styled.header`
   background: #3b3b3b;
-  background-image: linear-gradient(14deg, #404a5f, #7f526a);
+  background-image: url(${bgImg});
   @media (min-width: 768px) {
-    background-image: url(${bgImg}),
-      linear-gradient(
-        194deg,
-        #77414b,
-        #564c60 18%,
-        #0d4a5d 73%,
-        #023340,
-        #023340,
-        #023340
-      );
+    background-image: url(${bgImg});
   }
   background-size: cover;
   color: white;

@@ -30,7 +30,7 @@ class CustomDocument extends React.Component {
             rel="icon"
             type="image/png"
             sizes="32x32"
-            href="./static/favicon/favicon-32.png"
+            href="./static/favicon/Favicon32.png"
           />
           <link rel="manifest" href="./static/favicon/site.webmanifest" />
           <meta name="msapplication-TileColor" content="#ff4081" />
@@ -55,7 +55,7 @@ CustomDocument.propTypes = {
   Head: PropTypes.func,
   Html: PropTypes.func,
   children: PropTypes.object,
-  renderMeta: PropTypes.object
+  renderMeta: PropTypes.object,
 };
 
 export default CustomDocument;

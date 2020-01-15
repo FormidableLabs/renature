@@ -6,11 +6,11 @@ import { Markdown } from '../../components/markdown';
 
 const Container = styled.div`
   box-sizing: content-box;
-  max-width: 70rem;
   min-height: 100vh;
-  width: 100%;
+  width: calc(100% - 8rem);
   padding: 10rem 4rem 8rem;
   @media (max-width: 768px) {
+    width: calc(100% - 7.5rem);
     padding: 6rem 4rem 8rem 3.5rem;
   }
   .gatsby-highlight {
@@ -34,11 +34,11 @@ class Article extends React.Component {
 }
 
 Article.propTypes = {
-  renderedMd: PropTypes.string
+  renderedMd: PropTypes.string,
 };
 
 Article.defaultProps = {
-  params: null
+  params: null,
 };
 
 export default withRouteData(Article);

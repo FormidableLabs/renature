@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-static';
 import { Wrapper } from '../../components/wrapper';
 import styled from 'styled-components';
-import badge from '../../static/bg_hero_badge.png';
+import badge from '../../static/badge_renature/badge_renature@2x.png';
 import NpmCopy from './npm-copy';
 
 const HeroContent = styled.div`
@@ -30,14 +30,14 @@ const HeroContent = styled.div`
 `;
 
 const HeroTitle = styled.h1`
-  font-size: 3rem;
+  font-size: 4rem;
   letter-spacing: 0.15em;
   margin: 0 0 2rem;
   text-align: center;
   text-transform: uppercase;
   width: 100%;
   @media (min-width: 768px) {
-    font-size: 5.8rem;
+    font-size: 8rem;
     margin: 4rem 0 2rem;
     text-align: left;
   }
@@ -60,7 +60,7 @@ const HeroBody = styled.p`
 `;
 
 const HeroLogo = styled.img`
-  max-width: 16rem;
+  width: 36rem;
   position: relative;
   @media (min-width: 768px) {
     max-width: 40rem;

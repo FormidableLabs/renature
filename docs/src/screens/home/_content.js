@@ -6,19 +6,19 @@ const content = {
       title: 'Declarative React hooks for animating with ease',
       description:
         'Tweak your physics parameters, set from and to values for your CSS properties, and let renature do the rest.',
-      icon: require('../../static/svgs/button.svg'),
+      icon: require('../../static/features/feature-1.svg'),
     },
     {
       title: 'Gravity, Friction, Fluid Resistance, and more',
       description:
         'Renature explores forces that other physics-based animation libraries typically leave out, giving your animations unique feeling and intuitive motion.',
-      icon: require('../../static/svgs/code-preview.svg'),
+      icon: require('../../static/features/feature-2.svg'),
     },
     {
       title: 'An animation library for physics nerds',
       description:
         'Renature emphasizes mathematical precision and correctness, all backed by the type safety and speed of ReasonML.',
-      icon: require('../../static/svgs/amazing.svg'),
+      icon: require('../../static/features/feature-3.svg'),
     },
   ],
   preview: {
