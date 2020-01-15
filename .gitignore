@@ -3,3 +3,4 @@ node_modules
 .merlin
 __tests__/**/*.bs.js
 .vscode
+dist

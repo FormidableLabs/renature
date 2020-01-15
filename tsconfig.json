@@ -11,10 +11,10 @@
     "noImplicitAny": true,
     "noUnusedParameters": true,
     "pretty": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "esnext"
   },
-  "include": ["src/**/*", "__tests__/**/*.ts", "stories/**/*.tsx"],
-  "exclude": ["src/**/*.gen.tsx"]
+  "include": ["src/**/*", "__tests__/**/*.ts", "stories/**/*.tsx"]
 }

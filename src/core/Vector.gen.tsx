@@ -10,7 +10,6 @@ const VectorBS = require('./Vector.bs');
 
 // tslint:disable-next-line:interface-over-type-literal
 export type vector<a> = [a, a];
-export type Vector = vector;
 
 // tslint:disable-next-line:interface-over-type-literal
 export type t<a> = vector<a>;

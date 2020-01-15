@@ -54,7 +54,7 @@ export const useGravity2D = <M extends HTMLElement = any>({
       controllerRef.current.stop = stop;
     }
 
-    let timerId: number;
+    let timerId: NodeJS.Timeout;
     if (immediate && delay) {
       timerId = setTimeout(() => {
         const { stop } = controller.start();
