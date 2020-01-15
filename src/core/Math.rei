@@ -1,2 +1,2 @@
 [@genType]
-let constrain: (~low: 'a, ~high: 'a, 'a) => 'a;
+let constrain: (~low: float, ~high: float, float) => float;

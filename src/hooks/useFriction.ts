@@ -80,7 +80,7 @@ export const useFriction = <M extends HTMLElement>({
       controllerRef.current.stop = stop;
     }
 
-    let timerId: number;
+    let timerId: NodeJS.Timeout;
     if (immediate && delay) {
       timerId = setTimeout(() => {
         const { stop } = controller.start();

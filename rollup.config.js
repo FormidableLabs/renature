@@ -2,6 +2,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import typescript from '@rollup/plugin-typescript';
+import buble from '@rollup/plugin-buble';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 
@@ -67,7 +68,22 @@ const makePlugins = isProduction =>
     typescript({
       typescript: require('typescript'),
     }),
-    babel({ extensions, include: ['src/**/*'], exclude: 'node_modules/**' }),
+    buble({
+      transforms: {
+        unicodeRegExp: false,
+        dangerousForOf: true,
+        dangerousTaggedTemplateString: true,
+      },
+      objectAssign: 'Object.assign',
+      exclude: 'node_modules/**',
+    }),
+    babel({
+      babelrc: false,
+      extensions,
+      include: ['src/**/*'],
+      exclude: 'node_modules/**',
+      plugins: ['@babel/plugin-transform-object-assign'],
+    }),
     isProduction &&
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),

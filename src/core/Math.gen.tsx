@@ -8,7 +8,7 @@ const Curry = require('bs-platform/lib/es6/curry.js');
 // tslint:disable-next-line:no-var-requires
 const MathBS = require('./Math.bs');
 
-export const constrain: <a>(_1:{ readonly low: a; readonly high: a }, _2:a) => a = function <a>(Arg1: any, Arg2: any) {
+export const constrain: (_1:{ readonly low: number; readonly high: number }, _2:number) => number = function (Arg1: any, Arg2: any) {
   const result = Curry._3(MathBS.constrain, Arg1.low, Arg1.high, Arg2);
   return result
 };
