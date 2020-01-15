@@ -27,6 +27,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.8.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.8.3",
     "@babel/plugin-transform-object-assign": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-typescript": "^7.8.3",
@@ -73,7 +74,8 @@
       "<rootDir>/__tests__/**/*.spec.ts"
     ],
     "transform": {
-      "^.+\\.(js|ts)x?$": "babel-jest"
+      "^.+\\.jsx?$": "<rootDir>/scripts/jest-transform-esm.js",
+      "^.+\\.tsx?$": "babel-jest"
     },
     "transformIgnorePatterns": [
       "node_modules/(?!(@glennsl/bs-jest|bs-platform)/)"
