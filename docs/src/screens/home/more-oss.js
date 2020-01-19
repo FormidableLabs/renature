@@ -114,47 +114,41 @@ const StyledBodyCopy = styled(BodyCopy)`
   }
 `;
 
-class MoreOSS extends React.Component {
-  render() {
-    return (
-      <OuterWrapper>
-        <SectionWrapper>
-          <StyledSectionTitle>
-            More Open Source from Formidable
-          </StyledSectionTitle>
-          {this.props.ossArray.map(card => (
-            <OSSCard key={card.title}>
-              <OSSLink href={card.link}>
-                {card.hasOwnLogo ? (
-                  <OSSImage src={card.logo} />
-                ) : (
-                  <StyledProjectBadge
-                    color={card.color}
-                    number={card.number}
-                    abbreviation={card.abbreviation}
-                    description={card.title}
-                  />
-                )}
-              </OSSLink>
-              <OSSCopyContainer>
-                <OSSLink href={card.link}>
-                  <SecondaryTitleStyled>{card.title}</SecondaryTitleStyled>
-                </OSSLink>
-                <StyledBodyCopy>{card.description}</StyledBodyCopy>
-              </OSSCopyContainer>
-            </OSSCard>
-          ))}
-          <ButtonStyled light="true" to="https://formidable.com/open-source/">
-            View All
-          </ButtonStyled>
-        </SectionWrapper>
-      </OuterWrapper>
-    );
-  }
-}
+const MoreOSS = ({ ossArray }) => (
+  <OuterWrapper>
+    <SectionWrapper>
+      <StyledSectionTitle>More Open Source from Formidable</StyledSectionTitle>
+      {ossArray.map(card => (
+        <OSSCard key={card.title}>
+          <OSSLink href={card.link}>
+            {card.hasOwnLogo ? (
+              <OSSImage src={card.logo} />
+            ) : (
+              <StyledProjectBadge
+                color={card.color}
+                number={card.number}
+                abbreviation={card.abbreviation}
+                description={card.title}
+              />
+            )}
+          </OSSLink>
+          <OSSCopyContainer>
+            <OSSLink href={card.link}>
+              <SecondaryTitleStyled>{card.title}</SecondaryTitleStyled>
+            </OSSLink>
+            <StyledBodyCopy>{card.description}</StyledBodyCopy>
+          </OSSCopyContainer>
+        </OSSCard>
+      ))}
+      <Button light noMargin to="https://formidable.com/open-source/">
+        View All
+      </Button>
+    </SectionWrapper>
+  </OuterWrapper>
+);
 
 MoreOSS.propTypes = {
-  ossArray: PropTypes.array
+  ossArray: PropTypes.array,
 };
 
 export default MoreOSS;

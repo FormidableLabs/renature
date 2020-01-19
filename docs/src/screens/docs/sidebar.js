@@ -2,21 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withRouteData, withRouter, Link } from 'react-static';
+
 import {
   SidebarNavItem,
   SidebarNavSubItem,
   SidebarContainer,
   SidebarWrapper,
 } from '../../components/navigation';
-import closeButton from '../../static/svgs/x.svg';
-import logoSidebar from '../../static/svgs/logo-sidebar.svg';
 import constants from '../../constants';
+import closeButton from '../../static/svgs/x.svg';
+import badge from '../../static/svgs/badge_renature.svg';
 
 const HeroLogo = styled.img`
-  position: absolute;
-  top: 3rem;
-  left: 6rem;
-  min-width: 14rem;
+  width: 75%;
+  margin-left: 4.4rem;
+  margin-top: 1.4rem;
 
   @media (max-width: 768px) {
     display: ${props => (props.overlay ? '' : 'none')};
@@ -26,7 +26,7 @@ const HeroLogo = styled.img`
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 4rem 0rem 1rem 28px;
+  margin: 2rem 0rem 1rem 28px;
   height: auto;
 
   @media (max-width: 768px) {
@@ -111,11 +111,7 @@ class Sidebar extends React.Component {
             onClick={() => closeSidebar()}
           />
           <Link to={'/'}>
-            <HeroLogo
-              src={logoSidebar}
-              alt="Formidable Logo"
-              overlay={overlay}
-            />
+            <HeroLogo src={badge} alt="Renature Home" overlay={overlay} />
           </Link>
           <ContentWrapper overlay={overlay}>
             <SidebarNavItem to={`/#`} key={'home'}>

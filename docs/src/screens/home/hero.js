@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-static';
-import { Wrapper } from '../../components/wrapper';
 import styled from 'styled-components';
-import badge from '../../static/badge_renature/badge_renature@2x.png';
+
+import { Wrapper } from '../../components/wrapper';
+import badge from '../../static/pngs/badge_renature@2x.png';
 import NpmCopy from './npm-copy';
 
 const HeroContent = styled.div`
@@ -15,6 +16,7 @@ const HeroContent = styled.div`
   position: relative;
   text-align: left;
   width: 100%;
+
   @media (min-width: 768px) {
     display: grid;
     grid-template-columns: 3fr 0.5fr 4fr;
@@ -36,6 +38,7 @@ const HeroTitle = styled.h1`
   text-align: center;
   text-transform: uppercase;
   width: 100%;
+
   @media (min-width: 768px) {
     font-size: 8rem;
     margin: 4rem 0 2rem;
@@ -52,6 +55,7 @@ const HeroBody = styled.p`
   max-width: 30rem;
   text-align: left;
   width: 100%;
+
   @media (min-width: 768px) {
     font-size: 2rem;
     line-height: 2.8rem;
@@ -62,11 +66,13 @@ const HeroBody = styled.p`
 const HeroLogo = styled.img`
   width: 36rem;
   position: relative;
+
   @media (min-width: 768px) {
     max-width: 40rem;
     grid-area: a;
     align-self: flex-start;
   }
+
   @media (min-width: 1024px) {
     max-width: initial;
   }
@@ -83,17 +89,20 @@ const HeroNavList = styled.ul`
   text-align: center;
   width: 100%;
   box-sizing: border-box;
+
   @media (min-width: 768px) {
     grid-area: d;
     margin: 2.2rem 6rem 0;
     width: calc(100% - 12rem);
   }
+
   @media (min-width: 1024px) {
     grid-area: c;
     margin: 2.2rem 0 0;
     width: 100%;
     border-top-color: #ffffff;
   }
+
   & li a {
     color: white;
     display: inline-block;
@@ -103,8 +112,9 @@ const HeroNavList = styled.ul`
     transition: opacity 0.4s;
     text-transform: uppercase;
   }
+
   & li a:hover {
-    color: #fc6986;
+    color: ${({ theme }) => theme.colors.linkLightHover};
   }
 `;
 
@@ -145,7 +155,7 @@ const HeroDocsButton = styled(Link)`
     width: 18rem;
   }
   &:hover {
-    background: #fc6986;
+    background: ${({ theme }) => theme.colors.linkLightHover};
   }
 `;
 

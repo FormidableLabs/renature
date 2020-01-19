@@ -5,9 +5,11 @@ import typescript from '@rollup/plugin-typescript';
 import buble from '@rollup/plugin-buble';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
+import { basename } from 'path';
 
 import pkg from './package.json';
 
+const name = basename(pkg.main, '.js');
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 const external = [];
@@ -99,12 +101,12 @@ export default [
     output: [
       {
         sourceMap: true,
-        dir: './dist/cjs',
+        file: `./dist/${name}.js`,
         format: 'cjs',
       },
       {
         sourceMap: true,
-        dir: './dist/es',
+        file: `./dist/${name}.es.js`,
         format: 'esm',
       },
     ],
@@ -116,12 +118,12 @@ export default [
     output: [
       {
         sourceMap: false,
-        dir: './dist/cjs/min',
+        file: `./dist/${name}.min.js`,
         format: 'cjs',
       },
       {
         sourceMap: false,
-        dir: './dist/es/min',
+        file: `./dist/${name}.es.min.js`,
         format: 'esm',
       },
     ],

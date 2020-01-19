@@ -1,6 +1,6 @@
 /* eslint-disable func-style */
 const fs = require('fs');
-const _ = require('lodash');
+const kebabCase = require('lodash/kebabCase');
 const frontmatter = require('remark-frontmatter');
 const html = require('remark-html');
 const klaw = require('klaw');
@@ -117,7 +117,7 @@ function setYamlToFile(subHeadingRange = subHeadingRangeDefaults) {
           type: c.type,
           value: c.children[0].value,
           depth: c.depth,
-          slug: _.kebabCase(c.children[0].value).toLowerCase(),
+          slug: kebabCase(c.children[0].value).toLowerCase(),
         }));
     }
   }

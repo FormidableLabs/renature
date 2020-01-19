@@ -37,7 +37,6 @@ export const SidebarWrapper = styled.aside`
   background-repeat: repeat-y;
   background-size: 100%;
   min-height: 100vh;
-  padding-top: 18rem;
   min-width: 24rem;
   width: 24rem;
   z-index: ${sidebarZIndex};
@@ -63,20 +62,22 @@ export const SidebarNavItem = styled(Link)`
   margin: 0.25rem 0;
   padding: 0.25rem;
   padding-left: 1.25rem;
+
   &:hover {
-    color: rgba(200, 200, 200, 0.8);
+    color: ${({ theme }) => theme.colors.linkLightHover};
   }
 
   /* For selected state (need to break out of container) */
-  &::after {
+  &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 3rem;
-    background: ${({ isSelected }) =>
-      isSelected ? 'rgba(0, 0, 0, 0.2)' : 'transparent'};
+    background: ${({ isSelected, theme }) =>
+      isSelected ? `${theme.colors.linkHover}` : 'transparent'};
+    z-index: -1;
   }
 `;
 
@@ -88,17 +89,18 @@ export const SidebarNavSubItem = styled(Link)`
   margin-top: 1rem;
   font-size: 1.4rem;
   &:hover {
-    color: rgba(200, 200, 200, 0.8);
+    color: ${({ theme }) => theme.colors.linkLightHover};
   }
 
   /* For selected state (need to break out of container) */
-  &::after {
+  &::before {
     content: "";
     position: absolute;
     left: 0;
     width: 100%;
     height: 2rem;
-    background: ${({ isSelected }) =>
-      isSelected ? 'rgba(0, 0, 0, 0.2)' : 'transparent'};
+    background: ${({ isSelected, theme }) =>
+      isSelected ? `${theme.colors.linkHover}` : 'transparent'};
+      z-index: -1;
   }
 `;

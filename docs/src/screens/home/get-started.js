@@ -17,7 +17,7 @@ class GetStarted extends React.Component {
 
     return (
       <OuterWrapper>
-        <Wrapper>
+        <Wrapper noPadding>
           <SectionTitle>Get Started</SectionTitle>
           <BodyCopy>{getStartedObj.description}</BodyCopy>
           <Button to={getStartedObj.link}>Documentation</Button>
@@ -28,7 +28,7 @@ class GetStarted extends React.Component {
 }
 
 GetStarted.propTypes = {
-  getStartedObj: PropTypes.object
+  getStartedObj: PropTypes.object,
 };
 
 export default GetStarted;

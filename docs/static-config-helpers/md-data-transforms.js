@@ -1,7 +1,6 @@
 /* eslint-disable func-style */
-// we can switch to single-function lodash deps like the cool kids once we've got feature parity,
-// keeping in mind this is naught but the build step.
-const _ = require('lodash');
+const upperFirst = require('lodash/upperfirst');
+const orderBy = require('lodash/orderby');
 const path = require('path');
 const getMdFiles = require('./get-md-files');
 
@@ -12,7 +11,7 @@ const sidebarTitleSlugMutation = (mdData, mdPath) => {
   mdData.path = `/${name.toLowerCase()}/`;
   const spacedCappedName = name
     .split('-')
-    .map(n => _.upperFirst(n))
+    .map(n => upperFirst(n))
     .join(' ');
 
   mdData.title = spacedCappedName;
@@ -22,7 +21,7 @@ const sidebarTitleSlugMutation = (mdData, mdPath) => {
   }
 };
 
-const sidebarSort = items => _.orderBy(items, ['data.order'], 'asc');
+const sidebarSort = items => orderBy(items, ['data.order'], 'asc');
 
 const getSidebarItems = (
   mdPath = 'content/',
@@ -32,5 +31,5 @@ const getSidebarItems = (
 ) => getMdFiles(mdPath, items, mutations, sort);
 
 module.exports = {
-  getSidebarItems
+  getSidebarItems,
 };

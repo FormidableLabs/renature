@@ -1,9 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import Hero from '../screens/home/hero';
-import bgImg from '../static/background_renature/background_renature@2x.png';
+import bgImg from '../static/pngs/background_renature@2x.png';
 import headerTriangle from '../static/svgs/header-triangle.svg';
 import logoFormidableWhite from '../static/svgs/logo_formidable_white.png';
-import styled from 'styled-components';
 
 const Container = styled.header`
   background: #3b3b3b;

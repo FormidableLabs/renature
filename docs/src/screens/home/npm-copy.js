@@ -43,7 +43,7 @@ const HeroNPMButton = styled.button`
   text-transform: uppercase;
   cursor: copy;
   &:hover {
-    background: #fc6986;
+    background: ${({ theme }) => theme.colors.linkLightHover};
   }
 `;
 
@@ -52,7 +52,7 @@ class NpmCopy extends React.Component {
     super();
     this.state = {
       animating: false,
-      copied: false
+      copied: false,
     };
     this.handleCopy = this.copy.bind(this);
   }
@@ -85,7 +85,7 @@ class NpmCopy extends React.Component {
 }
 
 NpmCopy.propTypes = {
-  text: PropTypes.string
+  text: PropTypes.string,
 };
 
 export default NpmCopy;
