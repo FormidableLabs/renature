@@ -1,7 +1,7 @@
 import React from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
-import { useGravity2D, vector as Vector } from '../src';
+import { useGravity2D } from '../src';
 import './index.css';
 
 export default {
@@ -10,7 +10,7 @@ export default {
 };
 
 export const Gravity2DBasic: React.FC = () => {
-  const [center, setCenter] = React.useState<Vector<number>>([0, 0]);
+  const [center, setCenter] = React.useState<[number, number]>([0, 0]);
 
   React.useLayoutEffect(() => {
     const root = document.getElementById('root');

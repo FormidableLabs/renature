@@ -1,43 +1,48 @@
+<div align="center">
+  <img width="300" alt="renature" src="https://raw.githubusercontent.com/FormidableLabs/renature/master/docs/src/static/pngs/badge_renature@2x.png" />
+
+  <br />
+  <br />
+
+  <strong>
+    A physics-based animation library for React inspired by the natural world.
+  </strong>
+
+  <br />
+  <br />
+  <a href="https://npmjs.com/package/renature">
+    <img alt="NPM Version" src="https://img.shields.io/npm/v/renature.svg" />
+  </a>
+  <a href="https://travis-ci.com/FormidableLabs/renature">
+    <img alt="Test Status" src="https://api.travis-ci.com/FormidableLabs/renature.svg?branch=master" />
+  </a>
+  <a href="https://bundlephobia.com/result?p=renature">
+    <img alt="Minified gzip size" src="https://img.shields.io/bundlephobia/minzip/renature.svg?label=gzip%20size" />
+  </a>
+  <a href="https://github.com/FormidableLabs/renature#maintenance-status">
+    <img alt="Maintenance Status" src="https://img.shields.io/badge/maintenance-active-green.svg" />
+  </a>
+
+  <br />
+  <br />
+</div>
+
 # `renature`
 
 `renature` is a physics-based animation library for React focused on modeling natural world forces like gravity, friction, and fluid dynamics, exposed as a set of React hooks.
 
-## ⚠️ Disclaimer
+## ✨Features
 
-This project is currently under active development and is **not at all** ready for external use. It is being developed as part of Formidable's [Open Source Fellowship Program](https://formidable.com/blog/2019/fellowship/) and is currently slated to release in mid-January. Keep checking back in on the repo to check in on progress and get involved in development.
+- 🎣 A small set of declarative React hooks for animating with ease.
+- 🌌 Support for non-traditional physics-based animations using gravity, friction, fluid resistance, and more.
+- 🧮 Mathematically accurate and type-safe physics, powered by [ReasonML](https://reasonml.github.io/).
+- 🔁 Start, stop, delay, and loop animations with our Controller API.
+- 0️⃣ A tiny animation library with zero dependencies!
 
-## Local Development
+## 📃Documentation
 
-To work on `renature` locally, first clone the repo and install dependencies:
+Our documentation is currently in progress and will be available as a separate site soon. You can view it in its current state in our [docs folder](/docs/content/getting-started.md).
 
-```sh
-git clone git@github.com:FormidableLabs/renature.git
-cd renature
-npm install
-# or
-yarn
-```
+## Maintenance Status
 
-To compile the Reason source to JavaScript:
-
-```sh
-npm run build
-# or
-yarn build
-```
-
-To compile the Reason source to JavaScript and watch for changes:
-
-```sh
-npm run start
-# or
-yarn start
-```
-
-To clean past build artifacts:
-
-```sh
-npm run clean
-# or
-yarn clean
-```
+**Active:** Formidable is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome.

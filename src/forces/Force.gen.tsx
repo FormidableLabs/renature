@@ -24,6 +24,6 @@ export const applyForce: (_1:{
   readonly entity: entity; 
   readonly time: number
 }) => entity = function (Arg1: any) {
-  const result = Curry._3(ForceBS.applyForce, Arg1.force, [Arg1.entity.mass, Arg1.entity.acceleration, Arg1.entity.velocity, Arg1.entity.position], Arg1.time);
-  return {mass:result[0], acceleration:result[1], velocity:result[2], position:result[3]}
+  const result = Curry._3(ForceBS.applyForce, Arg1.force, Arg1.entity, Arg1.time);
+  return result
 };

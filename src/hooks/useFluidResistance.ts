@@ -11,7 +11,7 @@ import { getFluidPositionAtTerminalVelocity } from '../forces';
 type UseFluidResistanceArgs = CSSPairs &
   Omit<FluidResistance1DParams, 'onComplete' | 'onUpdate'>;
 
-export const useFluidResistance = <M extends HTMLElement>({
+export const useFluidResistance = <M extends HTMLElement = any>({
   from,
   to,
   config,
@@ -28,7 +28,7 @@ export const useFluidResistance = <M extends HTMLElement>({
    * is what allows us to directly update the style property
    * without triggering rerenders.
    */
-  const ref = React.useRef<M>(null);
+  const ref = React.useRef<M | null>(null);
 
   const { controller } = React.useMemo(() => {
     const interpolators = getInterpolatorsForPairs({ from, to });
@@ -73,21 +73,26 @@ export const useFluidResistance = <M extends HTMLElement>({
   });
 
   React.useLayoutEffect(() => {
+    const ctrl = controllerRef;
+
     if (immediate && !delay) {
       const { stop } = controller.start();
-      controllerRef.current.stop = stop;
+      ctrl.current.stop = stop;
     }
 
     let timerId: NodeJS.Timeout;
     if (immediate && delay) {
       timerId = setTimeout(() => {
         const { stop } = controller.start();
-        controllerRef.current.stop = stop;
+        ctrl.current.stop = stop;
       }, delay);
     }
 
     return () => {
       timerId && clearTimeout(timerId);
+
+      // Ensure we cancel any running animation on unmount.
+      ctrl.current.stop();
     };
   }, [immediate, delay, controller]);
 

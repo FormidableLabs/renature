@@ -1,8 +1,15 @@
 {
   "name": "renature",
   "version": "0.1.0",
+  "description": "A physics-based animation library for React inspired by the natural world.",
+  "repository": "https://www.github.com/FormidableLabs/renature",
+  "bugs": {
+    "url": "https://github.com/FormidableLabs/renature/issues"
+  },
+  "homepage": "https://formidable.com/open-source/renature",
   "main": "dist/cjs/renature.js",
-  "module": "dist/es/renature.js",
+  "module": "dist/esm/renature.esm.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "clean:re": "bsb -clean-world",
     "build:re": "bsb -make-world",
@@ -10,10 +17,12 @@
     "build:ts": "tsc",
     "check:ts": "tsc --noEmit",
     "build": "rollup -c rollup.config.js",
-    "lint": "eslint src/**/*.ts",
+    "clean": "rimraf ./dist ./node_modules/.cache",
     "format": "prettier --write src/**/*.ts",
-    "test": "jest",
-    "storybook": "start-storybook -p 6006"
+    "lint": "eslint src/**/*.ts",
+    "preversion": "run-s clean:re clean build:re check:ts lint test build",
+    "storybook": "start-storybook -p 6006",
+    "test": "jest"
   },
   "keywords": [
     "ReasonML",
@@ -36,7 +45,6 @@
     "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "@rollup/plugin-replace": "^2.3.0",
-    "@rollup/plugin-typescript": "^2.1.0",
     "@storybook/addon-actions": "^5.2.8",
     "@storybook/addon-knobs": "^5.2.8",
     "@storybook/addon-links": "^5.2.8",
@@ -49,7 +57,7 @@
     "@typescript-eslint/parser": "^2.11.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
-    "bs-platform": "^6.2.1",
+    "bs-platform": "^7.0.1",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-react": "^7.17.0",
@@ -64,6 +72,7 @@
     "rollup": "^1.29.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-terser": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.25.3",
     "typescript": "^3.7.3"
   },
   "peerDependencies": {

@@ -11,10 +11,7 @@ const Interpolate_unitBS = require('./Interpolate_unit.bs');
 // tslint:disable-next-line:interface-over-type-literal
 export type cssUnit = { readonly num: number; readonly unit: (null | undefined | string) };
 
-export const parseUnit: (_1:string) => cssUnit = function (Arg1: any) {
-  const result = Interpolate_unitBS.parseUnit(Arg1);
-  return {num:result[0], unit:result[1]}
-};
+export const parseUnit: (_1:string) => cssUnit = Interpolate_unitBS.parseUnit;
 
 export const remapUnit: (_1:{
   readonly range: [number, number]; 

@@ -23,7 +23,7 @@ export const useGravity2D = <M extends HTMLElement = any>({
    * is what allows us to directly update the style property
    * without triggering rerenders.
    */
-  const moverRef = React.useRef<M>(null);
+  const moverRef = React.useRef<M | null>(null);
 
   const { controller } = React.useMemo(
     () =>

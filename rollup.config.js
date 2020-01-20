@@ -1,7 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
-import typescript from '@rollup/plugin-typescript';
+import typescript from 'rollup-plugin-typescript2';
 import buble from '@rollup/plugin-buble';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
@@ -54,6 +54,27 @@ const terserMinified = terser({
   },
 });
 
+const importAllPlugin = ({ types: t }) => ({
+  visitor: {
+    VariableDeclarator(path) {
+      if (
+        t.isIdentifier(path.node.id) &&
+        t.isCallExpression(path.node.init) &&
+        t.isIdentifier(path.node.init.callee) &&
+        path.node.init.callee.name === 'require' &&
+        path.node.init.arguments.length === 1
+      ) {
+        path.parentPath.replaceWith(
+          t.importDeclaration(
+            [t.importNamespaceSpecifier(path.node.id)],
+            path.node.init.arguments[0]
+          )
+        );
+      }
+    },
+  },
+});
+
 const makePlugins = isProduction =>
   [
     resolve({
@@ -68,7 +89,21 @@ const makePlugins = isProduction =>
       },
     }),
     typescript({
-      typescript: require('typescript'),
+      useTsconfigDeclarationDir: true,
+      tsconfigDefaults: {
+        compilerOptions: {
+          sourceMap: true,
+        },
+      },
+      tsconfigOverride: {
+        compilerOptions: {
+          declaration: !isProduction,
+          declarationDir: './dist/types',
+          target: 'es6',
+        },
+        include: ['src/**/*.ts'],
+        exclude: ['__tests__/**/*.ts', 'stories/**/*.tsx'],
+      },
     }),
     buble({
       transforms: {
@@ -84,7 +119,7 @@ const makePlugins = isProduction =>
       extensions,
       include: ['src/**/*'],
       exclude: 'node_modules/**',
-      plugins: ['@babel/plugin-transform-object-assign'],
+      plugins: ['@babel/plugin-transform-object-assign', importAllPlugin],
     }),
     isProduction &&
       replace({
@@ -101,12 +136,12 @@ export default [
     output: [
       {
         sourceMap: true,
-        file: `./dist/${name}.js`,
+        file: `./dist/cjs/${name}.js`,
         format: 'cjs',
       },
       {
         sourceMap: true,
-        file: `./dist/${name}.es.js`,
+        file: `./dist/esm/${name}.esm.js`,
         format: 'esm',
       },
     ],
@@ -118,12 +153,12 @@ export default [
     output: [
       {
         sourceMap: false,
-        file: `./dist/${name}.min.js`,
+        file: `./dist/cjs/${name}.min.js`,
         format: 'cjs',
       },
       {
         sourceMap: false,
-        file: `./dist/${name}.es.min.js`,
+        file: `./dist/esm/${name}.esm.min.js`,
         format: 'esm',
       },
     ],

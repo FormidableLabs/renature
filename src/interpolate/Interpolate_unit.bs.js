@@ -48,25 +48,25 @@ function parseUnit(value) {
   var param = value.replace(Utils.sof(num), "");
   var unit = Js_mapperRt.revSearch(9, jsMapperConstantArray, param);
   if (unit !== undefined) {
-    return /* record */[
-            /* num */num,
-            /* unit */Js_mapperRt.binarySearch(9, unit, jsMapperConstantArray)
-          ];
+    return {
+            num: num,
+            unit: Js_mapperRt.binarySearch(9, unit, jsMapperConstantArray)
+          };
   } else {
-    return /* record */[
-            /* num */num,
-            /* unit */null
-          ];
+    return {
+            num: num,
+            unit: null
+          };
   }
 }
 
 function remapUnit(param, param$1, value) {
   var rl = param[0];
   var match = parseUnit(param$1[0]);
-  var dlUnit = match[/* unit */1];
+  var dlUnit = match.unit;
   var match$1 = parseUnit(param$1[1]);
   var progress = (value - rl) / (param[1] - rl);
-  var output = Interpolate_number.lerpf(match[/* num */0], match$1[/* num */0], progress);
+  var output = Interpolate_number.lerpf(match.num, match$1.num, progress);
   if (dlUnit == null) {
     return Utils.sof(output);
   } else {

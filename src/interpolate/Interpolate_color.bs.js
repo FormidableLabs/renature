@@ -4,22 +4,22 @@ import * as Utils from "../core/Utils.bs.js";
 import * as Interpolate_number from "./Interpolate_number.bs.js";
 
 function lerpColorRGBA(acc, target, roundness) {
-  return /* record */[
-          /* r */Interpolate_number.lerpf(acc[/* r */0], target[/* r */0], roundness),
-          /* g */Interpolate_number.lerpf(acc[/* g */1], target[/* g */1], roundness),
-          /* b */Interpolate_number.lerpf(acc[/* b */2], target[/* b */2], roundness),
-          /* a */Interpolate_number.lerpf(acc[/* a */3], target[/* a */3], roundness)
-        ];
+  return {
+          r: Interpolate_number.lerpf(acc.r, target.r, roundness),
+          g: Interpolate_number.lerpf(acc.g, target.g, roundness),
+          b: Interpolate_number.lerpf(acc.b, target.b, roundness),
+          a: Interpolate_number.lerpf(acc.a, target.a, roundness)
+        };
 }
 
 function remapColor(param, param$1, value) {
   var rl = param[0];
   var progress = (value - rl) / (param[1] - rl);
   var match = lerpColorRGBA(param$1[0], param$1[1], progress);
-  var rInt = Utils.iof(match[/* r */0]);
-  var gInt = Utils.iof(match[/* g */1]);
-  var bInt = Utils.iof(match[/* b */2]);
-  return "rgba(" + (String(rInt) + (", " + (String(gInt) + (", " + (String(bInt) + (", " + (String(match[/* a */3]) + ")")))))));
+  var rInt = Utils.iof(match.r);
+  var gInt = Utils.iof(match.g);
+  var bInt = Utils.iof(match.b);
+  return "rgba(" + (String(rInt) + (", " + (String(gInt) + (", " + (String(bInt) + (", " + (String(match.a) + ")")))))));
 }
 
 export {

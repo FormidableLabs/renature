@@ -87,10 +87,10 @@ function parseTransformSingle(transform) {
   }
   catch (exn){
     if (exn === Caml_builtin_exceptions.not_found) {
-      return /* array */[/* record */[
-                /* transform */transform,
-                /* transformProperty */null
-              ]];
+      return /* array */[{
+                transform: transform,
+                transformProperty: null
+              }];
     } else {
       throw exn;
     }
@@ -104,10 +104,10 @@ function parseTransformSingle(transform) {
     }
     catch (exn$1){
       if (exn$1 === Caml_builtin_exceptions.not_found) {
-        return /* array */[/* record */[
-                  /* transform */transform,
-                  /* transformProperty */null
-                ]];
+        return /* array */[{
+                  transform: transform,
+                  transformProperty: null
+                }];
       } else {
         throw exn$1;
       }
@@ -124,10 +124,10 @@ function parseTransformSingle(transform) {
         }
         catch (exn$2){
           if (exn$2 === Caml_builtin_exceptions.not_found) {
-            return /* array */[/* record */[
-                      /* transform */value,
-                      /* transformProperty */Js_mapperRt.binarySearch(17, p, jsMapperConstantArray)
-                    ]];
+            return /* array */[{
+                      transform: value,
+                      transformProperty: Js_mapperRt.binarySearch(17, p, jsMapperConstantArray)
+                    }];
           } else {
             throw exn$2;
           }
@@ -144,20 +144,20 @@ function parseTransformSingle(transform) {
                 })(idx + 1 | 0)(closeParens).trim();
         var tp = Js_mapperRt.binarySearch(17, p, jsMapperConstantArray);
         return /* array */[
-                /* record */[
-                  /* transform */x,
-                  /* transformProperty */tp
-                ],
-                /* record */[
-                  /* transform */y,
-                  /* transformProperty */tp
-                ]
+                {
+                  transform: x,
+                  transformProperty: tp
+                },
+                {
+                  transform: y,
+                  transformProperty: tp
+                }
               ];
       } else {
-        return /* array */[/* record */[
-                  /* transform */transform,
-                  /* transformProperty */null
-                ]];
+        return /* array */[{
+                  transform: transform,
+                  transformProperty: null
+                }];
       }
     }
     
@@ -170,24 +170,26 @@ function remapTransformSingle(param, param$1, value) {
   var rl = param[0];
   var dlTransforms = parseTransformSingle(param$1[0]);
   var dhTransforms = parseTransformSingle(param$1[1]);
-  var transformProperty = /* record */[/* contents */""];
+  var transformProperty = {
+    contents: ""
+  };
   var transforms = $$Array.mapi((function (idx, param) {
-            var dlTp = param[/* transformProperty */1];
+            var dlTp = param.transformProperty;
             var match = Caml_array.caml_array_get(dhTransforms, idx);
-            if (!(dlTp == null) && !(match[/* transformProperty */1] == null)) {
-              transformProperty[0] = dlTp;
+            if (!(dlTp == null) && !(match.transformProperty == null)) {
+              transformProperty.contents = dlTp;
               return Interpolate_unit.remapUnit(/* tuple */[
                           rl,
                           rh
                         ], /* tuple */[
-                          param[/* transform */0],
-                          match[/* transform */0]
+                          param.transform,
+                          match.transform
                         ], value);
             } else {
               return "";
             }
           }), dlTransforms).join(", ");
-  return transformProperty[0] + ("(" + (transforms + ")"));
+  return transformProperty.contents + ("(" + (transforms + ")"));
 }
 
 var transformsRe = (/(\w+)\((.+?)\)/g);

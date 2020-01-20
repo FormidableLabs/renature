@@ -21,8 +21,8 @@ export const lerpColorRGBA: (_1:{
   readonly target: rgba<number>; 
   readonly roundness: number
 }) => rgba<number> = function (Arg1: any) {
-  const result = Curry._3(Interpolate_colorBS.lerpColorRGBA, [Arg1.acc.r, Arg1.acc.g, Arg1.acc.b, Arg1.acc.a], [Arg1.target.r, Arg1.target.g, Arg1.target.b, Arg1.target.a], Arg1.roundness);
-  return {r:result[0], g:result[1], b:result[2], a:result[3]}
+  const result = Curry._3(Interpolate_colorBS.lerpColorRGBA, Arg1.acc, Arg1.target, Arg1.roundness);
+  return result
 };
 
 export const remapColor: (_1:{
@@ -30,6 +30,6 @@ export const remapColor: (_1:{
   readonly domain: [rgba<number>, rgba<number>]; 
   readonly value: number
 }) => string = function (Arg1: any) {
-  const result = Curry._3(Interpolate_colorBS.remapColor, Arg1.range, [[Arg1.domain[0].r, Arg1.domain[0].g, Arg1.domain[0].b, Arg1.domain[0].a], [Arg1.domain[1].r, Arg1.domain[1].g, Arg1.domain[1].b, Arg1.domain[1].a]], Arg1.value);
+  const result = Curry._3(Interpolate_colorBS.remapColor, Arg1.range, Arg1.domain, Arg1.value);
   return result
 };
