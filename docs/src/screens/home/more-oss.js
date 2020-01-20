@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { ProjectBadge } from 'formidable-oss-badges';
 import styled from 'styled-components';
 import { BodyCopy } from '../../components/body-copy';
@@ -7,19 +8,7 @@ import { Button } from '../../components/button';
 import { SecondaryTitle } from '../../components/secondary-title';
 import { SectionTitle } from '../../components/section-title';
 import { Wrapper } from '../../components/wrapper';
-
-const OuterWrapper = styled.div`
-  background-color: #000000;
-  background-size: 100% 100%;
-  color: white;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-`;
-
-const StyledSectionTitle = styled(SectionTitle)`
-  color: #ffffff;
-`;
+import { theme } from '../../theme';
 
 const OSSCard = styled.div`
   margin: 0 auto 4rem;
@@ -102,11 +91,6 @@ const SectionWrapper = styled(Wrapper)`
   }
 `;
 
-const ButtonStyled = styled(Button)`
-  margin-bottom: 0;
-  margin-top: 0;
-`;
-
 const StyledBodyCopy = styled(BodyCopy)`
   color: #ffffff;
   @media (min-width: 768px) {
@@ -114,41 +98,52 @@ const StyledBodyCopy = styled(BodyCopy)`
   }
 `;
 
-const MoreOSS = ({ ossArray }) => (
-  <OuterWrapper>
-    <SectionWrapper>
-      <StyledSectionTitle>More Open Source from Formidable</StyledSectionTitle>
-      {ossArray.map(card => (
-        <OSSCard key={card.title}>
+const MoreOSS = ({ oss }) => (
+  <SectionWrapper background={theme.colors.backgroundFullDark}>
+    <SectionTitle color={theme.colors.textLight}>
+      More Open Source from Formidable
+    </SectionTitle>
+    {oss.map(card => (
+      <OSSCard key={card.title}>
+        <OSSLink href={card.link}>
+          {card.hasOwnLogo ? (
+            <OSSImage src={card.logo} />
+          ) : (
+            <StyledProjectBadge
+              color={card.color}
+              number={card.number}
+              abbreviation={card.abbreviation}
+              description={card.title}
+            />
+          )}
+        </OSSLink>
+        <OSSCopyContainer>
           <OSSLink href={card.link}>
-            {card.hasOwnLogo ? (
-              <OSSImage src={card.logo} />
-            ) : (
-              <StyledProjectBadge
-                color={card.color}
-                number={card.number}
-                abbreviation={card.abbreviation}
-                description={card.title}
-              />
-            )}
+            <SecondaryTitleStyled>{card.title}</SecondaryTitleStyled>
           </OSSLink>
-          <OSSCopyContainer>
-            <OSSLink href={card.link}>
-              <SecondaryTitleStyled>{card.title}</SecondaryTitleStyled>
-            </OSSLink>
-            <StyledBodyCopy>{card.description}</StyledBodyCopy>
-          </OSSCopyContainer>
-        </OSSCard>
-      ))}
-      <Button light noMargin to="https://formidable.com/open-source/">
-        View All
-      </Button>
-    </SectionWrapper>
-  </OuterWrapper>
+          <StyledBodyCopy>{card.description}</StyledBodyCopy>
+        </OSSCopyContainer>
+      </OSSCard>
+    ))}
+    <Button light noMargin to="https://formidable.com/open-source/">
+      View All
+    </Button>
+  </SectionWrapper>
 );
 
 MoreOSS.propTypes = {
-  ossArray: PropTypes.array,
+  oss: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      hasOwnLogo: PropTypes.bool,
+      logo: PropTypes.string,
+      color: PropTypes.string,
+      number: PropTypes.string,
+      abbreviation: PropTypes.string,
+    }).isRequired
+  ).isRequired,
 };
 
 export default MoreOSS;

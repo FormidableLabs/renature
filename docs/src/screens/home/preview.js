@@ -1,26 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { BodyCopy } from '../../components/body-copy';
-import { SectionTitle } from '../../components/section-title';
-import { Wrapper } from '../../components/wrapper';
-
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import { defaultProps } from 'prism-react-renderer';
-import { useFriction } from 'renature';
-
-console.log({ useFriction });
-
-const OuterWrapper = styled.div`
-  background: #f3f3f3;
-`;
-
-const Video = styled.video`
-  width: 100%;
-  @media (max-width: 768px) {
-    margin: 0 0 2rem 0;
-  }
-`;
+import { Wrapper } from '../../components/wrapper';
+import { SectionTitle } from '../../components/section-title';
+import { theme } from '../../theme';
+import { BodyCopy } from '../../components/body-copy';
 
 const LiveWrapper = styled.div`
   display: flex;
@@ -86,40 +72,28 @@ const StyledError = styled(LiveError)`
   font-family: 'Source Code Pro', monospace;
 `;
 
-class Preview extends React.Component {
-  render() {
-    const { previewObj } = this.props;
+const Preview = () => (
+  <Wrapper background={theme.colors.backgroundGradient}>
+    <SectionTitle color={theme.colors.textLight} compact>
+      Beautiful, Simple Animations
+    </SectionTitle>
+    <BodyCopy color={theme.colors.textLight}>
+      Renature is all about bringing joy and whimsy to UI animation.
+    </BodyCopy>
+    <LiveProvider
+      code={`<strong>Hey There</strong>`}
+      theme={defaultProps.theme}
+    >
+      <LiveWrapper>
+        <StyledEditor>
+          <LiveEditor />
+        </StyledEditor>
+        <StyledPreview />
+      </LiveWrapper>
 
-    return (
-      // <OuterWrapper>
-      //   <Wrapper>
-      //     <SectionTitle>Code Preview</SectionTitle>
-      //     <BodyCopy>{previewObj.description}</BodyCopy>
-      //     <Video autoPlay muted loop poster="./static/bg-still.png">
-      //       <source src="./static/bg-demo.webm" type="video/webm" />
-      //       <source src="./static/bg-demo.mp4" type="video/mp4" />
-      //     </Video>
-      //   </Wrapper>
-      // </OuterWrapper>
-      <LiveProvider
-        code={`<strong>Hey There</strong>`}
-        theme={defaultProps.theme}
-      >
-        <LiveWrapper>
-          <StyledEditor>
-            <LiveEditor />
-          </StyledEditor>
-          <StyledPreview />
-        </LiveWrapper>
-
-        <StyledError />
-      </LiveProvider>
-    );
-  }
-}
-
-Preview.propTypes = {
-  previewObj: PropTypes.object,
-};
+      <StyledError />
+    </LiveProvider>
+  </Wrapper>
+);
 
 export default Preview;

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { BounceAnimation } from '../../components/bounce-animation';
 import styled from 'styled-components';
+
+import { BounceAnimation } from '../../components/bounce-animation';
 
 const HeroNPMWrapper = styled.div`
   flex-direction: row;
@@ -47,45 +48,40 @@ const HeroNPMButton = styled.button`
   }
 `;
 
-class NpmCopy extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      animating: false,
-      copied: false,
-    };
-    this.handleCopy = this.copy.bind(this);
-  }
+const NpmCopy = ({ text }) => {
+  const [animating, setAnimating] = React.useState(false);
+  const [copied, setCopied] = React.useState(false);
 
-  copy(e) {
-    e.preventDefault();
-    this.setState({ animating: true, copied: true });
-    setTimeout(() => {
-      this.setState({ animating: false });
-    }, '100');
-    setTimeout(() => {
-      this.setState({ copied: false });
-    }, '3000');
-  }
+  const handleCopy = React.useCallback(ev => {
+    ev.preventDefault();
+    setAnimating(true);
+    setCopied(true);
 
-  render() {
-    return (
-      <CopyToClipboard text={this.props.text}>
-        <HeroNPMWrapper>
-          <HeroNPMCopy>{this.props.text}</HeroNPMCopy>
-          <HeroNPMButton onClick={this.handleCopy}>
-            <BounceAnimation bouncing={this.state.animating}>
-              {this.state.copied ? 'Copied' : 'Copy'}
-            </BounceAnimation>
-          </HeroNPMButton>
-        </HeroNPMWrapper>
-      </CopyToClipboard>
-    );
-  }
-}
+    setTimeout(() => {
+      setAnimating(false);
+    }, 200);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 3000);
+  }, []);
+
+  return (
+    <CopyToClipboard text={text}>
+      <HeroNPMWrapper>
+        <HeroNPMCopy>{text}</HeroNPMCopy>
+        <HeroNPMButton onClick={handleCopy}>
+          <BounceAnimation bouncing={animating}>
+            {copied ? 'Copied' : 'Copy'}
+          </BounceAnimation>
+        </HeroNPMButton>
+      </HeroNPMWrapper>
+    </CopyToClipboard>
+  );
+};
 
 NpmCopy.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.string.isRequired,
 };
 
 export default NpmCopy;

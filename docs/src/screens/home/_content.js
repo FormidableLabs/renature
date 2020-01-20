@@ -21,10 +21,6 @@ const content = {
       icon: require('../../static/features/feature-3.svg'),
     },
   ],
-  preview: {
-    description: '',
-    media: '',
-  },
   getStarted: {
     description:
       'Renature comes equipped with a lightweight set of production ready React hooks. Dig into the documentation to start animating!',

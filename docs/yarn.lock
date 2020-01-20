@@ -8975,10 +8975,6 @@ remove-trailing-separator@^1.0.1:
   resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.1.0.tgz#c24bce2a283adad5bc3f58e0d48249b92379d8ef"
   integrity sha1-wkvOKig62tW8P1jg1IJJuSN52O8=
 
-"renature@https://github.pika.dev/FormidableLabs/renature/pr/22":
-  version "0.1.0"
-  resolved "https://github.pika.dev/FormidableLabs/renature/pr/22#f10bfe443fcb7d68053ee3c7f3c9ae62352ae04e"
-
 renderkid@^2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/renderkid/-/renderkid-2.0.3.tgz#380179c2ff5ae1365c522bf2fcfcff01c5b74149"

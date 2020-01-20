@@ -3,24 +3,23 @@ import { Link } from 'react-static';
 import styled from 'styled-components';
 
 import { Wrapper } from '../../components/wrapper';
-import badge from '../../static/pngs/badge_renature@2x.png';
 import NpmCopy from './npm-copy';
 
+import badge from '../../static/pngs/badge_renature@2x.png';
+
 const HeroContent = styled.div`
-  align-items: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  position: relative;
   flex-wrap: wrap;
   margin-top: 5rem;
   padding: 0;
-  position: relative;
   text-align: left;
   width: 100%;
 
   @media (min-width: 768px) {
     display: grid;
-    grid-template-columns: 3fr 0.5fr 4fr;
-    grid-template-rows: repeat(5, 1fr);
     grid-template-areas:
       'a . b'
       'a . b'
@@ -33,16 +32,21 @@ const HeroContent = styled.div`
 
 const HeroTitle = styled.h1`
   font-size: 4rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.25rem;
   margin: 0 0 2rem;
   text-align: center;
   text-transform: uppercase;
   width: 100%;
 
   @media (min-width: 768px) {
-    font-size: 8rem;
-    margin: 4rem 0 2rem;
+    font-size: 6.5rem;
     text-align: left;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 9rem;
+    text-align: left;
+    margin: 4rem 0 2rem;
   }
 `;
 
@@ -68,13 +72,15 @@ const HeroLogo = styled.img`
   position: relative;
 
   @media (min-width: 768px) {
-    max-width: 40rem;
+    width: 30rem;
     grid-area: a;
     align-self: flex-start;
+    justify-self: flex-end;
+    max-width: initial;
   }
 
   @media (min-width: 1024px) {
-    max-width: initial;
+    width: 36rem;
   }
 `;
 
@@ -87,27 +93,29 @@ const HeroNavList = styled.ul`
   list-style: none;
   padding: 2rem 0 0;
   text-align: center;
-  width: 100%;
+  width: auto;
   box-sizing: border-box;
 
   @media (min-width: 768px) {
     grid-area: d;
-    margin: 2.2rem 6rem 0;
-    width: calc(100% - 12rem);
+    margin: 6rem auto;
+    width: 100%;
+    max-width: 82rem;
   }
 
   @media (min-width: 1024px) {
     grid-area: c;
     margin: 2.2rem 0 0;
     width: 100%;
-    border-top-color: #ffffff;
+    max-width: 52rem;
+    border-top-color: ${({ theme }) => theme.colors.textLight};
   }
 
   & li a {
-    color: white;
+    color: ${({ theme }) => theme.colors.textLight};
     display: inline-block;
     font-size: 1.7rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1rem;
     margin: 0 2rem;
     transition: opacity 0.4s;
     text-transform: uppercase;
@@ -123,11 +131,13 @@ const HeroButtonsWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   display: flex;
-  @media (min-width: 1024px) {
-    flex-direction: row;
-  }
+
   @media (max-width: 768px) {
     align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
   }
 `;
 
@@ -135,32 +145,45 @@ const HeroDocsButton = styled(Link)`
   width: 30rem;
   margin-left: 0rem;
   height: 4rem;
-  font-size: 14px;
-  background: #ffffff;
+  font-size: 1.4rem;
+  background: ${({ theme }) => theme.colors.textLight};
   transition: background 0.4s;
   line-height: 4rem;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.1rem;
   color: #383838;
   border: 0;
   margin-top: 1.2rem;
+
   @media (min-width: 768px) {
     margin-top: 2rem;
     width: 30rem;
   }
+
   @media (min-width: 1024px) {
     margin-top: 0;
     margin-left: 2rem;
     width: 18rem;
   }
+
   &:hover {
     background: ${({ theme }) => theme.colors.linkLightHover};
   }
 `;
 
 const HeroBodyAndButtons = styled.div`
-  grid-area: b;
+  @media (min-width: 768px) {
+    grid-area: b;
+    max-width: 52rem;
+    margin-left: 6rem;
+  }
+
+  @media (min-width: 1024px) {
+    grid-area: b;
+    max-width: 52rem;
+    margin-left: 0rem;
+  }
 `;
 
 class Hero extends React.Component {
@@ -170,7 +193,7 @@ class Hero extends React.Component {
 
   render() {
     return (
-      <Wrapper noPadding>
+      <Wrapper noPadding background="transparent">
         <HeroContent>
           <HeroLogo src={badge} />
           <HeroBodyAndButtons>
