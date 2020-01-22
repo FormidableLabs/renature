@@ -3,22 +3,22 @@
   "short_name": "",
   "icons": [
     {
-      "src": "./static/favicon/Favicon32.png",
+      "src": "./favicon/Favicon32.png",
       "sizes": "32x32",
       "type": "image/png"
     },
     {
-      "src": "./static/favicon/Favicon48.png",
+      "src": "./favicon/Favicon48.png",
       "sizes": "48x48",
       "type": "image/png"
     },
     {
-      "src": "./static/favicon/Favicon128.png",
+      "src": "./favicon/Favicon128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "./static/favicon/Favicon32.png",
+      "src": "./favicon/Favicon32.png",
       "sizes": "144x144",
       "type": "image/png"
     }

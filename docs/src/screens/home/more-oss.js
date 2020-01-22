@@ -19,11 +19,23 @@ const OSSCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   @media (min-width: 768px) {
-    width: calc(1 / 2 * 100% - (1 - 1 / 2) * 80px);
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 6rem;
+  }
+`;
+
+const OSSCardContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  max-width: 116rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
   }
 `;
 
@@ -31,13 +43,10 @@ const OSSImage = styled.img`
   left: 0;
   position: relative;
   top: 2rem;
+  height: 18rem;
   width: 18rem;
   max-width: none;
   padding: 13% 12%;
-  @media (min-width: 1024px) {
-    padding: 14px;
-    width: 14rem;
-  }
 `;
 
 const OSSLink = styled.a`
@@ -53,10 +62,8 @@ const StyledProjectBadge = styled(ProjectBadge)`
   left: 0;
   position: relative;
   top: 2rem;
+  height: 18rem;
   width: 18rem;
-  @media (min-width: 1024px) {
-    width: 14rem;
-  }
 `;
 
 const OSSCopyContainer = styled.div`
@@ -80,10 +87,13 @@ const SecondaryTitleStyled = styled(SecondaryTitle)`
 `;
 
 const SectionWrapper = styled(Wrapper)`
+  flex-direction: column !important;
   padding: 8rem 0rem;
+
   h2 {
     margin-top: 0rem;
   }
+
   @media (max-width: 768px) {
     p {
       text-align: center;
@@ -103,28 +113,30 @@ const MoreOSS = ({ oss }) => (
     <SectionTitle color={theme.colors.textLight}>
       More Open Source from Formidable
     </SectionTitle>
-    {oss.map(card => (
-      <OSSCard key={card.title}>
-        <OSSLink href={card.link}>
-          {card.hasOwnLogo ? (
-            <OSSImage src={card.logo} />
-          ) : (
-            <StyledProjectBadge
-              color={card.color}
-              number={card.number}
-              abbreviation={card.abbreviation}
-              description={card.title}
-            />
-          )}
-        </OSSLink>
-        <OSSCopyContainer>
+    <OSSCardContainer>
+      {oss.map(card => (
+        <OSSCard key={card.title}>
           <OSSLink href={card.link}>
-            <SecondaryTitleStyled>{card.title}</SecondaryTitleStyled>
+            {card.hasOwnLogo ? (
+              <OSSImage src={card.logo} />
+            ) : (
+              <StyledProjectBadge
+                color={card.color}
+                number={card.number}
+                abbreviation={card.abbreviation}
+                description={card.title}
+              />
+            )}
           </OSSLink>
-          <StyledBodyCopy>{card.description}</StyledBodyCopy>
-        </OSSCopyContainer>
-      </OSSCard>
-    ))}
+          <OSSCopyContainer>
+            <OSSLink href={card.link}>
+              <SecondaryTitleStyled>{card.title}</SecondaryTitleStyled>
+            </OSSLink>
+            <StyledBodyCopy>{card.description}</StyledBodyCopy>
+          </OSSCopyContainer>
+        </OSSCard>
+      ))}
+    </OSSCardContainer>
     <Button light noMargin to="https://formidable.com/open-source/">
       View All
     </Button>

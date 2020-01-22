@@ -18,7 +18,7 @@ export const Button = styled(Link)`
   min-width: 10rem;
   text-align: center;
   text-transform: uppercase;
-  transition: background 0.4s;
+  transition: background 0.4s ease-out;
   width: 100%;
 
   &:hover {
@@ -34,5 +34,5 @@ export const Button = styled(Link)`
 Button.propTypes = {
   to: PropTypes.string.isRequired,
   light: PropTypes.bool,
-  noMargin: PropTypes.number,
+  noMargin: PropTypes.bool,
 };

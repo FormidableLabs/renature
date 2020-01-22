@@ -42,7 +42,6 @@
     "react-dom": "^16.12.0",
     "react-ga": "^2.4.1",
     "react-hot-loader": "^4.0.0-beta.21",
-    "react-live": "^2.2.2",
     "react-router": "^4.2.0",
     "react-router-ga": "^1.0.0",
     "react-side-effect": "^1.1.5",

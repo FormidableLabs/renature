@@ -15,7 +15,6 @@ export const Wrapper = styled.div`
 
   @media (min-width: 768px) {
     flex-direction: row;
-    max-width: 116rem;
     padding: ${({ noPadding }) => (noPadding ? '0' : '8rem')};
   }
 

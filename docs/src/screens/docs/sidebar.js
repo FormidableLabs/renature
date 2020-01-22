@@ -37,7 +37,6 @@ const ContentWrapper = styled.div`
 const SubContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
 `;
 
 const Wrapper = styled.div`
@@ -59,20 +58,26 @@ const CloseButton = styled.img`
   }
 `;
 
-class Sidebar extends React.Component {
-  renderSidebarItem(item) {
-    const { tocArray } = this.props;
-    const location = this.props.history.location;
+const Sidebar = ({
+  overlay,
+  tocArray,
+  history,
+  closeSidebar,
+  sidebarHeaders,
+}) => {
+  const renderSidebarItem = React.useCallback(item => {
+    const location = history.location;
     const currentPath = `/docs${item.path}` === location.pathname;
     // eslint-disable-next-line no-magic-numbers
     const subContent = tocArray.filter(toc => toc.level === 2);
+
     return (
       <Wrapper key={item.path}>
         <SidebarNavItem
           to={`/docs${item.path}`}
           replace
           key={item.title.split(' ').join('_')}
-          isSelected={currentPath}
+          isSelected={currentPath && !location.hash}
         >
           {item.title}
         </SidebarNavItem>
@@ -97,43 +102,39 @@ class Sidebar extends React.Component {
         )}
       </Wrapper>
     );
-  }
+  }, []);
 
-  render() {
-    const { sidebarHeaders, overlay, closeSidebar } = this.props;
-    return (
-      <SidebarContainer>
-        <SidebarWrapper overlay={overlay}>
-          <CloseButton
-            src={closeButton}
-            alt="X"
-            overlay={overlay}
-            onClick={() => closeSidebar()}
-          />
-          <Link to={'/'}>
-            <HeroLogo src={badge} alt="Renature Home" overlay={overlay} />
-          </Link>
-          <ContentWrapper overlay={overlay}>
-            <SidebarNavItem to={`/#`} key={'home'}>
-              Home
-            </SidebarNavItem>
-            <SidebarNavItem to={`/docs/getting-started`} key={'documentation'}>
-              Documentation
-            </SidebarNavItem>
-            {sidebarHeaders &&
-              sidebarHeaders.map(sh => this.renderSidebarItem(sh))}
-            <SidebarNavItem to={constants.githubIssues} key={'issues'}>
-              Issues
-            </SidebarNavItem>
-            <SidebarNavItem to={constants.github} key={'github'}>
-              Github
-            </SidebarNavItem>
-          </ContentWrapper>
-        </SidebarWrapper>
-      </SidebarContainer>
-    );
-  }
-}
+  return (
+    <SidebarContainer>
+      <SidebarWrapper overlay={overlay}>
+        <CloseButton
+          src={closeButton}
+          alt="X"
+          overlay={overlay}
+          onClick={closeSidebar}
+        />
+        <Link to={'/'}>
+          <HeroLogo src={badge} alt="Renature Home" overlay={overlay} />
+        </Link>
+        <ContentWrapper overlay={overlay}>
+          <SidebarNavItem to={`/#`} key={'home'}>
+            Home
+          </SidebarNavItem>
+          <SidebarNavItem to={`/docs/getting-started`} key={'documentation'}>
+            Documentation
+          </SidebarNavItem>
+          {sidebarHeaders && sidebarHeaders.map(renderSidebarItem)}
+          <SidebarNavItem to={constants.githubIssues} key={'issues'}>
+            Issues
+          </SidebarNavItem>
+          <SidebarNavItem to={constants.github} key={'github'}>
+            Github
+          </SidebarNavItem>
+        </ContentWrapper>
+      </SidebarWrapper>
+    </SidebarContainer>
+  );
+};
 
 Sidebar.propTypes = {
   closeSidebar: PropTypes.func,

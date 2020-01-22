@@ -56,51 +56,34 @@ export const SidebarWrapper = styled.aside`
 `;
 
 export const SidebarNavItem = styled(Link)`
-  color: white;
+  color: ${({ theme }) => theme.colors.textLight};
   font-size: 1.6rem;
-  display: inline-block;
-  margin: 0.25rem 0;
-  padding: 0.25rem;
-  padding-left: 1.25rem;
+  display: flex;
+  margin: ${({ isSelected }) => (isSelected ? '0 0 0 -2rem' : '0')};
+  padding: ${({ isSelected }) =>
+    isSelected ? '0.5rem 0.5rem 0.5rem 3rem' : '0.5rem 0.5rem 0.5rem 1rem'};
+  background: ${({ isSelected, theme }) =>
+    isSelected ? `${theme.colors.linkHover}` : 'transparent'};
+  transition: margin 0.2s ease-out, background 0.2s ease-out,
+    padding 0.2s ease-out;
 
   &:hover {
     color: ${({ theme }) => theme.colors.linkLightHover};
-  }
-
-  /* For selected state (need to break out of container) */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3rem;
-    background: ${({ isSelected, theme }) =>
-      isSelected ? `${theme.colors.linkHover}` : 'transparent'};
-    z-index: -1;
   }
 `;
 
 export const SidebarNavSubItem = styled(Link)`
-  color:  ${({ isSelected }) =>
-    isSelected ? 'rgba(255, 255, 255, 0.8)' : 'white'};
-  }
-  margin-left: 3rem;
-  margin-top: 1rem;
+  color: ${({ theme }) => theme.colors.textLight};
   font-size: 1.4rem;
+  margin: ${({ isSelected }) => (isSelected ? '0 0 0 -2rem' : '0')};
+  padding: ${({ isSelected }) =>
+    isSelected ? '0.5rem 0.5rem 0.5rem 5rem' : '0.5rem 0.5rem 0.5rem 3rem'};
+  background: ${({ isSelected, theme }) =>
+    isSelected ? `${theme.colors.linkHover}` : 'transparent'};
+  transition: margin 0.2s ease-out, background 0.2s ease-out,
+    padding 0.2s ease-out;
+
   &:hover {
     color: ${({ theme }) => theme.colors.linkLightHover};
-  }
-
-  /* For selected state (need to break out of container) */
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 2rem;
-    background: ${({ isSelected, theme }) =>
-      isSelected ? `${theme.colors.linkHover}` : 'transparent'};
-      z-index: -1;
   }
 `;

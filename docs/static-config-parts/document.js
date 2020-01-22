@@ -22,14 +22,11 @@ const CustomDocument = ({ Html, Head, Body, children, renderMeta }) => (
         rel="icon"
         type="image/png"
         sizes="32x32"
-        href="./static/favicon/Favicon32.png"
+        href="./favicon/Favicon32.png"
       />
-      <link rel="manifest" href="./static/favicon/site.webmanifest" />
+      <link rel="manifest" href="./site.webmanifest" />
       <meta name="msapplication-TileColor" content="#ff4081" />
-      <meta
-        name="msapplication-config"
-        content="./static/favicon/browserconfig.xml"
-      />
+      <meta name="msapplication-config" content="./browserconfig.xml" />
       <meta name="theme-color" content="#ffffff" />
       {renderMeta.styleTags}
       <title>{metaData.title}</title>

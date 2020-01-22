@@ -109,7 +109,6 @@ export const Markdown = styled.article`
 
   & a {
     color: ${({ theme }) => theme.colors.link};
-    text-decoration: underline;
 
     &:target {
       display: block;

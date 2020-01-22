@@ -34,7 +34,7 @@ Each hook in `renature` accepts a `config` object for tweaking the physics param
 
 The force of gravity is modeled using Newton's Law of Universal Gravitation. We use the real value of **G**, the Universal Gravitational Constant, approximated to 6.67428 x 10^-11.
 
-<img src="/static/pngs/gravity_equation.png" alt="Newton's Law of Universal Gravitation" style="height: 6rem;" />
+<img src="/pngs/gravity_equation.png" alt="Newton's Law of Universal Gravitation" style="height: 6rem;" />
 
 The physics parameters used to tweak the `useGravity` animation include the following:
 
@@ -46,7 +46,7 @@ The physics parameters used to tweak the `useGravity` animation include the foll
 
 The animation will continue to run until the `mover` in the physics simulation has reached the position of the `attractor`.
 
-<img src="/static/pngs/gravity_animation.png" alt="The useGravity animation in renature." style="margin: 5rem 0;" />
+<img src="/pngs/gravity_animation.png" alt="The useGravity animation in renature." style="margin: 5rem 0;" />
 
 #### Example
 
@@ -70,7 +70,7 @@ const GravityBasic: React.FC = () => {
 
 The force of friction is modeled using the standard equation for friction.
 
-<img src="/static/pngs/friction_equation.png" alt="Standard Equation of Friction" style="height: 3rem;" />
+<img src="/pngs/friction_equation.png" alt="Standard Equation of Friction" style="height: 3rem;" />
 
 The physics parameters used to tweak the `useFriction` animation include the following:
 
@@ -82,7 +82,7 @@ The physics parameters used to tweak the `useFriction` animation include the fol
 
 The animation will continue to run until the `mover` in the physics simulation has come to rest (reached a velocity of 0). This means that animations will run slower as the value of `initialVelocity` increases, because a moving object with a higher initial velocity will take longer to come to rest. Inversely, animations with higher values of `mu` and `mass` will run faster, because a moving object will come to rest more quickly if it is traveling over a rougher surface or is heavier.
 
-<img src="/static/pngs/friction_animation.png" alt="The useFriction animation in renature." style="margin: 5rem 0;" />
+<img src="/pngs/friction_animation.png" alt="The useFriction animation in renature." style="margin: 5rem 0;" />
 
 #### Example
 
@@ -108,7 +108,7 @@ return <div {...props} />;
 
 The force of fluid resistance, or the drag force, is modeled using the standard drag equation.
 
-<img src="/static/pngs/drag_equation.png" alt="Standard Drag Equation" style="height: 6rem;" />
+<img src="/pngs/drag_equation.png" alt="Standard Drag Equation" style="height: 6rem;" />
 
 The physics paramters used to tweak the `useFluidResistance` animation include the following:
 
@@ -122,7 +122,7 @@ The physics paramters used to tweak the `useFluidResistance` animation include t
 
 The animation will continue to run until the `mover` in the physics simulation has achieved [terminal velocity](https://en.wikipedia.org/wiki/Terminal_velocity), the velocity at which the force of gravity and the drag force are equivalent. Increasing the `mass` will make the animation run slower, since heavier objects will take a longer time to reach terminal velocity. Increasing `rho`, `area`, or `cDrag` will all make the animation run faster, since they increase the magnitude of the drag force and bring the `mover` to terminal velocity more rapidly.
 
-<img src="/static/pngs/fluid_resistance_animation.png" alt="The useFluidResistance animation in renature." style="margin: 5rem 0;" />
+<img src="/pngs/fluid_resistance_animation.png" alt="The useFluidResistance animation in renature." style="margin: 5rem 0;" />
 
 #### Example
 
@@ -154,7 +154,7 @@ Since everything in `renature` is modeled using two dimensional vectors, the lib
 
 Currently, `renature` only supports a single two-dimensional hook – `useGravity2D`. `useGravity2D` is great for producing two-dimensional gravity simulations, using the same `mover` and `attractor` model as `useGravity`. You can find its API below. In the near future we hope to support `useFriction` and `useFluidResistance` in two dimensions.
 
-### `useGravity2D` Config
+### useGravity2D Config
 
 The same equation used to calculate the force of gravity in `useGravity` is also used in `useGravity2D`. However, in `useGravity2D` you have a few more parameters to finely tune the simulation.
 
@@ -186,3 +186,20 @@ const [props] = useGravity2D({
   },
 });
 ```
+
+## Controller
+
+Every hook in `renature` also returns a special object called a `controller`. You can access the `controller` in the second position of the tuple returned by any `renature` hook.
+
+```typescript
+const [props, controller] = useGravity2D({ ...config });
+```
+
+A `controller` provides access to two functions, `start` and `stop`, which allow you to control when your animation begins and ends. They have the following types:
+
+| Property | Type         | Description                                                                                                                                                           |
+| -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `start`  | `() => void` | A function instructing the animation to start the frame loop and begin animating. Typically used in conjunction with `immediate: false`.                              |
+| `stop`   | `() => void` | A function instructing the animation to stop the frame loop. The animating element will stay in whatever CSS state it had achieved when `controller.stop` was called. |
+
+See our [Getting Started guide](https://github.com/FormidableLabs/renature/blob/master/docs/content/getting-started.md#controlling-animation-states) for more examples of starting and stopping animations according to events or effects.
