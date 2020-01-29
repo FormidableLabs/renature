@@ -8,9 +8,9 @@ class TitleMeta extends React.Component {
       title: this.props.title,
       meta: {
         property: {
-          'og:title': this.props.title
-        }
-      }
+          'og:title': this.props.title,
+        },
+      },
     };
 
     return <div {...titleMeta}>{this.props.children}</div>;
@@ -19,7 +19,7 @@ class TitleMeta extends React.Component {
 
 TitleMeta.propTypes = {
   children: PropTypes.node,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default TitleMeta;

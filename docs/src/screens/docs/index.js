@@ -141,11 +141,11 @@ class Docs extends React.Component {
 }
 
 Docs.propTypes = {
-  params: PropTypes.object
+  params: PropTypes.object,
 };
 
 Docs.defaultProps = {
-  params: null
+  params: null,
 };
 
 export default withRouteData(Docs);

@@ -77,7 +77,12 @@ const FooterLinks = styled.ul`
 export const Footer = () => (
   <Wrapper background={theme.colors.backgroundDark}>
     <FooterLeft>
-      <a href="https://formidable.com" title="Formidable" target="_blank">
+      <a
+        href="https://formidable.com"
+        title="Formidable"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <FooterLogo src={logoFormidableWhite} alt="Formidable Logo" />
       </a>
       <FooterLinks>

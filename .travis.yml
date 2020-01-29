@@ -13,6 +13,10 @@ node_js:
   - '10'
   - '12'
 
+before_install:
+# Add `aws` CLI tool.
+  - pip install --user awscli
+
 install:
   - yarn install --frozen-lockfile --non-interactive
 
@@ -33,3 +37,39 @@ jobs:
     - stage: Build
       script:
         - yarn build
+    - stage: documentation
+      node_js: '12'
+      script:
+        - cd docs
+        - yarn install --frozen-lockfile
+        - yarn run check-ci
+        # Build and deploy to staging.
+        - yarn run clean
+        - yarn run stage:build
+        - yarn run stage:deploy
+      deploy:
+        # Deploy master to production
+        - provider: script
+          # Build and deploy to production.
+          # _Note_: `deploy.script` must be a **single** command string
+          script: >-
+            yarn run clean &&
+            yarn run prod:build &&
+            yarn run prod:deploy --dryrun
+          skip_cleanup: true
+          on:
+            branch: master
+
+env:
+  global:
+  # **Staging**: surge (`Surge.sh`)
+  # TRAVIS_LOGIN
+  - secure: h1XSy3xfcYpICxSCyM1ChZ38PTa/s4Og9HoSRKle2Nu756ecSf79FvA6PsPK9kMYs3u7ieV1Nza6vjJfMSUxRVMQn9T8PVkMU0rHHCOk2lBf+rCIeT0gaRz0IVvEDSEvWxq2dMR/nQycUVONnrsINIvhz0ERicsRpvXX3BVORHn40+zSUokAtxFTMZUZJlmEVTT0O8uin0HJFmicdGuIixGbrHZlFpcSJGXBqeFbTV/dTESco/uMiSvP7p1MgKLHTjLmu8J31sOBlp+gqdUzzX2nkOCc9iSrHpRxpA5rUPhUvSli9KQn0u2boPNNr0xw6C3YQHg3p5j6dyM8PvousWMhKglFoFR2IuZMr+oz9lcOg6m5xPrEVTfGaEoKalMTsb3dj9/KaCPmGZM6UMrA5lSbmZojk8lxYFdGGBP6b7itutXmStwqYn6VGhaRMTMjp0mDTZON0b/b/eicYPmP3+WQCk6cHEZGg5jfu3KGXv5C24Z8EnnqHVNYd1aG84incqzepe2DTwjk3OZ0IDM2Zpc3IawBqHmpoAPcYSrO3+0Z9PuxX9vu42vL9eBMJSFL5Psj69hH+oTszp9e8zLDcsVgFdb3vKxYwfeiWewXI/6muiF4Uq2Kb+K57wDAmqGrRHliTGrOTzmijBWz4nIbxucGW7meo6rhkqX/tBw8ghY=
+  # TRAVIS_TOKEN
+  - secure: ZRCyHaKrjVGDynpaq4qL5WGDnmI/fD68ssCWo3PrSDdryZaE8e60l1SOEY+gW5Ho7GxLpRXkEIz7CExDcezYH8tfVq8NIoU5ApXMWp9/4tFqnXkvcXe5NpJ4N8Urc3aZtagVOMOU7NsHXZGHwoKAvmN/HdY6peSnLt/UFwJnVMK1k3IXHWcziillDpXoVK9Cxk4t39vt13WRJRJ1nvjPFJXr/ELIuYIirDGYkfDBe5sTOQ9PziMtP+MTvAcFm4NCTB1l+m0NGEIl8K9AgDWy81aVqU3w8M4wbbkL2USxHrs4FjI5JEcVOOMhWIR442V10x7nrZ6w4pnic7NVAfr8WUCYkBFMKK34UCZ696/zR7wj7+AHd4PlaSDBW/zckFByoW3nZlDzTxXI20UZebx7eBKS9hTDznPxBE5npJNSm/SPrNLaZN6tmwe53pzIp7caiqr/f26iuEtUzgr1lBpQXBp8TXlyzFz4NAh9+btux7pcnrxxbXrBjetkkvYK5eBM0V1LijEAKFLOBhqY5+c4MTdzx9dQVC6CKO2P6VijJuCtHMX++KR2zlr2LtPSiP4CAg3G/lspO/W+KwLtmJCgQ2kyMQ09r0B6ziD8zKak9JMbyXad+V0H/zWASV9SVROX8rl93Cx9kLuOh0KPCj7lNLs5X03TB5MzHmk6Mb7F9y0=
+
+  # **Production**: AWS (renature-CI keys)
+  # AWS_ACCESS_KEY_ID
+  - secure: Te4gJlgIA3CDAFXpY2TE6F/CR9v4+apr5X1Kj+AWTwyKJNF8vklUqaN1qmOA+XpgDO24Iz7mI8egySZ/skcXskX8vRJhIT1bsDVRiaO0z/TVV9dWbn2KNUP+BmYtKoAlNd4Y+zajMmkZNp4OXrH/bbmLa2eXInMg3ygeQJM8ze/qk6jbA/As5Y/HYcr1wYcoXGQ2noalQOCDNrAqugbkjjwTWrzR4WbA7GIIrUfUPM8zrFIu1G9kMKzNSANX1n/Zk3A8H/sXu1D6gVsZXe2kWTA0hBm7VVyO8O+0eqCbVJzi9tMuFA0AyBApVQ7Ywf5IcQ04AJklqK0Q1c68r4eFXWEBOBk7owo14sLPexADpypEivRgriJtnx2EWKYXII4X2/OwHxGWy5AaUyIat4F1OY6TnBR/0OUbDE2uxqk8Ueof3m2f47ed1bIB2TK/qOI2B/8qgPy9opiBX4MzvJ7AjWHBdsx2w2pP5ac9AW3SGFt27F/WIgMOD1EYPohDYG/0xo1RhDAOoA18RuaftnKbvWil7IUUV0aDxoDDqMV/63iNDkNulS8697invC4OLZZxf69hQ6I0TjNEmKo5htknoGuAw79hggYYW2jT6MCGqDvzn7g7Do5sdwRnotRlf7AFnNEof51v45XTPng8r86f1DRWHb71ZDRguKdwiuYpVoY=
+  # AWS_SECRET_ACCESS_KEY
+  - secure: BMSdSMQ9UbY/Pbzmda8e3hV0AspAu3RN8e0xRL6NP+pMmhclS/c0W1uUjBFTCi/xWTiqYfBE1KVLHshDOu/G4o4iCLt03JrIEZezb/UwalDs/TDXl+Qgc7zVvvDFrR5k1foExN0f27nY3L0rp1llqGeju+PRfctXmkAmCQJ8CN26g3qhcWYTZjXuRJqf2oDMqcVuyfVt3bPjHp0Laq5xsTVBGNypOOq15rZp3meovcQgnXX6Hb11bbQjDczqdGoLWvW8QROM8/lKk6Cobt0ugGl+FdiHUbAaM7QXp4P8A2f2G7574S0Hs3fbX7KzyYhGjSruoS1FcYVbPmOv8nSNxHP+aIWafgIqn3t7Ha2ozHKvEZN2GrbXowzXXWX/jhoKovXKW5gQ7+bKzboM4MkL/g3okoQAQf9kxr3QWXBzEW0R3RmZPReNVBCVobXO5a+uwjerdgwq9Ca4eYzMUGDvqdAeozm7lJE8ckCHoUl9GgT8NceJ2Xqywu1ATsFWS726iU+O8D+HsFIkwhOk+KB+lJmpZXXG+M1rQJ4WKu0JJ4IiQznAEwkOogg8NMQkfA7aVXTWxOpyWs1Ojvnct6BAbQjnsV9jHGvZrHDdce372qU5eBf/cHOUoEjVGGojz0LO2BqtjPNznFYlW4A8gtoWmuwF/XZ73TZxrPGLHNZq7DE=

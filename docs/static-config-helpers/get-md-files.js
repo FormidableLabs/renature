@@ -1,6 +1,6 @@
 /* eslint-disable func-style */
 const fs = require('fs');
-const kebabCase = require('lodash/kebabCase');
+const kebabCase = require('lodash.kebabcase');
 const frontmatter = require('remark-frontmatter');
 const html = require('remark-html');
 const klaw = require('klaw');

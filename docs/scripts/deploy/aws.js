@@ -6,8 +6,7 @@ const chalk = require('chalk');
 const execa = require('execa');
 
 const PROJECT = 'renature';
-// TODO(docs): Convert to real location when ready for full release.
-const DOCS_PATH = `open-source/${PROJECT}-TODO-TESTING`;
+const DOCS_PATH = `open-source/${PROJECT}`;
 
 const SRC = path.resolve(__dirname, '../../dist');
 const BUCKET_NAME = 'formidable.com';
@@ -27,7 +26,7 @@ const { log } = console;
 const logMsg = msg => log(chalk`[{cyan deploy/surge}] ${msg}`);
 
 const main = async ({ isDryRun }) => {
-  logMsg(`Uploading files to {cyan ${DEST}}`);
+  logMsg(chalk`Uploading files to {cyan ${DEST}}`);
   await execa(
     'aws',
     [
