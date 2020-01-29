@@ -9,6 +9,9 @@ language: node_js
 node_js:
 - '10'
 - '12'
+before_install:
+# Add `aws` CLI tool.
+- pip install --user awscli
 install:
 - yarn install --frozen-lockfile --non-interactive
 jobs:
@@ -28,6 +31,28 @@ jobs:
   - stage: Build
     script:
     - yarn build
+  - stage: documentation
+    node_js: '12'
+    script:
+      - cd docs
+      - yarn install --frozen-lockfile
+      - yarn run check-ci
+      # Build and deploy to staging.
+      - yarn run clean
+      - yarn run stage:build
+      - yarn run stage:deploy
+    deploy:
+      # Deploy master to production
+      - provider: script
+        # Build and deploy to production.
+        # _Note_: `deploy.script` must be a **single** command string
+        script: >-
+          yarn run clean &&
+          yarn run prod:build &&
+          yarn run prod:deploy --dryrun
+        skip_cleanup: true
+        on:
+          branch: master
 env:
   global:
   # **Staging**: surge (`Surge.sh`)
