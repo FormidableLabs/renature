@@ -1,6 +1,6 @@
 /* eslint-disable func-style */
-const upperFirst = require('lodash/upperfirst');
-const orderBy = require('lodash/orderby');
+const upperFirst = require('lodash.upperfirst');
+const orderBy = require('lodash.orderby');
 const path = require('path');
 const getMdFiles = require('./get-md-files');
 
