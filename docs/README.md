@@ -1,4 +1,4 @@
-# Spectacle Documentation Site
+# Renature Documentation Site
 
 Now built with react-static!
 
@@ -13,7 +13,7 @@ $ yarn start
 ```
 
 Note that paths in local development are based on a root of "/" but be careful when defining relative and absolute paths
-inline or doing url parsing, as the production output root will be "open-source/spectacle."
+inline or doing url parsing, as the production output root will be "open-source/renature."
 
 ## Building the site for deployment
 
@@ -27,13 +27,13 @@ $ yarn stage:build
 $ yarn stage:serve
 ```
 
-This build creates `dist/open-source/spectacle` simulating the directory style output.
+This build creates `dist/open-source/renature` simulating the directory style output.
 
-Then visit: http://localhost:3000/open-source/spectacle/
+Then visit: http://localhost:3000/open-source/renature/
 
 ### Build and check the production site
 
-The production site is served from a nested path, e.g. `https://formidable.com/open-source/spectacle`.
+The production site is served from a nested path, e.g. `https://formidable.com/open-source/renature`.
 
 ```sh
 $ cd docs
@@ -41,9 +41,9 @@ $ yarn prod:build
 $ yarn prod:serve
 ```
 
-This build creates `dist` but the `serve` dev server remaps paths to make it appear at `open-source/spectacle`. This build **is** the appropriate, full production build.
+This build creates `dist` but the `serve` dev server remaps paths to make it appear at `open-source/renature`. This build **is** the appropriate, full production build.
 
-Then visit: http://localhost:3000/open-source/spectacle/
+Then visit: http://localhost:3000/open-source/renature/
 
 Both of these steps are important for validating that both the `basePath` used by the static HTML output and the `basename` used
 by the client-side router are working as expected. This is also where you'll want to validate that there are no hardcoded, inlined, or malformed asset paths that worked locally but will not resolve correctly in production!
@@ -56,7 +56,7 @@ _Only for project administrators._
 
 Our CI deploys to staging for each PR using surge.sh at the following URL:
 
-`https://formidable-com-spectacle-staging-${PR_NUMBER}.surge.sh/open-source/spectacle`
+`https://formidable-com-renature-staging-${PR_NUMBER}.surge.sh/open-source/renature`
 
 To test things out locally find the `Surge.sh` entry in 1password in the IC vault and make up some pretend values for a PR number in `TRAVIS_PULL_REQUEST`:
 
@@ -74,7 +74,7 @@ $ SURGE_LOGIN=<SNIPPED> \
 
 _Only for project administrators._
 
-Our CI is configured to deploy the production build in `dist` to `formidable.com/open-source/spectacle`. This section discusses kicking the tires locally:
+Our CI is configured to deploy the production build in `dist` to `formidable.com/open-source/renature`. This section discusses kicking the tires locally:
 
 First, install the AWS CLI:
 
@@ -82,13 +82,14 @@ First, install the AWS CLI:
 $ brew install awscli
 ```
 
-Then, set up `aws-vault` with the AWS access and secret keys for `spectacle` CI in the `AWS IAM (formidable-com)` entry in the IC vault:
+Then, set up `aws-vault`  with the AWS access and secret keys for "CI" in the `AWS IAM (renature-ci)` entry in the IC vault:
 
 ```sh
 $ brew cask install aws-vault
-$ aws-vault add fmd-spectacle-ci
-# Enter AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY values for "spectacle CI"
+$ aws-vault add fmd-renature-ci
+# Enter AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY values for "renature CI"
 ```
+*note* if these keys do not already exist in the IC vault, they will need to be created. Please reach out to a member of the cloud team for help.
 
 Then build for production and deploy with dry run to check things:
 
@@ -96,7 +97,7 @@ Then build for production and deploy with dry run to check things:
 $ cd docs
 $ yarn clean
 $ yarn prod:build
-$ aws-vault exec fmd-spectacle-ci --no-session -- \
+$ aws-vault exec fmd-renature-ci --no-session -- \
   yarn prod:deploy --dryrun
 ```
 

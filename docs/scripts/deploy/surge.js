@@ -11,7 +11,7 @@ const SRC = path.resolve(__dirname, '../../dist');
 const DOMAIN = `formidable-com-${PROJECT}-staging-${TRAVIS_PULL_REQUEST}.surge.sh`;
 
 const EXECA_OPTS = {
-  stdio: 'inherit',
+  stdio: 'inherit'
 };
 
 const { log } = console;
