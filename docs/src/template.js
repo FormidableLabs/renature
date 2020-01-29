@@ -14,11 +14,11 @@ class Template extends React.Component {
 }
 
 Template.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 Template.defaultProps = {
-  children: null
+  children: null,
 };
 
 export default Template;

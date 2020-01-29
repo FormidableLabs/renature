@@ -112,17 +112,13 @@ const Preview = () => (
     <BodyCopy color={theme.colors.textLight}>
       Renature is all about bringing joy and whimsy to UI animation.
     </BodyCopy>
-    {
-      typeof window !== "undefined"
-        ? (
-          <StyledProvider code={code} scope={scope} theme={prismTheme}>
-            <StyledEditor />
-            <StyledError />
-            <StyledPreview />
-          </StyledProvider>
-        )
-        : null
-    }
+    {typeof window !== 'undefined' ? (
+      <StyledProvider code={code} scope={scope} theme={prismTheme}>
+        <StyledEditor />
+        <StyledError />
+        <StyledPreview />
+      </StyledProvider>
+    ) : null}
   </Wrapper>
 );
 
