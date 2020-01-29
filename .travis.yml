@@ -1,35 +1,36 @@
 notifications:
   email: false
-
 branches:
   only:
-    - master
-    - develop
-    - /^v\d+\.\d+\.\d+/
-
+  - master
+  - develop
+  - "/^v\\d+\\.\\d+\\.\\d+/"
 language: node_js
-
 node_js:
-  - '10'
-  - '12'
-
+- '10'
+- '12'
 install:
-  - yarn install --frozen-lockfile --non-interactive
-
+- yarn install --frozen-lockfile --non-interactive
 jobs:
   include:
-    - stage: Build Reason
-      script:
-        - yarn build:re
-    - stage: Build TypeScript
-      script:
-        - yarn check:ts
-    - stage: Lint
-      script:
-        - yarn lint
-    - stage: Test
-      script:
-        - yarn test
-    - stage: Build
-      script:
-        - yarn build
+  - stage: Build Reason
+    script:
+    - yarn build:re
+  - stage: Build TypeScript
+    script:
+    - yarn check:ts
+  - stage: Lint
+    script:
+    - yarn lint
+  - stage: Test
+    script:
+    - yarn test
+  - stage: Build
+    script:
+    - yarn build
+env:
+  global:
+  # TRAVIS_LOGIN
+  - secure: h1XSy3xfcYpICxSCyM1ChZ38PTa/s4Og9HoSRKle2Nu756ecSf79FvA6PsPK9kMYs3u7ieV1Nza6vjJfMSUxRVMQn9T8PVkMU0rHHCOk2lBf+rCIeT0gaRz0IVvEDSEvWxq2dMR/nQycUVONnrsINIvhz0ERicsRpvXX3BVORHn40+zSUokAtxFTMZUZJlmEVTT0O8uin0HJFmicdGuIixGbrHZlFpcSJGXBqeFbTV/dTESco/uMiSvP7p1MgKLHTjLmu8J31sOBlp+gqdUzzX2nkOCc9iSrHpRxpA5rUPhUvSli9KQn0u2boPNNr0xw6C3YQHg3p5j6dyM8PvousWMhKglFoFR2IuZMr+oz9lcOg6m5xPrEVTfGaEoKalMTsb3dj9/KaCPmGZM6UMrA5lSbmZojk8lxYFdGGBP6b7itutXmStwqYn6VGhaRMTMjp0mDTZON0b/b/eicYPmP3+WQCk6cHEZGg5jfu3KGXv5C24Z8EnnqHVNYd1aG84incqzepe2DTwjk3OZ0IDM2Zpc3IawBqHmpoAPcYSrO3+0Z9PuxX9vu42vL9eBMJSFL5Psj69hH+oTszp9e8zLDcsVgFdb3vKxYwfeiWewXI/6muiF4Uq2Kb+K57wDAmqGrRHliTGrOTzmijBWz4nIbxucGW7meo6rhkqX/tBw8ghY=
+  # TRAVIS_TOKEN
+  - secure: ZRCyHaKrjVGDynpaq4qL5WGDnmI/fD68ssCWo3PrSDdryZaE8e60l1SOEY+gW5Ho7GxLpRXkEIz7CExDcezYH8tfVq8NIoU5ApXMWp9/4tFqnXkvcXe5NpJ4N8Urc3aZtagVOMOU7NsHXZGHwoKAvmN/HdY6peSnLt/UFwJnVMK1k3IXHWcziillDpXoVK9Cxk4t39vt13WRJRJ1nvjPFJXr/ELIuYIirDGYkfDBe5sTOQ9PziMtP+MTvAcFm4NCTB1l+m0NGEIl8K9AgDWy81aVqU3w8M4wbbkL2USxHrs4FjI5JEcVOOMhWIR442V10x7nrZ6w4pnic7NVAfr8WUCYkBFMKK34UCZ696/zR7wj7+AHd4PlaSDBW/zckFByoW3nZlDzTxXI20UZebx7eBKS9hTDznPxBE5npJNSm/SPrNLaZN6tmwe53pzIp7caiqr/f26iuEtUzgr1lBpQXBp8TXlyzFz4NAh9+btux7pcnrxxbXrBjetkkvYK5eBM0V1LijEAKFLOBhqY5+c4MTdzx9dQVC6CKO2P6VijJuCtHMX++KR2zlr2LtPSiP4CAg3G/lspO/W+KwLtmJCgQ2kyMQ09r0B6ziD8zKak9JMbyXad+V0H/zWASV9SVROX8rl93Cx9kLuOh0KPCj7lNLs5X03TB5MzHmk6Mb7F9y0=
