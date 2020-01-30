@@ -30,7 +30,6 @@
   "dependencies": {
     "chokidar": "2.0.3",
     "classnames": "^2.2.6",
-    "formidable-oss-badges": "0.1.1",
     "history": "^4.7.2",
     "klaw": "^2.1.1",
     "mdast": "^3.0.0",
@@ -48,7 +47,7 @@
     "react-side-effect": "^1.1.5",
     "react-static": "^5.9.12",
     "renature": "^0.1.0",
-    "styled-components": "^4.4.1"
+    "styled-components": "^5.0.0"
   },
   "devDependencies": {
     "anchorate": "^1.1.0",

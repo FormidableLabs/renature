@@ -1,5 +1,8 @@
 export const theme = {
   colors: {
+    primary: '#7860ed',
+    secondary: '#595112',
+    secondaryLight: '#7a7441',
     link: '#30265f',
     linkHover: '#1f1f1f',
     syntax: '#30265f',

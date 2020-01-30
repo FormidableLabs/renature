@@ -1,106 +1,113 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import * as renature from 'renature';
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+import styled from 'styled-components';
+import { useFriction, useFluidResistance, useGravity2D } from 'renature';
 
 import { Wrapper } from '../../components/wrapper';
 import { SectionTitle } from '../../components/section-title';
+import { LivePreview } from '../../components/live-preview';
+import { Toggle } from '../../components/toggle';
 import { theme } from '../../theme';
-import { BodyCopy } from '../../components/body-copy';
-import { prismTheme } from './prism-theme';
 
-const StyledProvider = styled(LiveProvider)`
-  border-radius: 0.5rem;
-  box-shadow: 1px 1px 20px rgba(20, 20, 20, 0.27);
-  overflow: hidden;
-  margin-bottom: 1rem;
-`;
+const PreviewStack = styled.div`
+  --space: calc(2.25 * 5rem);
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: content-box;
 
-const column = css`
-  flex-basis: 50%;
-  width: 50%;
-  max-width: 50%;
-  @media (max-width: 600px) {
-    flex-basis: auto;
-    width: 100%;
-    max-width: 100%;
+  > * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  > * + * {
+    margin-top: var(--space);
   }
 `;
 
-const StyledEditor = styled(LiveEditor)`
-  margin-top: 4rem;
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
-  font-family: 'Source Code Pro', monospace;
-  font-size: 1.4rem;
-  height: 35rem;
-  max-height: 35rem;
-  overflow: auto;
-  ${column};
-
-  * > textarea:focus {
-    outline: none;
-  }
-`;
-
-const StyledPreview = styled(LivePreview)`
-  margin-top: 4rem;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-  position: relative;
-  padding: 0.5rem;
-  background: white;
-  color: black;
-  height: auto;
-  overflow: hidden;
-  ${column};
-
-  .mover {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    height: 100px;
-    width: 100px;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    transform-origin: top left;
-
-    &--opacity {
-      background: #a04ad9;
-    }
-  }
-`;
-
-const StyledError = styled(LiveError)`
-  display: block;
-  padding: 8rem;
-  background: red;
-  color: white;
-  white-space: pre-wrap;
-  text-align: left;
-  font-size: 0.9em;
-  font-family: 'Source Code Pro', monospace;
-`;
-
-const scope = { renature };
-const code = `
+const scope = { useFriction, useFluidResistance, Toggle, useGravity2D };
+const codeSampleOne = `
 function FrictionAnimation() {
-  const [props] = renature.useFriction({
+  const [props] = useFriction({
     from: {
-      transform: 'translateX(-100px) translate(-50%, -50%)'
+      transform: 'translateX(-200px) translate(-50%, -50%)'
     },
     to: {
-      transform: 'translateX(100px) translate(-50%, -50%)'
+      transform: 'translateX(200px) translate(-50%, -50%)'
     },
-    config: {
-      mu: 0.5,
-      mass: 300,
-      initialVelocity: 10
-    },
+    config: { mu: 0.5, mass: 300, initialVelocity: 10 },
     infinite: true
   });
 
-  return <div className="mover mover--opacity" {...props} />;
+  return <div className="mover mover--one" {...props} />;
+}
+`;
+
+const codeSampleTwo = `
+function FluidResistanceAnimation() {
+  const [toggle, setToggle] = React.useState(true);
+
+  const [props] = useFluidResistance({
+    from: {
+      opacity: toggle ? 0 : 1,
+      transform: toggle
+        ? 'scale(0) rotate(0deg)'
+        : 'scale(1) rotate(180deg)',
+    },
+    to: {
+      opacity: toggle ? 1 : 0,
+      transform: toggle
+        ? 'scale(1) rotate(180deg)'
+        : 'scale(0) rotate(0deg)',
+    },
+    config: {
+      mass: 25,
+      rho: 10,
+      area: 20,
+      cDrag: 0.25,
+      settle: true,
+    },
+  });
+
+  return (
+    <div className="toggle">
+      <Toggle
+        onChange={() => setToggle(prevToggle => !prevToggle)}
+        checked={toggle}
+      />
+      <div className="mover" {...props} />
+    </div>
+  );
+};
+`;
+
+const codeSampleThree = `
+function Gravity2DAnimation() {
+  const [props] = useGravity2D({
+    config: {
+      attractorMass: 1000000000000,
+      moverMass: 10000,
+      attractorPosition: [250, 150],
+      initialMoverPosition: [250, 50],
+      initialMoverVelocity: [1, 0],
+      threshold: {
+        min: 20,
+        max: 100,
+      },
+      timeScale: 100,
+    },
+  });
+
+  return (
+    <div className="space">
+      <div className="mover-2d" {...props} />
+      <div
+        className="attractor-2d"
+        style={{ left: 250, top: 150 }}
+      />
+    </div>
+  );
 }
 `;
 
@@ -109,15 +116,36 @@ const Preview = () => (
     <SectionTitle color={theme.colors.textLight} compact>
       Beautiful, Simple Animations
     </SectionTitle>
-    <BodyCopy color={theme.colors.textLight}>
-      Renature is all about bringing joy and whimsy to UI animation.
-    </BodyCopy>
     {typeof window !== 'undefined' ? (
-      <StyledProvider code={code} scope={scope} theme={prismTheme}>
-        <StyledEditor />
-        <StyledError />
-        <StyledPreview />
-      </StyledProvider>
+      <PreviewStack>
+        <LivePreview
+          code={codeSampleOne}
+          scope={scope}
+          tagline={'Animate Intuitively, Animate With Joy'}
+          copy={
+            'UI animation should be intuitive, simple, and fun. Renature is all about returning joy and whimsy to your UI animations.'
+          }
+          before
+        />
+        <LivePreview
+          code={codeSampleTwo}
+          scope={scope}
+          tagline={'Responsive Animations'}
+          copy={
+            'Renature hooks respond directly to changes in their from, to, and config properties. Just update a value and your animation will begin running.'
+          }
+        />
+        <LivePreview
+          code={codeSampleThree}
+          scope={scope}
+          tagline={'Animate in Two Dimensions'}
+          copy={
+            'Renature uses two-dimensional vectors to back its physics, giving you the ability to build beautiful and accurate animations in Cartesian space.'
+          }
+          before
+          splitVertical
+        />
+      </PreviewStack>
     ) : null}
   </Wrapper>
 );

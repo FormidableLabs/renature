@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { ProjectBadge } from 'formidable-oss-badges';
 import styled from 'styled-components';
+
 import { BodyCopy } from '../../components/body-copy';
 import { Button } from '../../components/button';
 import { SecondaryTitle } from '../../components/secondary-title';
@@ -56,14 +55,6 @@ const OSSLink = styled.a`
   & h3:hover {
     opacity: 0.7;
   }
-`;
-
-const StyledProjectBadge = styled(ProjectBadge)`
-  left: 0;
-  position: relative;
-  top: 2rem;
-  height: 18rem;
-  width: 18rem;
 `;
 
 const OSSCopyContainer = styled.div`
