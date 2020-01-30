@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
   LiveProvider,
@@ -153,7 +154,7 @@ export const LivePreview = ({
   scope,
   tagline,
   copy,
-  before,
+  before = false,
   splitVertical = false,
 }) => {
   const taglineElement = React.useMemo(
@@ -179,4 +180,13 @@ export const LivePreview = ({
       {!before && taglineElement}
     </StyledEditorWithTagline>
   );
+};
+
+LivePreview.propTypes = {
+  code: PropTypes.string.isRequired,
+  scope: PropTypes.object.isRequired,
+  tagline: PropTypes.string.isRequired,
+  copy: PropTypes.string.isRequired,
+  before: PropTypes.bool,
+  splitVertical: PropTypes.bool,
 };

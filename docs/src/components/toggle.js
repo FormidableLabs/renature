@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledToggle = styled.div`
   width: 55px;
@@ -70,3 +71,8 @@ export const Toggle = ({ onChange, checked }) => (
     <label htmlFor="toggle" />
   </StyledToggle>
 );
+
+Toggle.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  checked: PropTypes.bool.isRequired,
+};

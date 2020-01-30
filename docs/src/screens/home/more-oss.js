@@ -108,16 +108,7 @@ const MoreOSS = ({ oss }) => (
       {oss.map(card => (
         <OSSCard key={card.title}>
           <OSSLink href={card.link}>
-            {card.hasOwnLogo ? (
-              <OSSImage src={card.logo} />
-            ) : (
-              <StyledProjectBadge
-                color={card.color}
-                number={card.number}
-                abbreviation={card.abbreviation}
-                description={card.title}
-              />
-            )}
+            <OSSImage src={card.logo} />
           </OSSLink>
           <OSSCopyContainer>
             <OSSLink href={card.link}>
