@@ -31,6 +31,8 @@ const OSSCardContainer = styled.div`
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(4, 1fr);
   max-width: 116rem;
+  margin-left: auto;
+  margin-left: auto;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);

@@ -77,7 +77,10 @@ const StyledPreview = styled(ReactLivePreview)`
   --color-deep-blue: #053959;
   --color-yellow: #f2cf63;
 
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: ${({ theme }) => theme.colors.textLight};
   min-height: 25rem;
   overflow: hidden;
@@ -87,23 +90,14 @@ const StyledPreview = styled(ReactLivePreview)`
     height: 100px;
     width: 100px;
     border-radius: 10px;
-
     background: ${({ theme }) => theme.colors.primary};
-
-    &--one {
-      position: relative;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      transform-origin: top left;
-    }
   }
 
   .toggle {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    height: 100%;
+    width: 100%;
   }
 
   .space {
@@ -113,6 +107,7 @@ const StyledPreview = styled(ReactLivePreview)`
       var(--color-near-black),
       var(--color-deep-blue)
     );
+    flex: 1;
   }
 
   .mover-2d {

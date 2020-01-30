@@ -31,16 +31,16 @@ const codeSampleOne = `
 function FrictionAnimation() {
   const [props] = useFriction({
     from: {
-      transform: 'translateX(-200px) translate(-50%, -50%)'
+      transform: 'translateX(-200px)'
     },
     to: {
-      transform: 'translateX(200px) translate(-50%, -50%)'
+      transform: 'translateX(200px)'
     },
     config: { mu: 0.5, mass: 300, initialVelocity: 10 },
     infinite: true
   });
 
-  return <div className="mover mover--one" {...props} />;
+  return <div className="mover" {...props} />;
 }
 `;
 
