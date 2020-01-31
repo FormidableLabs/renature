@@ -7,6 +7,17 @@ const staticWebpackConfig = (config, { defaultLoaders }) => {
     {
       oneOf: [
         {
+          test: /\.js$/,
+          include: [
+            require.resolve('unicode-match-property-value-ecmascript'),
+            require.resolve('unicode-match-property-ecmascript'),
+            require.resolve('regexpu-core'),
+          ],
+          use: {
+            loader: 'babel-loader',
+          },
+        },
+        {
           test: /\.svg$/,
           use: [
             {
