@@ -9,13 +9,13 @@ const staticWebpackConfig = (config, { defaultLoaders }) => {
         {
           test: /\.js$/,
           include: [
-            'node_modules', require.resolve('unicode-match-property-value-ecmascript'),
-            'node_modules', require.resolve('unicode-match-property-ecmascript'),
-            'node_modules', require.resolve('regexpu-core')
-         ],
+            require.resolve('unicode-match-property-value-ecmascript'),
+            require.resolve('unicode-match-property-ecmascript'),
+            require.resolve('regexpu-core'),
+          ],
           use: {
             loader: 'babel-loader',
-          }
+          },
         },
         {
           test: /\.svg$/,
