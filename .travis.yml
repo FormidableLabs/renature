@@ -55,7 +55,7 @@ jobs:
           script: >-
             yarn run clean &&
             yarn run prod:build &&
-            yarn run prod:deploy --dryrun
+            yarn run prod:deploy
           skip_cleanup: true
           on:
             branch: master
