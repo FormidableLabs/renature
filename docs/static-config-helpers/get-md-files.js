@@ -13,6 +13,7 @@ const slugs = require('github-slugger')();
 const visit = require('unist-util-visit');
 const yaml = require('js-yaml');
 const { promisify } = require('util');
+import { stage, landerBasePath } from '../static-config-parts/constants';
 
 const readFile = promisify(fs.readFile);
 const stat = promisify(fs.stat);
@@ -85,6 +86,19 @@ function slugWithLink() {
   return slugTransformer;
 }
 
+function imgTransformer(ast) {
+  function visitor(node) {
+    if (!!node.value.match(/<img /) && stage !== 'development') {
+      node.value = node.value.replace(`src="`, `src="/${landerBasePath}`);
+    }
+  }
+  visit(ast, 'html', visitor);
+}
+
+function imageLink() {
+  return imgTransformer;
+}
+
 const subHeadingRangeDefaults = {
   start: 1,
   end: 3,
@@ -136,7 +150,8 @@ const baseConfig = {
     .use(html)
     .use(codeHighlightTransformer)
     .use(slug)
-    .use(slugWithLink),
+    .use(slugWithLink)
+    .use(imageLink),
   // converting to an originally grey-matter idiom for all our existing transforms and future interop -- it's not much of a stretch
   // for remark, but who knows what the future (and the past) hold.
   outputHarmonizer: result => ({
