@@ -86,7 +86,7 @@ function slugWithLink() {
   return slugTransformer;
 }
 
-function imgTransformer(ast) {
+function appendImageBasePath(ast) {
   function visitor(node) {
     if (!!node.value.match(/<img /) && stage !== 'development') {
       node.value = node.value.replace(`src="`, `src="/${landerBasePath}`);
@@ -95,8 +95,8 @@ function imgTransformer(ast) {
   visit(ast, 'html', visitor);
 }
 
-function imageLink() {
-  return imgTransformer;
+function imageTransformer() {
+  return appendImageBasePath;
 }
 
 const subHeadingRangeDefaults = {
@@ -151,7 +151,7 @@ const baseConfig = {
     .use(codeHighlightTransformer)
     .use(slug)
     .use(slugWithLink)
-    .use(imageLink),
+    .use(imageTransformer),
   // converting to an originally grey-matter idiom for all our existing transforms and future interop -- it's not much of a stretch
   // for remark, but who knows what the future (and the past) hold.
   outputHarmonizer: result => ({
