@@ -23,9 +23,9 @@ const Container = styled.div`
   }
 `;
 
-const Article = () => (
+const Article = ({ renderedMd }) => (
   <Container>
-    <Markdown html={this.props.renderedMd} />
+    <Markdown html={renderedMd} />
   </Container>
 );
 
