@@ -39,7 +39,7 @@ const content = {
       title: 'urql',
       description:
         'Universal React Query Library is a blazing-fast GraphQL client, exposed as a set of ReactJS components.',
-      logo: require('../../static/pngs/badge_urql.png'),
+      logo: require('../../static/svgs/badge_urql.svg'),
       link: 'https://formidable.com/open-source/urql/',
       hasOwnLogo: true,
     },
@@ -47,7 +47,7 @@ const content = {
       title: 'Spectacle',
       description:
         'A React.js based library for creating sleek presentations using JSX syntax that gives you the ability to live demo your code.',
-      logo: require('../../static/pngs/badge_spectacle.png'),
+      logo: require('../../static/svgs/badge_spectacle.svg'),
       link: 'https://formidable.com/open-source/spectacle/',
       hasOwnLogo: true,
     },
@@ -55,7 +55,7 @@ const content = {
       title: 'Runpkg',
       description:
         'The online package explorer. Runpkg turns any npm package into an interactive and informative browsing experience',
-      logo: require('../../static/pngs/badge_runpkg.png'),
+      logo: require('../../static/svgs/badge_runpkg.svg'),
       link: 'https://www.runpkg.com/',
       hasOwnLogo: true,
     },

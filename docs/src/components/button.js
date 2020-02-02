@@ -1,10 +1,13 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-static';
 import PropTypes from 'prop-types';
-import { theme } from '../theme';
+import { theme } from '../themes/theme';
 
-export const Button = styled(Link)`
-  background: ${({ light, theme }) =>
+export const Button = styled(({ light = false, noMargin = false, ...rest }) => (
+  <Link {...rest} />
+))`
+  background: ${({ light }) =>
     light ? theme.colors.buttonLight : theme.colors.buttonDark};
   color: ${({ light }) =>
     light ? theme.colors.buttonDark : theme.colors.buttonLight};
@@ -22,7 +25,7 @@ export const Button = styled(Link)`
   width: 100%;
 
   &:hover {
-    background: ${({ light, theme }) =>
+    background: ${({ light }) =>
       light ? theme.colors.linkLightHover : theme.colors.linkHover};
   }
 

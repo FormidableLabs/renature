@@ -9,8 +9,8 @@ import {
 } from 'react-live';
 
 import { BodyCopy } from './body-copy';
-import { theme } from '../theme';
-import { prismTheme } from '../prism-theme';
+import { theme } from '../themes/theme';
+import { NightOwl } from '../themes/night-owl';
 
 const StyledEditorWithTagline = styled.div`
   display: flex;
@@ -39,7 +39,7 @@ const StyledTagline = styled.aside`
   }
 `;
 
-const StyledContainer = styled.div`
+export const StyledContainer = styled.div`
   display: flex;
   flex-direction: ${({ splitVertical }) => (splitVertical ? 'row' : 'column')};
   width: 100%;
@@ -52,8 +52,8 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledEditor = styled(LiveEditor)`
-  font-family: 'Source Code Pro', monospace;
+export const StyledEditor = styled(LiveEditor)`
+  font-family: 'Fira Code', monospace !important;
   font-size: 1.4rem;
   min-height: 25rem;
   max-height: 35rem;
@@ -72,7 +72,9 @@ const StyledEditor = styled(LiveEditor)`
   }
 `;
 
-const StyledPreview = styled(ReactLivePreview)`
+export const StyledPreview = styled(({ splitVertical, ...rest }) => (
+  <ReactLivePreview {...rest} />
+))`
   --color-near-black: #011826;
   --color-deep-blue: #053959;
   --color-yellow: #f2cf63;
@@ -130,7 +132,7 @@ const StyledPreview = styled(ReactLivePreview)`
   }
 `;
 
-const StyledError = styled(LiveError)`
+export const StyledError = styled(LiveError)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,7 +143,7 @@ const StyledError = styled(LiveError)`
   white-space: pre-wrap;
   text-align: left;
   font-size: 0.9em;
-  font-family: 'Source Code Pro', monospace;
+  font-family: 'Fira Code', monospace !important;
 `;
 
 export const LivePreview = ({
@@ -165,11 +167,11 @@ export const LivePreview = ({
   return (
     <StyledEditorWithTagline>
       {before && taglineElement}
-      <LiveProvider code={code} scope={scope} theme={prismTheme}>
+      <LiveProvider code={code} scope={scope} theme={NightOwl}>
         <StyledContainer splitVertical={splitVertical}>
           <StyledPreview splitVertical={splitVertical} />
           <StyledError />
-          <StyledEditor splitVertical={splitVertical} />
+          <StyledEditor />
         </StyledContainer>
       </LiveProvider>
       {!before && taglineElement}

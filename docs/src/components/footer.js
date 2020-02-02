@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Wrapper } from './wrapper';
-import { theme } from '../theme';
+import { theme } from '../themes/theme';
 
 import logoFormidableWhite from '../static/svgs/logo_formidable_white.png';
 

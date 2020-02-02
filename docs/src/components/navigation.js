@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-static';
 import sidebarBackground from '../static/svgs/sidebar-background.svg';
@@ -55,7 +56,9 @@ export const SidebarWrapper = styled.aside`
   }
 `;
 
-export const SidebarNavItem = styled(Link)`
+export const SidebarNavItem = styled(({ isSelected, ...rest }) => (
+  <Link {...rest} />
+))`
   color: ${({ theme }) => theme.colors.textLight};
   font-size: 1.6rem;
   display: flex;
@@ -72,7 +75,9 @@ export const SidebarNavItem = styled(Link)`
   }
 `;
 
-export const SidebarNavSubItem = styled(Link)`
+export const SidebarNavSubItem = styled(({ isSelected, ...rest }) => (
+  <Link {...rest} />
+))`
   color: ${({ theme }) => theme.colors.textLight};
   font-size: 1.4rem;
   margin: ${({ isSelected }) => (isSelected ? '0 0 0 -2rem' : '0')};
