@@ -53,13 +53,15 @@ ScrollToTop.propTypes = {
 const WrappedScrollToTop = withRouter(ScrollToTop);
 
 let history;
+let basename;
 if (typeof window !== 'undefined') {
   const createBrowserHistory = require('history').createBrowserHistory;
   const { stage, landerBasePath } = require('../static-config-parts/constants');
+  basename = `/${landerBasePath}`;
   history =
     stage === 'development'
       ? createBrowserHistory()
-      : createBrowserHistory({ basename: `/${landerBasePath}` });
+      : createBrowserHistory({ basename });
 }
 
 // eslint-disable-next-line react/no-multi-comp
@@ -73,7 +75,7 @@ const App = () => (
   >
     <WrappedScrollToTop>
       <ThemeProvider theme={theme}>
-        <Analytics id="UA-43290258-1">
+        <Analytics id="UA-43290258-1" basename={basename}>
           <Template>
             <Routes />
           </Template>
