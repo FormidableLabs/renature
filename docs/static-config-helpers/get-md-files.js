@@ -99,6 +99,31 @@ function imageTransformer() {
   return appendImageBasePath;
 }
 
+function playground(options = { customCodeLang: 'playground' }) {
+  // Here we mutate the AST to inject a playground component where we encounter ```playground.
+  function transformer(ast) {
+    visit(ast, `code`, node => {
+      const escape = rawHtml =>
+        rawHtml
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+
+      const { customCodeLang } = options;
+
+      if (node.lang === customCodeLang) {
+        node.type = `html`;
+        node.value = `<pre class="pre"><code class="language-${customCodeLang}">${escape(
+          node.value
+        )}</code></pre>`;
+      }
+    });
+  }
+  return transformer;
+}
+
 const subHeadingRangeDefaults = {
   start: 1,
   end: 3,
@@ -151,7 +176,8 @@ const baseConfig = {
     .use(codeHighlightTransformer)
     .use(slug)
     .use(slugWithLink)
-    .use(imageTransformer),
+    .use(imageTransformer)
+    .use(playground),
   // converting to an originally grey-matter idiom for all our existing transforms and future interop -- it's not much of a stretch
   // for remark, but who knows what the future (and the past) hold.
   outputHarmonizer: result => ({

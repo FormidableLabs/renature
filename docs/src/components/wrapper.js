@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { theme } from '../theme';
 
 export const Wrapper = styled.div`
   display: flex;

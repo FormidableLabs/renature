@@ -7,7 +7,7 @@ import { Button } from '../../components/button';
 import { SecondaryTitle } from '../../components/secondary-title';
 import { SectionTitle } from '../../components/section-title';
 import { Wrapper } from '../../components/wrapper';
-import { theme } from '../../theme';
+import { theme } from '../../themes/theme';
 
 const OSSCard = styled.div`
   margin: 0 auto 4rem;
@@ -32,7 +32,7 @@ const OSSCardContainer = styled.div`
   grid-template-rows: repeat(4, 1fr);
   max-width: 116rem;
   margin-left: auto;
-  margin-left: auto;
+  margin-right: auto;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);

@@ -6,7 +6,7 @@ import { BodyCopy } from '../../components/body-copy';
 import { SecondaryTitle } from '../../components/secondary-title';
 import { SectionTitle } from '../../components/section-title';
 import { Wrapper } from '../../components/wrapper';
-import { theme } from '../../theme';
+import { theme } from '../../themes/theme';
 
 const FeatureCard = styled.div`
   margin: 0 0 4rem;

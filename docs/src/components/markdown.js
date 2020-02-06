@@ -1,6 +1,25 @@
-import styled from 'styled-components';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import styled, { ThemeProvider } from 'styled-components';
+import { LiveProvider } from 'react-live';
+import {
+  useGravity,
+  useFriction,
+  useFluidResistance,
+  useGravity2D,
+} from 'renature';
 
-export const Markdown = styled.article`
+import {
+  StyledContainer,
+  StyledPreview,
+  StyledError,
+  StyledEditor,
+} from './live-preview';
+import { theme } from '../themes/theme';
+import { NightOwl } from '../themes/night-owl';
+
+const StyledMarkdown = styled.article`
   @media (max-width: 768px) {
     width: 75vw;
   }
@@ -127,3 +146,66 @@ export const Markdown = styled.article`
     left: 1em;
   }
 `;
+
+const scope = {
+  useGravity,
+  useFriction,
+  useFluidResistance,
+  useGravity2D,
+};
+
+export const Markdown = ({ html = null }) => {
+  const content = React.useRef(null);
+
+  const findPlayground = React.useCallback(className => {
+    if (content.current) {
+      const elements = content.current.getElementsByClassName(className);
+      return elements;
+    }
+  }, []);
+
+  const mountContainer = React.useCallback(source => {
+    return (
+      <div className="Interactive">
+        <ThemeProvider theme={theme}>
+          <LiveProvider code={source} scope={scope} theme={NightOwl}>
+            <StyledContainer splitVertical>
+              <StyledPreview splitVertical />
+              <StyledError />
+              <StyledEditor />
+            </StyledContainer>
+          </LiveProvider>
+        </ThemeProvider>
+      </div>
+    );
+  }, []);
+
+  const renderPlaygrounds = React.useCallback(() => {
+    const playgrounds = Array.prototype.slice.call(
+      findPlayground('language-playground'),
+      0
+    );
+
+    for (const p in playgrounds) {
+      if (playgrounds.hasOwnProperty(p)) {
+        const source = playgrounds[p].textContent;
+        ReactDOM.render(
+          mountContainer(source, true),
+          playgrounds[p].parentNode
+        );
+      }
+    }
+  }, [findPlayground]);
+
+  React.useEffect(() => {
+    renderPlaygrounds();
+  }, [renderPlaygrounds]);
+
+  return (
+    <StyledMarkdown ref={content} dangerouslySetInnerHTML={{ __html: html }} />
+  );
+};
+
+Markdown.propTypes = {
+  html: PropTypes.string,
+};

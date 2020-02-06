@@ -6,7 +6,7 @@ import { Wrapper } from '../../components/wrapper';
 import { SectionTitle } from '../../components/section-title';
 import { LivePreview } from '../../components/live-preview';
 import { Toggle } from '../../components/toggle';
-import { theme } from '../../theme';
+import { theme } from '../../themes/theme';
 
 const PreviewStack = styled.div`
   --space: calc(2.25 * 5rem);

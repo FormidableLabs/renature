@@ -23,15 +23,11 @@ const Container = styled.div`
   }
 `;
 
-class Article extends React.Component {
-  render() {
-    return (
-      <Container>
-        <Markdown dangerouslySetInnerHTML={{ __html: this.props.renderedMd }} />
-      </Container>
-    );
-  }
-}
+const Article = ({ renderedMd }) => (
+  <Container>
+    <Markdown html={renderedMd} />
+  </Container>
+);
 
 Article.propTypes = {
   renderedMd: PropTypes.string,

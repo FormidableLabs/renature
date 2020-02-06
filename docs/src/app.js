@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { hot } from 'react-hot-loader';
 import Template from './template';
 import Analytics from './google-analytics';
-import { theme } from './theme';
+import { theme } from './themes/theme';
 // Routes generated at build-time
 // eslint-disable-next-line import/no-unresolved
 import Routes from 'react-static-routes';

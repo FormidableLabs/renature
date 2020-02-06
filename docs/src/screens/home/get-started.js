@@ -6,7 +6,7 @@ import { BodyCopy } from '../../components/body-copy';
 import { Button } from '../../components/button';
 import { SectionTitle } from '../../components/section-title';
 import { Wrapper } from '../../components/wrapper';
-import { theme } from '../../theme';
+import { theme } from '../../themes/theme';
 
 const GetStarted = ({ getStarted }) => (
   <Wrapper background={theme.colors.backgroundLight}>

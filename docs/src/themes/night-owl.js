@@ -1,4 +1,4 @@
-export const prismTheme = {
+export const NightOwl = {
   plain: {
     color: '#d6deeb',
     backgroundColor: '#011627',

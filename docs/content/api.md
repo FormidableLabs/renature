@@ -50,10 +50,10 @@ The animation will continue to run until the `mover` in the physics simulation h
 
 #### Example
 
-```typescript
-const GravityBasic: React.FC = () => {
-  const [props] = useGravity<HTMLDivElement>({
-    from: { opacity: 0 },
+```playground
+function GravityBasic() {
+  const [props] = useGravity({
+    from: { opacity: 0.25 },
     to: { opacity: 1 },
     config: {
       moverMass: 10000,
@@ -62,7 +62,7 @@ const GravityBasic: React.FC = () => {
     },
   });
 
-  return <div {...props} />;
+  return <div className="mover" {...props} />;
 };
 ```
 

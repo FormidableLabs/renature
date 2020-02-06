@@ -27,7 +27,7 @@ yarn add renature
 
 Also make sure you install its `peerDependencies`, `react` and `react-dom`, if you haven't already. You'll need to use a hooks compatible version of `react` and `react-dom`, i.e. `>=16.8.0`.
 
-```sh
+```bash
 npm install --save react react-dom
 # or
 yarn add react react-dom
