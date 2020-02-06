@@ -19,6 +19,7 @@ const StyledToggle = styled.div`
     border: 1px solid #e4e4e4;
     border-radius: 60px;
     transition: 0.4s ease;
+    cursor: pointer;
   }
 
   input + label::before {

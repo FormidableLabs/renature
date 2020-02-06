@@ -164,13 +164,13 @@ export const Markdown = ({ html = null }) => {
     }
   }, []);
 
-  const mountContainer = React.useCallback((source, preview) => {
+  const mountContainer = React.useCallback(source => {
     return (
       <div className="Interactive">
         <ThemeProvider theme={theme}>
           <LiveProvider code={source} scope={scope} theme={NightOwl}>
             <StyledContainer splitVertical>
-              {preview && <StyledPreview splitVertical />}
+              <StyledPreview splitVertical />
               <StyledError />
               <StyledEditor />
             </StyledContainer>
@@ -192,20 +192,6 @@ export const Markdown = ({ html = null }) => {
         ReactDOM.render(
           mountContainer(source, true),
           playgrounds[p].parentNode
-        );
-      }
-    }
-
-    const [playgroundsNoRender] = findPlayground(
-      'language-playground_norender'
-    );
-
-    for (const p in playgroundsNoRender) {
-      if (playgroundsNoRender.hasOwnProperty(p)) {
-        const source = playgroundsNoRender[p].textContent;
-        ReactDOM.render(
-          mountContainer(source, false),
-          playgroundsNoRender[p].parentNode
         );
       }
     }

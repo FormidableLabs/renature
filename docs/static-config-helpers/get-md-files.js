@@ -119,13 +119,6 @@ function playground(options = { customCodeLang: 'playground' }) {
           node.value
         )}</code></pre>`;
       }
-
-      if (node.lang === `${customCodeLang}_norender`) {
-        node.type = `html`;
-        node.value = `<pre class="pre"><code class="language-${customCodeLang}_norender">${escape(
-          node.value
-        )}</code></pre>`;
-      }
     });
   }
   return transformer;

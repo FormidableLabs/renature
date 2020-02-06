@@ -53,7 +53,7 @@ The animation will continue to run until the `mover` in the physics simulation h
 ```playground
 function GravityBasic() {
   const [props] = useGravity({
-    from: { opacity: 0 },
+    from: { opacity: 0.25 },
     to: { opacity: 1 },
     config: {
       moverMass: 10000,
