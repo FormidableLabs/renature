@@ -82,12 +82,12 @@ First, install the AWS CLI:
 $ brew install awscli
 ```
 
-Then, set up `aws-vault`  with the AWS access and secret keys for "CI" in the `AWS IAM (renature-ci)` entry in the IC vault:
+Then, set up `aws-vault` with the AWS access and secret keys for "CI" in the `AWS IAM (renature-ci)` entry in the IC vault:
 
 ```sh
 $ brew cask install aws-vault
 $ aws-vault add fmd-renature-ci
-# Enter AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY values for "renature CI"
+# Enter AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY values.
 ```
 *note* if these keys do not already exist in the IC vault, they will need to be created. Please reach out to a member of the cloud team for help.
 
