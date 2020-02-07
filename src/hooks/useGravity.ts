@@ -6,7 +6,7 @@ import { Gravity1DParams, gravity1D, Controller } from '../animation';
 type UseGravityArgs = CSSPairs &
   Omit<Gravity1DParams, 'onUpdate' | 'onComplete'>;
 
-export const useGravity = <M extends HTMLElement = any>({
+export const useGravity = <M extends HTMLElement | SVGElement = any>({
   from,
   to,
   config,

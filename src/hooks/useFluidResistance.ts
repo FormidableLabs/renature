@@ -11,7 +11,7 @@ import { getFluidPositionAtTerminalVelocity } from '../forces';
 type UseFluidResistanceArgs = CSSPairs &
   Omit<FluidResistance1DParams, 'onComplete' | 'onUpdate'>;
 
-export const useFluidResistance = <M extends HTMLElement = any>({
+export const useFluidResistance = <M extends HTMLElement | SVGElement = any>({
   from,
   to,
   config,

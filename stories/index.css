@@ -11,6 +11,7 @@
   --color-yellow: #f2cf63;
   --color-near-black: #011826;
   --color-deep-blue: #053959;
+  --color-renature-purple: #7860ed;
 }
 
 body {
@@ -82,4 +83,10 @@ body {
   background: var(--color-yellow);
   transform: translate(-50%, -50%);
   box-shadow: 0 0 30px 15px var(--color-yellow);
+}
+
+.react-logo {
+  stroke: var(--color-renature-purple);
+  stroke-width: 3;
+  fill: transparent;
 }

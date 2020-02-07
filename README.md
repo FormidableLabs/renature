@@ -41,7 +41,7 @@
 
 ## 📃Documentation
 
-Our documentation is currently in progress and will be available as a separate site soon. You can view it in its current state in our [docs folder](/docs/content/getting-started.md).
+`renature`'s documentation lives on our [docs site](https://formidable.com/open-source/renature/). Notice something inaccurate or confusing? Feel free [to open an issue](https://github.com/FormidableLabs/renature/issues) or [make a pull request](https://github.com/FormidableLabs/renature/pulls) to help improve the documentation for everyone! The source for our docs site lives in this repo in the [`docs`](/docs/README.md) folder.
 
 ## Maintenance Status
 
