@@ -185,7 +185,7 @@ import React from 'react';
 import { useGravity } from 'renature';
 
 const MyAnimatingElement: React.FC = () => {
-  const [props, conntroller] = useGravity<HTMLDivElement>({
+  const [props, controller] = useGravity<HTMLDivElement>({
     from: {
       transform: 'rotate(0deg) scale(0)',
     },
