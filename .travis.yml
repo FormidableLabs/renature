@@ -22,22 +22,37 @@ install:
 
 jobs:
   include:
-    - stage: Build Reason
+    - &buildre
+      stage: Build Reason
       script:
         - yarn build:re
-    - stage: Build TypeScript
+    - <<: *buildre
+      node_js: 12
+    - &buldts
+      stage: Build TypeScript
       script:
         - yarn check:ts
-    - stage: Lint
+    - <<: *buildts
+      node_js: 12
+    - &lint
+      stage: Lint
       script:
         - yarn lint
-    - stage: Test
+    - <<: *lint
+      node_js: 12
+    - &testAll
+      stage: Test All
       script:
         - yarn build:re
         - yarn test
-    - stage: Build
+    - <<: *testAll
+      node_js: 12
+    - &build
+      stage: Build
       script:
         - yarn build
+    - <<: *build
+      node_js: 12
     - stage: documentation
       node_js: 12
       script:
