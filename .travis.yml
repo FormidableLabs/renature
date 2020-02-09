@@ -10,11 +10,11 @@ branches:
 language: node_js
 
 node_js:
-  - '10'
-  - '12'
+  - 10
+  - 12
 
 before_install:
-# Add `aws` CLI tool.
+  # Add `aws` CLI tool.
   - pip install --user awscli
 
 install:
@@ -22,23 +22,33 @@ install:
 
 jobs:
   include:
-    - stage: Build Reason
+    - &buildReTest
+      stage: Build Reason and Test
       script:
         - yarn build:re
-    - stage: Build TypeScript
+        - yarn test
+    - <<: *buildReTest
+      node_js: 12
+    - &checkTs
+      stage: Check TypeScript
       script:
         - yarn check:ts
-    - stage: Lint
+    - <<: *checkTs
+      node_js: 12
+    - &lint
+      stage: Lint
       script:
         - yarn lint
-    - stage: Test
-      script:
-        - yarn test
-    - stage: Build
+    - <<: *lint
+      node_js: 12
+    - &build
+      stage: Build
       script:
         - yarn build
+    - <<: *build
+      node_js: 12
     - stage: documentation
-      node_js: '12'
+      node_js: 12
       script:
         - cd docs
         - yarn install --frozen-lockfile
@@ -62,14 +72,14 @@ jobs:
 
 env:
   global:
-  # **Staging**: surge (`Surge.sh`)
-  # TRAVIS_LOGIN
-  - secure: h1XSy3xfcYpICxSCyM1ChZ38PTa/s4Og9HoSRKle2Nu756ecSf79FvA6PsPK9kMYs3u7ieV1Nza6vjJfMSUxRVMQn9T8PVkMU0rHHCOk2lBf+rCIeT0gaRz0IVvEDSEvWxq2dMR/nQycUVONnrsINIvhz0ERicsRpvXX3BVORHn40+zSUokAtxFTMZUZJlmEVTT0O8uin0HJFmicdGuIixGbrHZlFpcSJGXBqeFbTV/dTESco/uMiSvP7p1MgKLHTjLmu8J31sOBlp+gqdUzzX2nkOCc9iSrHpRxpA5rUPhUvSli9KQn0u2boPNNr0xw6C3YQHg3p5j6dyM8PvousWMhKglFoFR2IuZMr+oz9lcOg6m5xPrEVTfGaEoKalMTsb3dj9/KaCPmGZM6UMrA5lSbmZojk8lxYFdGGBP6b7itutXmStwqYn6VGhaRMTMjp0mDTZON0b/b/eicYPmP3+WQCk6cHEZGg5jfu3KGXv5C24Z8EnnqHVNYd1aG84incqzepe2DTwjk3OZ0IDM2Zpc3IawBqHmpoAPcYSrO3+0Z9PuxX9vu42vL9eBMJSFL5Psj69hH+oTszp9e8zLDcsVgFdb3vKxYwfeiWewXI/6muiF4Uq2Kb+K57wDAmqGrRHliTGrOTzmijBWz4nIbxucGW7meo6rhkqX/tBw8ghY=
-  # TRAVIS_TOKEN
-  - secure: ZRCyHaKrjVGDynpaq4qL5WGDnmI/fD68ssCWo3PrSDdryZaE8e60l1SOEY+gW5Ho7GxLpRXkEIz7CExDcezYH8tfVq8NIoU5ApXMWp9/4tFqnXkvcXe5NpJ4N8Urc3aZtagVOMOU7NsHXZGHwoKAvmN/HdY6peSnLt/UFwJnVMK1k3IXHWcziillDpXoVK9Cxk4t39vt13WRJRJ1nvjPFJXr/ELIuYIirDGYkfDBe5sTOQ9PziMtP+MTvAcFm4NCTB1l+m0NGEIl8K9AgDWy81aVqU3w8M4wbbkL2USxHrs4FjI5JEcVOOMhWIR442V10x7nrZ6w4pnic7NVAfr8WUCYkBFMKK34UCZ696/zR7wj7+AHd4PlaSDBW/zckFByoW3nZlDzTxXI20UZebx7eBKS9hTDznPxBE5npJNSm/SPrNLaZN6tmwe53pzIp7caiqr/f26iuEtUzgr1lBpQXBp8TXlyzFz4NAh9+btux7pcnrxxbXrBjetkkvYK5eBM0V1LijEAKFLOBhqY5+c4MTdzx9dQVC6CKO2P6VijJuCtHMX++KR2zlr2LtPSiP4CAg3G/lspO/W+KwLtmJCgQ2kyMQ09r0B6ziD8zKak9JMbyXad+V0H/zWASV9SVROX8rl93Cx9kLuOh0KPCj7lNLs5X03TB5MzHmk6Mb7F9y0=
+    # **Staging**: surge (`Surge.sh`)
+    # TRAVIS_LOGIN
+    - secure: h1XSy3xfcYpICxSCyM1ChZ38PTa/s4Og9HoSRKle2Nu756ecSf79FvA6PsPK9kMYs3u7ieV1Nza6vjJfMSUxRVMQn9T8PVkMU0rHHCOk2lBf+rCIeT0gaRz0IVvEDSEvWxq2dMR/nQycUVONnrsINIvhz0ERicsRpvXX3BVORHn40+zSUokAtxFTMZUZJlmEVTT0O8uin0HJFmicdGuIixGbrHZlFpcSJGXBqeFbTV/dTESco/uMiSvP7p1MgKLHTjLmu8J31sOBlp+gqdUzzX2nkOCc9iSrHpRxpA5rUPhUvSli9KQn0u2boPNNr0xw6C3YQHg3p5j6dyM8PvousWMhKglFoFR2IuZMr+oz9lcOg6m5xPrEVTfGaEoKalMTsb3dj9/KaCPmGZM6UMrA5lSbmZojk8lxYFdGGBP6b7itutXmStwqYn6VGhaRMTMjp0mDTZON0b/b/eicYPmP3+WQCk6cHEZGg5jfu3KGXv5C24Z8EnnqHVNYd1aG84incqzepe2DTwjk3OZ0IDM2Zpc3IawBqHmpoAPcYSrO3+0Z9PuxX9vu42vL9eBMJSFL5Psj69hH+oTszp9e8zLDcsVgFdb3vKxYwfeiWewXI/6muiF4Uq2Kb+K57wDAmqGrRHliTGrOTzmijBWz4nIbxucGW7meo6rhkqX/tBw8ghY=
+    # TRAVIS_TOKEN
+    - secure: ZRCyHaKrjVGDynpaq4qL5WGDnmI/fD68ssCWo3PrSDdryZaE8e60l1SOEY+gW5Ho7GxLpRXkEIz7CExDcezYH8tfVq8NIoU5ApXMWp9/4tFqnXkvcXe5NpJ4N8Urc3aZtagVOMOU7NsHXZGHwoKAvmN/HdY6peSnLt/UFwJnVMK1k3IXHWcziillDpXoVK9Cxk4t39vt13WRJRJ1nvjPFJXr/ELIuYIirDGYkfDBe5sTOQ9PziMtP+MTvAcFm4NCTB1l+m0NGEIl8K9AgDWy81aVqU3w8M4wbbkL2USxHrs4FjI5JEcVOOMhWIR442V10x7nrZ6w4pnic7NVAfr8WUCYkBFMKK34UCZ696/zR7wj7+AHd4PlaSDBW/zckFByoW3nZlDzTxXI20UZebx7eBKS9hTDznPxBE5npJNSm/SPrNLaZN6tmwe53pzIp7caiqr/f26iuEtUzgr1lBpQXBp8TXlyzFz4NAh9+btux7pcnrxxbXrBjetkkvYK5eBM0V1LijEAKFLOBhqY5+c4MTdzx9dQVC6CKO2P6VijJuCtHMX++KR2zlr2LtPSiP4CAg3G/lspO/W+KwLtmJCgQ2kyMQ09r0B6ziD8zKak9JMbyXad+V0H/zWASV9SVROX8rl93Cx9kLuOh0KPCj7lNLs5X03TB5MzHmk6Mb7F9y0=
 
-  # **Production**: `AWS IAM (renature-ci)` (AWS user: `tf-formidops-renature-ci`)
-  # AWS_ACCESS_KEY_ID
-  - secure: "HXQHdcbas2FOhBLk2InRcbodIKJ2GvyaE8LA9l9MeSFxLlapXjsEqmZKUWYWAl8gupApx0sIxhj6bDYTNgANO72lNaAsTiXU+LuqAiuq6ealmr5DtuF7K3FZ36WwsvV1rsf6Ekkh3Fh9LK1GVItzk9a53VHOutqDlt/UZTTa43uRDix0iSaykhC8raxU6ayX+ikSGVKA0wsRu8Zxke+y+wGX8sN4KMGaHMKJ7xy5mVzxkG67KpbR+z8O/vmka1njMbPusbt6Z+0uARePqfLryC2RbXBGrleuZdnOohISUrHWLrAYOBYwTCq+dyYBdv4IEdWx6lkBx/JMLll3ycZPktaNAwiq2A2ydImT4UsneS5I0xe5V9oGQ+e999y+P4JkaMw5tojNzCgl5Ap1ZIjDZ2enXwrPolu9gmf3bqDCGNifJQgh3P0DQhIetw0ASuFMyxCc1lO2JbrhJzj7goNAxEru4cU6VfXnVsqn4l94k1NGZZWGzSFBvfWCJrCsS/SpDAXerfayoABWBibLEaP8ZBXnB64oc5aA/YaehTUR5tXqDmgfrrwFFn/tRpiNu/mr1lnm/0PFO+ucGlBaMWEt9cWp1NjC5cPzohi2131NtHcrC67FE3SlET8xekrg7ZbHy0kmmaS/C8hGbJKoKaYt/o9TWcOtptkBbjEnjf7Q5ig="
-  # AWS_SECRET_ACCESS_KEY
-  - secure: "u0kSGU6i/7Dko6/k8nazgsA4Br4GDmvmhTb6UQetu3TXezz5wmlPnbDcozC03bHN5vYoB9hgYmMJpRZCpV3LtIe4oP3zvZeklpsMBWEeolmHd2zp38ke9enxEGi2kWKpCfB9xkpCqNf0z8yuZfafhnV4MYXfhEk+qdNyOffebjXx76jQM6H8m/mM4VkI20SpdF+wkWJla5adqLwMxuXcGzV/iiV4Eu3K9qMLdqN8HLVuN6vXa1p978dtQTGvU8sRG834tKMGKq6HN+p5GpTokLpcNRqEuD9EtLoDaUDvH14ZRfTTPCAcu000EYa1FFzFf/1tsPEM/6StIu9ZOpSkSOopWyve6PzXWf+QhNdIbegQdwLdsy+Ai+gUf7VEVKIVWpRZTVfulpRktZs6WxSAWrI7wzPvyU1wxUSn2n72Fe3aIK6G2vDARrpAYiO7RFqM6FpL7EgnIdofNxguBQsr+w43CVg5/PMvP2bqJ9vDsvmjROvi8/TDR2mJXItp0ueMdHDj4ImEdpEAOtnzMCwcwlTsZBaQrXY2Z8KB3gcK+2fcsAxCSBU6NuS2i3YvUIexN7Mdxpdd0ZpfNVlcB4/SfIgI+BIIX9K8s5OjaJG7uaaDDiaZ0yLSMw8mZVErc/x+0ywMf6n65X+SmMwFaC0XTVKocprXu2GVTSoiA56gTp8="
+    # **Production**: `AWS IAM (renature-ci)` (AWS user: `tf-formidops-renature-ci`)
+    # AWS_ACCESS_KEY_ID
+    - secure: 'HXQHdcbas2FOhBLk2InRcbodIKJ2GvyaE8LA9l9MeSFxLlapXjsEqmZKUWYWAl8gupApx0sIxhj6bDYTNgANO72lNaAsTiXU+LuqAiuq6ealmr5DtuF7K3FZ36WwsvV1rsf6Ekkh3Fh9LK1GVItzk9a53VHOutqDlt/UZTTa43uRDix0iSaykhC8raxU6ayX+ikSGVKA0wsRu8Zxke+y+wGX8sN4KMGaHMKJ7xy5mVzxkG67KpbR+z8O/vmka1njMbPusbt6Z+0uARePqfLryC2RbXBGrleuZdnOohISUrHWLrAYOBYwTCq+dyYBdv4IEdWx6lkBx/JMLll3ycZPktaNAwiq2A2ydImT4UsneS5I0xe5V9oGQ+e999y+P4JkaMw5tojNzCgl5Ap1ZIjDZ2enXwrPolu9gmf3bqDCGNifJQgh3P0DQhIetw0ASuFMyxCc1lO2JbrhJzj7goNAxEru4cU6VfXnVsqn4l94k1NGZZWGzSFBvfWCJrCsS/SpDAXerfayoABWBibLEaP8ZBXnB64oc5aA/YaehTUR5tXqDmgfrrwFFn/tRpiNu/mr1lnm/0PFO+ucGlBaMWEt9cWp1NjC5cPzohi2131NtHcrC67FE3SlET8xekrg7ZbHy0kmmaS/C8hGbJKoKaYt/o9TWcOtptkBbjEnjf7Q5ig='
+    # AWS_SECRET_ACCESS_KEY
+    - secure: 'u0kSGU6i/7Dko6/k8nazgsA4Br4GDmvmhTb6UQetu3TXezz5wmlPnbDcozC03bHN5vYoB9hgYmMJpRZCpV3LtIe4oP3zvZeklpsMBWEeolmHd2zp38ke9enxEGi2kWKpCfB9xkpCqNf0z8yuZfafhnV4MYXfhEk+qdNyOffebjXx76jQM6H8m/mM4VkI20SpdF+wkWJla5adqLwMxuXcGzV/iiV4Eu3K9qMLdqN8HLVuN6vXa1p978dtQTGvU8sRG834tKMGKq6HN+p5GpTokLpcNRqEuD9EtLoDaUDvH14ZRfTTPCAcu000EYa1FFzFf/1tsPEM/6StIu9ZOpSkSOopWyve6PzXWf+QhNdIbegQdwLdsy+Ai+gUf7VEVKIVWpRZTVfulpRktZs6WxSAWrI7wzPvyU1wxUSn2n72Fe3aIK6G2vDARrpAYiO7RFqM6FpL7EgnIdofNxguBQsr+w43CVg5/PMvP2bqJ9vDsvmjROvi8/TDR2mJXItp0ueMdHDj4ImEdpEAOtnzMCwcwlTsZBaQrXY2Z8KB3gcK+2fcsAxCSBU6NuS2i3YvUIexN7Mdxpdd0ZpfNVlcB4/SfIgI+BIIX9K8s5OjaJG7uaaDDiaZ0yLSMw8mZVErc/x+0ywMf6n65X+SmMwFaC0XTVKocprXu2GVTSoiA56gTp8='
