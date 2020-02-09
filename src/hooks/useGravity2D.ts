@@ -9,7 +9,7 @@ import {
 
 type UseGravity2DArgs = Omit<Gravity2DParams, 'onUpdate' | 'onComplete'>;
 
-export const useGravity2D = <M extends HTMLElement = any>({
+export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
   config,
   immediate = true,
   delay,

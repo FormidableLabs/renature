@@ -7,7 +7,7 @@ import { getMaxDistanceFriction } from '../forces';
 type UseFrictionArgs = CSSPairs &
   Omit<Friction1DParams, 'onComplete' | 'onUpdate'>;
 
-export const useFriction = <M extends HTMLElement = any>({
+export const useFriction = <M extends HTMLElement | SVGElement = any>({
   from,
   to,
   config,
