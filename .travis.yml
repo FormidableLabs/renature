@@ -28,7 +28,7 @@ jobs:
         - yarn build:re
     - <<: *buildre
       node_js: 12
-    - &buldts
+    - &buildts
       stage: Build TypeScript
       script:
         - yarn check:ts
