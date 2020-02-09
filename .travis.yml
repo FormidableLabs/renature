@@ -40,12 +40,12 @@ jobs:
         - yarn lint
     - <<: *lint
       node_js: 12
-    - &testAll
+    - &testall
       stage: Test All
       script:
         - yarn build:re
         - yarn test
-    - <<: *testAll
+    - <<: *testall
       node_js: 12
     - &build
       stage: Build
