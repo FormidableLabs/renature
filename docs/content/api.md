@@ -53,13 +53,14 @@ The animation will continue to run until the `mover` in the physics simulation h
 ```playground
 function GravityBasic() {
   const [props] = useGravity({
-    from: { opacity: 0.25 },
+    from: { opacity: 0 },
     to: { opacity: 1 },
     config: {
       moverMass: 10000,
       attractorMass: 1000000000000,
       r: 10,
     },
+    infinite: true
   });
 
   return <div className="mover" {...props} />;
@@ -86,22 +87,25 @@ The animation will continue to run until the `mover` in the physics simulation h
 
 #### Example
 
-```typescript
-const [props] = useFriction<HTMLDivElement>({
-  from: {
-    transform: 'rotate(0deg)',
-  },
-  to: {
-    transform: 'rotate(180deg)',
-  },
-  config: {
-    mu: 0.5,
-    mass: 300,
-    initialVelocity: 10,
-  },
-});
+```playground
+function FrictionBasic() {
+  const [props] = useFriction({
+    from: {
+      transform: 'rotate(0deg)',
+    },
+    to: {
+      transform: 'rotate(360deg)',
+    },
+    config: {
+      mu: 0.5,
+      mass: 300,
+      initialVelocity: 10,
+    },
+    infinite: true
+  });
 
-return <div {...props} />;
+  return <div className="mover" {...props} />;
+}
 ```
 
 ### useFluidResistance Config
@@ -126,9 +130,9 @@ The animation will continue to run until the `mover` in the physics simulation h
 
 #### Example
 
-```typescript
-export const FluidResistanceBasic: React.FC = () => {
-  const [props] = useFluidResistance<HTMLDivElement>({
+```playground
+function FluidResistanceBasic() {
+  const [props] = useFluidResistance({
     from: {
       transform: 'scale(0.5)',
     },
@@ -140,11 +144,11 @@ export const FluidResistanceBasic: React.FC = () => {
       rho: 10,
       area: 20,
       cDrag: 0.1,
-      settle: true,
     },
+    infinite: true
   });
 
-  return <div {...props} />;
+  return <div className="mover" {...props} />;
 };
 ```
 
@@ -170,21 +174,33 @@ The same equation used to calculate the force of gravity in `useGravity` is also
 
 ### Example
 
-```typescript
-const [props] = useGravity2D({
-  config: {
-    attractorMass: 1000000000000,
-    moverMass: 10000,
-    attractorPosition: [400, 400],
-    initialMoverPosition: [400, 200],
-    initialMoverVelocity: [100, 0],
-    threshold: {
-      min: 20,
-      max: 100,
+```playground
+function Gravity2DAnimation() {
+  const [props] = useGravity2D({
+    config: {
+      attractorMass: 1000000000000,
+      moverMass: 10000,
+      attractorPosition: [250, 150],
+      initialMoverPosition: [250, 50],
+      initialMoverVelocity: [1, 0],
+      threshold: {
+        min: 20,
+        max: 100,
+      },
+      timeScale: 100,
     },
-    timeScale: number('timeScale', 10),
-  },
-});
+  });
+
+  return (
+    <div className="space">
+      <div className="mover-2d" {...props} />
+      <div
+        className="attractor-2d"
+        style={{ left: 250, top: 150 }}
+      />
+    </div>
+  );
+}
 ```
 
 ## Controller
