@@ -18,6 +18,16 @@ type measurement = [
 
 [@bs.val] external parseFloat: string => float = "parseFloat";
 
+let testUnit = value => {
+  let num = parseFloat(value);
+  let unit = Js.String.replace(Utils.sof(num), "", value)->measurementFromJs;
+
+  switch (unit) {
+  | Some(_) => true
+  | None => false
+  };
+};
+
 let parseUnit = value => {
   let num = parseFloat(value);
   let unit = Js.String.replace(Utils.sof(num), "", value)->measurementFromJs;

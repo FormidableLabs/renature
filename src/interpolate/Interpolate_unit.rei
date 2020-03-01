@@ -16,6 +16,9 @@ type measurement = [
 ];
 
 [@genType]
+let testUnit: string => bool;
+
+[@genType]
 let parseUnit: string => cssUnit;
 
 [@genType]

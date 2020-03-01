@@ -43,6 +43,12 @@ var jsMapperConstantArray = /* array */[
   ]
 ];
 
+function testUnit(value) {
+  var num = parseFloat(value);
+  var param = value.replace(Utils.sof(num), "");
+  return Js_mapperRt.revSearch(9, jsMapperConstantArray, param) !== undefined;
+}
+
 function parseUnit(value) {
   var num = parseFloat(value);
   var param = value.replace(Utils.sof(num), "");
@@ -75,6 +81,7 @@ function remapUnit(param, param$1, value) {
 }
 
 export {
+  testUnit ,
   parseUnit ,
   remapUnit ,
   

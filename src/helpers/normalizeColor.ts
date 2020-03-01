@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  */
-const colorNames = {
+export const colorNames = {
   transparent: 0x00000000,
   // http://www.w3.org/TR/css3-color/#svg-color
   aliceblue: 0xf0f8ffff,
