@@ -112,7 +112,7 @@ let remapTransformSingle = (~range as (rl, rh), ~domain as (dl, dh), ~value) => 
   transformProperty^ ++ "(" ++ transforms ++ ")";
 };
 
-let transformsRe = [%bs.re "/(\w+)\((.+?)\)/g"];
+let transformsRe = [%re "/(\w+)\((.+?)\)/g"];
 
 let rec splitTransform = (~transform, ~matches=[||], ()) => {
   switch (Js.Re.exec_(transformsRe, transform)) {

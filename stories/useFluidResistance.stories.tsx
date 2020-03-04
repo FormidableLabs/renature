@@ -135,3 +135,24 @@ export const FluidResistanceInfinite: React.FC = () => {
 
   return <div className="mover mover--opacity" {...props} />;
 };
+
+export const FluidResistanceBoxShadow: React.FC = () => {
+  const [props] = useFluidResistance<HTMLDivElement>({
+    from: {
+      boxShadow: '20px 20px 50px teal',
+    },
+    to: {
+      boxShadow: '-20px -20px 0px orange',
+    },
+    config: {
+      mass: number('mass', 10),
+      rho: number('rho', 20),
+      area: number('area', 20),
+      cDrag: number('cDrag', 0.1),
+      settle: boolean('settle', false),
+    },
+    infinite: true,
+  });
+
+  return <div className="mover mover--opacity" {...props} />;
+}

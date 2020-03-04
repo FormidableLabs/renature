@@ -6,6 +6,8 @@ import {
   remapUnit,
   parseTransformSingle,
   remapTransform,
+  testBoxShadow,
+  remapBoxShadow,
 } from '../interpolate';
 import { normalizeColor, rgba } from './normalizeColor';
 
@@ -93,6 +95,18 @@ export function getInterpolatorForPair({ from, to }: CSSPairs) {
      * return the proper interpolator.
      */
   } else if (typeFrom === 'string' && typeTo === 'string') {
+    // Check if the strings can be parsed to a valid CSS box-shadow.
+    if (testBoxShadow(fromValue) && testBoxShadow(toValue)) {
+      return {
+        interpolator: remapBoxShadow,
+        property: fromProperty,
+        values: {
+          from: fromValue,
+          to: toValue,
+        },
+      };
+    }
+
     // Check if the string can be parsed to a color.
     const colorFrom = normalizeColor(fromValue);
     const colorTo = normalizeColor(toValue);
