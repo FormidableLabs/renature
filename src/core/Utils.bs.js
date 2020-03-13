@@ -13,10 +13,15 @@ function sof(prim) {
   return prim.toString();
 }
 
+function $$parseFloat$1(prim) {
+  return parseFloat(prim);
+}
+
 export {
   foi ,
   iof ,
   sof ,
+  $$parseFloat$1 as $$parseFloat,
   
 }
 /* No side effect */

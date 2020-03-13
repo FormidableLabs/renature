@@ -15,7 +15,7 @@ function gravityForceV(attractorMass, moverMass, attractor, mover, threshold, pa
   var distance;
   if (threshold !== undefined) {
     var th = threshold;
-    distance = $$Math.constrain(th[0], th[1], mag);
+    distance = $$Math.constrainf(th[0], th[1], mag);
   } else {
     distance = mag;
   }

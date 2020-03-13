@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CSSPairs, getInterpolatorsForPairs } from '../helpers/pairs';
+import { CSSPairs, getInterpolatorsForPairs } from '../parsers/pairs';
 import { Friction1DParams, friction1D, Controller } from '../animation';
 import { getMaxDistanceFriction } from '../forces';
 

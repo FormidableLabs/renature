@@ -139,10 +139,10 @@ export const FluidResistanceInfinite: React.FC = () => {
 export const FluidResistanceBoxShadow: React.FC = () => {
   const [props] = useFluidResistance<HTMLDivElement>({
     from: {
-      boxShadow: '20px 20px 50px teal',
+      boxShadow: '20px 20px 50px teal, -20px -20px 50px orange',
     },
     to: {
-      boxShadow: '-20px -20px 0px orange',
+      boxShadow: '-20px -20px 0px orange, 20px 20px 0px teal',
     },
     config: {
       mass: number('mass', 10),
@@ -155,4 +155,4 @@ export const FluidResistanceBoxShadow: React.FC = () => {
   });
 
   return <div className="mover mover--opacity" {...props} />;
-}
+};

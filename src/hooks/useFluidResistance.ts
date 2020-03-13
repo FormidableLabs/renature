@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CSSPairs, getInterpolatorsForPairs } from '../helpers/pairs';
+import { CSSPairs, getInterpolatorsForPairs } from '../parsers/pairs';
 import {
   FluidResistance1DParams,
   fluidResistance1D,

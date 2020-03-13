@@ -2,7 +2,7 @@
 
 import * as Caml_obj from "bs-platform/lib/es6/caml_obj.js";
 
-function constrain(low, high, n) {
+function constrainf(low, high, n) {
   if (Caml_obj.caml_lessthan(n, low)) {
     return low;
   } else if (Caml_obj.caml_greaterthan(n, high)) {
@@ -12,8 +12,28 @@ function constrain(low, high, n) {
   }
 }
 
+function lerpf(acc, target, roundness) {
+  return (1.0 - roundness) * acc + roundness * target;
+}
+
+function remapf(param, param$1, value) {
+  var dl = param$1[0];
+  var rl = param[0];
+  return dl + (param$1[1] - dl) * ((value - rl) / (param[1] - rl));
+}
+
+function normalizef(range, value) {
+  return remapf(range, /* tuple */[
+              0,
+              1
+            ], value);
+}
+
 export {
-  constrain ,
+  constrainf ,
+  lerpf ,
+  remapf ,
+  normalizef ,
   
 }
 /* No side effect */
