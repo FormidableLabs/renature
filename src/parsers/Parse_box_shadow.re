@@ -82,27 +82,15 @@ let parseBoxShadow = val_ => {
     |> Array.map(s => s->Belt.Option.getWithDefault(""));
 
   switch (Array.length(filteredProperties)) {
-  | 2 => {
+  | n when n >= 2 && n <= 4 => {
       offsetX: filteredProperties[0],
       offsetY: filteredProperties[1],
-      blur: "0px",
-      spread: "0px",
-      color: color^,
-      inset: inset^,
-    }
-  | 3 => {
-      offsetX: filteredProperties[0],
-      offsetY: filteredProperties[1],
-      blur: filteredProperties[2],
-      spread: "0px",
-      color: color^,
-      inset: inset^,
-    }
-  | 4 => {
-      offsetX: filteredProperties[0],
-      offsetY: filteredProperties[1],
-      blur: filteredProperties[2],
-      spread: filteredProperties[3],
+      blur:
+        Belt.Array.get(filteredProperties, 2)
+        ->Belt.Option.getWithDefault("0px"),
+      spread:
+        Belt.Array.get(filteredProperties, 3)
+        ->Belt.Option.getWithDefault("0px"),
       color: color^,
       inset: inset^,
     }
