@@ -20,7 +20,7 @@ let gravityForceV =
   // Constrain the gravitational force if threshold constraints were supplied.
   let distance =
     switch (threshold) {
-    | Some(th) => Math.constrain(~low=fst(th), ~high=snd(th), mag)
+    | Some(th) => Math.constrainf(~low=fst(th), ~high=snd(th), mag)
     | None => mag
     };
 

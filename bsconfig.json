@@ -11,7 +11,11 @@
       "subdirs": true
     },
     {
-      "dir": "src/interpolate",
+      "dir": "src/interpolaters",
+      "subdirs": true
+    },
+    {
+      "dir": "src/parsers",
       "subdirs": true
     },
     {

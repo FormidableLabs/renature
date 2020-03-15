@@ -4,3 +4,6 @@ let foi: int => float;
 let iof: float => int;
 [@genType]
 let sof: float => string;
+
+[@genType]
+let parseFloat: string => float;
