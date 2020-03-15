@@ -20,8 +20,12 @@ function interpolateTransform(param, param$1, value) {
   } else if (match$1 == null) {
     transforms = /* array */[];
   } else {
-    var tl_1 = match.split(", ");
-    var th_1 = match$1.split(", ");
+    var tl_1 = $$Array.map((function (prim) {
+            return prim.trim();
+          }), match.split(","));
+    var th_1 = $$Array.map((function (prim) {
+            return prim.trim();
+          }), match$1.split(","));
     transforms = $$Array.mapi((function (i, t) {
             return Interpolate_unit.interpolateUnit(/* tuple */[
                         rl,

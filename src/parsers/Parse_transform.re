@@ -85,8 +85,7 @@ let parseTransform = val_ => {
       Js.Re.captures(t_1) |> Js.Array.filteri((_, i) => i === 1 || i === 2);
 
     captures
-    |> Array.to_list
-    |> List.iteri((i, propOrValue) => {
+    |> Array.iteri((i, propOrValue) => {
          i === 0
            ? t := {...t^, transformProperty: propOrValue}
            : t := {...t^, transform: propOrValue}

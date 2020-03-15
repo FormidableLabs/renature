@@ -115,6 +115,25 @@ describe("Interpolate_transform", () => {
         |> toEqual("translate3d(-5vh, 4vh, 1.25vw)")
       );
     });
+
+    it(
+      "should handle the case where comma-separated values are not also separated by whitespace",
+      () => {
+        let from = "translate3d(-2vh,1.5vh,1vw)";
+        let to_ = "translate3d(-8vh,6.5vh,1.5vw)";
+
+        Expect.(
+          expect(
+            Interpolate_transform.interpolateTransform(
+              ~range=(0., 150.),
+              ~domain=(from, to_),
+              ~value=75.,
+            ),
+          )
+          |> toEqual("translate3d(-5vh, 4vh, 1.25vw)")
+        );
+      },
+    );
   });
 
   describe("interpolateTransforms", () => {

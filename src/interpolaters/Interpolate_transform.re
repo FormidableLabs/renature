@@ -8,8 +8,8 @@ let interpolateTransform = (~range as (rl, rh), ~domain as (dl, dh), ~value) => 
       toTransform.transform->Js.Nullable.toOption,
     ) {
     | (Some(tl), Some(th)) =>
-      let tl_1 = Js.String.split(", ", tl);
-      let th_1 = Js.String.split(", ", th);
+      let tl_1 = Js.String.split(",", tl) |> Array.map(Js.String.trim);
+      let th_1 = Js.String.split(",", th) |> Array.map(Js.String.trim);
 
       tl_1
       |> Array.mapi((i, t) => {
