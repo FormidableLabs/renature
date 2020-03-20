@@ -13,7 +13,8 @@ const slugs = require('github-slugger')();
 const visit = require('unist-util-visit');
 const yaml = require('js-yaml');
 const { promisify } = require('util');
-import { stage, landerBasePath } from '../static-config-parts/constants';
+
+const landerBasePath = 'open-source/renature';
 
 const readFile = promisify(fs.readFile);
 const stat = promisify(fs.stat);
@@ -88,7 +89,10 @@ function slugWithLink() {
 
 function appendImageBasePath(ast) {
   function visitor(node) {
-    if (!!node.value.match(/<img /) && stage !== 'development') {
+    if (
+      !!node.value.match(/<img /) &&
+      process.env.REACT_STATIC_ENV !== 'development'
+    ) {
       node.value = node.value.replace(`src="`, `src="/${landerBasePath}`);
     }
   }

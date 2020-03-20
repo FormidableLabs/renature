@@ -17,5 +17,11 @@ export const theme = {
     backgroundFullDark: '#000000',
     textLight: '#ffffff',
     textDark: '#4e4e4e',
+    heroButton: '#383838',
+    heroButtonDark: '#d5d5d5',
+  },
+  bps: {
+    tabletAndAbove: '768px',
+    desktopAndAbove: '1024px',
   },
 };

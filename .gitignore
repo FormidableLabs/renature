@@ -5,3 +5,5 @@ __tests__/**/*.bs.js
 .vscode
 dist
 .DS_Store
+tmp
+artifacts

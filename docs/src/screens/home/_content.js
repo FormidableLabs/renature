@@ -1,5 +1,5 @@
 /* eslint-disable filenames/match-regex */
-/* eslint-disable quotes*/
+/* eslint-disable quotes */
 const content = {
   features: [
     {
@@ -33,7 +33,6 @@ const content = {
         'An ecosystem of modular data visualization components for React. Friendly and flexible.',
       logo: require('../../static/svgs/badge_victory.svg'),
       link: 'https://formidable.com/open-source/victory',
-      hasOwnLogo: true,
     },
     {
       title: 'urql',
@@ -41,7 +40,6 @@ const content = {
         'Universal React Query Library is a blazing-fast GraphQL client, exposed as a set of ReactJS components.',
       logo: require('../../static/svgs/badge_urql.svg'),
       link: 'https://formidable.com/open-source/urql/',
-      hasOwnLogo: true,
     },
     {
       title: 'Spectacle',
@@ -49,7 +47,6 @@ const content = {
         'A React.js based library for creating sleek presentations using JSX syntax that gives you the ability to live demo your code.',
       logo: require('../../static/svgs/badge_spectacle.svg'),
       link: 'https://formidable.com/open-source/spectacle/',
-      hasOwnLogo: true,
     },
     {
       title: 'Runpkg',
@@ -57,7 +54,6 @@ const content = {
         'The online package explorer. Runpkg turns any npm package into an interactive and informative browsing experience',
       logo: require('../../static/svgs/badge_runpkg.svg'),
       link: 'https://www.runpkg.com/',
-      hasOwnLogo: true,
     },
   ],
 };

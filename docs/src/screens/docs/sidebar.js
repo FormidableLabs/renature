@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withRouteData, withRouter, Link } from 'react-static';
+import { useRouteData } from 'react-static';
+import { Link } from 'react-router-dom';
 
 import {
   SidebarNavItem,
@@ -47,27 +48,19 @@ const Wrapper = styled.div`
 
 const CloseButton = styled.img`
   cursor: pointer;
-  top: 1rem;
-  right: 7rem;
-  position: absolute;
-  display: none;
+  align-self: flex-end;
+  padding: 1rem;
 
   @media (max-width: 768px) {
     display: ${props => (props.overlay ? 'block' : 'none')};
-    right: 1rem;
   }
 `;
 
-const Sidebar = ({
-  overlay,
-  tocArray,
-  history,
-  closeSidebar,
-  sidebarHeaders,
-}) => {
+const Sidebar = ({ overlay, closeSidebar }) => {
+  const { tocArray, sidebarHeaders } = useRouteData();
+
   const renderSidebarItem = React.useCallback(item => {
-    const location = history.location;
-    const currentPath = `/docs${item.path}` === location.pathname;
+    const currentPath = `/docs${item.path}` === window.location.pathname;
     // eslint-disable-next-line no-magic-numbers
     const subContent = tocArray.filter(toc => toc.level === 2);
 
@@ -138,10 +131,7 @@ const Sidebar = ({
 
 Sidebar.propTypes = {
   closeSidebar: PropTypes.func,
-  history: PropTypes.object,
   overlay: PropTypes.bool,
-  sidebarHeaders: PropTypes.array,
-  tocArray: PropTypes.array,
 };
 
-export default withRouter(withRouteData(Sidebar));
+export default Sidebar;

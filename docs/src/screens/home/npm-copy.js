@@ -14,35 +14,28 @@ const HeroNPMWrapper = styled.div`
 `;
 
 const HeroNPMCopy = styled.p`
-  width: 22rem;
-  height: 4rem;
-  color: #383838;
-  background-color: #d5d5d5;
-  color: black;
+  background-color: ${({ theme }) => theme.colors.heroButtonDark};
+  color: ${({ theme }) => theme.colors.heroButton};
   text-align: left;
-  padding: 0.33rem 1.5rem;
+  padding: 0.3rem 1.5rem;
   line-height: 3.44rem;
-  font-size: 14px;
-  letter-spacing: 0.2px;
+  font-size: 1.4rem;
+  letter-spacing: 0.02rem;
   margin: 0;
   flex: 1 0 auto;
 `;
 
 const HeroNPMButton = styled.button`
-  width: 8rem;
-  height: 4rem;
-  background: #ffffff;
-  transition: background 0.4s;
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 1px;
-  color: #383838;
+  flex: 0 1 8rem;
+  background: ${({ theme }) => theme.colors.textLight};
+  transition: background 0.3s ease-out;
+  font-size: 1.4rem;
+  letter-spacing: 0.01rem;
+  color: ${({ theme }) => theme.colors.heroButton};
   border: 0;
   text-transform: uppercase;
   cursor: copy;
+
   &:hover {
     background: ${({ theme }) => theme.colors.linkLightHover};
   }
@@ -63,7 +56,7 @@ const NpmCopy = ({ text }) => {
 
     setTimeout(() => {
       setCopied(false);
-    }, 3000);
+    }, 2000);
   }, []);
 
   return (

@@ -9,7 +9,6 @@ import { Toggle } from '../../components/toggle';
 import { theme } from '../../themes/theme';
 
 const PreviewStack = styled.div`
-  --space: calc(2.25 * 5rem);
   display: flex;
   flex-direction: column;
   margin-left: auto;
@@ -22,7 +21,7 @@ const PreviewStack = styled.div`
   }
 
   > * + * {
-    margin-top: var(--space);
+    margin-top: 11.25rem;
   }
 `;
 

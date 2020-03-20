@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-static';
+import { Link } from 'react-router-dom';
 import sidebarBackground from '../static/svgs/sidebar-background.svg';
 import collapsedSidebarBackground from '../static/svgs/collapsed-sidebar-background.svg';
 
@@ -33,6 +33,8 @@ export const SidebarContainer = styled.div`
 `;
 
 export const SidebarWrapper = styled.aside`
+  display: flex;
+  flex-direction: column;
   font-family: 'akkurat';
   background-image: url(${sidebarBackground});
   background-repeat: repeat-y;

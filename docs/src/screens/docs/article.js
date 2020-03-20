@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withRouteData } from 'react-static';
+import { useRouteData } from 'react-static';
+
 import { Markdown } from '../../components/markdown';
 
 const Container = styled.div`
@@ -23,18 +23,14 @@ const Container = styled.div`
   }
 `;
 
-const Article = ({ renderedMd }) => (
-  <Container>
-    <Markdown html={renderedMd} />
-  </Container>
-);
+const Article = () => {
+  const { renderedMd } = useRouteData();
 
-Article.propTypes = {
-  renderedMd: PropTypes.string,
+  return (
+    <Container>
+      <Markdown html={renderedMd} />
+    </Container>
+  );
 };
 
-Article.defaultProps = {
-  params: null,
-};
-
-export default withRouteData(Article);
+export default Article;

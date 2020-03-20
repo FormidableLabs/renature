@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { withRouteData, Link } from 'react-static';
+import { Link } from 'react-router-dom';
+
 import Article from './article';
 import Sidebar from './sidebar';
 import burger from '../../static/svgs/burger.svg';
@@ -96,56 +96,34 @@ const MainContent = styled.div`
   width: 100%;
 `;
 
-class Docs extends React.Component {
-  constructor(props) {
-    super(props);
-    this.closeSidebar = this.closeSidebar.bind(this);
-    this.state = { openSidebar: false };
-  }
+const Docs = () => {
+  const [open, setOpen] = React.useState(false);
+  const toggleSidebar = () => {
+    setOpen(prevOpen => !prevOpen);
+  };
 
-  openSidebar() {
-    this.setState({ openSidebar: true });
-  }
-
-  closeSidebar() {
-    this.setState({ openSidebar: false });
-  }
-
-  render() {
-    return (
-      <Container>
-        <Wrapper noPadding>
-          <CollapsedMenu overlay={this.state.openSidebar}>
-            <img src={burger} alt="Menu" onClick={() => this.openSidebar()} />
-          </CollapsedMenu>
-          <DocsTitle>
-            <Link to={'/'} style={{ color: '#3b3b3b' }}>
-              {constants.docsTitle}
-            </Link>
-          </DocsTitle>
-          <Link to={'https://formidable.com'}>
-            <HeaderLogo src={logoFormidableDark} alt="Formidable Logo" />
+  return (
+    <Container>
+      <Wrapper noPadding>
+        <CollapsedMenu overlay={open}>
+          <img src={burger} alt="Menu" onClick={toggleSidebar} />
+        </CollapsedMenu>
+        <DocsTitle>
+          <Link to="/" style={{ color: '#3b3b3b' }}>
+            {constants.docsTitle}
           </Link>
-        </Wrapper>
-        <Sidebar
-          overlay={this.state.openSidebar}
-          closeSidebar={this.closeSidebar}
-        />
-        <MainContent>
-          <Article />
-          <Footer articleFooter />
-        </MainContent>
-      </Container>
-    );
-  }
-}
-
-Docs.propTypes = {
-  params: PropTypes.object,
+        </DocsTitle>
+        <Link to="https://formidable.com">
+          <HeaderLogo src={logoFormidableDark} alt="Formidable Logo" />
+        </Link>
+      </Wrapper>
+      <Sidebar overlay={open} closeSidebar={toggleSidebar} />
+      <MainContent>
+        <Article />
+        <Footer articleFooter />
+      </MainContent>
+    </Container>
+  );
 };
 
-Docs.defaultProps = {
-  params: null,
-};
-
-export default withRouteData(Docs);
+export default Docs;
