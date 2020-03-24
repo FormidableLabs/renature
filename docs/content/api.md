@@ -1,15 +1,11 @@
 ---
 title: API
-order: 3
+order: 2
 ---
-
-<a name="api"></a>
 
 # API
 
 This document contains all information on `renature`'s public facing API.
-
-<a name="hooks"></a>
 
 ## Hooks
 
@@ -21,7 +17,7 @@ This document contains all information on `renature`'s public facing API.
 | ----------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `from`      | `{ [key: keyof React.CSSProperties]: any }` | The CSS property or properties you're animating **from**. Accepts an arbitrary number of key-value pairs.                                                                               |
 | `to`        | `{ [key: keyof React.CSSProperties]: any }` | The CSS property or properties you're animating **to**. Accepts an arbitrary number of key-value pairs.                                                                                 |
-| `config`    | `object`                                    | The physics parameters used to model the selected force. This varies from force to force. See [Config](#Config) below for specific force paramters.                                     |
+| `config`    | `object`                                    | The physics parameters used to model the selected force. This varies from force to force. See [Config](#config) below for specific force paramters.                                     |
 | `immediate` | `boolean?`                                  | Optional. Instructs `renature` to run the animation on mount. If `false`, the animation will not run until `controller.start` is called. Defaults to `true`.                            |
 | `delay`     | `number?`                                   | Optional. Instructs `renature` to delay the start of the animation by the provided number of milliseconds. Defaults to `undefined`.                                                     |
 | `infinite`  | `boolean?`                                  | Optional. Instructs `renature` to restart the animation in the reverse direction when the animation completes in the forward direction, producing a "yoyo" effect. Defaults to `false`. |
@@ -34,8 +30,6 @@ Each hook in `renature` accepts a `config` object for tweaking the physics param
 
 The force of gravity is modeled using Newton's Law of Universal Gravitation. We use the real value of **G**, the Universal Gravitational Constant, approximated to 6.67428 x 10^-11.
 
-<img src="/pngs/gravity_equation.png" alt="Newton's Law of Universal Gravitation" style="height: 6rem;" />
-
 The physics parameters used to tweak the `useGravity` animation include the following:
 
 | Property        | Type     | Description                                                                                                                                                                                   |
@@ -45,8 +39,6 @@ The physics parameters used to tweak the `useGravity` animation include the foll
 | `r`             | `number` | The initial distance between the `mover` and the `attractor`. Provided in unit m.                                                                                                             |
 
 The animation will continue to run until the `mover` in the physics simulation has reached the position of the `attractor`.
-
-<img src="/pngs/gravity_animation.png" alt="The useGravity animation in renature." style="margin: 5rem 0;" />
 
 #### Example
 
@@ -71,8 +63,6 @@ function GravityBasic() {
 
 The force of friction is modeled using the standard equation for friction.
 
-<img src="/pngs/friction_equation.png" alt="Standard Equation of Friction" style="height: 3rem;" />
-
 The physics parameters used to tweak the `useFriction` animation include the following:
 
 | Property          | Type     | Description                                                                                                                                                                                                        |
@@ -82,8 +72,6 @@ The physics parameters used to tweak the `useFriction` animation include the fol
 | `initialVelocity` | `number` | The initial velocity of the `mover` on the rough surface in our simulation. Provided in unit m/s.                                                                                                                  |
 
 The animation will continue to run until the `mover` in the physics simulation has come to rest (reached a velocity of 0). This means that animations will run slower as the value of `initialVelocity` increases, because a moving object with a higher initial velocity will take longer to come to rest. Inversely, animations with higher values of `mu` and `mass` will run faster, because a moving object will come to rest more quickly if it is traveling over a rougher surface or is heavier.
-
-<img src="/pngs/friction_animation.png" alt="The useFriction animation in renature." style="margin: 5rem 0;" />
 
 #### Example
 
@@ -112,8 +100,6 @@ function FrictionBasic() {
 
 The force of fluid resistance, or the drag force, is modeled using the standard drag equation.
 
-<img src="/pngs/drag_equation.png" alt="Standard Drag Equation" style="height: 6rem;" />
-
 The physics paramters used to tweak the `useFluidResistance` animation include the following:
 
 | Property | Type       | Description                                                                                                                                                                                  |
@@ -125,8 +111,6 @@ The physics paramters used to tweak the `useFluidResistance` animation include t
 | `settle` | `boolean?` | Optional. Instructs `renature` to apply a "settling" or "bouncing" effect when the `mover` reaches terminal velocity, as though the `mover` has collided with a surface. Default to `false`. |
 
 The animation will continue to run until the `mover` in the physics simulation has achieved [terminal velocity](https://en.wikipedia.org/wiki/Terminal_velocity), the velocity at which the force of gravity and the drag force are equivalent. Increasing the `mass` will make the animation run slower, since heavier objects will take a longer time to reach terminal velocity. Increasing `rho`, `area`, or `cDrag` will all make the animation run faster, since they increase the magnitude of the drag force and bring the `mover` to terminal velocity more rapidly.
-
-<img src="/pngs/fluid_resistance_animation.png" alt="The useFluidResistance animation in renature." style="margin: 5rem 0;" />
 
 #### Example
 

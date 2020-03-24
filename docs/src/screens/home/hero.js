@@ -22,7 +22,7 @@ const HeroContent = styled.div`
     margin-top: 2rem;
   }
 
-  @media (min-width: ${({ theme }) => theme.bps.tabletAndAbove}) {
+  @media ${p => p.theme.media.sm} {
     display: grid;
     grid-template-areas:
       'a . b'
@@ -30,7 +30,8 @@ const HeroContent = styled.div`
       'a . b'
       'a . c'
       'd d d';
-    margin: 20rem 2rem 0;
+    margin-top: 20rem;
+    padding: 0 2rem;
 
     > * + * {
       margin-top: 0;
@@ -44,12 +45,12 @@ const HeroTitle = styled.h1`
   text-align: center;
   text-transform: uppercase;
 
-  @media (min-width: ${({ theme }) => theme.bps.tabletAndAbove}) {
+  @media ${p => p.theme.media.sm} {
     font-size: 6.5rem;
     text-align: left;
   }
 
-  @media (min-width: ${({ theme }) => theme.bps.desktopAndAbove}) {
+  @media ${p => p.theme.media.md} {
     font-size: 9rem;
   }
 `;
@@ -62,7 +63,7 @@ const HeroBody = styled.p`
   max-width: 30rem;
   text-align: center;
 
-  @media (min-width: ${({ theme }) => theme.bps.tabletAndAbove}) {
+  @media ${p => p.theme.media.sm} {
     font-size: 2rem;
     line-height: 2.8rem;
     max-width: none;
@@ -73,7 +74,7 @@ const HeroBody = styled.p`
 const HeroLogo = styled.img`
   width: 36rem;
 
-  @media (min-width: ${({ theme }) => theme.bps.tabletAndAbove}) {
+  @media ${p => p.theme.media.sm} {
     width: 30rem;
     grid-area: a;
     align-self: flex-start;
@@ -81,7 +82,7 @@ const HeroLogo = styled.img`
     max-width: initial;
   }
 
-  @media (min-width: ${({ theme }) => theme.bps.desktopAndAbove}) {
+  @media ${p => p.theme.media.md} {
     width: 36rem;
   }
 `;
@@ -94,13 +95,13 @@ const HeroNavList = styled.ul`
   padding: 2rem 0 0;
   text-align: center;
 
-  @media (min-width: ${({ theme }) => theme.bps.tabletAndAbove}) {
+  @media ${p => p.theme.media.sm} {
     grid-area: d;
     width: 100%;
     margin-top: 2rem;
   }
 
-  @media (min-width: ${({ theme }) => theme.bps.desktopAndAbove}) {
+  @media ${p => p.theme.media.md} {
     grid-area: c;
     margin: 2.2rem 0 0;
     width: 100%;
@@ -117,14 +118,14 @@ const HeroNavList = styled.ul`
   }
 
   & li a {
-    color: ${({ theme }) => theme.colors.textLight};
+    color: ${p => p.theme.colors.textLight};
     font-size: 1.7rem;
     letter-spacing: 0.1rem;
     transition: opacity 0.4s ease-out;
     text-transform: uppercase;
 
     &:hover {
-      color: ${({ theme }) => theme.colors.linkLightHover};
+      color: ${({ theme }) => theme.colors.buttonLightHover};
     }
   }
 `;
@@ -143,7 +144,7 @@ const HeroButtonsContainer = styled.div`
     margin-top: 2rem;
   }
 
-  @media (min-width: ${({ theme }) => theme.bps.desktopAndAbove}) {
+  @media ${p => p.theme.media.md} {
     align-items: center;
     flex-direction: row;
 
@@ -163,22 +164,22 @@ const DocumentationButton = styled(Link)`
   width: 30rem;
   height: 4rem;
   font-size: 1.4rem;
-  background: ${({ theme }) => theme.colors.textLight};
+  background: ${p => p.theme.colors.textLight};
   transition: background 0.25s ease-out;
   line-height: 4rem;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
-  color: ${({ theme }) => theme.colors.heroButton};
+  color: ${({ theme }) => theme.colors.button};
   border: 0;
 
-  @media (min-width: ${({ theme }) => theme.bps.desktopAndAbove}) {
+  @media ${p => p.theme.media.md} {
     margin-top: 0;
     width: 18rem;
   }
 
   &:hover {
-    background: ${({ theme }) => theme.colors.linkLightHover};
+    background: ${({ theme }) => theme.colors.buttonLightHover};
   }
 `;
 
@@ -192,13 +193,13 @@ const HeroBodyAndButtons = styled.div`
     margin-top: 2rem;
   }
 
-  @media (min-width: ${({ theme }) => theme.bps.tabletAndAbove}) {
+  @media ${p => p.theme.media.sm} {
     grid-area: b;
     max-width: 52rem;
     margin-left: 6rem;
   }
 
-  @media (min-width: ${({ theme }) => theme.bps.desktopAndAbove}) {
+  @media ${p => p.theme.media.md} {
     margin-left: 0rem;
   }
 `;

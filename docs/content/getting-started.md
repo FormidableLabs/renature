@@ -3,17 +3,7 @@ title: Getting Started
 order: 0
 ---
 
-<a name="getting-started"></a>
-
 # Getting Started
-
-[Installation](#installation)
-
-[Using Your First Hook](#using-your-first-hook)
-
-[Controlling Animation States](#controlling-animation-states)
-
-<a name="installation"></a>
 
 ## Installation
 
@@ -35,33 +25,32 @@ yarn add react react-dom
 
 That's it! You're now ready to use `renature`.
 
-<a name="using-your-first-hook"></a>
-
 ## Using Your First Hook
 
 Once you've installed `renature`, you can start off by `import`ing one of the hooks exposed by the library. Let's start off by using the `useFriction` hook.
 
-```typescript
+```js live=true
 import React from 'react';
 import { useFriction } from 'renature';
 
-const MyAnimatingElement: React.FC = () => {
-  const [props] = useFriction<HTMLDivElement>({
+function Mover() {
+  const [props] = useFriction({
     from: {
-      transform: 'translateX(0px)',
+      transform: 'translateY(-75px)',
     },
     to: {
-      transform: 'translateX(200px)',
+      transform: 'translateY(75px)',
     },
     config: {
-      mu: 0.1,
+      mu: 0.2,
       mass: 20,
       initialVelocity: 5,
     },
+    infinite: true,
   });
 
-  return <div {...props} />;
-};
+  return <div className="mover" {...props} />;
+}
 ```
 
 `useFriction`, like the others hooks in `renature`, expects a `from` and `to` configuration describing the CSS states you want to animate from and to. You can pass any known CSS property in here, and you can combine multiple properties in your animation.
@@ -72,42 +61,41 @@ The `config` object represents the parameters that can be used to tweak your phy
 
 The `props` object returned by the hooks in `renature` is just a mutable React `ref` object. We attach that `ref` using the object spread operator to your DOM node, which allows `renature` to update that node's `style` attribute during the course of the `requestAnimationFrame` loop. In this way, we can animate UI elements synchronously without re-rendering your entire component on every frame. This is a must to keep your animations performing at 60 frames per second, as tracking animation values in React state would be lead to too many enqueued re-renders.
 
-<a name="controlling-animation-states"></a>
-
 ## Controlling Animation States
 
 By default, all animations in `renature` will run immediately when the associated component mounts. However, you can alter this behavior using `renature`'s `controller` API.
 
 The `controller` is the second object returned by a `renature` hook, and comes with two methods, `start` and `stop`, for interacting with your animation's play state. If you want to start your animation in response to an event, for example, you can call `controller.start`. Note that you'll need to combine this with `immediate: false` in your animation configuration.
 
-```typescript
+```js live=true
 import React from 'react';
 import { useGravity } from 'renature';
 
-const MyAnimatingElement: React.FC = () => {
-  const [props, controller] = useGravity<HTMLDivElement>({
+function ControlledMover() {
+  const [props, controller] = useGravity({
     from: {
       transform: 'rotate(0deg) scale(0)',
     },
     to: {
-      transform: 'rotate(720deg) scale(2)',
+      transform: 'rotate(360deg) scale(1)',
     },
     config: {
       moverMass: 10000,
-      attractorMass: 1000000000,
-      r: 75,
+      attractorMass: 1000000000000,
+      r: 7.5,
     },
-    immediate: false // Signal that the animation should not run on mount.
+    immediate: false, // Signal that the animation should not run on mount.
   });
 
   return (
-    <>
-      /* Call controller.start when a user clicks on a button. */
-      <button onClick={controller.start}>Run The Animation!</button>
-      <div {...props}>
-    </>
-  )
-};
+    <div className="stack">
+      <button className="button" onClick={controller.start}>
+        Run The Animation!
+      </button>
+      <div className="mover" {...props} />
+    </div>
+  );
+}
 ```
 
 ### Stopping Animations

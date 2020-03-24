@@ -8,6 +8,7 @@ import { SecondaryTitle } from '../../components/secondary-title';
 import { SectionTitle } from '../../components/section-title';
 import { Wrapper } from '../../components/wrapper';
 import { theme } from '../../themes/theme';
+import { Stack } from '../../components/stack';
 
 const OSSCardContainer = styled.div`
   display: grid;
@@ -19,7 +20,7 @@ const OSSCardContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
 
-  @media (min-width: ${({ theme }) => theme.bps.tabletAndAbove}) {
+  @media ${p => p.theme.media.sm} {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     max-width: 116rem;
@@ -32,7 +33,16 @@ const OSSCard = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media (min-width: ${({ theme }) => theme.bps.tabletAndAbove}) {
+  > * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  > * + * {
+    margin-top: 1rem;
+  }
+
+  @media ${p => p.theme.media.sm} {
     flex-direction: row;
     justify-content: space-between;
 
@@ -42,15 +52,14 @@ const OSSCard = styled.div`
     }
 
     > * + * {
+      margin-top: 0;
       margin-left: 3rem;
     }
   }
 `;
 
 const OSSImage = styled.img`
-  height: 15rem;
-  width: 15rem;
-  max-width: none;
+  flex: 0 0 15rem;
 `;
 
 const OSSCopyContainer = styled.div`
@@ -68,15 +77,15 @@ const OSSCopyContainer = styled.div`
 `;
 
 const OSSTitle = styled(SecondaryTitle)`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.textLight};
+  color: ${p => p.theme.colors.textLight};
   transition: opacity 0.3s ease-out;
+  margin: 0;
 
   &:hover {
     opacity: 0.7;
   }
 
-  @media (min-width: ${({ theme }) => theme.bps.tabletAndAbove}) {
+  @media ${p => p.theme.media.sm} {
     text-align: left;
   }
 `;
@@ -86,38 +95,38 @@ const SectionWrapper = styled(Wrapper)`
 `;
 
 const OSSDescription = styled(BodyCopy)`
-  color: ${({ theme }) => theme.colors.textLight};
+  color: ${p => p.theme.colors.textLight};
 
-  @media (min-width: ${({ theme }) => theme.bps.tabletAndAbove}) {
+  @media ${p => p.theme.media.sm} {
     text-align: left;
   }
 `;
 
 const MoreOSS = ({ oss }) => (
-  <SectionWrapper background={theme.colors.backgroundFullDark}>
-    <SectionTitle color={theme.colors.textLight}>
-      More Open Source from Formidable
-    </SectionTitle>
-    <OSSCardContainer>
-      {oss.map(card => {
-        return (
-          <OSSCard key={card.title}>
-            <a href={card.link} target="_blank" rel="noopener noreferrer">
+  <SectionWrapper background="#000000">
+    <Stack>
+      <SectionTitle color={theme.colors.textLight}>
+        More Open Source from Formidable
+      </SectionTitle>
+      <OSSCardContainer>
+        {oss.map(card => {
+          return (
+            <OSSCard key={card.title}>
               <OSSImage src={card.logo} />
-            </a>
-            <OSSCopyContainer>
-              <a href={card.link} target="_blank" rel="noopener noreferrer">
-                <OSSTitle>{card.title}</OSSTitle>
-              </a>
-              <OSSDescription>{card.description}</OSSDescription>
-            </OSSCopyContainer>
-          </OSSCard>
-        );
-      })}
-    </OSSCardContainer>
-    <Button light to="https://formidable.com/open-source/">
-      View All
-    </Button>
+              <OSSCopyContainer>
+                <a href={card.link} target="_blank" rel="noopener noreferrer">
+                  <OSSTitle>{card.title}</OSSTitle>
+                </a>
+                <OSSDescription>{card.description}</OSSDescription>
+              </OSSCopyContainer>
+            </OSSCard>
+          );
+        })}
+      </OSSCardContainer>
+      <Button light to="https://formidable.com/open-source/">
+        View All
+      </Button>
+    </Stack>
   </SectionWrapper>
 );
 

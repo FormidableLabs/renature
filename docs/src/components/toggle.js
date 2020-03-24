@@ -38,7 +38,7 @@ const StyledToggle = styled.div`
     content: '';
     position: absolute;
     display: block;
-    background: ${({ theme }) => theme.colors.primary};
+    background: ${p => p.theme.colors.accent};
     height: 28px;
     width: 28px;
     top: 1px;

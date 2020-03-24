@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './global-style';
 import Analytics from './google-analytics';
 import { theme } from './themes/theme';
+import { Loading } from './components/loading';
 // import default prism theme styles
 import 'prismjs/themes/prism.css';
 
@@ -14,7 +15,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Analytics id="UA-43290258-1">
-          <React.Suspense fallback={() => 'Loading'}>
+          <React.Suspense fallback={<Loading />}>
             <Routes />
           </React.Suspense>
         </Analytics>

@@ -14,8 +14,8 @@ const HeroNPMWrapper = styled.div`
 `;
 
 const HeroNPMCopy = styled.p`
-  background-color: ${({ theme }) => theme.colors.heroButtonDark};
-  color: ${({ theme }) => theme.colors.heroButton};
+  background-color: #d5d5d5;
+  color: ${({ theme }) => theme.colors.button};
   text-align: left;
   padding: 0.3rem 1.5rem;
   line-height: 3.44rem;
@@ -27,17 +27,17 @@ const HeroNPMCopy = styled.p`
 
 const HeroNPMButton = styled.button`
   flex: 0 1 8rem;
-  background: ${({ theme }) => theme.colors.textLight};
+  background: ${p => p.theme.colors.textLight};
   transition: background 0.3s ease-out;
   font-size: 1.4rem;
   letter-spacing: 0.01rem;
-  color: ${({ theme }) => theme.colors.heroButton};
+  color: ${({ theme }) => theme.colors.button};
   border: 0;
   text-transform: uppercase;
   cursor: copy;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.linkLightHover};
+    background: ${({ theme }) => theme.colors.buttonLightHover};
   }
 `;
 

@@ -20,6 +20,14 @@ export default {
     public: 'public', // The public directory (files copied to dist during build)
   },
   plugins: [
+    [
+      'react-static-plugin-md-pages',
+      {
+        location: './content',
+        template: './src/screens/docs',
+        pathPrefix: 'docs',
+      },
+    ],
     'react-static-plugin-react-router',
     'react-static-plugin-sitemap',
     'react-static-plugin-styled-components',
@@ -28,49 +36,10 @@ export default {
   stagingBasePath: landerBasePath,
   devBasePath: '',
   getRoutes: async () => {
-    const sidebarItems = await getSidebarItems();
-    const sidebarHeaders = sidebarItems.map(d => ({
-      title: d.title,
-      path: `/${d.slug}/`,
-      slug: d.slug,
-    }));
-
     return [
       {
         path: '/',
         template: 'src/screens/home',
-      },
-      {
-        path: '/docs',
-        template: 'src/screens/docs',
-        getData: () => ({
-          title: `${constants.title} | Documentation`,
-          markdown: sidebarItems[0].markdown,
-          renderedMd: sidebarItems[0].content,
-          sidebarHeaders,
-          tocArray: sidebarItems[0].data.subHeadings.map(sh => ({
-            content: sh.value,
-            level: sh.depth,
-          })),
-        }),
-        // move slug + path to data in transform, renderedMd to data, and nuke markdown prop
-        children: sidebarItems.map(
-          ({ slug, path, markdown, content, data }) => ({
-            path,
-            template: 'src/screens/docs',
-            getData: () => ({
-              title: data.title,
-              markdown,
-              path: `/${slug}/`,
-              renderedMd: content,
-              sidebarHeaders,
-              tocArray: data.subHeadings.map(sh => ({
-                content: sh.value,
-                level: sh.depth,
-              })),
-            }),
-          })
-        ),
       },
     ];
   },

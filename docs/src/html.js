@@ -36,6 +36,10 @@ const CustomDocument = ({ Html, Head, Body, children }) => {
         <meta name="msapplication-TileColor" content="#ff4081" />
         <meta name="msapplication-config" content="./browserconfig.xml" />
         <meta name="theme-color" content="#ffffff" />
+        <link
+          href="https://fonts.googleapis.com/css?family=Space+Mono&display=swap"
+          rel="stylesheet"
+        />
         <title>renature documentation</title>
       </Head>
       <Body>

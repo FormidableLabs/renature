@@ -3,17 +3,11 @@ title: Core Concepts
 order: 1
 ---
 
-<a name="core-concepts"></a>
-
 # Core Concepts
-
-<a name="vectors"></a>
 
 ## Vectors
 
 `renature` uses two-dimensional vectors as the core data type for running our physics simulations. [Vectors](https://natureofcode.com/book/chapter-1-vectors/) are mathematical objects that have both magnitude and direction, and are typically represented in two dimensions using a directed line.
-
-<img src="/pngs/vector.png" style="height: 12rem;" />
 
 When modeling real-world motion in two dimensions, vectors are particularly useful. We can use vectors to represent where an object is in space (which we call `position` in `renature`), how fast an object is moving through space (`velocity`), and the rate of change of its speed (`acceleration`). `renature` tracks all of these vectors in animation state when running our physics simulations to keep track of how objects move over time.
 
@@ -40,25 +34,15 @@ With this knowledge of a set of motion vectors and a force vector, we can determ
 
 **Force equals mass times acceleration.**
 
-<img src="/pngs/force_equation.png" class="equation" style="height: 1.8rem;"><br />
-
 **Therefore, acceleration equals force divided by mass.**
-
-<img src="/pngs/acceleration_equation.png" class="equation" style="height: 4.2rem;"><br />
 
 **The velocity of an object is equal to its current velocity plus acceleration times time.**
 
-<img src="/pngs/velocity_equation.png" class="equation" style="height: 1.8rem;"><br />
-
 **The position, or displacement, of an object is equal to its current position plus velocity times time.**
-
-<img src="/pngs/position_equation.png" class="equation" style="height: 1.8rem;">
 
 With just these laws, we can build a comprehensive model of motion in two dimensions. To learn more, check out Daniel Shiffman's excellent writing on [Vectors](https://natureofcode.com/book/chapter-1-vectors/) or read [the source](https://github.com/FormidableLabs/renature/blob/master/src/core/Vector.re) for our vector math.
 
-<a name="from-/-to-style-animations">
-
-## From / To Style Animations
+## From To Style Animations
 
 `renature`'s core hooks, like `useGravity`, `useFriction`, and `useFluidResistance`, operate on the notion of animating **from** a specific CSS state (i.e. `opacity: 0`) **to** a new CSS state (i.e. `opacity: 1`). In this way, the API is quite similar to [`react-spring`](https://www.react-spring.io/) and even traditional CSS transitions. The difference is in the physics we use to determine how you get from one state to another.
 
@@ -88,23 +72,15 @@ To track the `position` of the mover we use a standard Cartesian coordinate syst
 
 For gravity, the backing simulation involves a `mover` object being pulled towards an `attractor` object. The `mover` is assumed to start at rest, gradually accelerating as it gets pulled towards the `attractor`. To simplify the simulation, we only apply the gravitational force of the `attractor` on the `mover`. Once the `mover` has reached the `attractor`, we end the simulation and stop the animation. At this point, your animating element will have reached the `to` CSS state specified in your configuration.
 
-<img src="/pngs/gravity_simulation.png" />
-
 ### The Friction Simulation
 
 For `useFriction`, the backing simulation involves a `mover` object sliding across a rough surface. The `mover` is assumed to have an initial velocity, provided by the user configuration. We also account for the strength of the normal force in this simulation using the acceleration of gravity at Earth's surface (roughly 9.80665 m/s²). Once the `mover` has come to rest on the surface (achieved `velocity` (0, 0)), we end the simulation and stop the animation. We use a variant of the [kinematic equations](https://www.khanacademy.org/science/physics/one-dimensional-motion/kinematic-formulas/a/what-are-the-kinematic-formulas) to derive the `position` at which the `mover` will come to rest.
 
-<img src="/pngs/kinematic_equation.png" style="height: 10rem;" />
-
 At this point, your animating element will have reached the `to` CSS state specified in your configuration.
-
-<img src="/pngs/friction_simulation.png" />
 
 ### The Fluid Resistance Simulation
 
 For `useFluidResistance`, the backing simulation involves dropping the `mover` object from rest into a fluid of density ρ. The `mover` object experiences the force of gravity acting at the Earth's surface in one direction and the force of drag in the other. As the `mover` continues to fall through the fluid, it will eventually reach [terminal velocity](https://en.wikipedia.org/wiki/Terminal_velocity), the speed at which the net acceleration on the `mover` is 0. At this point, your animating element will have reached the `to` CSS state specified in your configuration. For cases where the `settle` parameter is provided, reaching terminal velocity will actually result in the `mover` colliding with a surface and rebounding.
-
-<img src="/pngs/fluid_resistance_simulation.png" style="width: 36rem;" />
 
 ### Interpolate
 
