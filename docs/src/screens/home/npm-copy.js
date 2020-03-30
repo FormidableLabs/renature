@@ -27,6 +27,8 @@ const HeroNPMCopy = styled.p`
 
 const HeroNPMButton = styled.button`
   flex: 0 1 8rem;
+  height: 4rem;
+  margin: 0;
   background: ${p => p.theme.colors.textLight};
   transition: background 0.3s ease-out;
   font-size: 1.4rem;

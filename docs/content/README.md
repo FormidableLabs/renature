@@ -7,7 +7,7 @@ order: 0
 
 `renature` is a physics-based animation library for React inspired by the natural world. Taking influence from other popular physics-based animation libraries like [`react-spring`](https://www.react-spring.io/) and elements of [`framer-motion`](https://www.framer.com/motion/), `renature` focuses on using non-traditional physics primitives like gravity, friction, and fluid resistance. It also provides a simple two-dimensional API for creating visual experiences similar to [Processing](https://processing.org/) or [`p5.js`](https://p5js.org/).
 
-`renature` also focuses on speed, precision, and a small bundle size. The implementation is a mix of [ReasonML](https://reasonml.org/) and [TypeScript](https://www.typescriptlang.org/). We use ReasonML for the vector primitives, parsers, and interpolators, and TypeScript for the hooks implementations and frame loop. We also value being dependency-free – `renature` has no external dependencies!
+`renature` focuses on speed, precision, and a small bundle size. The implementation is a mix of [ReasonML](https://reasonml.org/) and [TypeScript](https://www.typescriptlang.org/). We use ReasonML for the vector primitives, parsers, and interpolators, and TypeScript for the hooks implementations and frame loop. We also value being dependency-free – `renature` has no external dependencies!
 
 ## Documentation
 

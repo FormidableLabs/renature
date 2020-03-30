@@ -69,6 +69,11 @@ const HeadingItem = styled.li`
     font-weight: ${p => p.theme.fontWeights.body};
     color: ${p => p.theme.colors.passive};
     text-decoration: none;
+    transition: color 0.2s ease-out;
+
+    &:hover {
+      color: ${p => p.theme.colors.accent};
+    }
   }
 `;
 

@@ -123,6 +123,7 @@ const HeroNavList = styled.ul`
     letter-spacing: 0.1rem;
     transition: opacity 0.4s ease-out;
     text-transform: uppercase;
+    text-decoration: none;
 
     &:hover {
       color: ${({ theme }) => theme.colors.buttonLightHover};
@@ -169,6 +170,7 @@ const DocumentationButton = styled(Link)`
   line-height: 4rem;
   text-align: center;
   text-transform: uppercase;
+  text-decoration: none;
   letter-spacing: 0.1rem;
   color: ${({ theme }) => theme.colors.button};
   border: 0;

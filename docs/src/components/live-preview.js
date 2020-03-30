@@ -60,7 +60,7 @@ export const StyledContainer = styled.div`
 `;
 
 export const StyledEditor = styled(LiveEditor)`
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   min-height: 25rem;
   overflow: auto !important;
   max-height: 35rem;
@@ -229,4 +229,5 @@ LivePreview.propTypes = {
   copy: PropTypes.string.isRequired,
   before: PropTypes.bool,
   splitVertical: PropTypes.bool,
+  even: PropTypes.bool,
 };

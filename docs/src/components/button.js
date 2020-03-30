@@ -18,6 +18,7 @@ export const Button = styled(({ light, ...rest }) => {
   padding: 1.5rem 2rem;
   text-align: center;
   text-transform: uppercase;
+  text-decoration: none;
   transition: background 0.4s ease-out;
 
   &:hover {

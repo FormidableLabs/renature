@@ -60,6 +60,7 @@ const OSSCard = styled.div`
 
 const OSSImage = styled.img`
   flex: 0 0 15rem;
+  height: 15rem;
 `;
 
 const OSSCopyContainer = styled.div`

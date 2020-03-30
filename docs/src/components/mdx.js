@@ -108,7 +108,7 @@ const ImageWrapper = styled.div`
   & > img {
     padding: ${p => p.theme.spacing.md};
     align-self: center;
-    max-height: 40vh;
+    max-height: 60vh;
   }
 `;
 
@@ -152,8 +152,8 @@ const HighlightCode = ({ className = '', live = false, children }) => {
         scope={{ useFriction, useFluidResistance, useGravity, useGravity2D }}
         theme={nightOwlLight}
       >
-        <StyledContainer splitVertical even>
-          <StyledPreview splitVertical />
+        <StyledContainer even>
+          <StyledPreview />
           <StyledError />
           <StyledEditor />
         </StyledContainer>
@@ -174,8 +174,10 @@ const HighlightCode = ({ className = '', live = false, children }) => {
           className={className}
         >
           {tokens.map((line, i) => (
+            // eslint-disable-next-line react/jsx-key
             <div {...getLineProps({ line, key: i })}>
               {line.map((token, key) => (
+                // eslint-disable-next-line react/jsx-key
                 <span {...getTokenProps({ token, key })} />
               ))}
             </div>
@@ -184,6 +186,12 @@ const HighlightCode = ({ className = '', live = false, children }) => {
       )}
     </Highlight>
   );
+};
+
+HighlightCode.propTypes = {
+  className: PropTypes.string,
+  live: PropTypes.bool,
+  children: PropTypes.node.isRequired,
 };
 
 const Blockquote = styled.blockquote`
@@ -281,8 +289,13 @@ const MdLink = ({ href, children }) => {
   );
 };
 
+MdLink.propTypes = {
+  href: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
 const HeadingText = styled.h1`
-  &:target:before {
+  &:target::before {
     content: '';
     display: block;
     height: 1.5em;
@@ -339,3 +352,7 @@ const components = {
 export const MDXComponents = ({ children }) => (
   <MDXProvider components={components}>{children}</MDXProvider>
 );
+
+MDXComponents.propTypes = {
+  children: PropTypes.node.isRequired,
+};

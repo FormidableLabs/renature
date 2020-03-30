@@ -1,6 +1,5 @@
 import Document from './src/html';
 import constants from './src/constants';
-import { getSidebarItems } from './static-config-helpers/md-data-transforms';
 
 const isStaging = process.env.REACT_STATIC_STAGING === 'true';
 const landerBasePath = 'open-source/renature';
@@ -16,7 +15,9 @@ export default {
     src: 'src', // The source directory. Must include an index.js entry file.
     // See app.js for how stage is used to make client-side routing resolve correctly by stage.
     dist: isStaging ? `dist/${landerBasePath}` : 'dist', // The production output directory.
-    devDist: 'tmp/dev-server', // The development scratch directory.
+    buildArtifacts: 'node_modules/.cache/react-static/artifacts/',
+    devDist: 'node_modules/.cache/react-static/dist/',
+    temp: 'node_modules/.cache/react-static/temp/',
     public: 'public', // The public directory (files copied to dist during build)
   },
   plugins: [
