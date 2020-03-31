@@ -2,19 +2,12 @@ import Document from './src/html';
 import constants from './src/constants';
 
 const isStaging = process.env.REACT_STATIC_STAGING === 'true';
-const landerBasePath = 'open-source/renature';
+const basePath = 'open-source/renature';
 
 export default {
-  getSiteData: () => {
-    return {
-      title: constants.title,
-    };
-  },
   paths: {
-    root: process.cwd(), // The root of your project. Don't change this unless you know what you're doing.
-    src: 'src', // The source directory. Must include an index.js entry file.
-    // See app.js for how stage is used to make client-side routing resolve correctly by stage.
-    dist: isStaging ? `dist/${landerBasePath}` : 'dist', // The production output directory.
+    src: 'src',
+    dist: isStaging ? `dist/${basePath}` : 'dist',
     buildArtifacts: 'node_modules/.cache/react-static/artifacts/',
     devDist: 'node_modules/.cache/react-static/dist/',
     temp: 'node_modules/.cache/react-static/temp/',
@@ -29,20 +22,21 @@ export default {
         pathPrefix: 'docs',
       },
     ],
-    'react-static-plugin-react-router',
-    'react-static-plugin-sitemap',
     'react-static-plugin-styled-components',
+    'react-static-plugin-sitemap',
+    'react-static-plugin-react-router',
   ],
-  basePath: landerBasePath,
-  stagingBasePath: landerBasePath,
+  basePath,
+  stagingBasePath: '',
   devBasePath: '',
-  getRoutes: async () => {
-    return [
-      {
-        path: '/',
-        template: 'src/screens/home',
-      },
-    ];
-  },
   Document,
+  getSiteData: () => ({
+    title: constants.title,
+  }),
+  getRoutes: async () => [
+    {
+      path: '/',
+      template: 'src/screens/home',
+    },
+  ],
 };
