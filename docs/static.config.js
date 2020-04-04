@@ -36,7 +36,11 @@ export default {
   getRoutes: async () => [
     {
       path: '/',
-      template: 'src/screens/home',
+      template: require.resolve('./src/screens/home'),
+    },
+    {
+      path: '404',
+      template: require.resolve('./src/screens/404'),
     },
   ],
 };
