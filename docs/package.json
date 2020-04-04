@@ -30,7 +30,7 @@
   "dependencies": {
     "@mdx-js/react": "^1.5.7",
     "history": "^4.7.2",
-    "prismjs": "^1.15.0",
+    "path": "^0.12.7",
     "prop-types": "^15.6.2",
     "react": "^16.12.0",
     "react-copy-to-clipboard": "^5.0.1",
@@ -41,6 +41,7 @@
     "react-router-dom": "^5.1.2",
     "react-router-ga": "^1.0.0",
     "react-static": "^7.2.3",
+    "react-static-plugin-md-pages": "^0.1.7",
     "renature": "^0.1.0",
     "styled-components": "^5.0.0"
   },
@@ -53,10 +54,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "execa": "^4.0.0",
     "prettier": "^1.15.1",
-    "react-document-meta": "^2.0.3",
     "react-hot-loader": "^4.12.20",
-    "react-router-scroll": "^0.2.0",
-    "react-static-plugin-md-pages": "^0.1.7",
     "react-static-plugin-react-router": "^7.2.3",
     "react-static-plugin-sitemap": "^7.2.3",
     "react-static-plugin-styled-components": "^7.2.2",

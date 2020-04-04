@@ -6,8 +6,6 @@ import { GlobalStyle } from './global-style';
 import Analytics from './google-analytics';
 import { theme } from './themes/theme';
 import { Loading } from './components/loading';
-// import default prism theme styles
-import 'prismjs/themes/prism.css';
 
 const App = () => {
   return (
