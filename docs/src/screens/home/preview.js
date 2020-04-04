@@ -112,7 +112,7 @@ function Gravity2DAnimation() {
 
 const Preview = () => (
   <Wrapper background="linear-gradient(242deg, #30265f 101%, #5443a6 -11%)">
-    <SectionTitle color={theme.colors.textLight} compact>
+    <SectionTitle color={theme.colors.textLight}>
       Beautiful, Simple Animations
     </SectionTitle>
     {typeof window !== 'undefined' ? (
