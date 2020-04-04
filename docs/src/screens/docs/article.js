@@ -107,7 +107,7 @@ export const ArticleStyling = ({ children, SectionList }) => (
 
 ArticleStyling.propTypes = {
   children: PropTypes.node.isRequired,
-  SectionList: PropTypes.node,
+  SectionList: PropTypes.func,
 };
 
 const Article = ({ children }) => (

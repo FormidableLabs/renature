@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Hero from '../screens/home/hero';
-import bgImg from '../static/pngs/background_renature@2x.png';
-import headerTriangle from '../static/svgs/header-triangle.svg';
-import logoFormidableWhite from '../static/svgs/logo_formidable_white.png';
+import heroBackground from '../assets/background_renature.svg';
+import headerTriangle from '../assets/header_triangle.svg';
+import logoFormidableWhite from '../assets/logos/logo_formidable_white.svg';
 
 const Container = styled.header`
-  background-image: url(${bgImg});
+  background-image: url(${heroBackground});
   background-size: cover;
   color: ${p => p.theme.colors.textLight};
   padding-bottom: 8rem;
@@ -33,20 +33,20 @@ const HeaderContainer = styled.a`
   display: flex;
   flex-direction: column;
   position: absolute;
-  left: 1.8rem;
-  top: 1.3rem;
+  left: 2rem;
+  top: 1.5rem;
   font-size: 0.8rem;
   color: ${p => p.theme.colors.textLight};
 
   @media ${p => p.theme.media.sm} {
-    left: 3.3rem;
-    top: 1.7rem;
+    left: 3.5rem;
+    top: 2rem;
     font-size: 1.2rem;
   }
 
   @media ${p => p.theme.media.md} {
-    left: 5.3rem;
-    top: 3.7rem;
+    left: 4rem;
+    top: 3rem;
   }
 
   > * {
@@ -70,10 +70,14 @@ const HeaderText = styled.p`
 `;
 
 const HeaderLogo = styled.img`
-  width: 3.3rem;
+  width: 4rem;
 
   @media ${p => p.theme.media.sm} {
-    width: 4.8rem;
+    width: 6rem;
+  }
+
+  @media ${p => p.theme.media.md} {
+    width: 8rem;
   }
 `;
 

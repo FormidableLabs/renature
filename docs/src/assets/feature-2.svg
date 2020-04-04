@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="295" height="295" viewBox="0 0 295 295">
+    <defs>
+        <path id="a" d="M0 0h280v280H0z"/>
+        <filter id="b" width="110.7%" height="110.7%" x="-8%" y="-2.7%" filterUnits="objectBoundingBox">
+            <feOffset dx="-15" dy="15" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feColorMatrix in="shadowOffsetOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
+        </filter>
+        <circle id="d" cx="61.5" cy="61.5" r="61.5"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd" transform="translate(15)">
+        <mask id="c" fill="#fff">
+            <use xlink:href="#a"/>
+        </mask>
+        <use fill="#000" filter="url(#b)" xlink:href="#a"/>
+        <use fill="#D8D8D8" xlink:href="#a"/>
+        <path fill="#0E0921" d="M0 0h280v280H0z" mask="url(#c)"/>
+        <g mask="url(#c)">
+            <g transform="translate(79 79)">
+                <mask id="e" fill="#fff">
+                    <use xlink:href="#d"/>
+                </mask>
+                <use fill="#F8F7FE" xlink:href="#d"/>
+                <path fill="#E7E7E7" d="M33 6c7.443 0 14.126 3.252 18.706 8.413C52.14 8.91 54.052 7 61 7c8.284 0 15 6.716 15 15 0 8.284-6.216 3-14.5 3-1.655 0-3.045.051-4.209.067C57.755 26.97 58 28.956 58 31c0 13.807-9.14 24-21.07 17a28.498 28.498 0 0 0-4.203-1.998c.18.804.273 1.64.273 2.498 0 6.351-7.977 8.5-14.328 8.5C12.32 57 10 54.851 10 48.5c0-3.206 1.312-6.105 3.428-8.19C10.137 38.575 8 35.894 8 31 8 17.193 19.193 6 33 6zM21.5 87c6.351 0 .5-5.149.5-11.5s.17-7.5-6.182-7.5C9.467 68 10 72.752 10 79.104 10 85.454 15.149 87 21.5 87zM97.5 47c6.351 0 11.5-4.649 11.5-11s-5.149-11-11.5-11-7.494 4.649-7.494 11 1.143 11 7.494 11z" mask="url(#e)"/>
+                <circle cx="93" cy="48.5" r="7" fill="#E7E7E7" mask="url(#e)"/>
+                <path fill="#E7E7E7" d="M102.5 68c3.59 0 8.03-3.41 8.03-7s-4.44-6-8.03-6c-3.59 0-7.938 6.392-7.938 9.981 0 3.59 4.348 3.019 7.938 3.019z" mask="url(#e)"/>
+            </g>
+        </g>
+        <path stroke="#7860ED" stroke-dasharray="1,20" stroke-linecap="round" stroke-linejoin="round" stroke-width="8" d="M140 248c59.647 0 108-48.353 108-108S199.647 32 140 32 32 80.353 32 140s48.353 108 108 108z" mask="url(#c)" transform="rotate(-131 140 140)"/>
+        <circle cx="213.5" cy="65.5" r="20.5" fill="#D6CFF9" mask="url(#c)"/>
+    </g>
+</svg>

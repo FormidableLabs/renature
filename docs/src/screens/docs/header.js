@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useBasepath } from 'react-static';
 
-import formidableLogo from '../../assets/logos/logo-formidable.svg';
+import formidableLogo from '../../assets/logos/logo_formidable.svg';
 
 const Fixed = styled.header`
   position: fixed;

@@ -273,6 +273,10 @@ const MdLink = ({ href, children }) => {
   const location = useLocation();
   const currentPage = useMarkdownPage();
 
+  if (!currentPage) {
+    return null;
+  }
+
   if (!/^\w+:/.test(href) && !href.startsWith('#')) {
     const hasTrailingSlash = location.pathname.endsWith('/');
     const from = !hasTrailingSlash ? currentPage.path + '/' : currentPage.path;

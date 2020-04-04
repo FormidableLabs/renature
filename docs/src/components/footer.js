@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Wrapper } from './wrapper';
 import { theme } from '../themes/theme';
 
-import logoFormidableWhite from '../static/svgs/logo_formidable_white.png';
+import logoFormidableWhite from '../assets/logos/logo_formidable_white.svg';
 
 const FooterContainer = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ const FooterLeft = styled.div`
 `;
 
 const FooterLogo = styled.img`
-  width: 7rem;
+  width: 10rem;
   margin-right: 3rem;
 `;
 

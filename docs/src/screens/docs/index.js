@@ -69,7 +69,7 @@ const Docs = ({ isLoading, children }) => {
 };
 
 Docs.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   children: PropTypes.node.isRequired,
 };
 

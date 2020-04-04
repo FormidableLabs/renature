@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import NpmCopy from './npm-copy';
 import { Wrapper } from '../../components/wrapper';
-import badge from '../../static/pngs/badge_renature@2x.png';
+import badge from '../../assets/badge_renature.svg';
 
 const HeroContent = styled.div`
   display: flex;
@@ -72,7 +72,7 @@ const HeroBody = styled.p`
 `;
 
 const HeroLogo = styled.img`
-  width: 36rem;
+  width: 20rem;
 
   @media ${p => p.theme.media.sm} {
     width: 30rem;
@@ -210,7 +210,7 @@ const Hero = () => {
   return (
     <Wrapper noPadding background="transparent">
       <HeroContent>
-        <HeroLogo src={badge} />
+        <HeroLogo src={badge} alt="renature" />
         <HeroBodyAndButtons>
           <HeroTitle>Renature</HeroTitle>
           <HeroBody>
