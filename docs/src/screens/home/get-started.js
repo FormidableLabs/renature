@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import { BodyCopy } from '../../components/body-copy';
 import { Button } from '../../components/button';
 import { SectionTitle } from '../../components/section-title';
 import { Wrapper } from '../../components/wrapper';
 import { theme } from '../../themes/theme';
+import { Stack } from '../../components/stack';
 
 const GetStarted = ({ getStarted }) => (
-  <Wrapper background={theme.colors.backgroundLight}>
-    <SectionTitle>Get Started</SectionTitle>
-    <BodyCopy>{getStarted.description}</BodyCopy>
-    <Button to={getStarted.link}>Documentation</Button>
+  <Wrapper background={theme.colors.bgLight}>
+    <Stack>
+      <SectionTitle>Get Started</SectionTitle>
+      <BodyCopy>{getStarted.description}</BodyCopy>
+      <Button to={getStarted.link}>Documentation</Button>
+    </Stack>
   </Wrapper>
 );
 

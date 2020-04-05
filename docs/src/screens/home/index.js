@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { usePrefetch } from 'react-static';
+import { useMarkdownTree } from 'react-static-plugin-md-pages';
 
 import Features from './features';
 import GetStarted from './get-started';
@@ -11,18 +13,22 @@ import { Footer } from '../../components/footer';
 
 const Container = styled.div`
   width: 100%;
-  background: ${({ theme }) => theme.colors.backgroundLight};
 `;
 
-const Home = () => (
-  <Container>
-    <Header />
-    <Features features={content.features} />
-    <Preview />
-    <GetStarted getStarted={content.getStarted} />
-    <MoreOSS oss={content.oss} />
-    <Footer />
-  </Container>
-);
+const Home = () => {
+  const ref = usePrefetch('docs');
+  useMarkdownTree();
+
+  return (
+    <Container ref={ref}>
+      <Header />
+      <Features features={content.features} />
+      <Preview />
+      <GetStarted getStarted={content.getStarted} />
+      <MoreOSS oss={content.oss} />
+      <Footer />
+    </Container>
+  );
+};
 
 export default Home;

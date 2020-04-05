@@ -9,20 +9,11 @@ export const Wrapper = styled.div`
   width: 100%;
   margin: ${({ noMargin }) => (noMargin ? '0' : 'auto')};
   padding: ${({ noPadding }) => (noPadding ? '0' : '4rem')};
-  background: ${({ background }) => background || theme.colors.backgroundLight};
+  background: ${({ background }) => background || theme.colors.bgLight};
   text-align: center;
 
-  @media (min-width: 768px) {
-    flex-direction: row;
+  @media ${p => p.theme.media.sm} {
     padding: ${({ noPadding }) => (noPadding ? '0' : '8rem')};
-  }
-
-  @media (max-width: 768px) {
-    text-align: center;
-
-    img {
-      max-width: 240px;
-    }
   }
 `;
 

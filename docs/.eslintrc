@@ -29,6 +29,8 @@
   },
   "rules": {
     "prettier/prettier": ["error"],
-    "quotes": ["error", "single", { "allowTemplateLiterals": true }]
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "no-console": "error",
+    "no-unused-vars": ["error", { "ignoreRestSiblings": true }]
   }
 }

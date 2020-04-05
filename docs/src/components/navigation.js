@@ -1,94 +1,137 @@
-import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-static';
-import sidebarBackground from '../static/svgs/sidebar-background.svg';
-import collapsedSidebarBackground from '../static/svgs/collapsed-sidebar-background.svg';
+import { NavLink } from 'react-router-dom';
 
-const sidebarZIndex = 900;
+import ChevronIcon from '../assets/chevron';
 
-export const Navigation = styled.div`
-  align-items: center;
-  background: rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: row;
-  height: 6rem;
-  width: 100%;
+export const SidebarContainer = styled.div`
+  display: ${p => (p.hidden ? 'none' : 'block')};
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 100%;
 
-  & img {
-    margin-left: auto;
-    @media (min-width: 768px) {
-      margin-left: 0;
-    }
+  @media ${p => p.theme.media.sm} {
+    display: block;
+    position: relative;
+    width: ${p => p.theme.layout.sidebar};
+    margin-left: calc(2 * ${p => p.theme.layout.stripes});
   }
 `;
-export const SidebarContainer = styled.div`
-  width: 24rem;
-  min-width: 24rem;
-  min-height: 100vh;
 
-  @media (max-width: 768px) {
-    min-width: 2.5rem;
-    width: 2.5rem;
-  }
+export const SidebarStripes = styled.div`
+  border-left: ${p => p.theme.layout.stripes} solid
+    ${p => p.theme.colors.accent};
+  border-right: ${p => p.theme.layout.stripes} solid #5a508f;
+  position: absolute;
+  height: 100%;
+  width: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
 `;
 
 export const SidebarWrapper = styled.aside`
-  font-family: 'akkurat';
-  background-image: url(${sidebarBackground});
-  background-repeat: repeat-y;
-  background-size: 100%;
-  min-height: 100vh;
-  min-width: 24rem;
-  width: 24rem;
-  z-index: ${sidebarZIndex};
   position: fixed;
-  overflow-y: scroll;
-  top: 0;
   bottom: 0;
+  top: ${p => p.theme.layout.header};
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
 
-  @media (max-width: 768px) {
-    background-image: ${props =>
-      props.overlay
-        ? `url(${sidebarBackground})`
-        : `url(${collapsedSidebarBackground})`};
-    min-width: ${props => (props.overlay ? '24rem' : '2.5rem')};
-    width: ${props => (props.overlay ? '24rem' : '2.5rem')};
-  }
-`;
-
-export const SidebarNavItem = styled(({ isSelected, ...rest }) => (
-  <Link {...rest} />
-))`
-  color: ${({ theme }) => theme.colors.textLight};
-  font-size: 1.6rem;
   display: flex;
-  margin: ${({ isSelected }) => (isSelected ? '0 0 0 -2rem' : '0')};
-  padding: ${({ isSelected }) =>
-    isSelected ? '0.5rem 0.5rem 0.5rem 3rem' : '0.5rem 0.5rem 0.5rem 1rem'};
-  background: ${({ isSelected, theme }) =>
-    isSelected ? `${theme.colors.linkHover}` : 'transparent'};
-  transition: margin 0.2s ease-out, background 0.2s ease-out,
-    padding 0.2s ease-out;
+  flex-direction: column;
+  z-index: 1;
+  overflow-y: scroll;
+  min-height: 100%;
+  line-height: ${p => p.theme.lineHeights.body};
+  font-size: ${p => p.theme.fontSizes.small};
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.linkLightHover};
+  padding: ${p => p.theme.spacing.sm} ${p => p.theme.spacing.md};
+  background-color: #d4cff6;
+  border-right: 1px solid ${p => p.theme.colors.border};
+  border-top: 1px solid ${p => p.theme.colors.border};
+
+  @media ${({ theme }) => theme.media.sm} {
+    border: none;
+    padding-top: ${p => p.theme.spacing.md};
+    width: ${p => p.theme.layout.sidebar};
   }
 `;
 
-export const SidebarNavSubItem = styled(({ isSelected, ...rest }) => (
-  <Link {...rest} />
-))`
-  color: ${({ theme }) => theme.colors.textLight};
-  font-size: 1.4rem;
-  margin: ${({ isSelected }) => (isSelected ? '0 0 0 -2rem' : '0')};
-  padding: ${({ isSelected }) =>
-    isSelected ? '0.5rem 0.5rem 0.5rem 5rem' : '0.5rem 0.5rem 0.5rem 3rem'};
-  background: ${({ isSelected, theme }) =>
-    isSelected ? `${theme.colors.linkHover}` : 'transparent'};
-  transition: margin 0.2s ease-out, background 0.2s ease-out,
-    padding 0.2s ease-out;
+export const SidebarNavItem = styled(NavLink).attrs(() => ({
+  activeClassName: 'active',
+}))`
+  display: block;
+  margin: ${p => p.theme.spacing.xs} 0;
+  color: ${p => p.theme.colors.text};
+  font-weight: ${p => p.theme.fontWeights.heading};
+  text-decoration: none;
+  width: 100%;
+  &:hover {
+    color: ${p => p.theme.colors.accent};
+  }
+  &.active {
+    color: ${p => p.theme.colors.accent};
+  }
+`;
+
+export const ChevronItem = styled(ChevronIcon).attrs(() => ({
+  'aria-hidden': 'true',
+}))`
+  display: inline-block;
+  color: inherit;
+  vertical-align: baseline;
+  margin-top: 0.08em;
+  margin-left: 0.3em;
+  padding: 0.08em;
+  width: 1em;
+  height: 1em;
+  position: relative;
+  top: 0.16em;
+
+  ${SidebarNavItem}.active & {
+    transform: rotate(180deg);
+  }
+`;
+
+export const SidebarNavSubItemWrapper = styled.div`
+  padding-left: ${p => p.theme.spacing.sm};
+  margin-bottom: ${p => p.theme.spacing.xs};
+`;
+
+export const SidebarNavSubItem = styled(NavLink).attrs(() => ({}))`
+  display: inline-block;
+  position: relative;
+  color: ${p => p.theme.colors.passive};
+  font-weight: ${p => p.theme.fontWeights.body};
+  text-decoration: none;
+  margin-top: ${p => p.theme.spacing.xs};
+
+  &::before {
+    background-color: ${p => p.theme.colors.accent};
+    bottom: 0;
+    content: '';
+    height: 0.2rem;
+    left: 0;
+    position: absolute;
+    transition: color, width 0.3s ease-in-out;
+    width: 0;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
 
   &:hover {
-    color: ${({ theme }) => theme.colors.linkLightHover};
+    color: ${p => p.theme.colors.accent};
+
+    &::before {
+      width: 100%;
+    }
+  }
+
+  &.active {
+    color: ${p => p.theme.colors.accent};
+    font-weight: ${p => p.theme.fontWeights.heading};
   }
 `;

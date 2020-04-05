@@ -14,22 +14,23 @@ import { NightOwl } from '../themes/night-owl';
 
 const StyledEditorWithTagline = styled.div`
   display: flex;
+  flex-direction: column;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
+  @media ${p => p.theme.media.sm} {
+    flex-direction: ${p => (p.before ? 'row' : 'row-reverse')};
   }
 `;
 
 const StyledTagline = styled.aside`
   flex-basis: 20%;
-  padding: 0 5rem;
+  padding: 2rem 5rem;
 
-  @media (max-width: 768px) {
-    padding: 2rem 5rem;
+  @media ${p => p.theme.media.sm} {
+    padding: 0 5rem;
   }
 
-  h2 {
-    color: ${({ theme }) => theme.colors.linkLightHover};
+  h3 {
+    color: ${({ theme }) => theme.colors.buttonLightHover};
     text-align: left;
   }
 
@@ -41,26 +42,30 @@ const StyledTagline = styled.aside`
 
 export const StyledContainer = styled.div`
   display: flex;
-  flex-direction: ${({ splitVertical }) => (splitVertical ? 'row' : 'column')};
+  flex-direction: column;
+  font-family: ${p => p.theme.fonts.code};
   width: 100%;
   border-radius: 1rem;
   box-shadow: 1px 1px 20px rgba(20, 20, 20, 0.27);
   overflow: hidden;
 
-  @media (max-width: 1024px) {
-    flex-direction: column;
+  @media ${p => p.theme.media.md} {
+    flex-direction: ${({ splitVertical }) =>
+      splitVertical ? 'row' : 'column'};
+  }
+
+  > * {
+    flex: ${p => (p.even ? '0 0 50%' : '0 1 auto')};
   }
 `;
 
 export const StyledEditor = styled(LiveEditor)`
-  font-family: 'Fira Code', monospace !important;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   min-height: 25rem;
-  max-height: 35rem;
   overflow: auto !important;
+  max-height: 35rem;
 
-  @media (max-width: 1024px) {
-    max-height: none;
+  @media ${p => p.theme.media.md} {
   }
 
   * > textarea:focus {
@@ -83,7 +88,7 @@ export const StyledPreview = styled(({ splitVertical, ...rest }) => (
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: ${({ theme }) => theme.colors.textLight};
+  background: ${p => p.theme.colors.textLight};
   min-height: 25rem;
   overflow: hidden;
   flex-grow: ${({ splitVertical }) => (splitVertical ? 1 : 0)};
@@ -92,7 +97,7 @@ export const StyledPreview = styled(({ splitVertical, ...rest }) => (
     height: 100px;
     width: 100px;
     border-radius: 10px;
-    background: ${({ theme }) => theme.colors.primary};
+    background: ${p => p.theme.colors.accent};
   }
 
   .toggle {
@@ -116,9 +121,9 @@ export const StyledPreview = styled(({ splitVertical, ...rest }) => (
     height: 25px;
     width: 25px;
     border-radius: 50%;
-    background: ${({ theme }) => theme.colors.textLight};
-    box-shadow: 0 0 8px 4px ${({ theme }) => theme.colors.textLight},
-      0 0 16px 8px ${({ theme }) => theme.colors.primary};
+    background: ${p => p.theme.colors.textLight};
+    box-shadow: 0 0 8px 4px ${p => p.theme.colors.textLight},
+      0 0 16px 8px ${p => p.theme.colors.accent};
   }
 
   .attractor-2d {
@@ -130,6 +135,44 @@ export const StyledPreview = styled(({ splitVertical, ...rest }) => (
     transform: translate(-50%, -50%);
     box-shadow: 0 0 30px 15px var(--color-yellow);
   }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > * {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    > * + * {
+      margin-top: 2rem;
+    }
+  }
+
+  button {
+    display: inline-block;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .button {
+    background: var(--color-near-black);
+    color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.2);
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 5px;
+    transition: transform 0.2s ease;
+  }
+
+  .button:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const StyledError = styled(LiveError)`
@@ -138,12 +181,11 @@ export const StyledError = styled(LiveError)`
   justify-content: center;
   padding: 0 2rem;
   margin: 0;
-  background: red;
-  color: white;
+  background: ${p => p.theme.colors.accent};
+  color: ${p => p.theme.colors.textLight};
   white-space: pre-wrap;
   text-align: left;
   font-size: 0.9em;
-  font-family: 'Fira Code', monospace !important;
 `;
 
 export const LivePreview = ({
@@ -153,11 +195,12 @@ export const LivePreview = ({
   copy,
   before = false,
   splitVertical = false,
+  even = false,
 }) => {
   const taglineElement = React.useMemo(
     () => (
       <StyledTagline>
-        <h2>{tagline}</h2>
+        <h3>{tagline}</h3>
         <BodyCopy color={theme.colors.textLight}>{copy}</BodyCopy>
       </StyledTagline>
     ),
@@ -165,16 +208,15 @@ export const LivePreview = ({
   );
 
   return (
-    <StyledEditorWithTagline>
-      {before && taglineElement}
+    <StyledEditorWithTagline before={before}>
+      {taglineElement}
       <LiveProvider code={code} scope={scope} theme={NightOwl}>
-        <StyledContainer splitVertical={splitVertical}>
+        <StyledContainer splitVertical={splitVertical} even={even}>
           <StyledPreview splitVertical={splitVertical} />
           <StyledError />
           <StyledEditor />
         </StyledContainer>
       </LiveProvider>
-      {!before && taglineElement}
     </StyledEditorWithTagline>
   );
 };
@@ -186,4 +228,5 @@ LivePreview.propTypes = {
   copy: PropTypes.string.isRequired,
   before: PropTypes.bool,
   splitVertical: PropTypes.bool,
+  even: PropTypes.bool,
 };
