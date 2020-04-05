@@ -1,3 +1,5 @@
+import React from 'react';
+
 const content = {
   features: [
     {
@@ -20,8 +22,14 @@ const content = {
     },
   ],
   getStarted: {
-    description:
-      'Renature comes equipped with a lightweight set of production ready React hooks. Dig into the documentation to start animating!',
+    description: (
+      <p>
+        Renature comes equipped with a lightweight set of production ready React
+        hooks.
+        <br />
+        Dig into the documentation to start animating!
+      </p>
+    ),
     link: '/docs',
   },
   oss: [

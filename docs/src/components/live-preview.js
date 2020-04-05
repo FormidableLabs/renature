@@ -17,7 +17,7 @@ const StyledEditorWithTagline = styled.div`
   flex-direction: column;
 
   @media ${p => p.theme.media.sm} {
-    flex-direction: row;
+    flex-direction: ${p => (p.before ? 'row' : 'row-reverse')};
   }
 `;
 
@@ -208,8 +208,8 @@ export const LivePreview = ({
   );
 
   return (
-    <StyledEditorWithTagline>
-      {before ? taglineElement : null}
+    <StyledEditorWithTagline before={before}>
+      {taglineElement}
       <LiveProvider code={code} scope={scope} theme={NightOwl}>
         <StyledContainer splitVertical={splitVertical} even={even}>
           <StyledPreview splitVertical={splitVertical} />
@@ -217,7 +217,6 @@ export const LivePreview = ({
           <StyledEditor />
         </StyledContainer>
       </LiveProvider>
-      {!before ? taglineElement : null}
     </StyledEditorWithTagline>
   );
 };

@@ -13,8 +13,8 @@ const CustomDocument = ({ Html, Head, Body, children }) => {
           name="description"
           content="A physics-based animation library for React inspired by the natural world."
         />
-        <meta property="og:title" content="renature documentation" />
-        <meta property="og:site_name" content="renature documentation" />
+        <meta property="og:title" content="renature Documentation" />
+        <meta property="og:site_name" content="renature Documentation" />
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
@@ -40,7 +40,7 @@ const CustomDocument = ({ Html, Head, Body, children }) => {
           href="https://fonts.googleapis.com/css?family=Space+Mono&display=swap"
           rel="stylesheet"
         />
-        <title>renature documentation</title>
+        <title>renature Documentation</title>
       </Head>
       <Body>
         <div id="content">{children}</div>

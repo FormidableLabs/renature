@@ -10,35 +10,19 @@ import { Stack } from '../../components/stack';
 import { theme } from '../../themes/theme';
 
 const FeaturesContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  max-width: 75%;
-  align-self: center;
-
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 1rem;
-  }
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 3rem;
+  max-width: 132rem;
+  margin-left: auto;
+  margin-right: auto;
 
   @media ${p => p.theme.media.sm} {
-    max-width: none;
-    flex-direction: row;
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-    > * {
-      margin-top: 0;
-      margin-bottom: 0;
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    > * + * {
-      margin-left: 3rem;
-    }
+  @media ${p => p.theme.media.md} {
+    grid-gap: 5rem;
   }
 `;
 
@@ -46,6 +30,7 @@ const FeatureCard = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   > * {
     margin-top: 0;
@@ -55,10 +40,10 @@ const FeatureCard = styled.div`
   > * + * {
     margin-top: 2rem;
   }
+`;
 
-  img {
-    align-self: center;
-  }
+const FeatureInfo = styled.div`
+  max-width: 30rem;
 `;
 
 const Features = ({ features }) => (
@@ -70,8 +55,10 @@ const Features = ({ features }) => (
           return (
             <FeatureCard key={feature.title}>
               <img src={feature.icon} alt={feature.title} />
-              <SecondaryTitle>{feature.title}</SecondaryTitle>
-              <BodyCopy>{feature.description}</BodyCopy>
+              <FeatureInfo>
+                <SecondaryTitle>{feature.title}</SecondaryTitle>
+                <BodyCopy>{feature.description}</BodyCopy>
+              </FeatureInfo>
             </FeatureCard>
           );
         })}

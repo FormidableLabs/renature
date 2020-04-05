@@ -47,7 +47,7 @@ export const SidebarWrapper = styled.aside`
   font-size: ${p => p.theme.fontSizes.small};
 
   padding: ${p => p.theme.spacing.sm} ${p => p.theme.spacing.md};
-  background-color: rgba(120, 96, 237, 0.15);
+  background-color: #d4cff6;
   border-right: 1px solid ${p => p.theme.colors.border};
   border-top: 1px solid ${p => p.theme.colors.border};
 

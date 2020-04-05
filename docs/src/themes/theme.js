@@ -5,6 +5,7 @@ const colors = {
   bgDark: '#1f1f1f',
   border: '#ececec',
   passive: '#444444',
+  passiveBg: '#f2f2f2',
   textLight: '#ffffff',
   textDark: '#4e4e4e',
   button: '#4e4e4e',
