@@ -15,6 +15,7 @@ const Container = styled.div`
   max-width: 144rem;
   margin: 0 auto;
   margin-top: 4.8rem;
+  background: ${p => p.theme.colors.textLight};
 `;
 
 const OpenCloseSidebar = styled.img.attrs(props => ({

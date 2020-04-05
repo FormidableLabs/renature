@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${p => p.theme.colors.passiveBg};
+    background: ${p => p.theme.colors.textLight};
     color: ${p => p.theme.colors.text};
     font-family: ${p => p.theme.fonts.body};
     line-height: ${p => p.theme.lineHeights.body};

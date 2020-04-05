@@ -40,6 +40,7 @@ const Legend = styled.aside`
   @media ${({ theme }) => theme.media.lg} {
     display: block;
     position: sticky;
+    background: ${p => p.theme.colors.textLight};
     top: ${p => p.theme.layout.header};
     width: 100%;
     max-width: ${p => p.theme.layout.legend};
