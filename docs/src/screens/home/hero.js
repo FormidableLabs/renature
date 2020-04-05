@@ -219,12 +219,12 @@ const Hero = () => {
           </HeroBody>
           <HeroButtonsContainer>
             <NpmCopy text="npm install renature" />
-            <DocumentationButton to="/docs">Documentation</DocumentationButton>
+            <DocumentationButton to="docs/">Documentation</DocumentationButton>
           </HeroButtonsContainer>
         </HeroBodyAndButtons>
         <HeroNavList>
           <li>
-            <Link to="/docs">Docs</Link>
+            <Link to="docs/">Docs</Link>
           </li>
           <li>
             <a
