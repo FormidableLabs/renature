@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="300" alt="renature" src="https://raw.githubusercontent.com/FormidableLabs/renature/master/docs/src/static/pngs/badge_renature@2x.png" />
+  <img width="300" alt="renature" src="https://raw.githubusercontent.com/FormidableLabs/renature/master/docs/src/assets/badge_renature.svg?sanitize=true" />
 
   <br />
   <br />
