@@ -46,7 +46,7 @@ The animation will continue to run until the `mover` in the physics simulation h
 
 ```js live=true
 import React from 'react';
-import { useFriction } from 'renature';
+import { useGravity } from 'renature';
 
 function GravityBasic() {
   const [props] = useGravity({
