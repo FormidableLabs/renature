@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useFriction, useFluidResistance, useGravity2D } from 'renature';
 
 import { Wrapper } from '../../components/wrapper';
 import { SectionTitle } from '../../components/section-title';
 import { LivePreview } from '../../components/live-preview';
-import { Toggle } from '../../components/toggle';
 import { theme } from '../../themes/theme';
+import { scope } from '../../utils/live-preview';
 
 const PreviewStack = styled.div`
   display: flex;
@@ -25,8 +24,10 @@ const PreviewStack = styled.div`
   }
 `;
 
-const scope = { useFriction, useFluidResistance, Toggle, useGravity2D };
 const codeSampleOne = `
+import React from 'react';
+import { useFriction } from 'renature';
+
 function FrictionAnimation() {
   const [props] = useFriction({
     from: {
@@ -39,11 +40,19 @@ function FrictionAnimation() {
     infinite: true
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div
+      className="live-preview__mover"
+      {...props}
+    />
+  );
 }
 `;
 
 const codeSampleTwo = `
+import React from 'react';
+import { useFluidResistance } from 'renature';
+
 function FluidResistanceAnimation() {
   const [toggle, setToggle] = React.useState(true);
 
@@ -82,6 +91,9 @@ function FluidResistanceAnimation() {
 `;
 
 const codeSampleThree = `
+import React from 'react';
+import { useGravity2D } from 'renature';
+
 function Gravity2DAnimation() {
   const [props] = useGravity2D({
     config: {

@@ -1,5 +1,6 @@
 import Document from './src/html';
 import constants from './src/constants';
+import { samples } from './src/screens/gallery/samples';
 
 const isStaging = process.env.REACT_STATIC_STAGING === 'true';
 const basePath = 'open-source/renature';
@@ -37,6 +38,15 @@ export default {
     {
       path: '/',
       template: require.resolve('./src/screens/home'),
+    },
+    {
+      path: '/gallery',
+      template: require.resolve('./src/screens/gallery'),
+      children: samples('gallery').map(sample => ({
+        path: `${sample.slug}`,
+        template: require.resolve('./src/screens/gallery/sample'),
+        getData: async () => sample,
+      })),
     },
     {
       path: '404',

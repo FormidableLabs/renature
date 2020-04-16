@@ -65,9 +65,6 @@ export const StyledEditor = styled(LiveEditor)`
   overflow: auto !important;
   max-height: 35rem;
 
-  @media ${p => p.theme.media.md} {
-  }
-
   * > textarea:focus {
     outline: none;
   }

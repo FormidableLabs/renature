@@ -35,10 +35,13 @@ function ControlledMover() {
 
   return (
     <div className="stack">
-      <button className="button" onClick={controller.start}>
+      <button
+        className="live-preview__button live-preview__button-lg"
+        onClick={controller.start}
+      >
         Run The Animation!
       </button>
-      <div className="mover" {...props} />
+      <div className="live-preview__mover live-preview__mover-lg" {...props} />
     </div>
   );
 }

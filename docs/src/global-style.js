@@ -60,4 +60,62 @@ export const GlobalStyle = createGlobalStyle`
   img {
     max-width: 100%;
   }
+
+  .live-preview__mover {
+    background: ${p => p.theme.colors.accent};
+
+    &--sm {
+      height: 5rem;
+      width: 5rem;
+      border-radius: 0.5rem;
+    }
+
+    &--lg {
+      height: 10rem;
+      width: 10rem;
+      border-radius: 1rem;
+    }
+  }
+
+  .live-preview__button {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.8);
+    background: #011826;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    margin: 0;
+    box-shadow: 0 1rem 3rem 0.5rem rgba(0, 0, 0, 0.2);
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &--sm {
+      font-size: 1rem;
+    }
+
+    &--lg {
+      font-size: 1em;
+    }
+  }
+
+  .live-preview__stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > * {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    > * + * {
+      margin-top: 2rem;
+    }
+  }
 `;

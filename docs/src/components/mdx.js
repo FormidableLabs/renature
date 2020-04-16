@@ -29,13 +29,6 @@ const getLanguage = className => {
   return res ? res[1] : null;
 };
 
-code => {
-  return code.replace(
-    /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from\s+?)|)(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g,
-    ''
-  );
-};
-
 const importRegex = /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from\s+?)|)(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g;
 const removeImportFromPreview = code => {
   return code.replace(importRegex, '');
