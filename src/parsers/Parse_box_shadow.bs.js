@@ -7,9 +7,9 @@ import * as Parse_unit from "./Parse_unit.bs.js";
 import * as Belt_Option from "bs-platform/lib/es6/belt_Option.js";
 import * as NormalizeColor from "./normalizeColor";
 
-var outerWhitespaceRe = (/(?!\(.*)\s(?![^(]*?\))/g);
+var outerWhitespaceRe = /(?!\(.*)\s(?![^(]*?\))/g;
 
-var outerCommaRe = (/(?!\(.*),(?![^(]*?\))/g);
+var outerCommaRe = /(?!\(.*),(?![^(]*?\))/g;
 
 function testBoxShadow(val_) {
   if (val_ === "none") {
@@ -115,4 +115,4 @@ export {
   parseBoxShadows ,
   
 }
-/* outerWhitespaceRe Not a pure module */
+/* ./normalizeColor Not a pure module */

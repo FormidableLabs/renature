@@ -7,7 +7,12 @@ describe("Gravity", () => {
     it("should derive the force of gravity between two objects", () =>
       Expect.(
         expect(
-          Gravity.gravityForceMag(~attractorMass=1., ~moverMass=1., ~r=1.),
+          Gravity.gravityForceMag(
+            ~attractorMass=1.,
+            ~moverMass=1.,
+            ~r=1.,
+            (),
+          ),
         )
         |> toBeCloseTo(Gravity.gU)
       )
@@ -25,12 +30,28 @@ describe("Gravity", () => {
             ~attractorMass=massEarth,
             ~moverMass=massObject,
             ~r=rEarth,
+            (),
           )
           |> Printf.printf("%0.*f\n", 2),
         )
         |> toEqual(0.098 *. massObject |> Printf.printf("%0.*f\n", 2))
       );
     });
+
+    it("should allow for user-supplied values of G", () =>
+      Expect.(
+        expect(
+          Gravity.gravityForceMag(
+            ~attractorMass=1.,
+            ~moverMass=1.,
+            ~r=1.,
+            ~g=5.,
+            (),
+          ),
+        )
+        |> toBeCloseTo(5.)
+      )
+    );
   });
 
   describe("gravityForceV", () => {
@@ -72,6 +93,78 @@ describe("Gravity", () => {
           |> snd,
         )
         |> toBeCloseTo(-0.0000714892571)
+      )
+    );
+
+    it("should respect user-supplied values of G (x value)", () =>
+      Expect.(
+        expect(
+          Gravity.gravityForceV(
+            ~attractorMass,
+            ~moverMass,
+            ~attractor,
+            ~mover,
+            ~g=1.,
+            (),
+          )
+          |> fst,
+        )
+        |> toBeCloseTo(-0.2404926216)
+      )
+    );
+
+    it("should respect user-supplied values of G (y value)", () =>
+      Expect.(
+        expect(
+          Gravity.gravityForceV(
+            ~attractorMass,
+            ~moverMass,
+            ~attractor,
+            ~mover,
+            ~g=1.,
+            (),
+          )
+          |> snd,
+        )
+        |> toBeCloseTo(-0.6413136576)
+      )
+    );
+
+    it(
+      "should respect user-supplied threshold parameters for two dimensional motion (x value)",
+      () =>
+      Expect.(
+        expect(
+          Gravity.gravityForceV(
+            ~attractorMass,
+            ~moverMass,
+            ~attractor,
+            ~mover,
+            ~threshold=(10., 40.),
+            (),
+          )
+          |> fst,
+        )
+        |> toBeCloseTo(-0.0000234313)
+      )
+    );
+
+    it(
+      "should respect user-supplied threshold parameters for two dimensional motion (y value)",
+      () =>
+      Expect.(
+        expect(
+          Gravity.gravityForceV(
+            ~attractorMass,
+            ~moverMass,
+            ~attractor,
+            ~mover,
+            ~threshold=(10., 40.),
+            (),
+          )
+          |> snd,
+        )
+        |> toBeCloseTo(-0.0000624835)
       )
     );
   });

@@ -16,9 +16,9 @@ function interpolateTransform(param, param$1, value) {
   var match$1 = toTransform.transform;
   var transforms;
   if (match == null) {
-    transforms = /* array */[];
+    transforms = [];
   } else if (match$1 == null) {
-    transforms = /* array */[];
+    transforms = [];
   } else {
     var tl_1 = $$Array.map((function (prim) {
             return prim.trim();
@@ -55,4 +55,4 @@ export {
   interpolateTransforms ,
   
 }
-/* Parse_transform Not a pure module */
+/* No side effect */
