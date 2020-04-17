@@ -63,16 +63,16 @@ export const Gravity2DCustomG: React.FC = () => {
       attractorMass: number('attractorMass', 20),
       moverMass: number('moverMass', 1),
       attractorPosition: center,
-      initialMoverPosition: [center[0] - 50, center[1] - 50],
+      initialMoverPosition: [center[0] - 50, center[1]],
       initialMoverVelocity: [
-        number('initialMoverVelocityX', 2),
-        number('initialMoverVelocityY', 0),
+        number('initialMoverVelocityX', 0),
+        number('initialMoverVelocityY', 2),
       ],
       threshold: {
         min: number('thresholdMin', 10),
         max: number('thresholdMax', 25),
       },
-      timeScale: number('timeScale', 1),
+      timeScale: number('timeScale', 100),
       G: number('G', 0.4),
     },
   });
