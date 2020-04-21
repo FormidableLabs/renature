@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Header from './header';
-import Article, { ArticleStyling } from './article';
-import Sidebar, { SidebarStyling } from '../../components/sidebar';
+import Article from './article';
+import Sidebar from '../../components/sidebar';
 import burger from '../../assets/burger.svg';
 import closeButton from '../../assets/close.svg';
 
@@ -18,7 +18,7 @@ const Container = styled.div`
   background: ${p => p.theme.colors.textLight};
 `;
 
-const OpenCloseSidebar = styled.img.attrs(props => ({
+export const OpenCloseSidebar = styled.img.attrs(props => ({
   src: props.sidebarOpen ? closeButton : burger,
 }))`
   cursor: pointer;
@@ -51,13 +51,7 @@ const Docs = ({ isLoading, children }) => {
       <Container>
         <OpenCloseSidebar sidebarOpen={sidebarOpen} onClick={toggleSidebar} />
         {isLoading ? (
-          <>
-            <SidebarStyling
-              sidebarOpen={sidebarOpen}
-              closeSidebar={closeSidebar}
-            />
-            <ArticleStyling>{children}</ArticleStyling>
-          </>
+          children
         ) : (
           <>
             <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />

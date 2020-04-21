@@ -9,21 +9,20 @@ import { SectionTitle } from '../../components/section-title';
 import { Wrapper } from '../../components/wrapper';
 import { theme } from '../../themes/theme';
 import { Stack } from '../../components/stack';
+import { View } from '../../global-style';
 
 const OSSCardContainer = styled.div`
+  ${View};
+
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 4rem;
   width: calc(100% - 4rem);
-  max-width: 75%;
-  margin-left: auto;
-  margin-right: auto;
 
   @media ${p => p.theme.media.sm} {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    max-width: 116rem;
   }
 `;
 

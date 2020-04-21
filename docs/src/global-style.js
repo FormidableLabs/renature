@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -61,6 +61,13 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 100%;
   }
 
+  /* react-live Preview */
+  :root {
+    --color-near-black: #011826;
+    --color-deep-blue: #053959;
+    --color-yellow: #f2cf63;
+  }
+
   .live-preview__mover {
     background: ${p => p.theme.colors.accent};
 
@@ -118,4 +125,61 @@ export const GlobalStyle = createGlobalStyle`
       margin-top: 2rem;
     }
   }
+
+  .live-preview__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .live-preview__space {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+      var(--color-near-black),
+      var(--color-deep-blue)
+    );
+    flex: 1;
+  }
+
+  .live-preview__mover-2d {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    background: ${p => p.theme.colors.textLight};
+    box-shadow: 0 0 0.8rem 0.4rem ${p => p.theme.colors.textLight},
+      0 0 1.6rem 0.8rem ${p => p.theme.colors.accent};
+  }
+
+  .live-preview__attractor-2d {
+    position: relative;
+    transform: translate(-50%, calc(-50% - 2.5rem));
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    background: var(--color-yellow);
+    box-shadow: 0 0 3rem 1.5rem var(--color-yellow);
+  }
+
+  .live-preview__center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .live-preview__stroke {
+    stroke: ${p => p.theme.colors.accent};
+    stroke-width: 3;
+    fill: transparent;
+  }
+`;
+
+export const View = css`
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 132rem;
+  box-sizing: content-box;
 `;

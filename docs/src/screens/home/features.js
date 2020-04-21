@@ -8,14 +8,14 @@ import { SectionTitle } from '../../components/section-title';
 import { Wrapper } from '../../components/wrapper';
 import { Stack } from '../../components/stack';
 import { theme } from '../../themes/theme';
+import { View } from '../../global-style';
 
 const FeaturesContainer = styled.div`
+  ${View};
+
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 3rem;
-  max-width: 132rem;
-  margin-left: auto;
-  margin-right: auto;
 
   @media ${p => p.theme.media.sm} {
     grid-template-columns: repeat(3, 1fr);
