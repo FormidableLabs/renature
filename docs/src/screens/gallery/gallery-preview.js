@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { LiveProvider, LivePreview } from 'react-live';
 
 import { scope, removeImportFromPreview } from '../../utils/live-preview';
@@ -55,18 +55,23 @@ const StyledPreviewTitle = styled(Link)`
   }
 `;
 
-const GalleryPreview = ({ title, code, slug }) => (
-  <StyledCard>
-    <LiveProvider
-      code={code}
-      scope={scope}
-      transformCode={removeImportFromPreview}
-    >
-      <StyledPreview />
-    </LiveProvider>
-    <StyledPreviewTitle to={`gallery/${slug}`}>{title}</StyledPreviewTitle>
-  </StyledCard>
-);
+const GalleryPreview = ({ title, code, slug }) => {
+  const location = useLocation();
+  const to = `${location.pathname}/${slug}`;
+
+  return (
+    <StyledCard>
+      <LiveProvider
+        code={code}
+        scope={scope}
+        transformCode={removeImportFromPreview}
+      >
+        <StyledPreview />
+      </LiveProvider>
+      <StyledPreviewTitle to={to}>{title}</StyledPreviewTitle>
+    </StyledCard>
+  );
+};
 
 GalleryPreview.propTypes = {
   title: PropTypes.string.isRequired,

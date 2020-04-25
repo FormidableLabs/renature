@@ -41,14 +41,19 @@ const StyledProvider = styled(LiveProvider)`
 
 const StyledContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   border-radius: 1rem;
   box-shadow: 1px 1px 20px rgba(20, 20, 20, 0.27);
   font-family: ${p => p.theme.fonts.code};
   overflow: auto;
+  width: 80vw;
 
   > * {
     flex: 0 0 50%;
+  }
+
+  @media ${p => p.theme.media.md} {
+    flex-direction: row;
   }
 `;
 
@@ -93,8 +98,8 @@ const Sample = () => {
           theme={nightOwlLight}
         >
           <StyledContainer>
-            <StyledPreview />
             <StyledEditor />
+            <StyledPreview />
           </StyledContainer>
         </StyledProvider>
         <StyledBack to="/gallery">Back to Gallery</StyledBack>

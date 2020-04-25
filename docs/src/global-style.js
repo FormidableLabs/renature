@@ -175,6 +175,37 @@ export const GlobalStyle = createGlobalStyle`
     stroke-width: 3;
     fill: transparent;
   }
+
+  .live-preview__orbital-center {
+    border-radius: 50%;
+    background: var(--color-yellow);
+    transform: translateX(50%);
+
+    &--sm {
+      height: 3rem;
+      width: 3rem;
+    }
+
+    &--lg {
+      height: 6rem;
+      width: 6rem;
+    }
+  }
+
+  .live-preview__orbiter {
+    border-radius: 50%;
+    background: ${p => p.theme.colors.accent};
+
+    &--sm {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+
+    &--lg {
+      height: 3rem;
+      width: 3rem;
+    }
+  }
 `;
 
 export const View = css`
