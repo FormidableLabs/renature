@@ -5,11 +5,13 @@ import * as Vector from "../core/Vector.bs.js";
 
 var gU = 6.67428 * Math.pow(10, -11);
 
-function gravityForceMag(attractorMass, moverMass, r) {
-  return gU * attractorMass * moverMass / Math.pow(r, 2);
+function gravityForceMag(attractorMass, moverMass, r, gOpt, param) {
+  var g = gOpt !== undefined ? gOpt : gU;
+  return g * attractorMass * moverMass / Math.pow(r, 2);
 }
 
-function gravityForceV(attractorMass, moverMass, attractor, mover, threshold, param) {
+function gravityForceV(attractorMass, moverMass, attractor, mover, gOpt, threshold, param) {
+  var g = gOpt !== undefined ? gOpt : gU;
   var v = Vector.subf(attractor, mover);
   var mag = Vector.magf(v);
   var distance;
@@ -20,7 +22,7 @@ function gravityForceV(attractorMass, moverMass, attractor, mover, threshold, pa
     distance = mag;
   }
   var dir = Vector.normf(v);
-  return Vector.multf(dir, gravityForceMag(attractorMass, moverMass, distance));
+  return Vector.multf(dir, gravityForceMag(attractorMass, moverMass, distance, g, /* () */0));
 }
 
 var gE = 9.80665;

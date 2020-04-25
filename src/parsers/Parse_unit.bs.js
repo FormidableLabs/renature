@@ -3,7 +3,7 @@
 import * as Utils from "../core/Utils.bs.js";
 import * as Js_mapperRt from "bs-platform/lib/es6/js_mapperRt.js";
 
-var jsMapperConstantArray = /* array */[
+var jsMapperConstantArray = [
   /* tuple */[
     -855250051,
     "turn"
@@ -42,7 +42,7 @@ var jsMapperConstantArray = /* array */[
   ]
 ];
 
-var numericRe = (/[\d.-]+/);
+var numericRe = /[\d.-]+/;
 
 function decomposeUnit(val_) {
   var value = Utils.$$parseFloat(val_);
@@ -86,4 +86,4 @@ export {
   parseUnit ,
   
 }
-/* numericRe Not a pure module */
+/* No side effect */

@@ -62,9 +62,8 @@ function interpolateBoxShadow(param, param$1, value) {
         colorToRgba(fromBoxShadow.color),
         colorToRgba(toBoxShadow.color)
       ], value);
-  var match = fromBoxShadow.inset && toBoxShadow.inset;
-  var inset = match ? "inset " : "";
-  return inset + /* array */[
+  var inset = fromBoxShadow.inset && toBoxShadow.inset ? "inset " : "";
+  return inset + [
             offsetX,
             offsetY,
             blur,
@@ -89,4 +88,4 @@ export {
   interpolateBoxShadows ,
   
 }
-/* Interpolate_unit Not a pure module */
+/* Parse_box_shadow Not a pure module */

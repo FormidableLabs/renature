@@ -20,6 +20,7 @@ export interface Gravity1DParams extends AnimationParams {
     moverMass: number;
     attractorMass: number;
     r: number;
+    G?: number;
   };
   onUpdate: VectorSetter;
   onComplete: () => void;
@@ -40,6 +41,7 @@ const applyGravitationalForceForStep = (
     moverMass: mover.mass,
     attractor: attractor.position,
     attractorMass: config.attractorMass,
+    g: config.G,
   });
 
   return applyForce({

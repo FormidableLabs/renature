@@ -5,7 +5,7 @@ import * as Parse_unit from "./Parse_unit.bs.js";
 import * as Js_mapperRt from "bs-platform/lib/es6/js_mapperRt.js";
 import * as Parse_number from "./Parse_number.bs.js";
 
-var jsMapperConstantArray = /* array */[
+var jsMapperConstantArray = [
   /* tuple */[
     -1057888900,
     "perspective"
@@ -76,7 +76,7 @@ var jsMapperConstantArray = /* array */[
   ]
 ];
 
-var transformRe = (/(\w+)\(([^)]*)\)/g);
+var transformRe = /(\w+)\(([^)]*)\)/g;
 
 function testTransform(val_) {
   var transform = transformRe.exec(val_);
@@ -115,7 +115,7 @@ function testTransform(val_) {
   }
 }
 
-var transformsRe = (/(?:[^\s(]+|\([^)]*\))+/g);
+var transformsRe = /(?:[^\s(]+|\([^)]*\))+/g;
 
 function testTransforms(val_) {
   var transforms = val_.match(transformsRe);
@@ -144,8 +144,7 @@ function parseTransform(val_) {
             }
           }));
     $$Array.iteri((function (i, propOrValue) {
-            var match = i === 0;
-            if (match) {
+            if (i === 0) {
               var init = t.contents;
               t.contents = {
                 transform: init.transform,
@@ -172,7 +171,7 @@ function parseTransforms(val_) {
   if (transforms !== null) {
     return transforms;
   } else {
-    return /* array */[];
+    return [];
   }
 }
 
@@ -183,4 +182,4 @@ export {
   parseTransforms ,
   
 }
-/* transformRe Not a pure module */
+/* No side effect */

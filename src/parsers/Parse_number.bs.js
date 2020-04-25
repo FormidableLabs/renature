@@ -2,7 +2,7 @@
 
 import * as Utils from "../core/Utils.bs.js";
 
-var onlyNumericRe = (/[\d.]/g);
+var onlyNumericRe = /[\d.]/g;
 
 function testNumber(val_) {
   if (isNaN(Utils.$$parseFloat(val_))) {
@@ -19,4 +19,4 @@ export {
   parseNumber ,
   
 }
-/* onlyNumericRe Not a pure module */
+/* No side effect */

@@ -5,12 +5,12 @@ let gU = 6.67428 *. 10. ** (-11.);
 let gE = 9.80665;
 
 // The magnitude of the gravitational force.
-let gravityForceMag = (~attractorMass, ~moverMass, ~r) =>
-  gU *. attractorMass *. moverMass /. r ** 2.;
+let gravityForceMag = (~attractorMass, ~moverMass, ~r, ~g=gU, ()) =>
+  g *. attractorMass *. moverMass /. r ** 2.;
 
 // The gravitational force vector.
 let gravityForceV =
-    (~attractorMass, ~moverMass, ~attractor, ~mover, ~threshold=?, ()) => {
+    (~attractorMass, ~moverMass, ~attractor, ~mover, ~g=gU, ~threshold=?, ()) => {
   // Derive the vector pointing from attractor to mover.
   let v = Vector.subf(~v1=attractor, ~v2=mover);
 
@@ -30,6 +30,6 @@ let gravityForceV =
   // Multiply the unit vector by the size of the force.
   Vector.multf(
     ~v=dir,
-    ~s=gravityForceMag(~attractorMass, ~moverMass, ~r=distance),
+    ~s=gravityForceMag(~attractorMass, ~moverMass, ~r=distance, ~g, ()),
   );
 };

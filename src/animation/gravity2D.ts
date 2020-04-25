@@ -25,6 +25,7 @@ export interface Gravity2DParams extends AnimationParams {
       min: number;
       max: number;
     };
+    G?: number;
   };
   onUpdate: VectorSetter;
 }
@@ -49,6 +50,7 @@ const applyGravitationalForceForStep = (
     attractor: attractor.position,
     attractorMass: attractor.mass,
     threshold: config.threshold && [config.threshold.min, config.threshold.max],
+    g: config.G,
   });
 
   return applyForce({

@@ -48,7 +48,52 @@ export const Gravity2DBasic: React.FC = () => {
   );
 };
 
+export const Gravity2DCustomG: React.FC = () => {
+  const [center, setCenter] = React.useState<[number, number]>([0, 0]);
+
+  React.useLayoutEffect(() => {
+    const root = document.getElementById('root');
+    if (root) {
+      setCenter([root.clientWidth / 2, root.clientHeight / 2]);
+    }
+  }, []);
+
+  const [props] = useGravity2D({
+    config: {
+      attractorMass: number('attractorMass', 20),
+      moverMass: number('moverMass', 1),
+      attractorPosition: center,
+      initialMoverPosition: [center[0] - 50, center[1]],
+      initialMoverVelocity: [
+        number('initialMoverVelocityX', 0),
+        number('initialMoverVelocityY', 2),
+      ],
+      threshold: {
+        min: number('thresholdMin', 10),
+        max: number('thresholdMax', 25),
+      },
+      timeScale: number('timeScale', 100),
+      G: number('G', 0.4),
+    },
+  });
+
+  return (
+    <div className="space">
+      <div className="mover-2d" {...props} />
+      <div
+        className="attractor-2d"
+        style={{ left: center[0], top: center[1] }}
+      />
+    </div>
+  );
+};
+
 // @ts-ignore
 Gravity2DBasic.story = {
   name: 'Gravity2D',
+};
+
+// @ts-ignore
+Gravity2DCustomG.story = {
+  name: 'Gravity2DCustomG',
 };
