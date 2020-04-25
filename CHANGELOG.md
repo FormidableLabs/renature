@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.2.1
+
+In this release, we allow users to supply their own value for `G`, the Universal Gravitational Constant, in the configuration of `useGravity` and `useGraviyt2D` hooks. This allows users to achieve similar animation effects without needing to provide extremely large mass values for the `mover` and `attractor`.
+
+### Added
+
+- A user-configurable `G` parameter for the `useGravity` and `useGravity2D` hooks. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/50).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.2.0...v0.2.1)
+
 ## v0.2.0
 
 In this release, we added type support for animating SVG elements, normalize our parser and interpolator structure, and include better support complex CSS properties like `transform` and `box-shadow`. We also released a new iteration of our docs site on `react-static` v7 – live [here](https://formidable.com/open-source/renature).
@@ -20,6 +30,8 @@ In this release, we added type support for animating SVG elements, normalize our
 
 - Normalize parser and interpolator structure and move them to separate directories. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/42).
 - Improvements to our docs site and a migration to `react-static` v7. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/46).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.1.0...v0.2.0)
 
 ## v0.1.0
 
