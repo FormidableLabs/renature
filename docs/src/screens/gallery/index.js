@@ -44,7 +44,7 @@ const GalleryTitle = styled.h1`
   }
 `;
 
-const GallreyNav = styled.ul`
+const GalleryNav = styled.ul`
   ${stackHorizontal(2)};
 
   list-style: none;
@@ -52,7 +52,7 @@ const GallreyNav = styled.ul`
   margin-left: auto;
   margin-right: auto;
   background: ${p => p.theme.colors.textLight};
-  padding: 1rem;
+  padding: 0.5rem;
 
   & li a {
     position: relative;
@@ -104,14 +104,14 @@ const Gallery = () => (
     <Container>
       <GalleryHeader>
         <GalleryTitle>renature Gallery</GalleryTitle>
-        <GallreyNav>
+        <GalleryNav>
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>
             <Link to="/docs">Docs</Link>
           </li>
-        </GallreyNav>
+        </GalleryNav>
       </GalleryHeader>
       <GalleryGrid>
         {samples('gallery-preview').map(({ title, code, slug }) => (
