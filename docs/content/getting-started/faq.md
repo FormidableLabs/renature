@@ -7,9 +7,9 @@ order: 3
 
 This page covers some commonly asked questions when getting going with `renature`. Don't see your question here? Open an issue on GitHub and we'll add it!
 
-### What is the props object returned by the hook?
+### What is the `props` object returned by the hook?
 
-The `props` object returned by the hooks in `renature` is just a mutable React `ref` object. We attach that `ref` using the object spread operator to your DOM node, which allows `renature` to update that node's `style` attribute during the course of the `requestAnimationFrame` loop. In this way, we can animate UI elements synchronously without re-rendering your entire component on every frame. This is a must to keep your animations performing at 60 frames per second, as tracking animation values in React state would be lead to too many enqueued re-renders.
+The `props` object returned by every hook in `renature` is just a mutable React `ref` object. We attach that `ref` using the object spread operator to your DOM node, which allows `renature` to update that node's `style` attribute during the course of the `requestAnimationFrame` loop. In this way, we can animate UI elements synchronously without re-rendering your entire component on every frame. This is a must to keep your animations performing at 60 frames per second, as tracking animation values in React state would force a re-render for every frame.
 
 ### When do my animations run?
 

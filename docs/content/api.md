@@ -61,7 +61,9 @@ function GravityBasic() {
     infinite: true,
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div className="live-preview__mover live-preview__mover--lg" {...props} />
+  );
 }
 ```
 
@@ -105,7 +107,9 @@ function FrictionBasic() {
     infinite: true,
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div className="live-preview__mover live-preview__mover--lg" {...props} />
+  );
 }
 ```
 
@@ -151,7 +155,9 @@ function FluidResistanceBasic() {
     infinite: true,
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div className="live-preview__mover live-preview__mover--lg" {...props} />
+  );
 }
 ```
 

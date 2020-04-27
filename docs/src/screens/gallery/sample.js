@@ -8,17 +8,18 @@ import nightOwlLight from 'prism-react-renderer/themes/nightOwlLight';
 import Header from '../docs/header';
 import { removeImportFromPreview, scope } from '../../utils/live-preview';
 import ArrowBack from '../../assets/arrow_left.svg';
+import { center } from '../../styles/mixins';
 
 const Container = styled.div`
+  ${center};
+
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: calc(100vh - 4.8rem);
-  max-width: 144rem;
-  margin: 0 auto;
-  margin-top: 4.8rem;
+  height: calc(100vh - ${p => p.theme.layout.header});
+  margin-top: ${p => p.theme.layout.center};
   padding: 6rem 4rem 4rem 4rem;
   background: ${p => p.theme.colors.textLight};
   overflow: hidden;
@@ -70,7 +71,7 @@ const StyledEditor = styled(LiveEditor)`
 const StyledBack = styled(Link)`
   display: flex;
   position: absolute;
-  top: 1.5rem;
+  top: calc(1.5rem + ${p => p.theme.layout.header});
   left: 4rem;
   color: ${p => p.theme.colors.accent};
 

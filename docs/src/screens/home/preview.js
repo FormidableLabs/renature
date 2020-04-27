@@ -3,25 +3,17 @@ import styled from 'styled-components';
 
 import { Wrapper } from '../../components/wrapper';
 import { SectionTitle } from '../../components/section-title';
-import { LivePreview } from '../../components/live-preview';
-import { theme } from '../../themes/theme';
+import { SectionStack } from '../../components/section-stack';
+import { LivePreview } from '../../components/home-preview';
+import { theme } from '../../styles/theme';
+import { stack } from '../../styles/mixins';
 import { scope, removeImportFromPreview } from '../../utils/live-preview';
 
 const PreviewStack = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${stack(11.25)}
   margin-left: auto;
   margin-right: auto;
   box-sizing: content-box;
-
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 11.25rem;
-  }
 `;
 
 const basic = `
@@ -140,44 +132,46 @@ function Gravity2DAnimation() {
 
 const Preview = () => (
   <Wrapper background="linear-gradient(242deg, #30265f 101%, #5443a6 -11%)">
-    <SectionTitle color={theme.colors.textLight}>
-      Beautiful, Simple Animations
-    </SectionTitle>
-    {typeof window !== 'undefined' ? (
-      <PreviewStack>
-        <LivePreview
-          code={basic}
-          transformCode={removeImportFromPreview}
-          scope={scope}
-          tagline={'Animate Intuitively, Animate With Joy'}
-          copy={
-            'UI animation should be intuitive, simple, and fun. Renature is all about returning joy and whimsy to your UI animations.'
-          }
-          before
-        />
-        <LivePreview
-          code={controlled}
-          transformCode={removeImportFromPreview}
-          scope={scope}
-          tagline={'Responsive Animations'}
-          copy={
-            'Renature hooks respond directly to changes in their from, to, and config properties. Just update a value and your animation will begin running.'
-          }
-        />
-        <LivePreview
-          code={twoDimension}
-          transformCode={removeImportFromPreview}
-          scope={scope}
-          tagline={'Animate in Two Dimensions'}
-          copy={
-            'Renature uses two-dimensional vectors to back its physics, giving you the ability to build beautiful and accurate animations in Cartesian space.'
-          }
-          before
-          splitVertical
-          even
-        />
-      </PreviewStack>
-    ) : null}
+    <SectionStack>
+      <SectionTitle color={theme.colors.textLight}>
+        Beautiful, Simple Animations
+      </SectionTitle>
+      {typeof window !== 'undefined' ? (
+        <PreviewStack>
+          <LivePreview
+            code={basic}
+            transformCode={removeImportFromPreview}
+            scope={scope}
+            tagline={'Animate Intuitively, Animate With Joy'}
+            copy={
+              'UI animation should be intuitive, simple, and fun. Renature is all about returning joy and whimsy to your UI animations.'
+            }
+            before
+          />
+          <LivePreview
+            code={controlled}
+            transformCode={removeImportFromPreview}
+            scope={scope}
+            tagline={'Responsive Animations'}
+            copy={
+              'Renature hooks respond directly to changes in their from, to, and config properties. Just update a value and your animation will begin running.'
+            }
+          />
+          <LivePreview
+            code={twoDimension}
+            transformCode={removeImportFromPreview}
+            scope={scope}
+            tagline={'Animate in Two Dimensions'}
+            copy={
+              'Renature uses two-dimensional vectors to back its physics, giving you the ability to build beautiful and accurate animations in Cartesian space.'
+            }
+            before
+            splitVertical
+            even
+          />
+        </PreviewStack>
+      ) : null}
+    </SectionStack>
   </Wrapper>
 );
 

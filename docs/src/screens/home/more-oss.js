@@ -6,13 +6,13 @@ import { BodyCopy } from '../../components/body-copy';
 import { Button } from '../../components/button';
 import { SecondaryTitle } from '../../components/secondary-title';
 import { SectionTitle } from '../../components/section-title';
+import { SectionStack } from '../../components/section-stack';
 import { Wrapper } from '../../components/wrapper';
-import { theme } from '../../themes/theme';
-import { Stack } from '../../components/stack';
-import { View } from '../../global-style';
+import { theme } from '../../styles/theme';
+import { center, stack, stackHorizontal } from '../../styles/mixins';
 
 const OSSCardContainer = styled.div`
-  ${View};
+  ${center};
 
   display: grid;
   grid-template-columns: 1fr;
@@ -27,32 +27,20 @@ const OSSCardContainer = styled.div`
 `;
 
 const OSSCard = styled.div`
+  ${stack(1)};
+
   text-align: left;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 1rem;
-  }
-
   @media ${p => p.theme.media.sm} {
-    flex-direction: row;
+    ${stackHorizontal(3)};
+
     justify-content: space-between;
 
     > * {
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    > * + * {
       margin-top: 0;
-      margin-left: 3rem;
     }
   }
 `;
@@ -63,17 +51,7 @@ const OSSImage = styled.img`
 `;
 
 const OSSCopyContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 2rem;
-  }
+  ${stack(2)};
 `;
 
 const OSSTitle = styled(SecondaryTitle)`
@@ -104,7 +82,7 @@ const OSSDescription = styled(BodyCopy)`
 
 const MoreOSS = ({ oss }) => (
   <SectionWrapper background="#000000">
-    <Stack>
+    <SectionStack>
       <SectionTitle color={theme.colors.textLight}>
         More Open Source from Formidable
       </SectionTitle>
@@ -126,7 +104,7 @@ const MoreOSS = ({ oss }) => (
       <Button light to="https://formidable.com/open-source/">
         View All
       </Button>
-    </Stack>
+    </SectionStack>
   </SectionWrapper>
 );
 

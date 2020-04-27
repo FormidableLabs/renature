@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Root, Routes } from 'react-static';
 import { ThemeProvider } from 'styled-components';
 
-import { GlobalStyle } from './global-style';
+import { GlobalStyle } from './styles/global-style';
 import Analytics from './google-analytics';
-import { theme } from './themes/theme';
+import { theme } from './styles/theme';
 import { Loading } from './components/loading';
 
 const App = () => {
@@ -13,9 +13,9 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Analytics id="UA-43290258-1">
-          <React.Suspense fallback={<Loading />}>
+          <Suspense fallback={<Loading />}>
             <Routes />
-          </React.Suspense>
+          </Suspense>
         </Analytics>
       </ThemeProvider>
     </Root>

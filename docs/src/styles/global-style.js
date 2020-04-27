@@ -1,4 +1,5 @@
 import { createGlobalStyle, css } from 'styled-components';
+import { stack } from './mixins';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -112,18 +113,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .live-preview__stack {
-    display: flex;
-    flex-direction: column;
+    ${stack(2)};
+
     align-items: center;
-
-    > * {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-
-    > * + * {
-      margin-top: 2rem;
-    }
   }
 
   .live-preview__toggle {
@@ -206,11 +198,4 @@ export const GlobalStyle = createGlobalStyle`
       width: 3rem;
     }
   }
-`;
-
-export const View = css`
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 132rem;
-  box-sizing: content-box;
 `;

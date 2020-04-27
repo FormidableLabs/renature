@@ -7,14 +7,15 @@ import Article from './article';
 import Sidebar from '../../components/sidebar';
 import burger from '../../assets/burger.svg';
 import closeButton from '../../assets/close.svg';
+import { center } from '../../styles/mixins';
 
 const Container = styled.div`
+  ${center}
+
   position: relative;
   display: flex;
   width: 100%;
-  max-width: 144rem;
-  margin: 0 auto;
-  margin-top: 4.8rem;
+  margin-top: ${p => p.theme.layout.header};
   background: ${p => p.theme.colors.textLight};
 `;
 

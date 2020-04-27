@@ -5,25 +5,17 @@ import styled from 'styled-components';
 import NpmCopy from './npm-copy';
 import { Wrapper } from '../../components/wrapper';
 import badge from '../../assets/badge_renature.svg';
-import { View } from '../../global-style';
+import { center, stack, stackHorizontal } from '../../styles/mixins';
 
 const HeroContent = styled.div`
-  ${View}
+  ${center};
+  ${stack(2)};
 
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 5rem;
   width: 100%;
-
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 2rem;
-  }
 
   @media ${p => p.theme.media.sm} {
     display: grid;
@@ -52,16 +44,8 @@ const HeroLogo = styled.img`
 `;
 
 const HeroBodyAndButtons = styled.div`
+  ${stack(2)};
   max-width: 30rem;
-
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 2rem;
-  }
 
   @media ${p => p.theme.media.sm} {
     grid-column: 6 / span 7;
@@ -119,19 +103,23 @@ const DocumentationButton = styled(Link)`
 `;
 
 const HeroNavList = styled.ul`
+  ${stackHorizontal(2)};
+
   border-top: ${({ theme }) => `0.2rem solid ${theme.colors.textLight}`};
   display: flex;
   justify-content: center;
+  width: 30rem;
   list-style: none;
   padding: 2rem 0 0;
+  font-size: 1.4rem;
   text-align: center;
-  width: 30rem;
 
   @media ${p => p.theme.media.sm} {
     grid-column: 1 / span 12;
     grid-row: 2 / span 1;
     margin-top: 2rem;
-    width: auto;
+    width: 100%;
+    font-size: 1.8rem;
   }
 
   @media ${p => p.theme.media.md} {
@@ -140,18 +128,8 @@ const HeroNavList = styled.ul`
     max-width: 52rem;
   }
 
-  > * {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  > * + * {
-    margin-left: 4rem;
-  }
-
   & li a {
     color: ${p => p.theme.colors.textLight};
-    font-size: 1.7rem;
     letter-spacing: 0.1rem;
     transition: color 0.3s ease-out;
     text-transform: uppercase;
@@ -164,31 +142,15 @@ const HeroNavList = styled.ul`
 `;
 
 const HeroButtonsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${stack(2)};
   justify-content: space-between;
 
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 2rem;
-  }
-
   @media ${p => p.theme.media.md} {
+    ${stackHorizontal(2)};
     align-items: center;
-    flex-direction: row;
-
-    > * {
-      margin-left: 0;
-      margin-right: 0;
-    }
 
     > * + * {
       margin-top: 0;
-      margin-left: 2rem;
     }
   }
 `;
@@ -212,6 +174,9 @@ const Hero = () => {
         <HeroNavList>
           <li>
             <Link to="docs/">Docs</Link>
+          </li>
+          <li>
+            <Link to="gallery/">Gallery</Link>
           </li>
           <li>
             <a

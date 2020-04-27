@@ -10,11 +10,11 @@ import {
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
 
 import { BodyCopy } from './body-copy';
-import { theme } from '../themes/theme';
-import { View } from '../global-style';
+import { theme } from '../styles/theme';
+import { center } from '../styles/mixins';
 
 const StyledEditorWithTagline = styled.div`
-  ${View};
+  ${center};
 
   display: flex;
   flex-direction: column;

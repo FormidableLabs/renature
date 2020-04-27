@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { theme } from '../themes/theme';
+import { theme } from '../styles/theme';
 
 export const Button = styled(({ light, ...rest }) => {
   return <Link {...rest} />;

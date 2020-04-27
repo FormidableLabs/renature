@@ -6,12 +6,12 @@ import { BodyCopy } from '../../components/body-copy';
 import { SecondaryTitle } from '../../components/secondary-title';
 import { SectionTitle } from '../../components/section-title';
 import { Wrapper } from '../../components/wrapper';
-import { Stack } from '../../components/stack';
-import { theme } from '../../themes/theme';
-import { View } from '../../global-style';
+import { theme } from '../../styles/theme';
+import { stack, center } from '../../styles/mixins';
+import { SectionStack } from '../../components/section-stack';
 
 const FeaturesContainer = styled.div`
-  ${View};
+  ${center};
 
   display: grid;
   grid-template-columns: 1fr;
@@ -32,14 +32,7 @@ const FeatureCard = styled.div`
   flex-direction: column;
   align-items: center;
 
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 2rem;
-  }
+  ${stack(2)};
 `;
 
 const FeatureInfo = styled.div`
@@ -48,7 +41,7 @@ const FeatureInfo = styled.div`
 
 const Features = ({ features }) => (
   <Wrapper background={theme.colors.bgLight}>
-    <Stack>
+    <SectionStack>
       <SectionTitle>Features</SectionTitle>
       <FeaturesContainer>
         {features.map(feature => {
@@ -63,7 +56,7 @@ const Features = ({ features }) => (
           );
         })}
       </FeaturesContainer>
-    </Stack>
+    </SectionStack>
   </Wrapper>
 );
 

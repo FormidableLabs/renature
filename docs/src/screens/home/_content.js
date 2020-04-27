@@ -23,12 +23,12 @@ const content = {
   ],
   getStarted: {
     description: (
-      <p>
+      <>
         Renature comes equipped with a lightweight set of production ready React
         hooks.
         <br />
         Dig into the documentation to start animating!
-      </p>
+      </>
     ),
     link: '/docs',
   },
@@ -57,7 +57,7 @@ const content = {
     {
       title: 'Runpkg',
       description:
-        'The online package explorer. Runpkg turns any npm package into an interactive and informative browsing experience',
+        'The online package explorer. Runpkg turns any npm package into an interactive and informative browsing experience.',
       logo: require('../../assets/badge_runpkg.svg'),
       link: 'https://www.runpkg.com/',
     },
