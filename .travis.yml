@@ -55,8 +55,8 @@ jobs:
         - yarn run check-ci
         # Build and deploy to staging.
         - yarn run clean
-        - yarn run stage:build
-        - yarn run stage:deploy
+        - yarn run build
+        - yarn run deploy:stage
       deploy:
         # Deploy master to production
         - provider: script
@@ -64,8 +64,8 @@ jobs:
           # _Note_: `deploy.script` must be a **single** command string
           script: >-
             yarn run clean &&
-            yarn run prod:build &&
-            yarn run prod:deploy
+            yarn run build &&
+            yarn run deploy:prod
           skip_cleanup: true
           on:
             branch: master
@@ -74,9 +74,9 @@ env:
   global:
     # **Staging**: surge (`Surge.sh`)
     # SURGE_LOGIN
-    - secure: "pLIWSL4E74AeoS5W3M8osmlqY7+p5QOYSBy1ZAbUCOT4OXVpVjg+McmYsTJ9+ItBM37r39XyrTMs1APy3O0P/a/SBYH0JLPEqHkyJMSFau7MV5IGN1mJjiPtf6hkzJhvlhzESOpktsZYc+pyQqn0G7nyxjus6tCb2lbY1SGCFqPtV9vXSJgEI2f1xTnL+O1PVF7Q/MdI3CVZ09D3n9iPVJTyEVmpI4LZnXJ4qHl6eVCl+BlNIaDOKbErsGGKHBnRYqR7dgnoxlGITy4xPIEXOOH2F6HgMYY6twLuD++oJ2/74p1pyE8lDvBQGZa/p/SXG4ESaDEidnW03qw6F2aUrSEz7+fXM6KTL8dXmVO2ztce7WlKTGSA/1tDe1UEAw0kEzhxz06KLSKLSjnklLU2fCep0hEF28rMycTWUULuKTY6zo5apPSVIuRAJLDA/sVAlNAz04VRDYRUsqFJgYzlkhZbWJ/UPkT3DwDEDUJkUv8Beis3jrFB4E6etNFMoHUe9sMlQgt4XI/sVUAOlhrNq7gbmQUeHWhtuDBSlfOO2+UoSzzde5JUSQi48A8zXppCtdQd3CkQF0dkleqSGGbmLifp8Q5BI9hkat9CR7EYtu0aQNBxmRVcAs4pUhkSVo1jQ5anXpl6EkLirtS/fKyDGZC+kTi/2B8X3TE07MArcd4="
+    - secure: 'pLIWSL4E74AeoS5W3M8osmlqY7+p5QOYSBy1ZAbUCOT4OXVpVjg+McmYsTJ9+ItBM37r39XyrTMs1APy3O0P/a/SBYH0JLPEqHkyJMSFau7MV5IGN1mJjiPtf6hkzJhvlhzESOpktsZYc+pyQqn0G7nyxjus6tCb2lbY1SGCFqPtV9vXSJgEI2f1xTnL+O1PVF7Q/MdI3CVZ09D3n9iPVJTyEVmpI4LZnXJ4qHl6eVCl+BlNIaDOKbErsGGKHBnRYqR7dgnoxlGITy4xPIEXOOH2F6HgMYY6twLuD++oJ2/74p1pyE8lDvBQGZa/p/SXG4ESaDEidnW03qw6F2aUrSEz7+fXM6KTL8dXmVO2ztce7WlKTGSA/1tDe1UEAw0kEzhxz06KLSKLSjnklLU2fCep0hEF28rMycTWUULuKTY6zo5apPSVIuRAJLDA/sVAlNAz04VRDYRUsqFJgYzlkhZbWJ/UPkT3DwDEDUJkUv8Beis3jrFB4E6etNFMoHUe9sMlQgt4XI/sVUAOlhrNq7gbmQUeHWhtuDBSlfOO2+UoSzzde5JUSQi48A8zXppCtdQd3CkQF0dkleqSGGbmLifp8Q5BI9hkat9CR7EYtu0aQNBxmRVcAs4pUhkSVo1jQ5anXpl6EkLirtS/fKyDGZC+kTi/2B8X3TE07MArcd4='
     # SURGE_TOKEN
-    - secure: "TCQK4qFwiZmGHzfc2O9rW1zsiR8Y2DvMtpvojhecWUfC+5UsmN1QWc67YE1DlIjg7HxT5Hlx6p+rX7C58NvnrIgzqh8fKhFl6JUAEd/EoBQpDgTu9YMdxOfe+mAYGMHGUbf7/+TrNfbvgDuJjgqrdhfudIqeJcnslDGE5V1pfRNNiRjduycbdLRLgDRg8MTehFB1maLhQA5dnsZdkbwGMkcG+YzAtVfDHU2XYTVAIUm7SILHJMA8nz9VBOKHptXJnHD/+zDZUseMgRib9KNFALIokcQsPXEZHKx4UrMghl6HcpP6pJopc+2wZ+XPeSPTDc0RUsfszn6YE2Yh5peGJNYuEPjoVk1vps4SMdl2FqjOHrTLis8yBZmjRydqSLXNaDsRwaBXgzlZywydLq6yvkIv2PxwT8peSFmEOQYWfd2vlrJWtv5jKR/9pO7pUcCQvzBc0NqCcHgWAU8WHvDu23m1Rs2SYth6F7uElbxznmjtZhFUZrwhs6/7XrXhuBhg5L5xhwMcH3NN5VvBbjJ4dNs2iVJpMPt277HUB+3fFdGtiklWC65OA3beyScCl/OAUAPAfgVDINLQD0cfCti6s4Exb8VVzz0lM9jaNUP6E58RyuA9NbrtnzKHgaaAZtIsSNHw77K355xS4Zhz0+sF2tIojoJ11Wfr04/45FqqGzA="
+    - secure: 'TCQK4qFwiZmGHzfc2O9rW1zsiR8Y2DvMtpvojhecWUfC+5UsmN1QWc67YE1DlIjg7HxT5Hlx6p+rX7C58NvnrIgzqh8fKhFl6JUAEd/EoBQpDgTu9YMdxOfe+mAYGMHGUbf7/+TrNfbvgDuJjgqrdhfudIqeJcnslDGE5V1pfRNNiRjduycbdLRLgDRg8MTehFB1maLhQA5dnsZdkbwGMkcG+YzAtVfDHU2XYTVAIUm7SILHJMA8nz9VBOKHptXJnHD/+zDZUseMgRib9KNFALIokcQsPXEZHKx4UrMghl6HcpP6pJopc+2wZ+XPeSPTDc0RUsfszn6YE2Yh5peGJNYuEPjoVk1vps4SMdl2FqjOHrTLis8yBZmjRydqSLXNaDsRwaBXgzlZywydLq6yvkIv2PxwT8peSFmEOQYWfd2vlrJWtv5jKR/9pO7pUcCQvzBc0NqCcHgWAU8WHvDu23m1Rs2SYth6F7uElbxznmjtZhFUZrwhs6/7XrXhuBhg5L5xhwMcH3NN5VvBbjJ4dNs2iVJpMPt277HUB+3fFdGtiklWC65OA3beyScCl/OAUAPAfgVDINLQD0cfCti6s4Exb8VVzz0lM9jaNUP6E58RyuA9NbrtnzKHgaaAZtIsSNHw77K355xS4Zhz0+sF2tIojoJ11Wfr04/45FqqGzA='
 
     # **Production**: `AWS IAM (renature-ci)` (AWS user: `tf-formidops-renature-ci`)
     # AWS_ACCESS_KEY_ID

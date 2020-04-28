@@ -57,17 +57,21 @@ const StyledPreviewTitle = styled(Link)`
 
 const GalleryPreview = ({ title, code, slug }) => {
   const location = useLocation();
-  const to = `${location.pathname}/${slug}`;
+  const to = `${location.pathname}${
+    location.pathname.endsWith('/') ? slug : '/' + slug
+  }`;
 
   return (
     <StyledCard>
-      <LiveProvider
-        code={code}
-        scope={scope}
-        transformCode={removeImportFromPreview}
-      >
-        <StyledPreview />
-      </LiveProvider>
+      {typeof window !== 'undefined' ? (
+        <LiveProvider
+          code={code}
+          scope={scope}
+          transformCode={removeImportFromPreview}
+        >
+          <StyledPreview />
+        </LiveProvider>
+      ) : null}
       <StyledPreviewTitle to={to}>{title}</StyledPreviewTitle>
     </StyledCard>
   );

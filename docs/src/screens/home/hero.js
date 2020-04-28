@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import NpmCopy from './npm-copy';
 import { Wrapper } from '../../components/wrapper';
 import badge from '../../assets/badge_renature.svg';
-import { center, stack, stackHorizontal } from '../../styles/mixins';
+import { center, stack, stackHorizontal, underline } from '../../styles/mixins';
 
 const HeroContent = styled.div`
   ${center};
@@ -129,11 +129,12 @@ const HeroNavList = styled.ul`
   }
 
   & li a {
+    ${underline({ light: true })};
+
     color: ${p => p.theme.colors.textLight};
     letter-spacing: 0.1rem;
     transition: color 0.3s ease-out;
     text-transform: uppercase;
-    text-decoration: none;
 
     &:hover {
       color: ${({ theme }) => theme.colors.buttonLightHover};

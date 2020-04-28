@@ -20,7 +20,7 @@ const GetStarted = ({ getStarted }) => (
 
 GetStarted.propTypes = {
   getStarted: PropTypes.shape({
-    description: PropTypes.string.isRequired,
+    description: PropTypes.node.isRequired,
     link: PropTypes.string.isRequired,
   }).isRequired,
 };

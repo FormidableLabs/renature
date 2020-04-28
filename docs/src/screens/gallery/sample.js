@@ -92,17 +92,19 @@ const Sample = () => {
       <Header />
       <Container>
         <StyledSampleTitle>{title}</StyledSampleTitle>
-        <StyledProvider
-          code={code}
-          scope={scope}
-          transformCode={removeImportFromPreview}
-          theme={nightOwlLight}
-        >
-          <StyledContainer>
-            <StyledEditor />
-            <StyledPreview />
-          </StyledContainer>
-        </StyledProvider>
+        {typeof window !== 'undefined' ? (
+          <StyledProvider
+            code={code}
+            scope={scope}
+            transformCode={removeImportFromPreview}
+            theme={nightOwlLight}
+          >
+            <StyledContainer>
+              <StyledEditor />
+              <StyledPreview />
+            </StyledContainer>
+          </StyledProvider>
+        ) : null}
         <StyledBack to="/gallery">Back to Gallery</StyledBack>
       </Container>
     </>

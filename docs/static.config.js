@@ -2,13 +2,12 @@ import Document from './src/html';
 import constants from './src/constants';
 import { samples } from './src/screens/gallery/samples';
 
-const isStaging = process.env.REACT_STATIC_STAGING === 'true';
 const basePath = 'open-source/renature';
 
 export default {
   paths: {
     src: 'src',
-    dist: isStaging ? `dist/${basePath}` : 'dist',
+    dist: `dist/${basePath}`,
     buildArtifacts: 'node_modules/.cache/react-static/artifacts/',
     devDist: 'node_modules/.cache/react-static/dist/',
     temp: 'node_modules/.cache/react-static/temp/',
@@ -28,8 +27,8 @@ export default {
     'react-static-plugin-react-router',
   ],
   basePath,
-  stagingBasePath: '',
-  devBasePath: '',
+  stagingBasePath: basePath,
+  devBasePath: basePath,
   Document,
   getSiteData: () => ({
     title: constants.title,

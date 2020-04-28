@@ -1,11 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Header from '../docs/header';
 import GalleryPreview from './gallery-preview';
 import { samples } from './samples';
-import { center, stack, stackHorizontal } from '../../styles/mixins';
-import { Link } from 'react-router-dom';
+import { center, stack, stackHorizontal, underline } from '../../styles/mixins';
 
 const Container = styled.div`
   ${center};
@@ -55,27 +55,7 @@ const GalleryNav = styled.ul`
   padding: 0.5rem;
 
   & li a {
-    position: relative;
-    text-decoration: none;
-
-    &::before {
-      background-color: ${p => p.theme.colors.accent};
-      bottom: 0;
-      content: '';
-      height: 0.2rem;
-      left: 0;
-      position: absolute;
-      transition: color, width 0.3s ease-in-out;
-      width: 0;
-    }
-
-    &:hover {
-      color: ${p => p.theme.colors.accent};
-
-      &::before {
-        width: 100%;
-      }
-    }
+    ${underline()};
   }
 `;
 
