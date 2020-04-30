@@ -7,12 +7,15 @@ import {
   LiveError,
   LivePreview as ReactLivePreview,
 } from 'react-live';
+import nightOwl from 'prism-react-renderer/themes/nightOwl';
 
 import { BodyCopy } from './body-copy';
-import { theme } from '../themes/theme';
-import { NightOwl } from '../themes/night-owl';
+import { theme } from '../styles/theme';
+import { center } from '../styles/mixins';
 
 const StyledEditorWithTagline = styled.div`
+  ${center};
+
   display: flex;
   flex-direction: column;
 
@@ -65,9 +68,6 @@ export const StyledEditor = styled(LiveEditor)`
   overflow: auto !important;
   max-height: 35rem;
 
-  @media ${p => p.theme.media.md} {
-  }
-
   * > textarea:focus {
     outline: none;
   }
@@ -80,10 +80,6 @@ export const StyledEditor = styled(LiveEditor)`
 export const StyledPreview = styled(({ splitVertical, ...rest }) => (
   <ReactLivePreview {...rest} />
 ))`
-  --color-near-black: #011826;
-  --color-deep-blue: #053959;
-  --color-yellow: #f2cf63;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -92,87 +88,6 @@ export const StyledPreview = styled(({ splitVertical, ...rest }) => (
   min-height: 25rem;
   overflow: hidden;
   flex-grow: ${({ splitVertical }) => (splitVertical ? 1 : 0)};
-
-  .mover {
-    height: 100px;
-    width: 100px;
-    border-radius: 10px;
-    background: ${p => p.theme.colors.accent};
-  }
-
-  .toggle {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-  }
-
-  .space {
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(
-      var(--color-near-black),
-      var(--color-deep-blue)
-    );
-    flex: 1;
-  }
-
-  .mover-2d {
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    background: ${p => p.theme.colors.textLight};
-    box-shadow: 0 0 8px 4px ${p => p.theme.colors.textLight},
-      0 0 16px 8px ${p => p.theme.colors.accent};
-  }
-
-  .attractor-2d {
-    position: relative;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    background: var(--color-yellow);
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 30px 15px var(--color-yellow);
-  }
-
-  .stack {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    > * {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-
-    > * + * {
-      margin-top: 2rem;
-    }
-  }
-
-  button {
-    display: inline-block;
-    border: none;
-    padding: 1rem 2rem;
-    margin: 0;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .button {
-    background: var(--color-near-black);
-    color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.2);
-    font-size: 1em;
-    font-weight: 700;
-    border-radius: 5px;
-    transition: transform 0.2s ease;
-  }
-
-  .button:hover {
-    transform: scale(1.1);
-  }
 `;
 
 export const StyledError = styled(LiveError)`
@@ -191,6 +106,7 @@ export const StyledError = styled(LiveError)`
 export const LivePreview = ({
   code,
   scope,
+  transformCode,
   tagline,
   copy,
   before = false,
@@ -210,7 +126,12 @@ export const LivePreview = ({
   return (
     <StyledEditorWithTagline before={before}>
       {taglineElement}
-      <LiveProvider code={code} scope={scope} theme={NightOwl}>
+      <LiveProvider
+        code={code}
+        scope={scope}
+        transformCode={transformCode}
+        theme={nightOwl}
+      >
         <StyledContainer splitVertical={splitVertical} even={even}>
           <StyledPreview splitVertical={splitVertical} />
           <StyledError />
@@ -224,6 +145,7 @@ export const LivePreview = ({
 LivePreview.propTypes = {
   code: PropTypes.string.isRequired,
   scope: PropTypes.object.isRequired,
+  transformCode: PropTypes.func.isRequired,
   tagline: PropTypes.string.isRequired,
   copy: PropTypes.string.isRequired,
   before: PropTypes.bool,

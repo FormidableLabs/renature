@@ -37,6 +37,7 @@ const HeaderContainer = styled.a`
   top: 1.5rem;
   font-size: 0.8rem;
   color: ${p => p.theme.colors.textLight};
+  text-decoration: none;
 
   @media ${p => p.theme.media.sm} {
     left: 3.5rem;
@@ -48,29 +49,19 @@ const HeaderContainer = styled.a`
     left: 4rem;
     top: 3rem;
   }
-
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 1rem;
-  }
 `;
 
 const HeaderText = styled.p`
   text-transform: uppercase;
   margin: 0;
-  font-family: inherit;
-  font-size: inherit;
   line-height: 1.5;
-  letter-spacing: 0.86px;
+  letter-spacing: 0.086rem;
   max-width: 10rem;
 `;
 
 const HeaderLogo = styled.img`
   width: 4rem;
+  margin-top: 1rem;
 
   @media ${p => p.theme.media.sm} {
     width: 6rem;

@@ -6,40 +6,41 @@ import styled from 'styled-components';
 import { BounceAnimation } from '../../components/bounce-animation';
 
 const HeroNPMWrapper = styled.div`
-  flex-direction: row;
-  justify-content: stretch;
-  width: 30rem;
   display: flex;
-  flex: 1 0 auto;
+  flex-direction: row;
+  align-items: center;
+  flex-basis: 65%;
 `;
 
 const HeroNPMCopy = styled.p`
   background-color: #d5d5d5;
-  color: ${({ theme }) => theme.colors.button};
+  height: 4rem;
+  color: ${p => p.theme.colors.button};
   text-align: left;
-  padding: 0.3rem 1.5rem;
-  line-height: 3.44rem;
+  padding: 0 1.5rem;
+  line-height: 4rem;
   font-size: 1.4rem;
   letter-spacing: 0.02rem;
   margin: 0;
-  flex: 1 0 auto;
+  flex: 1;
 `;
 
 const HeroNPMButton = styled.button`
   flex: 0 1 8rem;
   height: 4rem;
   margin: 0;
+  padding: 0;
   background: ${p => p.theme.colors.textLight};
   transition: background 0.3s ease-out;
   font-size: 1.4rem;
   letter-spacing: 0.01rem;
-  color: ${({ theme }) => theme.colors.button};
+  color: ${p => p.theme.colors.button};
   border: 0;
   text-transform: uppercase;
   cursor: copy;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.buttonLightHover};
+    background: ${p => p.theme.colors.buttonLightHover};
   }
 `;
 

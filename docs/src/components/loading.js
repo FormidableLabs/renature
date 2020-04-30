@@ -67,7 +67,7 @@ export const Loading = () => (
   <Docs isLoading>
     <Container>
       <Loader>
-        <Svg className="circular" viewBox="25 25 50 50">
+        <Svg viewBox="25 25 50 50">
           <Circle
             className="path"
             cx="50"

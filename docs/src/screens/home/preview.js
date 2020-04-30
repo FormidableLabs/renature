@@ -1,32 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useFriction, useFluidResistance, useGravity2D } from 'renature';
 
 import { Wrapper } from '../../components/wrapper';
 import { SectionTitle } from '../../components/section-title';
-import { LivePreview } from '../../components/live-preview';
-import { Toggle } from '../../components/toggle';
-import { theme } from '../../themes/theme';
+import { SectionStack } from '../../components/section-stack';
+import { LivePreview } from '../../components/home-preview';
+import { theme } from '../../styles/theme';
+import { stack } from '../../styles/mixins';
+import { scope, removeImportFromPreview } from '../../utils/live-preview';
 
 const PreviewStack = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${stack(11.25)}
   margin-left: auto;
   margin-right: auto;
   box-sizing: content-box;
-
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 11.25rem;
-  }
 `;
 
-const scope = { useFriction, useFluidResistance, Toggle, useGravity2D };
-const codeSampleOne = `
+const basic = `
+import React from 'react';
+import { useFriction } from 'renature';
+
 function FrictionAnimation() {
   const [props] = useFriction({
     from: {
@@ -39,11 +32,19 @@ function FrictionAnimation() {
     infinite: true
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div
+      className="live-preview__mover live-preview__mover--lg"
+      {...props}
+    />
+  );
 }
 `;
 
-const codeSampleTwo = `
+const controlled = `
+import React from 'react';
+import { useFluidResistance } from 'renature';
+
 function FluidResistanceAnimation() {
   const [toggle, setToggle] = React.useState(true);
 
@@ -70,25 +71,44 @@ function FluidResistanceAnimation() {
   });
 
   return (
-    <div className="toggle">
+    <div className="live-preview__toggle">
       <Toggle
         onChange={() => setToggle(prevToggle => !prevToggle)}
         checked={toggle}
       />
-      <div className="mover" {...props} />
+      <div
+        className="live-preview__mover live-preview__mover--lg"
+        {...props}
+      />
     </div>
   );
 };
 `;
 
-const codeSampleThree = `
+const twoDimension = `
+import React from 'react';
+import { useGravity2D } from 'renature';
+
 function Gravity2DAnimation() {
+  const [center, setCenter] = React.useState({ top: 0, left: 0 });
+  const node = React.useRef(null);
+
+  React.useLayoutEffect(() => {
+    if (node.current) {
+      const top = node.current.clientHeight / 2;
+      const left = node.current.clientWidth / 2;
+
+      setCenter({ top, left });
+    }
+  }, []);
+
+
   const [props] = useGravity2D({
     config: {
       attractorMass: 1000000000000,
       moverMass: 10000,
-      attractorPosition: [250, 150],
-      initialMoverPosition: [250, 50],
+      attractorPosition: [center.left, center.top],
+      initialMoverPosition: [center.left, center.top - 100],
       initialMoverVelocity: [1, 0],
       threshold: {
         min: 20,
@@ -99,11 +119,11 @@ function Gravity2DAnimation() {
   });
 
   return (
-    <div className="space">
-      <div className="mover-2d" {...props} />
+    <div className="live-preview__space" ref={node}>
+      <div className="live-preview__mover-2d" {...props} />
       <div
-        className="attractor-2d"
-        style={{ left: 250, top: 150 }}
+        className="live-preview__attractor-2d"
+        style={center}
       />
     </div>
   );
@@ -112,40 +132,46 @@ function Gravity2DAnimation() {
 
 const Preview = () => (
   <Wrapper background="linear-gradient(242deg, #30265f 101%, #5443a6 -11%)">
-    <SectionTitle color={theme.colors.textLight}>
-      Beautiful, Simple Animations
-    </SectionTitle>
-    {typeof window !== 'undefined' ? (
-      <PreviewStack>
-        <LivePreview
-          code={codeSampleOne}
-          scope={scope}
-          tagline={'Animate Intuitively, Animate With Joy'}
-          copy={
-            'UI animation should be intuitive, simple, and fun. Renature is all about returning joy and whimsy to your UI animations.'
-          }
-          before
-        />
-        <LivePreview
-          code={codeSampleTwo}
-          scope={scope}
-          tagline={'Responsive Animations'}
-          copy={
-            'Renature hooks respond directly to changes in their from, to, and config properties. Just update a value and your animation will begin running.'
-          }
-        />
-        <LivePreview
-          code={codeSampleThree}
-          scope={scope}
-          tagline={'Animate in Two Dimensions'}
-          copy={
-            'Renature uses two-dimensional vectors to back its physics, giving you the ability to build beautiful and accurate animations in Cartesian space.'
-          }
-          before
-          splitVertical
-        />
-      </PreviewStack>
-    ) : null}
+    <SectionStack>
+      <SectionTitle color={theme.colors.textLight}>
+        Beautiful, Simple Animations
+      </SectionTitle>
+      {typeof window !== 'undefined' ? (
+        <PreviewStack>
+          <LivePreview
+            code={basic}
+            transformCode={removeImportFromPreview}
+            scope={scope}
+            tagline={'Animate Intuitively, Animate With Joy'}
+            copy={
+              'UI animation should be intuitive, simple, and fun. Renature is all about returning joy and whimsy to your UI animations.'
+            }
+            before
+          />
+          <LivePreview
+            code={controlled}
+            transformCode={removeImportFromPreview}
+            scope={scope}
+            tagline={'Responsive Animations'}
+            copy={
+              'Renature hooks respond directly to changes in their from, to, and config properties. Just update a value and your animation will begin running.'
+            }
+          />
+          <LivePreview
+            code={twoDimension}
+            transformCode={removeImportFromPreview}
+            scope={scope}
+            tagline={'Animate in Two Dimensions'}
+            copy={
+              'Renature uses two-dimensional vectors to back its physics, giving you the ability to build beautiful and accurate animations in Cartesian space.'
+            }
+            before
+            splitVertical
+            even
+          />
+        </PreviewStack>
+      ) : null}
+    </SectionStack>
   </Wrapper>
 );
 

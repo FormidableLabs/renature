@@ -31,6 +31,7 @@
     "prettier/prettier": ["error"],
     "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "no-console": "error",
-    "no-unused-vars": ["error", { "ignoreRestSiblings": true }]
+    "no-unused-vars": ["error", { "ignoreRestSiblings": true }],
+    "no-undef": "error"
   }
 }

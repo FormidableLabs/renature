@@ -20,10 +20,10 @@ import { useGravity } from 'renature';
 function ControlledMover() {
   const [props, controller] = useGravity({
     from: {
-      transform: 'rotate(0deg) scale(0)',
+      transform: 'rotate(0deg) scale(1)',
     },
     to: {
-      transform: 'rotate(360deg) scale(1)',
+      transform: 'rotate(360deg) scale(0)',
     },
     config: {
       moverMass: 10000,
@@ -34,11 +34,14 @@ function ControlledMover() {
   });
 
   return (
-    <div className="stack">
-      <button className="button" onClick={controller.start}>
+    <div className="live-preview__stack">
+      <button
+        className="live-preview__button live-preview__button--lg"
+        onClick={controller.start}
+      >
         Run The Animation!
       </button>
-      <div className="mover" {...props} />
+      <div className="live-preview__mover live-preview__mover--lg" {...props} />
     </div>
   );
 }
@@ -46,7 +49,7 @@ function ControlledMover() {
 
 ### Stopping Animations
 
-By default, once the backing physics simulation has completed `renature` will stop your animation. However, there may be cases where you want to preemptively stop your animation in response to some user event or side effect. In those cases, you have two ways to stop your animations.
+Once the backing physics simulation powering your animation has completed, `renature` the frame loop and leave your element animated. However, there may be cases where you want to preemptively stop your animation in response to some user event or side effect. In those cases, you have two ways to stop your animations.
 
 #### Stopping Animations Initiated on Mount
 
@@ -75,7 +78,9 @@ function ControlledMover() {
     setTimeout(controller.stop, 2000);
   }, [controller]);
 
-  return <div className="mover" {...props} />;
+  return (
+    <div className="live-preview__mover live-preview__mover--lg" {...props} />
+  );
 }
 ```
 
@@ -98,10 +103,10 @@ import { useGravity } from 'renature';
 function ControlledMover() {
   const [props, controller] = useGravity({
     from: {
-      transform: 'rotate(0deg) scale(0)',
+      transform: 'rotate(0deg) scale(1)',
     },
     to: {
-      transform: 'rotate(360deg) scale(1)',
+      transform: 'rotate(360deg) scale(0)',
     },
     config: {
       moverMass: 10000,
@@ -122,11 +127,14 @@ function ControlledMover() {
   };
 
   return (
-    <div className="stack">
-      <button className="button" onClick={onClick}>
+    <div className="live-preview__stack">
+      <button
+        className="live-preview__button live-preview__button--lg"
+        onClick={onClick}
+      >
         Run The Animation!
       </button>
-      <div className="mover" {...props} />
+      <div className="live-preview__mover live-preview__mover--lg" {...props} />
     </div>
   );
 }
@@ -156,7 +164,9 @@ function DelayedMover() {
     delay: 2000, // Delay the animation by two seconds after mount.
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div className="live-preview__mover live-preview__mover--lg" {...props} />
+  );
 }
 ```
 
@@ -186,8 +196,68 @@ function InfiniteMover() {
     infinite: true, // Specify that the animation should run infinitely.
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div className="live-preview__mover live-preview__mover--lg" {...props} />
+  );
 }
 ```
 
 Infinite animations oscillate between your `from` and `to` states, creating a "yoyo" effect. They work by running the exact same underlying physics animation in a reversed direction.
+
+### Pausing and Resuming Animations
+
+If you want to pause and resume animations in relation to external events, `renature` allows for that as well using the same functions above from the Controller API, i.e. `controller.start` and `controller.stop`. Note that the example below uses a `ref` to capture the `stop` function returned by `controller.start` and make it available to `onStop`.
+
+```js live=true
+import React from 'react';
+import { useGravity } from 'renature';
+
+function InfiniteMover() {
+  const [props, controller] = useGravity({
+    from: {
+      transform: 'rotate(0deg) scale(1)',
+      opacity: 1,
+    },
+    to: {
+      transform: 'rotate(360deg) scale(0)',
+      opacity: 0,
+    },
+    config: {
+      moverMass: 10000,
+      attractorMass: 1000000000000,
+      r: 7.5,
+    },
+    immediate: false,
+    infinite: true,
+  });
+
+  const stopFn = React.useRef(() => {});
+
+  const onStart = () => {
+    const { stop } = controller.start();
+    stopFn.current = stop;
+  };
+
+  const onStop = () => {
+    stopFn.current();
+  };
+
+  return (
+    <div className="live-preview__stack">
+      <button
+        onClick={onStart}
+        className="live-preview__button live-preview__button--lg"
+      >
+        Start / Resume
+      </button>
+      <button
+        onClick={onStop}
+        className="live-preview__button live-preview__button--lg"
+      >
+        Stop / Pause
+      </button>
+      <div className="live-preview__mover live-preview__mover--lg" {...props} />
+    </div>
+  );
+}
+```

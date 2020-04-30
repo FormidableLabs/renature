@@ -8,10 +8,10 @@ export default App;
 
 if (typeof document !== 'undefined') {
   const renderMethod = module.hot ? render : hydrate;
-  const mount = Comp => {
+  const mount = Component => {
     renderMethod(
       <AppContainer>
-        <Comp />
+        <Component />
       </AppContainer>,
       document.getElementById('root')
     );

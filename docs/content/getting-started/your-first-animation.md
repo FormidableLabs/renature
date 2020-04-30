@@ -27,7 +27,9 @@ function Mover() {
     infinite: true,
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div className="live-preview__mover live-preview__mover--lg" {...props} />
+  );
 }
 ```
 
@@ -43,7 +45,7 @@ With `renature`, you can animate as many CSS properties as you like at once! You
 import React from 'react';
 import { useFriction } from 'renature';
 
-function Mover() {
+function MoverMultiple() {
   const [props] = useFriction({
     from: {
       transform: 'scale(0) rotate(0deg)',
@@ -63,7 +65,9 @@ function Mover() {
     infinite: true,
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div className="live-preview__mover live-preview__mover--lg" {...props} />
+  );
 }
 ```
 

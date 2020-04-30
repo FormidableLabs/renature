@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   width: 100%;
   margin: ${({ noMargin }) => (noMargin ? '0' : 'auto')};
   padding: ${({ noPadding }) => (noPadding ? '0' : '4rem')};
-  background: ${({ background }) => background || theme.colors.bgLight};
+  background: ${({ theme, background }) => background || theme.colors.bgLight};
   text-align: center;
 
   @media ${p => p.theme.media.sm} {

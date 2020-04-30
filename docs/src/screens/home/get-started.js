@@ -4,23 +4,23 @@ import PropTypes from 'prop-types';
 import { BodyCopy } from '../../components/body-copy';
 import { Button } from '../../components/button';
 import { SectionTitle } from '../../components/section-title';
+import { SectionStack } from '../../components/section-stack';
 import { Wrapper } from '../../components/wrapper';
-import { theme } from '../../themes/theme';
-import { Stack } from '../../components/stack';
+import { theme } from '../../styles/theme';
 
 const GetStarted = ({ getStarted }) => (
   <Wrapper background={theme.colors.bgLight}>
-    <Stack>
+    <SectionStack>
       <SectionTitle>Get Started</SectionTitle>
       <BodyCopy>{getStarted.description}</BodyCopy>
       <Button to={getStarted.link}>Documentation</Button>
-    </Stack>
+    </SectionStack>
   </Wrapper>
 );
 
 GetStarted.propTypes = {
   getStarted: PropTypes.shape({
-    description: PropTypes.string.isRequired,
+    description: PropTypes.node.isRequired,
     link: PropTypes.string.isRequired,
   }).isRequired,
 };

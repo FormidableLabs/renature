@@ -61,7 +61,9 @@ function GravityBasic() {
     infinite: true,
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div className="live-preview__mover live-preview__mover--lg" {...props} />
+  );
 }
 ```
 
@@ -105,7 +107,9 @@ function FrictionBasic() {
     infinite: true,
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div className="live-preview__mover live-preview__mover--lg" {...props} />
+  );
 }
 ```
 
@@ -151,7 +155,9 @@ function FluidResistanceBasic() {
     infinite: true,
   });
 
-  return <div className="mover" {...props} />;
+  return (
+    <div className="live-preview__mover live-preview__mover--lg" {...props} />
+  );
 }
 ```
 
@@ -179,13 +185,28 @@ The same equation used to calculate the force of gravity in `useGravity` is also
 #### Example
 
 ```js live=true
+import React from 'react';
+import { useGravity2D } from 'renature';
+
 function Gravity2DAnimation() {
+  const [center, setCenter] = React.useState({ top: 0, left: 0 });
+  const node = React.useRef(null);
+
+  React.useLayoutEffect(() => {
+    if (node.current) {
+      const top = node.current.clientHeight / 2;
+      const left = node.current.clientWidth / 2;
+
+      setCenter({ top, left });
+    }
+  }, []);
+
   const [props] = useGravity2D({
     config: {
       attractorMass: 1000000000000,
       moverMass: 10000,
-      attractorPosition: [250, 150],
-      initialMoverPosition: [250, 50],
+      attractorPosition: [center.left, center.top],
+      initialMoverPosition: [center.left, center.top - 100],
       initialMoverVelocity: [1, 0],
       threshold: {
         min: 20,
@@ -196,9 +217,9 @@ function Gravity2DAnimation() {
   });
 
   return (
-    <div className="space">
-      <div className="mover-2d" {...props} />
-      <div className="attractor-2d" style={{ left: 250, top: 150 }} />
+    <div className="live-preview__space" ref={node}>
+      <div className="live-preview__mover-2d" {...props} />
+      <div className="live-preview__attractor-2d" style={center} />
     </div>
   );
 }

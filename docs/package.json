@@ -15,13 +15,11 @@
   "scripts": {
     "start": "react-static start",
     "clean": "rimraf dist",
-    "stage:build": "react-static build --staging",
-    "stage:serve": "serve -l 3000 -c serve-staging.json",
-    "stage:deploy": "node scripts/deploy/surge.js",
-    "prod:build": "react-static build",
-    "prod:serve": "serve -l 3000",
-    "prod:deploy": "node scripts/deploy/aws.js",
-    "prettier-all": "npx prettier --write '{src,static.config,scripts,lib}/**/*.{js,jsx}'",
+    "build": "react-static build",
+    "serve": "serve -l 4000",
+    "deploy:prod": "node scripts/deploy/aws.js",
+    "deploy:stage": "node scripts/deploy/surge.js",
+    "prettier-all": "npx prettier --write '{src,static.config,scripts}/**/*.{js,jsx}'",
     "preversion": "yarn run lint && yarn run build",
     "format": "yarn run lint --fix",
     "lint": "eslint 'src/**/*.js' 'static.config.js'",
@@ -42,7 +40,7 @@
     "react-router-ga": "^1.0.0",
     "react-static": "^7.2.3",
     "react-static-plugin-md-pages": "^0.1.7",
-    "renature": "^0.1.0",
+    "renature": "^0.2.1",
     "styled-components": "^5.0.0"
   },
   "devDependencies": {

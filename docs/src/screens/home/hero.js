@@ -5,69 +5,27 @@ import styled from 'styled-components';
 import NpmCopy from './npm-copy';
 import { Wrapper } from '../../components/wrapper';
 import badge from '../../assets/badge_renature.svg';
+import { center, stack, stackHorizontal, underline } from '../../styles/mixins';
 
 const HeroContent = styled.div`
+  ${center};
+  ${stack(2)};
+
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 5rem;
   width: 100%;
 
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 2rem;
-  }
-
   @media ${p => p.theme.media.sm} {
     display: grid;
-    grid-template-areas:
-      'a . b'
-      'a . b'
-      'a . b'
-      'a . c'
-      'd d d';
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 2rem;
     margin-top: 20rem;
-    padding: 0 2rem;
 
     > * + * {
       margin-top: 0;
     }
-  }
-`;
-
-const HeroTitle = styled.h1`
-  font-size: 4rem;
-  letter-spacing: 0.25rem;
-  text-align: center;
-  text-transform: uppercase;
-
-  @media ${p => p.theme.media.sm} {
-    font-size: 6.5rem;
-    text-align: left;
-  }
-
-  @media ${p => p.theme.media.md} {
-    font-size: 9rem;
-  }
-`;
-
-const HeroBody = styled.p`
-  font-family: Helvetica;
-  letter-spacing: 0.16rem;
-  font-size: 1.4rem;
-  line-height: 2.2rem;
-  max-width: 30rem;
-  text-align: center;
-
-  @media ${p => p.theme.media.sm} {
-    font-size: 2rem;
-    line-height: 2.8rem;
-    max-width: none;
-    text-align: left;
   }
 `;
 
@@ -75,98 +33,62 @@ const HeroLogo = styled.img`
   width: 20rem;
 
   @media ${p => p.theme.media.sm} {
-    width: 30rem;
-    grid-area: a;
-    align-self: flex-start;
-    justify-self: flex-end;
-    max-width: initial;
+    width: auto;
+    grid-column: 1 / span 5;
+    justify-self: center;
   }
 
   @media ${p => p.theme.media.md} {
-    width: 36rem;
+    grid-row: 1 / span 2;
   }
 `;
 
-const HeroNavList = styled.ul`
-  border-top: ${({ theme }) => `0.2rem solid ${theme.colors.textLight}`};
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  padding: 2rem 0 0;
+const HeroBodyAndButtons = styled.div`
+  ${stack(2)};
+  max-width: 30rem;
+
+  @media ${p => p.theme.media.sm} {
+    grid-column: 6 / span 7;
+    max-width: 52rem;
+  }
+`;
+
+const HeroTitle = styled.h1`
+  font-size: 4rem;
+  letter-spacing: 0.75rem;
+  text-align: center;
+  text-transform: uppercase;
+
+  @media ${p => p.theme.media.sm} {
+    font-size: 6rem;
+    text-align: left;
+  }
+
+  @media ${p => p.theme.media.md} {
+    font-size: 8rem;
+  }
+`;
+
+const HeroBody = styled.p`
+  font-family: ${p => p.theme.fonts.body};
+  letter-spacing: 0.16rem;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
   text-align: center;
 
   @media ${p => p.theme.media.sm} {
-    grid-area: d;
-    width: 100%;
-    margin-top: 2rem;
-  }
-
-  @media ${p => p.theme.media.md} {
-    grid-area: c;
-    margin: 2.2rem 0 0;
-    width: 100%;
-    max-width: 52rem;
-  }
-
-  > * {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  > * + * {
-    margin-left: 4rem;
-  }
-
-  & li a {
-    color: ${p => p.theme.colors.textLight};
-    font-size: 1.7rem;
-    letter-spacing: 0.1rem;
-    transition: opacity 0.4s ease-out;
-    text-transform: uppercase;
-    text-decoration: none;
-
-    &:hover {
-      color: ${({ theme }) => theme.colors.buttonLightHover};
-    }
-  }
-`;
-
-const HeroButtonsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 2rem;
-  }
-
-  @media ${p => p.theme.media.md} {
-    align-items: center;
-    flex-direction: row;
-
-    > * {
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    > * + * {
-      margin-top: 0;
-      margin-left: 2rem;
-    }
+    font-size: 2rem;
+    line-height: 2.8rem;
+    text-align: left;
   }
 `;
 
 const DocumentationButton = styled(Link)`
-  width: 30rem;
+  flex-basis: 35%;
   height: 4rem;
   font-size: 1.4rem;
   background: ${p => p.theme.colors.textLight};
-  transition: background 0.25s ease-out;
+  transition: background 0.35s ease-out;
   line-height: 4rem;
   text-align: center;
   text-transform: uppercase;
@@ -175,40 +97,68 @@ const DocumentationButton = styled(Link)`
   color: ${({ theme }) => theme.colors.button};
   border: 0;
 
-  @media ${p => p.theme.media.md} {
-    margin-top: 0;
-    width: 18rem;
-  }
-
   &:hover {
     background: ${({ theme }) => theme.colors.buttonLightHover};
   }
 `;
 
-const HeroBodyAndButtons = styled.div`
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+const HeroNavList = styled.ul`
+  ${stackHorizontal(2)};
 
-  > * + * {
-    margin-top: 2rem;
-  }
+  border-top: ${({ theme }) => `0.2rem solid ${theme.colors.textLight}`};
+  display: flex;
+  justify-content: center;
+  width: 30rem;
+  list-style: none;
+  padding: 2rem 0 0;
+  font-size: 1.4rem;
+  text-align: center;
 
   @media ${p => p.theme.media.sm} {
-    grid-area: b;
-    max-width: 52rem;
-    margin-left: 6rem;
+    grid-column: 1 / span 12;
+    grid-row: 2 / span 1;
+    margin-top: 2rem;
+    width: 100%;
+    font-size: 1.8rem;
   }
 
   @media ${p => p.theme.media.md} {
-    margin-left: 0rem;
+    grid-column: 6 / span 7;
+    margin-top: 0;
+    max-width: 52rem;
+  }
+
+  & li a {
+    ${underline({ light: true })};
+
+    color: ${p => p.theme.colors.textLight};
+    letter-spacing: 0.1rem;
+    transition: color 0.3s ease-out;
+    text-transform: uppercase;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.buttonLightHover};
+    }
+  }
+`;
+
+const HeroButtonsContainer = styled.div`
+  ${stack(2)};
+  justify-content: space-between;
+
+  @media ${p => p.theme.media.md} {
+    ${stackHorizontal(2)};
+    align-items: center;
+
+    > * + * {
+      margin-top: 0;
+    }
   }
 `;
 
 const Hero = () => {
   return (
-    <Wrapper noPadding background="transparent">
+    <Wrapper background="transparent" noPadding style={{ padding: '0 4rem' }}>
       <HeroContent>
         <HeroLogo src={badge} alt="renature" />
         <HeroBodyAndButtons>
@@ -225,6 +175,9 @@ const Hero = () => {
         <HeroNavList>
           <li>
             <Link to="docs/">Docs</Link>
+          </li>
+          <li>
+            <Link to="gallery/">Gallery</Link>
           </li>
           <li>
             <a

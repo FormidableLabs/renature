@@ -86,6 +86,18 @@ SidebarStyling.propTypes = {
   closeSidebar: PropTypes.func.isRequired,
 };
 
+const GALLERY_CHILD = [
+  {
+    children: undefined,
+    frontmatter: {
+      title: 'Gallery',
+    },
+    key: 'gallery',
+    originalPath: 'gallery',
+    path: 'gallery',
+  },
+];
+
 const Sidebar = props => {
   const location = useLocation();
   const currentPage = useMarkdownPage();
@@ -105,7 +117,7 @@ const Sidebar = props => {
       children = [{ ...tree, children: undefined }, ...children];
     }
 
-    return children.map(page => {
+    return children.concat(GALLERY_CHILD).map(page => {
       const pageChildren = page.children || [];
 
       const isActive = pageChildren.length

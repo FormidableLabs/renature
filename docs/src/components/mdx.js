@@ -8,37 +8,20 @@ import { useMarkdownPage } from 'react-static-plugin-md-pages';
 import Highlight, { Prism } from 'prism-react-renderer';
 import { LiveProvider } from 'react-live';
 import nightOwlLight from 'prism-react-renderer/themes/nightOwlLight';
-import {
-  useFriction,
-  useFluidResistance,
-  useGravity,
-  useGravity2D,
-} from 'renature';
 
-import AnchorSvg from '../assets/anchor';
 import { relative } from './sidebar';
 import {
   StyledContainer,
   StyledPreview,
   StyledError,
   StyledEditor,
-} from './live-preview';
+} from './home-preview';
+import { scope, removeImportFromPreview } from '../utils/live-preview';
+import AnchorSvg from '../assets/anchor';
 
 const getLanguage = className => {
   const res = className.match(/language-(\w+)/);
   return res ? res[1] : null;
-};
-
-code => {
-  return code.replace(
-    /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from\s+?)|)(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g,
-    ''
-  );
-};
-
-const importRegex = /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from\s+?)|)(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g;
-const removeImportFromPreview = code => {
-  return code.replace(importRegex, '');
 };
 
 const Pre = styled.pre`
@@ -149,7 +132,7 @@ const HighlightCode = ({ className = '', live = false, children }) => {
       <LiveProvider
         code={children.trim()}
         transformCode={removeImportFromPreview}
-        scope={{ useFriction, useFluidResistance, useGravity, useGravity2D }}
+        scope={scope}
         theme={nightOwlLight}
       >
         <StyledContainer even>

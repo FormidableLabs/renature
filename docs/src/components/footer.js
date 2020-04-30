@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Wrapper } from './wrapper';
-import { theme } from '../themes/theme';
+import { theme } from '../styles/theme';
+import { stack } from '../styles/mixins';
 
 import logoFormidableWhite from '../assets/logos/logo_formidable_white.svg';
 
@@ -36,19 +37,13 @@ const FooterLinks = styled.ul`
   padding: 0 1rem;
   text-transform: uppercase;
 
-  > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  > * + * {
-    margin-top: 1.5rem;
-  }
+  ${stack(1.5)};
 
   & a {
     color: ${p => p.theme.colors.textLight};
     letter-spacing: 0.1rem;
     transition: opacity 0.4s ease-out;
+    text-decoration: none;
   }
 
   & a:hover {
