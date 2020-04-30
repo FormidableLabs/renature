@@ -62,6 +62,7 @@ const StyledPreview = styled(LivePreview)`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 `;
 
 const StyledEditor = styled(LiveEditor)`
@@ -70,6 +71,7 @@ const StyledEditor = styled(LiveEditor)`
 
 const StyledBack = styled(Link)`
   display: flex;
+  align-items: center;
   position: absolute;
   top: calc(1.5rem + ${p => p.theme.layout.header});
   left: 4rem;
