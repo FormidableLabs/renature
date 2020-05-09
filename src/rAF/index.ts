@@ -8,7 +8,7 @@ interface RAFState {
 
 export const rAF = () => {
   const state: RAFState = {
-    lastFrame: performance.now(),
+    lastFrame: typeof window !== 'undefined' ? performance.now() : Date.now(),
     animationFrameId: null,
     listener: ((() => {}) as unknown) as RAFState['listener'],
   };
