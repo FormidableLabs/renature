@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.3.0
+
+In this release, we add support for using `renature` in Node.js environments for server-side rendering. Previously, using `renature` in server-rendered React applications would result in a runtime error.
+
+### Fixed
+
+- Fallback to `Date.now` in lieu of `performance.now` in Node.js environments when tracking frame timestamps in `rAF`. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/54).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.2.1...v0.3.0)
+
 ## v0.2.1
 
 In this release, we allow users to supply their own value for `G`, the Universal Gravitational Constant, in the configuration of `useGravity` and `useGraviyt2D` hooks. This allows users to achieve similar animation effects without needing to provide extremely large mass values for the `mover` and `attractor`.
