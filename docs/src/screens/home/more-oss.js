@@ -109,7 +109,7 @@ const MoreOSS = ({ oss }) => (
 );
 
 MoreOSS.propTypes = {
-  oss: PropTypes.shape({ 
+  oss: PropTypes.shape({
     cards: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -118,7 +118,7 @@ MoreOSS.propTypes = {
         logo: PropTypes.string.isRequired,
       }).isRequired
     ).isRequired,
-    link: PropTypes.string.isRequired
+    link: PropTypes.string.isRequired,
   }).isRequired,
 };
 
