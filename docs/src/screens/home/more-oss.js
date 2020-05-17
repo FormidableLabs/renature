@@ -87,7 +87,7 @@ const MoreOSS = ({ oss }) => (
         More Open Source from Formidable
       </SectionTitle>
       <OSSCardContainer>
-        {oss.map(card => {
+        {oss.cards.map(card => {
           return (
             <OSSCard key={card.title}>
               <OSSImage src={card.logo} />
@@ -101,7 +101,7 @@ const MoreOSS = ({ oss }) => (
           );
         })}
       </OSSCardContainer>
-      <Button light to="https://formidable.com/open-source/">
+      <Button light to={oss.link}>
         View All
       </Button>
     </SectionStack>
@@ -109,14 +109,17 @@ const MoreOSS = ({ oss }) => (
 );
 
 MoreOSS.propTypes = {
-  oss: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      link: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      logo: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
+  oss: PropTypes.shape({
+    cards: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        link: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        logo: PropTypes.string.isRequired,
+      }).isRequired
+    ).isRequired,
+    link: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default MoreOSS;

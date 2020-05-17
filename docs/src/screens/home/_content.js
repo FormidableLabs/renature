@@ -32,36 +32,39 @@ const content = {
     ),
     link: '/docs',
   },
-  oss: [
-    {
-      title: 'Victory',
-      description:
-        'An ecosystem of modular data visualization components for React. Friendly and flexible.',
-      logo: require('../../assets/badge_victory.svg'),
-      link: 'https://formidable.com/open-source/victory',
-    },
-    {
-      title: 'urql',
-      description:
-        'Universal React Query Library is a blazing-fast GraphQL client, exposed as a set of ReactJS components.',
-      logo: require('../../assets/badge_urql.svg'),
-      link: 'https://formidable.com/open-source/urql/',
-    },
-    {
-      title: 'Spectacle',
-      description:
-        'A React.js based library for creating sleek presentations using JSX syntax that gives you the ability to live demo your code.',
-      logo: require('../../assets/badge_spectacle.svg'),
-      link: 'https://formidable.com/open-source/spectacle/',
-    },
-    {
-      title: 'Runpkg',
-      description:
-        'The online package explorer. Runpkg turns any npm package into an interactive and informative browsing experience.',
-      logo: require('../../assets/badge_runpkg.svg'),
-      link: 'https://www.runpkg.com/',
-    },
-  ],
+  oss: {
+    cards: [
+      {
+        title: 'Victory',
+        description:
+          'An ecosystem of modular data visualization components for React. Friendly and flexible.',
+        logo: require('../../assets/badge_victory.svg'),
+        link: 'https://formidable.com/open-source/victory',
+      },
+      {
+        title: 'urql',
+        description:
+          'Universal React Query Library is a blazing-fast GraphQL client, exposed as a set of ReactJS components.',
+        logo: require('../../assets/badge_urql.svg'),
+        link: 'https://formidable.com/open-source/urql/',
+      },
+      {
+        title: 'Spectacle',
+        description:
+          'A React.js based library for creating sleek presentations using JSX syntax that gives you the ability to live demo your code.',
+        logo: require('../../assets/badge_spectacle.svg'),
+        link: 'https://formidable.com/open-source/spectacle/',
+      },
+      {
+        title: 'Runpkg',
+        description:
+          'The online package explorer. Runpkg turns any npm package into an interactive and informative browsing experience.',
+        logo: require('../../assets/badge_runpkg.svg'),
+        link: 'https://www.runpkg.com/',
+      },
+    ],
+    link: '/open-source',
+  },
 };
 
 export default content;
