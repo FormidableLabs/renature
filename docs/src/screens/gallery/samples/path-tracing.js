@@ -98,5 +98,5 @@ function SVGPathTracing() {
 export const pathTracing = context => ({
   code: code(context),
   title: 'SVG Path Tracing',
-  slug: 'svg-path-tracing',
+  slug: 'svg-path-tracing/',
 });

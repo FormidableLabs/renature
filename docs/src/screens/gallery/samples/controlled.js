@@ -45,6 +45,6 @@ function ControlledMover() {
 
 export const controlled = context => ({
   title: 'Controlled Animations',
-  slug: 'controlled-animations',
+  slug: 'controlled-animations/',
   code: code(context),
 });

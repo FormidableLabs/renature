@@ -34,6 +34,6 @@ function BoxShadow() {
 
 export const boxShadow = context => ({
   title: 'Box Shadow',
-  slug: 'box-shadow',
+  slug: 'box-shadow/',
   code: code(context),
 });

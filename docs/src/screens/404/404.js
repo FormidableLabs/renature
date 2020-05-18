@@ -1,4 +1,6 @@
 import React from 'react';
+import { useBasepath } from 'react-static';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -6,13 +8,15 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex: 1;
+  height: ${p => `calc(100vh - ${p.theme.layout.header})`};
 `;
 
 const Heading = styled.h1`
   text-align: center;
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   background: ${p => p.theme.colors.accent};
   color: ${p => p.theme.colors.textLight};
   text-decoration: none;
@@ -29,11 +33,14 @@ const StyledLink = styled.a`
 `;
 
 const NotFound = () => {
+  const basepath = useBasepath() || '';
+  const homepage = basepath ? `/${basepath}/` : '/';
+
   return (
     <Container>
       <Heading>🔭</Heading>
       <Heading>It appears you&apos;ve wandered astray.</Heading>
-      <StyledLink href="/docs">Head Home</StyledLink>
+      <StyledLink to={homepage}>Head Home</StyledLink>
     </Container>
   );
 };

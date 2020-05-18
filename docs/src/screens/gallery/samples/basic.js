@@ -29,6 +29,6 @@ function Basic() {
 
 export const basic = context => ({
   title: 'Basic Transform',
-  slug: 'basic-transform',
+  slug: 'basic-transform/',
   code: code(context),
 });

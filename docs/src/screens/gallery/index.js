@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useBasepath } from 'react-static';
 import styled from 'styled-components';
 
 import Header from '../docs/header';
@@ -78,28 +79,33 @@ const GalleryGrid = styled.div`
   }
 `;
 
-const Gallery = () => (
-  <>
-    <Header />
-    <Container>
-      <GalleryHeader>
-        <GalleryTitle>renature Gallery</GalleryTitle>
-        <GalleryNav>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/docs">Docs</Link>
-          </li>
-        </GalleryNav>
-      </GalleryHeader>
-      <GalleryGrid>
-        {samples('gallery-preview').map(({ title, code, slug }) => (
-          <GalleryPreview key={title} title={title} code={code} slug={slug} />
-        ))}
-      </GalleryGrid>
-    </Container>
-  </>
-);
+const Gallery = () => {
+  const basepath = useBasepath() || '';
+  const homepage = basepath ? `/${basepath}/` : '/';
+
+  return (
+    <>
+      <Header />
+      <Container>
+        <GalleryHeader>
+          <GalleryTitle>renature Gallery</GalleryTitle>
+          <GalleryNav>
+            <li>
+              <Link to={homepage}>Home</Link>
+            </li>
+            <li>
+              <Link to={`${homepage}docs/`}>Docs</Link>
+            </li>
+          </GalleryNav>
+        </GalleryHeader>
+        <GalleryGrid>
+          {samples('gallery-preview').map(({ title, code, slug }) => (
+            <GalleryPreview key={title} title={title} code={code} slug={slug} />
+          ))}
+        </GalleryGrid>
+      </Container>
+    </>
+  );
+};
 
 export default Gallery;
