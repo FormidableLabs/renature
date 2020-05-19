@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { useBasepath } from 'react-static';
 import { Link, useLocation } from 'react-router-dom';
 import * as path from 'path';
+import { FeaturedBadge } from 'formidable-oss-badges';
 
 import { useMarkdownTree, useMarkdownPage } from 'react-static-plugin-md-pages';
 
@@ -19,8 +20,6 @@ import {
   ChevronItem,
 } from './navigation';
 
-import logoSidebar from '../assets/sidebar-badge.svg';
-
 const HeroLogoLink = styled(Link)`
   display: flex;
   flex-direction: row;
@@ -29,10 +28,7 @@ const HeroLogoLink = styled(Link)`
   align-self: center;
 `;
 
-const HeroLogo = styled.img.attrs(() => ({
-  src: logoSidebar,
-  alt: 'renature',
-}))`
+const HeroLogo = styled.div`
   display: none;
   width: ${p => p.theme.layout.logo};
   height: ${p => p.theme.layout.logo};
@@ -71,7 +67,9 @@ export const SidebarStyling = ({ children, sidebarOpen, closeSidebar }) => {
       <SidebarContainer hidden={!sidebarOpen} onClick={closeSidebar}>
         <SidebarWrapper>
           <HeroLogoLink to={homepage}>
-            <HeroLogo />
+            <HeroLogo>
+              <FeaturedBadge isHoverable name="renature" />
+            </HeroLogo>
           </HeroLogoLink>
           <ContentWrapper>{children}</ContentWrapper>
         </SidebarWrapper>

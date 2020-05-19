@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FeaturedBadge } from 'formidable-oss-badges';
 
 import NpmCopy from './npm-copy';
 import { Wrapper } from '../../components/wrapper';
-import badge from '../../assets/badge_renature.svg';
 import { center, stack, stackHorizontal, underline } from '../../styles/mixins';
 
 const HeroContent = styled.div`
@@ -29,11 +29,11 @@ const HeroContent = styled.div`
   }
 `;
 
-const HeroLogo = styled.img`
+const HeroBadge = styled.div`
   width: 20rem;
 
   @media ${p => p.theme.media.sm} {
-    width: auto;
+    width: 30rem;
     grid-column: 1 / span 5;
     justify-self: center;
   }
@@ -160,7 +160,9 @@ const Hero = () => {
   return (
     <Wrapper background="transparent" noPadding style={{ padding: '0 4rem' }}>
       <HeroContent>
-        <HeroLogo src={badge} alt="renature" />
+        <HeroBadge>
+          <FeaturedBadge name="renature" />
+        </HeroBadge>
         <HeroBodyAndButtons>
           <HeroTitle>Renature</HeroTitle>
           <HeroBody>

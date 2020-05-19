@@ -4170,6 +4170,11 @@ format@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
 
+formidable-oss-badges@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/formidable-oss-badges/-/formidable-oss-badges-0.3.4.tgz#e79c2e643ad82c41810995fe33a5a44de9e0963e"
+  integrity sha512-JUM3JIdjwRvyaaeHk6/oS71AjCEhO/rDV27JsejxdhmxdDL0AOMsGyxxR69StLPEXsXBOKGsf9D9owlI6U4vnw==
+
 forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
