@@ -56,6 +56,6 @@ function Orbit() {
 
 export const orbit = context => ({
   title: 'Orbit',
-  slug: 'orbit',
+  slug: 'orbit/',
   code: code(context),
 });

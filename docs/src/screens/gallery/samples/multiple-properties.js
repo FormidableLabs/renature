@@ -38,5 +38,5 @@ function Mover() {
 export const multipleProperties = context => ({
   code: code(context),
   title: 'Multiple CSS Properties',
-  slug: 'multiple-css-properties',
+  slug: 'multiple-css-properties/',
 });

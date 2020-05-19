@@ -63,7 +63,7 @@ const content = {
         link: 'https://www.runpkg.com/',
       },
     ],
-    link: '/open-source',
+    link: '/open-source/',
   },
 };
 

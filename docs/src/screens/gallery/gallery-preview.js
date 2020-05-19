@@ -63,15 +63,13 @@ const GalleryPreview = ({ title, code, slug }) => {
 
   return (
     <StyledCard>
-      {typeof window !== 'undefined' ? (
-        <LiveProvider
-          code={code}
-          scope={scope}
-          transformCode={removeImportFromPreview}
-        >
-          <StyledPreview />
-        </LiveProvider>
-      ) : null}
+      <LiveProvider
+        code={code}
+        scope={scope}
+        transformCode={removeImportFromPreview}
+      >
+        <StyledPreview />
+      </LiveProvider>
       <StyledPreviewTitle to={to}>{title}</StyledPreviewTitle>
     </StyledCard>
   );

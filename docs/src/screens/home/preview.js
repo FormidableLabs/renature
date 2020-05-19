@@ -136,41 +136,39 @@ const Preview = () => (
       <SectionTitle color={theme.colors.textLight}>
         Beautiful, Simple Animations
       </SectionTitle>
-      {typeof window !== 'undefined' ? (
-        <PreviewStack>
-          <LivePreview
-            code={basic}
-            transformCode={removeImportFromPreview}
-            scope={scope}
-            tagline={'Animate Intuitively, Animate With Joy'}
-            copy={
-              'UI animation should be intuitive, simple, and fun. Renature is all about returning joy and whimsy to your UI animations.'
-            }
-            before
-          />
-          <LivePreview
-            code={controlled}
-            transformCode={removeImportFromPreview}
-            scope={scope}
-            tagline={'Responsive Animations'}
-            copy={
-              'Renature hooks respond directly to changes in their from, to, and config properties. Just update a value and your animation will begin running.'
-            }
-          />
-          <LivePreview
-            code={twoDimension}
-            transformCode={removeImportFromPreview}
-            scope={scope}
-            tagline={'Animate in Two Dimensions'}
-            copy={
-              'Renature uses two-dimensional vectors to back its physics, giving you the ability to build beautiful and accurate animations in Cartesian space.'
-            }
-            before
-            splitVertical
-            even
-          />
-        </PreviewStack>
-      ) : null}
+      <PreviewStack>
+        <LivePreview
+          code={basic}
+          transformCode={removeImportFromPreview}
+          scope={scope}
+          tagline={'Animate Intuitively, Animate With Joy'}
+          copy={
+            'UI animation should be intuitive, simple, and fun. Renature is all about returning joy and whimsy to your UI animations.'
+          }
+          before
+        />
+        <LivePreview
+          code={controlled}
+          transformCode={removeImportFromPreview}
+          scope={scope}
+          tagline={'Responsive Animations'}
+          copy={
+            'Renature hooks respond directly to changes in their from, to, and config properties. Just update a value and your animation will begin running.'
+          }
+        />
+        <LivePreview
+          code={twoDimension}
+          transformCode={removeImportFromPreview}
+          scope={scope}
+          tagline={'Animate in Two Dimensions'}
+          copy={
+            'Renature uses two-dimensional vectors to back its physics, giving you the ability to build beautiful and accurate animations in Cartesian space.'
+          }
+          before
+          splitVertical
+          even
+        />
+      </PreviewStack>
     </SectionStack>
   </Wrapper>
 );

@@ -127,7 +127,7 @@ Image.propTypes = {
 const HighlightCode = ({ className = '', live = false, children }) => {
   const language = getLanguage(className);
 
-  if (live && typeof window !== 'undefined') {
+  if (live) {
     return (
       <LiveProvider
         code={children.trim()}
