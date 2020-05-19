@@ -5,8 +5,14 @@ import PropTypes from 'prop-types';
 
 import { theme } from '../styles/theme';
 
-export const Button = styled(({ light, ...rest }) => {
-  return <Link {...rest} />;
+export const Button = styled(({ light, isExternal, ...rest }) => {
+  return isExternal ? (
+    <a href={rest.to} {...rest} target="_blank" rel="noopener noreferrer">
+      {rest.children}
+    </a>
+  ) : (
+    <Link {...rest} />
+  );
 })`
   align-self: center;
   background: ${({ light }) =>

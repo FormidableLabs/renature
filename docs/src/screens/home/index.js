@@ -10,6 +10,7 @@ import Preview from './preview';
 import content from './_content';
 import { Header } from '../../components/header';
 import { Footer } from '../../components/footer';
+import { ScrollToTop } from '../../components/scroll-to-top';
 
 const Container = styled.div`
   width: 100%;
@@ -20,14 +21,17 @@ const Home = () => {
   useMarkdownTree();
 
   return (
-    <Container ref={ref}>
-      <Header />
-      <Features features={content.features} />
-      <Preview />
-      <GetStarted getStarted={content.getStarted} />
-      <MoreOSS oss={content.oss} />
-      <Footer />
-    </Container>
+    <>
+      <ScrollToTop />
+      <Container ref={ref}>
+        <Header />
+        <Features features={content.features} />
+        <Preview />
+        <GetStarted getStarted={content.getStarted} />
+        <MoreOSS oss={content.oss} />
+        <Footer />
+      </Container>
+    </>
   );
 };
 

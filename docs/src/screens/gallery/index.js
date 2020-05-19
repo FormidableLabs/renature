@@ -7,6 +7,7 @@ import Header from '../docs/header';
 import GalleryPreview from './gallery-preview';
 import { samples } from './samples';
 import { center, stack, stackHorizontal, underline } from '../../styles/mixins';
+import { ScrollToTop } from '../../components/scroll-to-top';
 
 const Container = styled.div`
   ${center};
@@ -85,6 +86,7 @@ const Gallery = () => {
 
   return (
     <>
+      <ScrollToTop />
       <Header />
       <Container>
         <GalleryHeader>

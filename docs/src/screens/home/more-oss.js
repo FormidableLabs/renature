@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { FeaturedBadge, ProjectBadge } from 'formidable-oss-badges';
 
 import { BodyCopy } from '../../components/body-copy';
 import { Button } from '../../components/button';
@@ -45,7 +46,7 @@ const OSSCard = styled.div`
   }
 `;
 
-const OSSImage = styled.img`
+const OSSBadge = styled.div`
   flex: 0 0 15rem;
   height: 15rem;
 `;
@@ -90,7 +91,18 @@ const MoreOSS = ({ oss }) => (
         {oss.cards.map(card => {
           return (
             <OSSCard key={card.title}>
-              <OSSImage src={card.logo} />
+              <OSSBadge>
+                {card.featured ? (
+                  <FeaturedBadge isHoverable name={card.title.toLowerCase()} />
+                ) : (
+                  <ProjectBadge
+                    isHoverable
+                    color={card.color}
+                    abbreviation={card.abbreviation}
+                    description={card.title}
+                  />
+                )}
+              </OSSBadge>
               <OSSCopyContainer>
                 <a href={card.link} target="_blank" rel="noopener noreferrer">
                   <OSSTitle>{card.title}</OSSTitle>
@@ -101,7 +113,7 @@ const MoreOSS = ({ oss }) => (
           );
         })}
       </OSSCardContainer>
-      <Button light to={oss.link}>
+      <Button light to={oss.link} isExternal>
         View All
       </Button>
     </SectionStack>
@@ -115,7 +127,9 @@ MoreOSS.propTypes = {
         title: PropTypes.string.isRequired,
         link: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
-        logo: PropTypes.string.isRequired,
+        featured: PropTypes.bool,
+        abbreviated: PropTypes.string,
+        color: PropTypes.string,
       }).isRequired
     ).isRequired,
     link: PropTypes.string.isRequired,
