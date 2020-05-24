@@ -14,6 +14,8 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
   immediate = true,
   delay,
   infinite,
+  onFrame,
+  onAnimationComplete,
 }: UseFrictionArgs): [
   { ref: React.MutableRefObject<M | null> },
   Controller
@@ -28,25 +30,28 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
 
   const { controller } = React.useMemo(() => {
     const interpolators = getInterpolatorsForPairs({ from, to });
+    const maxPosition = getMaxDistanceFriction({
+      mu: config.mu,
+      initialVelocity: config.initialVelocity,
+    });
 
     return friction1D({
       config,
       onUpdate: ({ position }) => {
         interpolators.forEach(({ interpolator, property, values }) => {
           const value = interpolator({
-            range: [
-              0,
-              getMaxDistanceFriction({
-                mu: config.mu,
-                initialVelocity: config.initialVelocity,
-              }),
-            ],
+            range: [0, maxPosition],
             domain: [values.from, values.to],
             value: position[0],
           });
 
           if (ref.current) {
             ref.current.style[property as any] = `${value}`;
+          }
+
+          if (onFrame) {
+            const progress = position[0] / maxPosition;
+            onFrame(progress);
           }
         });
       },
@@ -59,11 +64,15 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
           if (ref.current && ref.current.style[property as any] !== values.to) {
             ref.current.style[property as any] = values.to;
           }
+
+          if (onAnimationComplete) {
+            onAnimationComplete(1);
+          }
         });
       },
       infinite,
     });
-  }, [from, to, config, infinite]);
+  }, [from, to, config, infinite, onFrame, onAnimationComplete]);
 
   /**
    * Store a ref to the controller. This will allow a user to

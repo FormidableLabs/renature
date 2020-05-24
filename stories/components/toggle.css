@@ -1,9 +1,7 @@
 .toggle {
   position: relative;
-  left: 50%;
-  top: 35%;
   width: 55px;
-  transform: translate(-50%, -50%);
+  margin: 20px;
 }
 
 .toggle input {

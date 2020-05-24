@@ -32,15 +32,11 @@ export const GravityControlled: React.FC = () => {
   const [props] = useGravity<HTMLDivElement>({
     from: {
       opacity: toggle ? 0 : 1,
-      transform: toggle
-        ? 'scale(0) rotate(0deg) translate(-50%, -50%)'
-        : 'scale(1) rotate(180deg) translate(-50%, -50%)',
+      transform: toggle ? 'scale(0) rotate(0deg)' : 'scale(1) rotate(180deg)',
     },
     to: {
       opacity: toggle ? 1 : 0,
-      transform: toggle
-        ? 'scale(1) rotate(180deg) translate(-50%, -50%)'
-        : 'scale(0) rotate(0deg) translate(-50%, -50%)',
+      transform: toggle ? 'scale(1) rotate(180deg)' : 'scale(0) rotate(0deg)',
     },
     config: {
       moverMass: number('moverMass', 10000),
@@ -64,8 +60,8 @@ export const GravityControlled: React.FC = () => {
 
 export const GravityEventBased: React.FC = () => {
   const [props, controller] = useGravity<HTMLDivElement>({
-    from: { transform: 'translateX(0px) translate(-50%, -50%)' },
-    to: { transform: 'translateX(300px) translate(-50%, -50%)' },
+    from: { transform: 'translateX(0px)' },
+    to: { transform: 'translateX(300px)' },
     config: {
       moverMass: number('moverMass', 10000),
       attractorMass: number('attractorMass', 1000000000000),
@@ -86,11 +82,11 @@ export const GravityDelay: React.FC = () => {
   const [props] = useGravity<HTMLDivElement>({
     from: {
       background: '#f25050',
-      transform: 'scale(1) rotate(0deg) translate(-50%, -50%)',
+      transform: 'scale(1) rotate(0deg)',
     },
     to: {
       background: '#a04ad9',
-      transform: 'scale(1.5) rotate(720deg) translate(-50%, -50%)',
+      transform: 'scale(1.5) rotate(720deg)',
     },
     config: {
       moverMass: number('moverMass', 10000),
@@ -107,11 +103,11 @@ export const GravityInfinite: React.FC = () => {
   const [props] = useGravity<HTMLDivElement>({
     from: {
       background: '#f25050',
-      transform: 'scale(1) rotate(0deg) translate(-50%, -50%)',
+      transform: 'scale(1) rotate(0deg)',
     },
     to: {
       background: '#a04ad9',
-      transform: 'scale(1.5) rotate(720deg) translate(-50%, -50%)',
+      transform: 'scale(1.5) rotate(720deg)',
     },
     config: {
       moverMass: number('moverMass', 10000),

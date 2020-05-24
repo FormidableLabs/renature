@@ -57,7 +57,7 @@
     "@typescript-eslint/parser": "^2.11.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
-    "bs-platform": "^7.2.2",
+    "bs-platform": "^7.3.2",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-react": "^7.17.0",
