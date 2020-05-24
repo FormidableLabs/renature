@@ -66,7 +66,7 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
           }
 
           if (onAnimationComplete) {
-            onAnimationComplete(1);
+            onAnimationComplete();
           }
         });
       },

@@ -284,11 +284,6 @@ export const FrictionProgress: React.FC = () => {
         progressRef.current.innerHTML = `${progress.toFixed(2)}`;
       }
     },
-    onAnimationComplete: progress => {
-      if (progressRef.current) {
-        progressRef.current.innerHTML = `${progress.toFixed(2)}`;
-      }
-    },
   });
 
   return <span ref={progressRef} style={{ fontSize: '2rem' }} />;
