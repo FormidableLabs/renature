@@ -33,12 +33,13 @@ const HeroBadge = styled.div`
   width: 20rem;
 
   @media ${p => p.theme.media.sm} {
-    width: 30rem;
+    width: 25rem;
     grid-column: 1 / span 5;
     justify-self: center;
   }
 
   @media ${p => p.theme.media.md} {
+    width: 30rem;
     grid-row: 1 / span 2;
   }
 `;

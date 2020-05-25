@@ -32,13 +32,14 @@ export const useFluidResistance = <M extends HTMLElement | SVGElement = any>({
 
   const { controller } = React.useMemo(() => {
     const interpolators = getInterpolatorsForPairs({ from, to });
+    const maxPosition = getFluidPositionAtTerminalVelocity(config);
 
     return fluidResistance1D({
       config,
       onUpdate: ({ position }) => {
         interpolators.forEach(({ interpolator, property, values }) => {
           const value = interpolator({
-            range: [0, getFluidPositionAtTerminalVelocity(config)],
+            range: [0, maxPosition],
             domain: [values.from, values.to],
             value: position[1],
           });
