@@ -47,8 +47,12 @@ const OSSCard = styled.div`
 `;
 
 const OSSBadge = styled.div`
-  flex: 0 0 15rem;
+  width: 15rem;
   height: 15rem;
+
+  @media ${p => p.theme.media.sm} {
+    flex: 0 0 15rem;
+  }
 `;
 
 const OSSCopyContainer = styled.div`

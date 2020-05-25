@@ -28,19 +28,17 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
 
   const { controller } = React.useMemo(() => {
     const interpolators = getInterpolatorsForPairs({ from, to });
+    const maxPosition = getMaxDistanceFriction({
+      mu: config.mu,
+      initialVelocity: config.initialVelocity,
+    });
 
     return friction1D({
       config,
       onUpdate: ({ position }) => {
         interpolators.forEach(({ interpolator, property, values }) => {
           const value = interpolator({
-            range: [
-              0,
-              getMaxDistanceFriction({
-                mu: config.mu,
-                initialVelocity: config.initialVelocity,
-              }),
-            ],
+            range: [0, maxPosition],
             domain: [values.from, values.to],
             value: position[0],
           });
