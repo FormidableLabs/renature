@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useFriction } from '../src';
@@ -36,15 +36,11 @@ export const FrictionControlled: React.FC = () => {
   const [props] = useFriction<HTMLDivElement>({
     from: {
       opacity: toggle ? 0 : 1,
-      transform: toggle
-        ? 'scale(0) rotate(0deg) translate(-50%, -50%)'
-        : 'scale(1) rotate(180deg) translate(-50%, -50%)',
+      transform: toggle ? 'scale(0) rotate(0deg)' : 'scale(1) rotate(180deg)',
     },
     to: {
       opacity: toggle ? 1 : 0,
-      transform: toggle
-        ? 'scale(1) rotate(180deg) translate(-50%, -50%)'
-        : 'scale(0) rotate(0deg) translate(-50%, -50%)',
+      transform: toggle ? 'scale(1) rotate(180deg)' : 'scale(0) rotate(0deg)',
     },
     config: {
       mu: number('mu', 0.25),
@@ -68,8 +64,8 @@ export const FrictionControlled: React.FC = () => {
 
 export const FrictionEventBased: React.FC = () => {
   const [props, controller] = useFriction<HTMLDivElement>({
-    from: { transform: 'translateX(0px) translate(-50%, -50%)' },
-    to: { transform: 'translateX(300px) translate(-50%, -50%)' },
+    from: { transform: 'translateX(0px)' },
+    to: { transform: 'translateX(300px)' },
     config: {
       mu: number('mu', 0.5),
       mass: number('mass', 300),
@@ -90,11 +86,11 @@ export const FrictionDelay: React.FC = () => {
   const [props] = useFriction<HTMLDivElement>({
     from: {
       background: '#f25050',
-      transform: 'scale(1) rotate(0deg) translate(-50%, -50%)',
+      transform: 'scale(1) rotate(0deg)',
     },
     to: {
       background: '#a04ad9',
-      transform: 'scale(1.5) rotate(720deg) translate(-50%, -50%)',
+      transform: 'scale(1.5) rotate(720deg)',
     },
     config: {
       mu: number('mu', 0.5),
@@ -111,11 +107,11 @@ export const FrictionInfinite: React.FC = () => {
   const [props] = useFriction<HTMLDivElement>({
     from: {
       background: '#f25050',
-      transform: 'scale(1) rotate(0deg) translate(-50%, -50%)',
+      transform: 'scale(1) rotate(0deg)',
     },
     to: {
       background: '#a04ad9',
-      transform: 'scale(1.5) rotate(720deg) translate(-50%, -50%)',
+      transform: 'scale(1.5) rotate(720deg)',
     },
     config: {
       mu: number('mu', 0.5),
@@ -266,4 +262,29 @@ export const FrictionSVG: React.FC = () => {
       />
     </svg>
   );
+};
+
+export const FrictionProgress: React.FC = () => {
+  const progressRef = useRef<HTMLSpanElement>(null);
+
+  useFriction<HTMLDivElement>({
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    config: {
+      mu: number('mu', 0.1),
+      mass: number('mass', 30),
+      initialVelocity: number('velocity', 10),
+    },
+    onFrame: progress => {
+      if (progressRef.current) {
+        progressRef.current.innerHTML = `${progress.toFixed(2)}`;
+      }
+    },
+  });
+
+  return <span ref={progressRef} style={{ fontSize: '2rem' }} />;
 };

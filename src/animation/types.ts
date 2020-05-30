@@ -25,6 +25,8 @@ export interface AnimationParams {
   immediate?: boolean;
   delay?: number;
   infinite?: boolean;
+  onFrame?: (progress: number) => void;
+  onAnimationComplete?: () => void;
 }
 
 export enum PlayState {

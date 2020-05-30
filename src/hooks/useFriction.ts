@@ -14,6 +14,8 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
   immediate = true,
   delay,
   infinite,
+  onFrame,
+  onAnimationComplete,
 }: UseFrictionArgs): [
   { ref: React.MutableRefObject<M | null> },
   Controller
@@ -46,6 +48,11 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
           if (ref.current) {
             ref.current.style[property as any] = `${value}`;
           }
+
+          if (onFrame) {
+            const progress = position[0] / maxPosition;
+            onFrame(progress);
+          }
         });
       },
       onComplete: () => {
@@ -57,11 +64,15 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
           if (ref.current && ref.current.style[property as any] !== values.to) {
             ref.current.style[property as any] = values.to;
           }
+
+          if (onAnimationComplete) {
+            onAnimationComplete();
+          }
         });
       },
       infinite,
     });
-  }, [from, to, config, infinite]);
+  }, [from, to, config, infinite, onFrame, onAnimationComplete]);
 
   /**
    * Store a ref to the controller. This will allow a user to

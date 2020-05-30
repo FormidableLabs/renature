@@ -25,6 +25,9 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .space {
@@ -34,14 +37,10 @@ body {
 }
 
 .mover {
-  position: relative;
-  top: 50%;
-  left: 50%;
   height: 100px;
   width: 100px;
-  transform: translate(-50%, -50%);
   border-radius: 10px;
-  transform-origin: top left;
+  transform-origin: center;
 }
 
 .mover--opacity {

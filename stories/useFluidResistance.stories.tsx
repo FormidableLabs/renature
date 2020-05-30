@@ -13,10 +13,10 @@ export default {
 export const FluidResistanceBasic: React.FC = () => {
   const [props] = useFluidResistance<HTMLDivElement>({
     from: {
-      transform: 'translateY(-200%) translate(-50%, -50%)',
+      transform: 'translateY(-200%)',
     },
     to: {
-      transform: 'translateY(200%) translate(-50%, -50%)',
+      transform: 'translateY(200%)',
     },
     config: {
       mass: number('mass', 25),
@@ -36,15 +36,11 @@ export const FluidResistanceControlled: React.FC = () => {
   const [props] = useFluidResistance<HTMLDivElement>({
     from: {
       opacity: toggle ? 0 : 1,
-      transform: toggle
-        ? 'scale(0) rotate(0deg) translate(-50%, -50%)'
-        : 'scale(1) rotate(180deg) translate(-50%, -50%)',
+      transform: toggle ? 'scale(0) rotate(0deg)' : 'scale(1) rotate(180deg)',
     },
     to: {
       opacity: toggle ? 1 : 0,
-      transform: toggle
-        ? 'scale(1) rotate(180deg) translate(-50%, -50%)'
-        : 'scale(0) rotate(0deg) translate(-50%, -50%)',
+      transform: toggle ? 'scale(1) rotate(180deg)' : 'scale(0) rotate(0deg)',
     },
     config: {
       mass: number('mass', 25),
@@ -70,8 +66,8 @@ export const FluidResistanceControlled: React.FC = () => {
 
 export const FluidResistanceEventBased: React.FC = () => {
   const [props, controller] = useFluidResistance<HTMLDivElement>({
-    from: { transform: 'translateX(0px) translate(-50%, -50%)' },
-    to: { transform: 'translateX(300px) translate(-50%, -50%)' },
+    from: { transform: 'translateX(0px)' },
+    to: { transform: 'translateX(300px)' },
     config: {
       mass: number('mass', 25),
       rho: number('rho', 10),
@@ -94,11 +90,11 @@ export const FluidResistanceDelay: React.FC = () => {
   const [props] = useFluidResistance<HTMLDivElement>({
     from: {
       background: '#f25050',
-      transform: 'scale(1) rotate(0deg) translate(-50%, -50%)',
+      transform: 'scale(1) rotate(0deg)',
     },
     to: {
       background: '#a04ad9',
-      transform: 'scale(1.5) rotate(720deg) translate(-50%, -50%)',
+      transform: 'scale(1.5) rotate(720deg)',
     },
     config: {
       mass: number('mass', 25),
@@ -117,11 +113,11 @@ export const FluidResistanceInfinite: React.FC = () => {
   const [props] = useFluidResistance<HTMLDivElement>({
     from: {
       background: '#f25050',
-      transform: 'scale(1) rotate(0deg) translate(-50%, -50%)',
+      transform: 'scale(1) rotate(0deg)',
     },
     to: {
       background: '#a04ad9',
-      transform: 'scale(1.5) rotate(720deg) translate(-50%, -50%)',
+      transform: 'scale(1.5) rotate(720deg)',
     },
     config: {
       mass: number('mass', 25),
