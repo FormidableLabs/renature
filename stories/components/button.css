@@ -15,10 +15,24 @@ button {
   font-size: 1em;
   font-weight: 700;
   border-radius: 5px;
-  margin: 20px;
   transition: transform 0.2s ease;
 }
 
 .button:hover {
   transform: scale(1.1);
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+.button-container > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.button-container > * + * {
+  margin-top: 1rem;
 }

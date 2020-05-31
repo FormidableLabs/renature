@@ -30,11 +30,10 @@ export const rAF = () => {
   const start = (listener: RAFState['listener']) => {
     state.listener = listener;
     draw(state.lastFrame);
-
-    return { stop };
   };
 
   return {
     start,
+    stop,
   };
 };

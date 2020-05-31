@@ -60,19 +60,23 @@ export const GravityControlled: React.FC = () => {
 
 export const GravityEventBased: React.FC = () => {
   const [props, controller] = useGravity<HTMLDivElement>({
-    from: { transform: 'translateX(0px)' },
-    to: { transform: 'translateX(300px)' },
+    from: { transform: 'skewY(0deg)' },
+    to: { transform: 'skewY(30deg)' },
     config: {
       moverMass: number('moverMass', 10000),
       attractorMass: number('attractorMass', 1000000000000),
       r: number('r', 7.5),
     },
-    immediate: false,
+    pause: true,
+    infinite: true,
   });
 
   return (
     <>
-      <Button onClick={controller.start}>Run Animation</Button>
+      <div className="button-container">
+        <Button onClick={controller.start}>Start</Button>
+        <Button onClick={controller.stop}>Stop</Button>
+      </div>
       <div className="mover mover--translate" {...props} />
     </>
   );

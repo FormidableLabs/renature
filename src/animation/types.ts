@@ -11,18 +11,15 @@ export type Listener = (
   stop: () => void
 ) => void;
 
-export interface AnimationInitializer {
-  start: () => { stop: () => void };
-}
-
-export interface Controller extends AnimationInitializer {
+export interface Controller {
+  start: () => void;
   stop: () => void;
 }
 
 export interface AnimationParams {
   onUpdate: VectorSetter;
   onComplete: () => void;
-  immediate?: boolean;
+  pause?: boolean;
   delay?: number;
   infinite?: boolean;
   onFrame?: (progress: number) => void;

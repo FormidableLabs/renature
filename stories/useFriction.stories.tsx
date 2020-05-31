@@ -64,19 +64,23 @@ export const FrictionControlled: React.FC = () => {
 
 export const FrictionEventBased: React.FC = () => {
   const [props, controller] = useFriction<HTMLDivElement>({
-    from: { transform: 'translateX(0px)' },
-    to: { transform: 'translateX(300px)' },
+    from: { transform: 'skewY(0deg)' },
+    to: { transform: 'skewY(30deg)' },
     config: {
       mu: number('mu', 0.5),
       mass: number('mass', 300),
       initialVelocity: number('velocity', 10),
     },
-    immediate: false,
+    pause: true,
+    infinite: true,
   });
 
   return (
     <>
-      <Button onClick={controller.start}>Run Animation</Button>
+      <div className="button-container">
+        <Button onClick={controller.start}>Start</Button>
+        <Button onClick={controller.stop}>Stop</Button>
+      </div>
       <div className="mover mover--translate" {...props} />
     </>
   );

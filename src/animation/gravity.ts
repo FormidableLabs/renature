@@ -4,9 +4,9 @@ import { rAF } from '../rAF';
 import {
   VectorSetter,
   Listener,
-  AnimationInitializer,
   AnimationParams,
   PlayState,
+  Controller,
 } from './types';
 
 interface Gravity1DState {
@@ -32,10 +32,10 @@ export interface Gravity1DParams extends AnimationParams {
  * attractor on the mover using gravityForceV. Then we apply that vector to the
  * mover to determine its next acceleration, velocity, and position.
  */
-const applyGravitationalForceForStep = (
+function applyGravitationalForceForStep(
   { mover, attractor }: Gravity1DState,
   config: Gravity1DParams['config']
-): Entity => {
+) {
   const force = gravityForceV({
     mover: mover.position,
     moverMass: mover.mass,
@@ -49,12 +49,12 @@ const applyGravitationalForceForStep = (
     entity: mover,
     time: 0.001,
   });
-};
+}
 
-const reversePlayState = (
+function reversePlayState(
   state: Gravity1DState,
   config: Gravity1DParams['config']
-) => {
+) {
   if (state.mover.position[0] >= config.r) {
     state.mover = {
       ...state.mover,
@@ -80,19 +80,19 @@ const reversePlayState = (
     };
     state.playState = PlayState.Forward;
   }
-};
+}
 
 /**
  * The gravity function. This function tracks the internal state of the
  * attractor and the mover and starts the frame loop to apply the gravitational
  * force.
  */
-export const gravity1D = ({
+export function gravity1D({
   config,
   onUpdate,
   onComplete,
   infinite,
-}: Gravity1DParams): { controller: AnimationInitializer } => {
+}: Gravity1DParams): { controller: Controller } {
   const state: Gravity1DState = {
     mover: {
       mass: config.moverMass,
@@ -163,8 +163,8 @@ export const gravity1D = ({
     }
   };
 
-  const { start } = rAF();
-  const runAnimation = () => start(listener);
+  const { start, stop } = rAF();
+  const run = () => start(listener);
 
-  return { controller: { start: runAnimation } };
-};
+  return { controller: { start: run, stop } };
+}

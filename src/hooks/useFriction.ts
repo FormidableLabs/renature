@@ -1,17 +1,25 @@
 import React from 'react';
 
 import { CSSPairs, getInterpolatorsForPairs } from '../parsers/pairs';
-import { Friction1DParams, friction1D, Controller } from '../animation';
+import {
+  Friction1DParams,
+  friction1D,
+  Controller,
+  frictionDefaultConfig,
+  AnimationParams,
+} from '../animation';
 import { getMaxDistanceFriction } from '../forces';
 
 type UseFrictionArgs = CSSPairs &
-  Omit<Friction1DParams, 'onComplete' | 'onUpdate'>;
+  Omit<AnimationParams, 'onUpdate' | 'onComplete'> & {
+    config?: Friction1DParams['config'];
+  };
 
 export const useFriction = <M extends HTMLElement | SVGElement = any>({
   from,
   to,
-  config,
-  immediate = true,
+  config = frictionDefaultConfig,
+  pause = false,
   delay,
   infinite,
   onFrame,
@@ -64,48 +72,37 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
           if (ref.current && ref.current.style[property as any] !== values.to) {
             ref.current.style[property as any] = values.to;
           }
-
-          if (onAnimationComplete) {
-            onAnimationComplete();
-          }
         });
+
+        if (onAnimationComplete) {
+          onAnimationComplete();
+        }
       },
       infinite,
     });
   }, [from, to, config, infinite, onFrame, onAnimationComplete]);
 
-  /**
-   * Store a ref to the controller. This will allow a user to
-   * start and stop animations at will.
-   */
-  const controllerRef = React.useRef<Controller>({
-    start: controller.start,
-    stop: () => {},
-  });
-
   React.useLayoutEffect(() => {
-    const ctrl = controllerRef;
-
-    if (immediate && !delay) {
-      const { stop } = controller.start();
-      ctrl.current.stop = stop;
+    // Declarative animation – start immediately.
+    if (!pause && !delay) {
+      controller.start();
     }
 
-    let timerId: NodeJS.Timeout;
-    if (immediate && delay) {
-      timerId = setTimeout(() => {
-        const { stop } = controller.start();
-        ctrl.current.stop = stop;
+    // Declarative animation with delay – start after delay.
+    let timerId: number;
+    if (!pause && delay) {
+      timerId = window.setTimeout(() => {
+        controller.start();
       }, delay);
     }
 
     return () => {
-      timerId && clearTimeout(timerId);
+      timerId && window.clearTimeout(timerId);
 
       // Ensure we cancel any running animation on unmount.
-      ctrl.current.stop();
+      controller.stop();
     };
-  }, [immediate, delay, controller]);
+  }, [pause, delay, controller]);
 
-  return [{ ref }, controllerRef.current];
+  return [{ ref }, controller];
 };
