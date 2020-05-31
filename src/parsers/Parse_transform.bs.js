@@ -91,23 +91,22 @@ function testTransform(val_) {
                   })).every((function (c) {
                   if (c == null) {
                     return false;
+                  }
+                  var isTransformUnit = Parse_unit.testUnit(c);
+                  var isTransformNumber = Parse_number.testNumber(c);
+                  var match = Js_mapperRt.revSearch(17, jsMapperConstantArray, c);
+                  var isTransformProperty = match !== undefined;
+                  var isTransformMultiple = c.split(", ").every((function (s) {
+                          if (Parse_unit.testUnit(s)) {
+                            return true;
+                          } else {
+                            return Parse_number.testNumber(s);
+                          }
+                        }));
+                  if (isTransformUnit || isTransformNumber || isTransformProperty) {
+                    return true;
                   } else {
-                    var isTransformUnit = Parse_unit.testUnit(c);
-                    var isTransformNumber = Parse_number.testNumber(c);
-                    var match = Js_mapperRt.revSearch(17, jsMapperConstantArray, c);
-                    var isTransformProperty = match !== undefined;
-                    var isTransformMultiple = c.split(", ").every((function (s) {
-                            if (Parse_unit.testUnit(s)) {
-                              return true;
-                            } else {
-                              return Parse_number.testNumber(s);
-                            }
-                          }));
-                    if (isTransformUnit || isTransformNumber || isTransformProperty) {
-                      return true;
-                    } else {
-                      return isTransformMultiple;
-                    }
+                    return isTransformMultiple;
                   }
                 }));
   } else {
@@ -135,35 +134,33 @@ function parseTransform(val_) {
       transformProperty: null
     }
   };
-  if (transform !== null) {
-    var captures = transform.filter((function (param, i) {
-            if (i === 1) {
-              return true;
-            } else {
-              return i === 2;
-            }
-          }));
-    $$Array.iteri((function (i, propOrValue) {
-            if (i === 0) {
-              var init = t.contents;
-              t.contents = {
-                transform: init.transform,
-                transformProperty: propOrValue
-              };
-              return /* () */0;
-            } else {
-              var init$1 = t.contents;
-              t.contents = {
-                transform: propOrValue,
-                transformProperty: init$1.transformProperty
-              };
-              return /* () */0;
-            }
-          }), captures);
-    return t.contents;
-  } else {
+  if (transform === null) {
     return t.contents;
   }
+  var captures = transform.filter((function (param, i) {
+          if (i === 1) {
+            return true;
+          } else {
+            return i === 2;
+          }
+        }));
+  $$Array.iteri((function (i, propOrValue) {
+          if (i === 0) {
+            var init = t.contents;
+            t.contents = {
+              transform: init.transform,
+              transformProperty: propOrValue
+            };
+            return ;
+          }
+          var init$1 = t.contents;
+          t.contents = {
+            transform: propOrValue,
+            transformProperty: init$1.transformProperty
+          };
+          
+        }), captures);
+  return t.contents;
 }
 
 function parseTransforms(val_) {

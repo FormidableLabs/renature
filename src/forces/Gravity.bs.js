@@ -14,15 +14,9 @@ function gravityForceV(attractorMass, moverMass, attractor, mover, gOpt, thresho
   var g = gOpt !== undefined ? gOpt : gU;
   var v = Vector.subf(attractor, mover);
   var mag = Vector.magf(v);
-  var distance;
-  if (threshold !== undefined) {
-    var th = threshold;
-    distance = $$Math.constrainf(th[0], th[1], mag);
-  } else {
-    distance = mag;
-  }
+  var distance = threshold !== undefined ? $$Math.constrainf(threshold[0], threshold[1], mag) : mag;
   var dir = Vector.normf(v);
-  return Vector.multf(dir, gravityForceMag(attractorMass, moverMass, distance, g, /* () */0));
+  return Vector.multf(dir, gravityForceMag(attractorMass, moverMass, distance, g, undefined));
 }
 
 var gE = 9.80665;

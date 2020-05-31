@@ -14,27 +14,21 @@ var outerCommaRe = /(?!\(.*),(?![^(]*?\))/g;
 function testBoxShadow(val_) {
   if (val_ === "none") {
     return true;
+  }
+  var properties = val_.split(outerWhitespaceRe).filter((function (str) {
+          if (str !== undefined && str !== "inset") {
+            return NormalizeColor.normalizeColor(str) === null;
+          } else {
+            return false;
+          }
+        }));
+  var n = properties.length;
+  if (n >= 2 && n <= 4) {
+    return properties.every((function (p) {
+                  return Parse_unit.testUnit(Belt_Option.getWithDefault(p, ""));
+                }));
   } else {
-    var properties = val_.split(outerWhitespaceRe).filter((function (str) {
-            if (str !== undefined) {
-              var s = str;
-              if (s !== "inset") {
-                return NormalizeColor.normalizeColor(s) === null;
-              } else {
-                return false;
-              }
-            } else {
-              return false;
-            }
-          }));
-    var n = properties.length;
-    if (n >= 2 && n <= 4) {
-      return properties.every((function (p) {
-                    return Parse_unit.testUnit(Belt_Option.getWithDefault(p, ""));
-                  }));
-    } else {
-      return false;
-    }
+    return false;
   }
 }
 
@@ -61,12 +55,11 @@ function parseBoxShadow(val_) {
           return Belt_Option.getWithDefault(s, "");
         }), properties.filter((function (s) {
               if (s !== undefined) {
-                var s$1 = s;
-                if (s$1 === "inset") {
+                if (s === "inset") {
                   inset.contents = true;
                   return false;
-                } else if (NormalizeColor.normalizeColor(s$1) !== null) {
-                  color.contents = s$1;
+                } else if (NormalizeColor.normalizeColor(s) !== null) {
+                  color.contents = s;
                   return false;
                 } else {
                   return true;

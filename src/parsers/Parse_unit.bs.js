@@ -46,8 +46,7 @@ var numericRe = /[\d.-]+/;
 
 function decomposeUnit(val_) {
   var value = Utils.$$parseFloat(val_);
-  var param = val_.replace(numericRe, "");
-  var unit = Js_mapperRt.revSearch(9, jsMapperConstantArray, param);
+  var unit = Js_mapperRt.revSearch(9, jsMapperConstantArray, val_.replace(numericRe, ""));
   return {
           value: value,
           unit: unit

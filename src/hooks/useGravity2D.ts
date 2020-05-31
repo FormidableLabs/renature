@@ -13,7 +13,7 @@ type UseGravity2DArgs = {
   pause?: boolean;
   delay?: number;
   onFrame?: () => void;
-  onAnimationComplete: () => void;
+  onAnimationComplete?: () => void;
 };
 
 export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
