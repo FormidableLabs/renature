@@ -7,6 +7,30 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.4.0
+
+In this release, we add a few new APIs to `renature` to fix some pain points identified by community members. The most notable of these are `onFrame` and `onAnimationComplete` callbacks that can be provided to `renature` hooks.
+
+⚠️ **There are also some breaking changes in this release.** ⚠️ See more details below on how to safely migrate your code.
+
+### Added
+
+- An `onFrame` callback can now be provided to `renature` hooks, which allows you to execute some logic on each call to `requestAnimationFrame`. The callback is handed a single argument, `progress`, which is a number between 0 and 1 representing your progress from the `from` state to the `to` state. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/60).
+- An `onAnimationComplete` callback can now be provided to `renature` hooks, which allows you to execute logic when an animation ends. This behaves similarly to adding a listener on the DOM's [native `animationend` event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/animationend_event). If a `renature` animation is stopped or unmounted before it has completed, this ca llback will _not_ be executed. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/60).
+- Default configs have been added for all hooks. You'll now get a default physics config loaded if you don't specify a `config` field on your hook! PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/62).
+
+### Changed
+
+- **Breaking Change** `controller.stop` is now the canonical way to stop or pause a `renature` animation. Previously, if you started an animation by calling `controller.start`, you could only stop or pause it by accessing a returned stop function.
+
+```js
+const { stop } = controller.start();
+```
+
+Now, you can just call `controller.stop()`. This codifies and simplifies the API – when you want to imperatively start / resume an animation, use `controller.start`. When you want to stop or pause an animation, whether it was initiated on mount or by `controller.start`, just use `controller.stop`. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/62).
+
+- **Breaking Change** The `immediate` flag was renamed to `pause` and the logic behind it is now inverted. If `pause` is set to `true`, the animation will not start running until `controller.start` has been called or if the component re-renders and `pause` evaluates to `false`. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/62).
+
 ## v0.3.0
 
 In this release, we add support for using `renature` in Node.js environments for server-side rendering. Previously, using `renature` in server-rendered React applications would result in a runtime error.

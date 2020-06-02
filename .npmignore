@@ -1,10 +1,10 @@
 /*
 !LICENSE
 !CHANGELOG.md
-!README.md
+!./README.md
 !CODE_OF_CONDUCT.md
 !CONTRIBUTING.md
 !/dist/**/*.{d.ts,js,js.map}
 !/src/**/*.{d.ts,ts,tsx,bs.js,re,rei}
-!package.json
+!./package.json
 !bsconfig.json
