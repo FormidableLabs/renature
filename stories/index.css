@@ -89,3 +89,16 @@ body {
   stroke-width: 3;
   fill: transparent;
 }
+
+.stack-horizontal {
+  display: flex;
+}
+
+.stack-horizontal > * {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.stack-horizontal > * + * {
+  margin-left: 1rem;
+}
