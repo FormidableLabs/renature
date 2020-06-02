@@ -66,8 +66,8 @@ export const FluidResistanceControlled: React.FC = () => {
 
 export const FluidResistanceEventBased: React.FC = () => {
   const [props, controller] = useFluidResistance<HTMLDivElement>({
-    from: { transform: 'translateX(0px)' },
-    to: { transform: 'translateX(300px)' },
+    from: { transform: 'skewY(0deg)' },
+    to: { transform: 'skewY(30deg)' },
     config: {
       mass: number('mass', 25),
       rho: number('rho', 10),
@@ -75,12 +75,16 @@ export const FluidResistanceEventBased: React.FC = () => {
       cDrag: number('cDrag', 0.1),
       settle: boolean('settle', false),
     },
-    immediate: false,
+    pause: true,
+    infinite: true,
   });
 
   return (
     <>
-      <Button onClick={controller.start}>Run Animation</Button>
+      <div className="button-container">
+        <Button onClick={controller.start}>Start</Button>
+        <Button onClick={controller.stop}>Stop</Button>
+      </div>
       <div className="mover mover--translate" {...props} />
     </>
   );

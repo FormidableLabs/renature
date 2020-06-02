@@ -1,16 +1,24 @@
 import React from 'react';
 
 import { CSSPairs, getInterpolatorsForPairs } from '../parsers/pairs';
-import { Gravity1DParams, gravity1D, Controller } from '../animation';
+import {
+  Gravity1DParams,
+  gravity1D,
+  Controller,
+  gravityDefaultConfig,
+  AnimationParams,
+} from '../animation';
 
 type UseGravityArgs = CSSPairs &
-  Omit<Gravity1DParams, 'onUpdate' | 'onComplete'>;
+  Omit<AnimationParams, 'onUpdate' | 'onComplete'> & {
+    config?: Gravity1DParams['config'];
+  };
 
 export const useGravity = <M extends HTMLElement | SVGElement = any>({
   from,
   to,
-  config,
-  immediate = true,
+  config = gravityDefaultConfig,
+  pause = false,
   delay,
   infinite,
 }: UseGravityArgs): [{ ref: React.MutableRefObject<M | null> }, Controller] => {
@@ -55,34 +63,27 @@ export const useGravity = <M extends HTMLElement | SVGElement = any>({
     });
   }, [from, to, config, infinite]);
 
-  const controllerRef = React.useRef<Controller>({
-    start: controller.start,
-    stop: () => {},
-  });
-
   React.useLayoutEffect(() => {
-    const ctrl = controllerRef;
-
-    if (immediate && !delay) {
-      const { stop } = controller.start();
-      ctrl.current.stop = stop;
+    // Declarative animation - start immediately.
+    if (!pause && !delay) {
+      controller.start();
     }
 
-    let timerId: NodeJS.Timeout;
-    if (immediate && delay) {
-      timerId = setTimeout(() => {
-        const { stop } = controller.start();
-        ctrl.current.stop = stop;
+    // Declarative animation with delay – start after delay.
+    let timerId: number;
+    if (!pause && delay) {
+      timerId = window.setTimeout(() => {
+        controller.start();
       }, delay);
     }
 
     return () => {
-      timerId && clearTimeout(timerId);
+      timerId && window.clearTimeout(timerId);
 
       // Ensure we cancel any running animation on unmount.
-      ctrl.current.stop();
+      controller.stop();
     };
-  }, [immediate, delay, controller]);
+  }, [pause, delay, controller]);
 
-  return [{ ref }, controllerRef.current];
+  return [{ ref }, controller];
 };

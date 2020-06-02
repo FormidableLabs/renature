@@ -5,14 +5,23 @@ import {
   gravity2D,
   Controller,
   Gravity2DController,
+  gravity2DDefaultConfig,
 } from '../animation';
 
-type UseGravity2DArgs = Omit<Gravity2DParams, 'onUpdate' | 'onComplete'>;
+type UseGravity2DArgs = {
+  config?: Gravity2DParams['config'];
+  pause?: boolean;
+  delay?: number;
+  onFrame?: () => void;
+  onAnimationComplete?: () => void;
+};
 
 export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
-  config,
-  immediate = true,
+  config = gravity2DDefaultConfig,
+  pause = false,
   delay,
+  onFrame,
+  onAnimationComplete,
 }: UseGravity2DArgs): [
   { ref: React.MutableRefObject<M | null> },
   Controller & Gravity2DController
@@ -32,40 +41,39 @@ export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
         onUpdate: ({ position: [x, y] }) => {
           moverRef.current &&
             (moverRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`);
+
+          if (onFrame) {
+            onFrame();
+          }
         },
-        onComplete: () => {},
+        onComplete: () => {
+          if (onAnimationComplete) {
+            onAnimationComplete();
+          }
+        },
       }),
-    [config]
+    [config, onFrame, onAnimationComplete]
   );
 
-  /**
-   * Store a ref to the controller. This will allow a user to
-   * start and stop animations at will.
-   */
-  const controllerRef = React.useRef<Controller & Gravity2DController>({
-    start: controller.start,
-    stop: () => {},
-    updateAttractor: controller.updateAttractor,
-  });
-
   React.useLayoutEffect(() => {
-    if (immediate && !delay) {
-      const { stop } = controller.start();
-      controllerRef.current.stop = stop;
+    if (!pause && !delay) {
+      controller.start();
     }
 
-    let timerId: NodeJS.Timeout;
-    if (immediate && delay) {
-      timerId = setTimeout(() => {
-        const { stop } = controller.start();
-        controllerRef.current.stop = stop;
+    let timerId: number;
+    if (!pause && delay) {
+      timerId = window.setTimeout(() => {
+        controller.start();
       }, delay);
     }
 
     return () => {
-      timerId && clearTimeout(timerId);
-    };
-  }, [immediate, delay, controller]);
+      timerId && window.clearTimeout(timerId);
 
-  return [{ ref: moverRef }, controllerRef.current];
+      // Ensure we cancel any running animation on unmount.
+      controller.stop();
+    };
+  }, [pause, delay, controller]);
+
+  return [{ ref: moverRef }, controller];
 };

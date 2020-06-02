@@ -7,12 +7,7 @@ import {
   getFluidPositionAtTerminalVelocity,
 } from '../forces';
 import { vector as Vector, addf, multf } from '../core';
-import {
-  Listener,
-  AnimationParams,
-  AnimationInitializer,
-  PlayState,
-} from './types';
+import { Listener, AnimationParams, PlayState, Controller } from './types';
 
 export interface FluidResistance1DParams extends AnimationParams {
   config: {
@@ -35,10 +30,10 @@ interface FluidResistanceState {
  * fluid on the mover. Then we apply that vector to the mover to determine
  * its next acceleration, velocity, and position.
  */
-const applyFluidResistanceForceForStep = (
+function applyFluidResistanceForceForStep(
   { mover, playState }: FluidResistanceState,
   config: FluidResistance1DParams['config']
-) => {
+) {
   const dragForce = fluidResistanceForceV({
     rho: config.rho,
     area: config.area,
@@ -60,9 +55,9 @@ const applyFluidResistanceForceForStep = (
     entity: mover,
     time: 0.001,
   });
-};
+}
 
-const reversePlayState = (state: FluidResistanceState, tvPosition: number) => {
+function reversePlayState(state: FluidResistanceState, tvPosition: number) {
   if (state.playState === PlayState.Forward) {
     state.mover = {
       ...state.mover,
@@ -80,18 +75,18 @@ const reversePlayState = (state: FluidResistanceState, tvPosition: number) => {
     };
     state.playState = PlayState.Forward;
   }
-};
+}
 
 /**
  * The fluid resistance function. This function tracks the internal state of the
  * mover and starts the frame loop to apply the drag force as it moves.
  */
-export const fluidResistance1D = ({
+export function fluidResistance1D({
   config,
   onUpdate,
   onComplete,
   infinite,
-}: FluidResistance1DParams): { controller: AnimationInitializer } => {
+}: FluidResistance1DParams): { controller: Controller } {
   const state: FluidResistanceState = {
     mover: {
       mass: config.mass,
@@ -189,8 +184,8 @@ export const fluidResistance1D = ({
     }
   };
 
-  const { start } = rAF();
-  const runAnimation = () => start(listener);
+  const { start, stop } = rAF();
+  const run = () => start(listener);
 
-  return { controller: { start: runAnimation } };
-};
+  return { controller: { start: run, stop } };
+}

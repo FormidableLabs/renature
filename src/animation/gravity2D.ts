@@ -1,12 +1,7 @@
 import { vector as Vector } from '../core';
 import { Entity, applyForce, gravityForceV } from '../forces';
 import { rAF } from '../rAF';
-import {
-  VectorSetter,
-  Listener,
-  AnimationInitializer,
-  AnimationParams,
-} from './types';
+import { VectorSetter, Listener, AnimationParams, Controller } from './types';
 
 interface Gravity2DState {
   mover: Entity;
@@ -30,7 +25,7 @@ export interface Gravity2DParams extends AnimationParams {
   onUpdate: VectorSetter;
 }
 
-export interface Gravity2DController {
+export interface Gravity2DController extends Controller {
   updateAttractor: VectorSetter;
 }
 
@@ -40,10 +35,10 @@ export interface Gravity2DController {
  * attractor on the mover using gravityForceV. Then we apply that vector to the
  * mover to determine its next acceleration, velocity, and position.
  */
-const applyGravitationalForceForStep = (
+function applyGravitationalForceForStep(
   { mover, attractor }: Gravity2DState,
   config: Gravity2DParams['config']
-): Entity => {
+) {
   const force = gravityForceV({
     mover: mover.position,
     moverMass: mover.mass,
@@ -58,19 +53,19 @@ const applyGravitationalForceForStep = (
     entity: mover,
     time: (config.timeScale || 1) * 0.001,
   });
-};
+}
 
 /**
  * The gravity function. This function tracks the internal state of the
  * attractor and the mover and starts the frame loop to apply the gravitational
  * force.
  */
-export const gravity2D = ({
+export function gravity2D({
   config,
   onUpdate,
 }: Gravity2DParams): {
-  controller: AnimationInitializer & Gravity2DController;
-} => {
+  controller: Gravity2DController;
+} {
   const state: Gravity2DState = {
     mover: {
       mass: config.moverMass,
@@ -119,8 +114,8 @@ export const gravity2D = ({
     });
   };
 
-  const { start } = rAF();
-  const runAnimation = () => start(listener);
+  const { start, stop } = rAF();
+  const run = () => start(listener);
 
   const updateAttractor: VectorSetter = ({ position }) => {
     state.attractor = {
@@ -131,8 +126,9 @@ export const gravity2D = ({
 
   return {
     controller: {
-      start: runAnimation,
+      start: run,
+      stop,
       updateAttractor,
     },
   };
-};
+}

@@ -5,12 +5,7 @@ import {
   frictionForceV,
   getMaxDistanceFriction,
 } from '../forces';
-import {
-  Listener,
-  AnimationParams,
-  AnimationInitializer,
-  PlayState,
-} from './types';
+import { Listener, AnimationParams, PlayState, Controller } from './types';
 
 export interface Friction1DParams extends AnimationParams {
   config: {
@@ -31,10 +26,10 @@ interface FrictionState {
  * surface on the mover. Then we apply that vector to the mover to determine
  * its next acceleration, velocity, and position.
  */
-const applyFrictionForceForStep = (
+function applyFrictionForceForStep(
   { mover }: FrictionState,
   config: Friction1DParams['config']
-) => {
+) {
   const force = frictionForceV({
     mu: config.mu,
     mass: config.mass,
@@ -42,13 +37,13 @@ const applyFrictionForceForStep = (
   });
 
   return applyForce({ force, entity: mover, time: 0.001 });
-};
+}
 
-const reversePlayState = (
+function reversePlayState(
   state: FrictionState,
   config: Friction1DParams['config'],
   maxDistance: number
-) => {
+) {
   if (state.mover.velocity[0] <= 0 && state.playState === PlayState.Forward) {
     state.mover = {
       ...state.mover,
@@ -69,18 +64,18 @@ const reversePlayState = (
     };
     state.playState = PlayState.Forward;
   }
-};
+}
 
 /**
  * The friction function. This function tracks the internal state of the
  * mover and starts the frame loop to apply the frictional force as it moves.
  */
-export const friction1D = ({
+export function friction1D({
   config,
   onUpdate,
   onComplete,
   infinite,
-}: Friction1DParams): { controller: AnimationInitializer } => {
+}: Friction1DParams): { controller: Controller } {
   const state: FrictionState = {
     mover: {
       mass: config.mass,
@@ -142,8 +137,8 @@ export const friction1D = ({
     }
   };
 
-  const { start } = rAF();
-  const runAnimation = () => start(listener);
+  const { start, stop } = rAF();
+  const run = () => start(listener);
 
-  return { controller: { start: runAnimation } };
-};
+  return { controller: { start: run, stop } };
+}
