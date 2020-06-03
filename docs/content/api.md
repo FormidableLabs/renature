@@ -13,14 +13,16 @@ This document contains all information on `renature`'s public facing API.
 
 ### Shared Parameters
 
-| Property    | Type                                        | Description                                                                                                                                                                             |
-| ----------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `from`      | `{ [key: keyof React.CSSProperties]: any }` | The CSS property or properties you're animating **from**. Accepts an arbitrary number of key-value pairs.                                                                               |
-| `to`        | `{ [key: keyof React.CSSProperties]: any }` | The CSS property or properties you're animating **to**. Accepts an arbitrary number of key-value pairs.                                                                                 |
-| `config`    | `object`                                    | The physics parameters used to model the selected force. This varies from force to force. See [Config](#config) below for specific force paramters.                                     |
-| `immediate` | `boolean?`                                  | Optional. Instructs `renature` to run the animation on mount. If `false`, the animation will not run until `controller.start` is called. Defaults to `true`.                            |
-| `delay`     | `number?`                                   | Optional. Instructs `renature` to delay the start of the animation by the provided number of milliseconds. Defaults to `undefined`.                                                     |
-| `infinite`  | `boolean?`                                  | Optional. Instructs `renature` to restart the animation in the reverse direction when the animation completes in the forward direction, producing a "yoyo" effect. Defaults to `false`. |
+| Property              | Type                                        | Description                                                                                                                                                                                                                                                   |
+| --------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `from`                | `{ [key: keyof React.CSSProperties]: any }` | The CSS property or properties you're animating **from**. Accepts an arbitrary number of key-value pairs.                                                                                                                                                     |
+| `to`                  | `{ [key: keyof React.CSSProperties]: any }` | The CSS property or properties you're animating **to**. Accepts an arbitrary number of key-value pairs.                                                                                                                                                       |
+| `config`              | `object`                                    | Optional. The physics parameters used to model the selected force. This varies from force to force. See [Config](#config) below for specific force paramters. If no `config` is supplied, a default set of physics parameters will be supplied by `renature`. |
+| `pause`               | `boolean?`                                  | Optional. Instructs `renature` to pause the animation on initial mount. If `true`, the animation will not run until `controller.start` is called or until a re-render occurs and `pause` evaluates to `false`. Defaults to `false`.                           |
+| `delay`               | `number?`                                   | Optional. Instructs `renature` to delay the start of the animation by the provided number of milliseconds. Defaults to `undefined`.                                                                                                                           |
+| `infinite`            | `boolean?`                                  | Optional. Instructs `renature` to restart the animation in the reverse direction when the animation completes in the forward direction, producing a "yoyo" effect. Defaults to `false`.                                                                       |
+| `onFrame`             | `(progress: number) => void`                | Optional. Supply a callback function that `renature` will execute on every call to `requestAnimationFrame`.                                                                                                                                                   |
+| `onAnimationComplete` | `() => void`                                | Optional. Supply a callback function that `renature` will run when your animation has completed. If the animation is unmounted before completing, `onAnimationComplete` _will not_ be called.                                                                 |
 
 ### Config
 
@@ -237,7 +239,7 @@ A `controller` provides access to two functions, `start` and `stop`, which allow
 
 | Property | Type         | Description                                                                                                                                                           |
 | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `start`  | `() => void` | A function instructing the animation to start the frame loop and begin animating. Typically used in conjunction with `immediate: false`.                              |
+| `start`  | `() => void` | A function instructing the animation to start the frame loop and begin animating. Typically used in conjunction with `pause: true`.                                   |
 | `stop`   | `() => void` | A function instructing the animation to stop the frame loop. The animating element will stay in whatever CSS state it had achieved when `controller.stop` was called. |
 
 See [Controlling Animation States](./getting-started/controlling-animation-states.md) for more examples of starting and stopping animations according to events, timers, and effects.

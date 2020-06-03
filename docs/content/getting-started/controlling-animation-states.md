@@ -11,7 +11,7 @@ In this section, we'll cover how to control animation states in `renature`. This
 
 By default, all animations in `renature` will run immediately when your component mounts. Often this may be exactly what you want – an element appears and starts moving! However, you can alter this behavior using `renature`'s `controller` API.
 
-The `controller` is the second object returned by a `renature` hook, and comes with two methods, `start` and `stop`, for interacting with your animation's play state. If you want to start your animation in response to a user event, for example, you can call `controller.start`. Note that you'll need to combine this with `immediate: false` in your animation configuration.
+The `controller` is the second object returned by a `renature` hook, and comes with two methods, `start` and `stop`, for interacting with your animation's play state. If you want to start your animation in response to a user event, for example, you can call `controller.start`. Note that you'll need to combine this with `pause: true` in your animation configuration to prevent the animation from immediately running on mount.
 
 ```js live=true
 import React from 'react';
@@ -30,7 +30,7 @@ function ControlledMover() {
       attractorMass: 1000000000000,
       r: 7.5,
     },
-    immediate: false, // Signal that the animation should not run on mount.
+    pause: true, // Signal that the animation should not run on mount.
   });
 
   return (
@@ -49,11 +49,9 @@ function ControlledMover() {
 
 ### Stopping Animations
 
-Once the backing physics simulation powering your animation has completed, `renature` the frame loop and leave your element animated. However, there may be cases where you want to preemptively stop your animation in response to some user event or side effect. In those cases, you have two ways to stop your animations.
+Once the backing physics simulation powering your animation has completed, `renature` will stop the `requestAnimationFrame` loop and leave your element in the state specified by the `to` parameter. However, there may be cases where you want to preemptively stop or pause your animation in response to some user event or side effect. In those cases, you can use `controller.stop`.
 
-#### Stopping Animations Initiated on Mount
-
-When an animation is initiated on mount (the default behavior) you can stop the animation using `controller.stop`. For example, if you only want your animation to run for 2 seconds before stopping, you could do the following.
+For example, if you only want your animation to run for 2 seconds after mounting before stopping, you could do the following.
 
 ```js live=true
 import React from 'react';
@@ -86,59 +84,7 @@ function ControlledMover() {
 
 You can of course call `controller.stop` in response to more than timers. Any time you want to stop your animations in response to an external event, like a user interaction or a change in a long-running subscription, you can use `controller.stop`.
 
-#### Stopping Animations Initiated by `controller.start`
-
-When you initiate your animation using `controller.start` rather than allowing the animation to run on mount, the `stop` function is returned by calling `controller.start`. For example:
-
-```js
-const { stop } = controller.start();
-```
-
-This ensures that the `stop` function corresponds precisely to a specific animation instance when using multiple animations. If we want to stop the current animation two seconds after a user initiates it with `controller.start`, we can do the following.
-
-```js live=true
-import React from 'react';
-import { useGravity } from 'renature';
-
-function ControlledMover() {
-  const [props, controller] = useGravity({
-    from: {
-      transform: 'rotate(0deg) scale(1)',
-    },
-    to: {
-      transform: 'rotate(360deg) scale(0)',
-    },
-    config: {
-      moverMass: 10000,
-      attractorMass: 1000000000000,
-      r: 7.5,
-    },
-    immediate: false, // Signal that the animation should not run on mount.
-  });
-
-  const onClick = () => {
-    // Obtain the stop function off of controller.start.
-    const { stop } = controller.start();
-
-    // Stop the animation after two seconds.
-    setTimeout(() => {
-      stop();
-    }, 2000);
-  };
-
-  return (
-    <div className="live-preview__stack">
-      <button
-        className="live-preview__button live-preview__button--lg"
-        onClick={onClick}
-      >
-        Run The Animation!
-      </button>
-      <div className="live-preview__mover live-preview__mover--lg" {...props} />
-    </div>
-  );
-}
-```
+`controller.start` and `controller.stop` will continue to work for the lifecycle of the animation, until the `to` state has been reached. In this way, they double as `resume` and `pause` functions. Read more about this behavior in the [Pausing and Resuming Animations](#pausing-and-resuming-animations) section below.
 
 ### Delaying Animations
 
@@ -206,7 +152,7 @@ Infinite animations oscillate between your `from` and `to` states, creating a "y
 
 ### Pausing and Resuming Animations
 
-If you want to pause and resume animations in relation to external events, `renature` allows for that as well using the same functions above from the Controller API, i.e. `controller.start` and `controller.stop`. Note that the example below uses a `ref` to capture the `stop` function returned by `controller.start` and make it available to `onStop`.
+If you want to pause and resume animations in relation to external events, `renature` allows for that as well using the same functions above from the Controller API, i.e. `controller.start` and `controller.stop`.
 
 ```js live=true
 import React from 'react';
@@ -227,35 +173,25 @@ function InfiniteMover() {
       attractorMass: 1000000000000,
       r: 7.5,
     },
-    immediate: false,
     infinite: true,
   });
 
-  const stopFn = React.useRef(() => {});
-
-  const onStart = () => {
-    const { stop } = controller.start();
-    stopFn.current = stop;
-  };
-
-  const onStop = () => {
-    stopFn.current();
-  };
-
   return (
     <div className="live-preview__stack">
-      <button
-        onClick={onStart}
-        className="live-preview__button live-preview__button--lg"
-      >
-        Start / Resume
-      </button>
-      <button
-        onClick={onStop}
-        className="live-preview__button live-preview__button--lg"
-      >
-        Stop / Pause
-      </button>
+      <div className="live-preview__stack-h">
+        <button
+          onClick={controller.start}
+          className="live-preview__button live-preview__button--lg"
+        >
+          Resume
+        </button>
+        <button
+          onClick={controller.stop}
+          className="live-preview__button live-preview__button--lg"
+        >
+          Pause
+        </button>
+      </div>
       <div className="live-preview__mover live-preview__mover--lg" {...props} />
     </div>
   );

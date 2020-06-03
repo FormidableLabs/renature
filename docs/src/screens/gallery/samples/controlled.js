@@ -15,7 +15,7 @@ function ControlledMover() {
       mass: 50,
       initialVelocity: 1,
     },
-    immediate: false, // Signal that the animation should not run on mount.
+    pause: true, // Signal that the animation should not run on mount.
   });
 
   return (
