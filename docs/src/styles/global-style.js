@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { stack } from './mixins';
+import { stack, stackHorizontal } from './mixins';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -113,9 +113,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .live-preview__stack {
-    ${stack(2)};
+    ${stack(4)};
 
     align-items: center;
+
+    &-h {
+      ${stackHorizontal(2)};
+    }
   }
 
   .live-preview__toggle {
