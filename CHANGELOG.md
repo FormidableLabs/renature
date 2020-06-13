@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.4.1
+
+In this release, we expose the `onFrame` and `onAnimationComplete` APIs for the `useGravity` hook. These were accidentally missed in the v0.4.0 release 😱.
+
+### Fixed
+
+- Ensure `onFrame` and `onAnimationComplete` supplied to `useGravity` are picked up and applied in the lifecycle of an animation. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/67).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.4.0...v0.4.1)
+
 ## v0.4.0
 
 In this release, we add a few new APIs to `renature` to fix some pain points identified by community members. The most notable of these are `onFrame` and `onAnimationComplete` callbacks that can be provided to `renature` hooks.
@@ -30,6 +40,8 @@ const { stop } = controller.start();
 Now, you can just call `controller.stop()`. This codifies and simplifies the API – when you want to imperatively start / resume an animation, use `controller.start`. When you want to stop or pause an animation, whether it was initiated on mount or by `controller.start`, just use `controller.stop`. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/62).
 
 - **Breaking Change** The `immediate` flag was renamed to `pause` and the logic behind it is now inverted. If `pause` is set to `true`, the animation will not start running until `controller.start` has been called or if the component re-renders and `pause` evaluates to `false`. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/62).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.3.0...v0.4.0)
 
 ## v0.3.0
 
