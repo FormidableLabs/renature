@@ -21,6 +21,8 @@ export const useGravity = <M extends HTMLElement | SVGElement = any>({
   pause = false,
   delay,
   infinite,
+  onFrame,
+  onAnimationComplete,
 }: UseGravityArgs): [{ ref: React.MutableRefObject<M | null> }, Controller] => {
   /**
    * Store a ref to the DOM element we'll be animating.
@@ -46,6 +48,11 @@ export const useGravity = <M extends HTMLElement | SVGElement = any>({
           if (ref.current) {
             ref.current.style[property as any] = `${value}`;
           }
+
+          if (onFrame) {
+            const progress = position[0] / config.r;
+            onFrame(progress);
+          }
         });
       },
       onComplete: () => {
@@ -58,10 +65,14 @@ export const useGravity = <M extends HTMLElement | SVGElement = any>({
             ref.current.style[property as any] = values.to;
           }
         });
+
+        if (onAnimationComplete) {
+          onAnimationComplete();
+        }
       },
       infinite,
     });
-  }, [from, to, config, infinite]);
+  }, [from, to, config, infinite, onFrame, onAnimationComplete]);
 
   React.useLayoutEffect(() => {
     // Declarative animation - start immediately.
