@@ -24,6 +24,7 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
   infinite,
   onFrame,
   onAnimationComplete,
+  disableHardwareAcceleration = false,
 }: UseFrictionArgs): [
   { ref: React.MutableRefObject<M | null> },
   Controller
@@ -37,7 +38,13 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
   const ref = React.useRef<M | null>(null);
 
   const { controller } = React.useMemo(() => {
-    const interpolators = getInterpolatorsForPairs({ from, to });
+    const interpolators = getInterpolatorsForPairs(
+      {
+        from,
+        to,
+      },
+      disableHardwareAcceleration
+    );
     const maxPosition = getMaxDistanceFriction({
       mu: config.mu,
       initialVelocity: config.initialVelocity,
@@ -80,7 +87,15 @@ export const useFriction = <M extends HTMLElement | SVGElement = any>({
       },
       infinite,
     });
-  }, [from, to, config, infinite, onFrame, onAnimationComplete]);
+  }, [
+    from,
+    to,
+    config,
+    infinite,
+    onFrame,
+    onAnimationComplete,
+    disableHardwareAcceleration,
+  ]);
 
   React.useLayoutEffect(() => {
     // Declarative animation – start immediately.

@@ -24,6 +24,7 @@ export const useFluidResistance = <M extends HTMLElement | SVGElement = any>({
   infinite,
   onFrame,
   onAnimationComplete,
+  disableHardwareAcceleration,
 }: UseFluidResistanceArgs): [
   { ref: React.MutableRefObject<M | null> },
   Controller
@@ -37,7 +38,10 @@ export const useFluidResistance = <M extends HTMLElement | SVGElement = any>({
   const ref = React.useRef<M | null>(null);
 
   const { controller } = React.useMemo(() => {
-    const interpolators = getInterpolatorsForPairs({ from, to });
+    const interpolators = getInterpolatorsForPairs(
+      { from, to },
+      disableHardwareAcceleration
+    );
     const maxPosition = getFluidPositionAtTerminalVelocity(config);
 
     return fluidResistance1D({
@@ -77,7 +81,15 @@ export const useFluidResistance = <M extends HTMLElement | SVGElement = any>({
       },
       infinite,
     });
-  }, [from, to, config, infinite, onFrame, onAnimationComplete]);
+  }, [
+    from,
+    to,
+    config,
+    infinite,
+    onFrame,
+    onAnimationComplete,
+    disableHardwareAcceleration,
+  ]);
 
   React.useLayoutEffect(() => {
     // Declarative animation – start immediately.

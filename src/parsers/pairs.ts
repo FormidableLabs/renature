@@ -45,16 +45,22 @@ interface InterpolatedResult<T, R> {
 }
 
 export function getInterpolatorForPair(
-  pairs: CSSPairs
+  pairs: CSSPairs,
+  disableHardwareAcceleration?: boolean
 ): InterpolatedResult<number, number>;
 export function getInterpolatorForPair(
-  pairs: CSSPairs
+  pairs: CSSPairs,
+  disableHardwareAcceleration?: boolean
 ): InterpolatedResult<RGBA, string>;
 export function getInterpolatorForPair(
-  pairs: CSSPairs
+  pairs: CSSPairs,
+  disableHardwareAcceleration?: boolean
 ): InterpolatedResult<string, string>;
 
-export function getInterpolatorForPair({ from, to }: CSSPairs) {
+export function getInterpolatorForPair(
+  { from, to }: CSSPairs,
+  disableHardwareAcceleration = false
+) {
   const {
     from: { value: fromValue, property: fromProperty },
     to: { value: toValue, property: toProperty },
@@ -104,8 +110,17 @@ export function getInterpolatorForPair({ from, to }: CSSPairs) {
         interpolator: interpolateTransforms,
         property: fromProperty,
         values: {
-          from: fromValue,
-          to: toValue,
+          from:
+            // Add translateZ(0) to transform if it's not already present
+            // and if hardware acceleration is enabled.
+            fromValue.indexOf('translateZ') === -1 &&
+            !disableHardwareAcceleration
+              ? `${fromValue} translateZ(0)`
+              : fromValue,
+          to:
+            toValue.indexOf('translateZ') === -1 && !disableHardwareAcceleration
+              ? `${toValue} translateZ(0)`
+              : toValue,
         },
       };
     }
@@ -160,11 +175,20 @@ export function getInterpolatorForPair({ from, to }: CSSPairs) {
   }
 }
 
-export function getInterpolatorsForPairs({ from, to }: CSSPairs) {
+export function getInterpolatorsForPairs(
+  { from, to }: CSSPairs,
+  disableHardwareAcceleration = false
+) {
   return Object.keys(from).map(key => {
     const f = { [key]: (from as { [cssProperty: string]: any })[key] };
     const t = { [key]: (to as { [cssProperty: string]: any })[key] };
 
-    return getInterpolatorForPair({ from: f, to: t });
+    return getInterpolatorForPair(
+      {
+        from: f,
+        to: t,
+      },
+      disableHardwareAcceleration
+    );
   });
 }
