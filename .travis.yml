@@ -3,8 +3,7 @@ notifications:
 
 branches:
   only:
-    - master
-    - develop
+    - saturn
     - /^v\d+\.\d+\.\d+/
 
 language: node_js
