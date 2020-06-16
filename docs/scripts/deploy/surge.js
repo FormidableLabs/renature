@@ -20,7 +20,7 @@ const logMsg = msg => log(chalk`[{cyan deploy/surge}] ${msg}`);
 const main = async () => {
   if (!TRAVIS_PULL_REQUEST || TRAVIS_PULL_REQUEST === 'false') {
     logMsg(
-      `Travis build: ${TRAVIS_JOB_NUMBER}. Skipping STAGING deployment for master / merge build.`
+      `Travis build: ${TRAVIS_JOB_NUMBER}. Skipping STAGING deployment for saturn / merge build.`
     );
     return;
   }

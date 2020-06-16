@@ -14,7 +14,7 @@
     <img alt="NPM Version" src="https://img.shields.io/npm/v/renature.svg" />
   </a>
   <a href="https://travis-ci.com/FormidableLabs/renature">
-    <img alt="Test Status" src="https://api.travis-ci.com/FormidableLabs/renature.svg?branch=master" />
+    <img alt="Test Status" src="https://api.travis-ci.com/FormidableLabs/renature.svg?branch=saturn" />
   </a>
   <a href="https://bundlephobia.com/result?p=renature">
     <img alt="Minified gzip size" src="https://img.shields.io/bundlephobia/minzip/renature.svg?label=gzip%20size" />
