@@ -124,16 +124,16 @@ describe('pairs', () => {
           to: { transform: 'rotate(50rad)' },
           disableHardwareAcceleration: true,
         };
-        const { interpolator } = (getInterpolatorForPair(pair) as unknown) as {
-          interpolator: Interpolator<string, string>;
-        };
+        const { interpolator, values } = getInterpolatorForPair(pair);
+
+        expect(values).toEqual({
+          from: 'rotate(20rad) translateZ(0)',
+          to: 'rotate(50rad) translateZ(0)',
+        });
 
         const result = interpolator({
           range: [100, 400],
-          domain: [
-            'rotate(20rad) translateZ(0)',
-            'rotate(50rad) translateZ(0)',
-          ],
+          domain: [values.from, values.to],
           value: 175,
         });
         expect(result).toEqual('rotate(27.5rad) translateZ(0)');
@@ -145,16 +145,16 @@ describe('pairs', () => {
           to: { transform: 'rotate(50rad) translateZ(10rem)' },
           disableHardwareAcceleration: true,
         };
-        const { interpolator } = (getInterpolatorForPair(pair) as unknown) as {
-          interpolator: Interpolator<string, string>;
-        };
+        const { interpolator, values } = getInterpolatorForPair(pair);
+
+        expect(values).toEqual({
+          from: 'rotate(20rad) translateZ(0rem)',
+          to: 'rotate(50rad) translateZ(10rem)',
+        });
 
         const result = interpolator({
           range: [100, 400],
-          domain: [
-            'rotate(20rad) translateZ(0rem)',
-            'rotate(50rad) translateZ(10rem)',
-          ],
+          domain: [values.from, values.to],
           value: 175,
         });
         expect(result).toEqual('rotate(27.5rad) translateZ(2.5rem)');

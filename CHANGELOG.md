@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.5.0
+
+In this release, we add support for the `disableHardwareAcceleration` parameter to `renature` hooks. By default, `renature` will attempt to push compatible animations to the GPU (primarily `transform` and `opacity`). If you would like to prevent this behavior, specify `disableHardwareAcceleration: true` in your hooks configuration.
+
+### Added
+
+- ✨ Add support for GPU compositing of `transform` animations. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/68).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.4.1...v0.5.0)
+
 ## v0.4.1
 
 In this release, we expose the `onFrame` and `onAnimationComplete` APIs for the `useGravity` hook. These were accidentally missed in the v0.4.0 release 😱.
@@ -25,13 +35,13 @@ In this release, we add a few new APIs to `renature` to fix some pain points ide
 
 ### Added
 
-- An `onFrame` callback can now be provided to `renature` hooks, which allows you to execute some logic on each call to `requestAnimationFrame`. The callback is handed a single argument, `progress`, which is a number between 0 and 1 representing your progress from the `from` state to the `to` state. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/60).
-- An `onAnimationComplete` callback can now be provided to `renature` hooks, which allows you to execute logic when an animation ends. This behaves similarly to adding a listener on the DOM's [native `animationend` event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/animationend_event). If a `renature` animation is stopped or unmounted before it has completed, this ca llback will _not_ be executed. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/60).
-- Default configs have been added for all hooks. You'll now get a default physics config loaded if you don't specify a `config` field on your hook! PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/62).
+- ✨ An `onFrame` callback can now be provided to `renature` hooks, which allows you to execute some logic on each call to `requestAnimationFrame`. The callback is handed a single argument, `progress`, which is a number between 0 and 1 representing your progress from the `from` state to the `to` state. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/60).
+- ✨ An `onAnimationComplete` callback can now be provided to `renature` hooks, which allows you to execute logic when an animation ends. This behaves similarly to adding a listener on the DOM's [native `animationend` event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/animationend_event). If a `renature` animation is stopped or unmounted before it has completed, this ca llback will _not_ be executed. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/60).
+- ✨ Default configs have been added for all hooks. You'll now get a default physics config loaded if you don't specify a `config` field on your hook! PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/62).
 
 ### Changed
 
-- **Breaking Change** `controller.stop` is now the canonical way to stop or pause a `renature` animation. Previously, if you started an animation by calling `controller.start`, you could only stop or pause it by accessing a returned stop function.
+- ⚠️ **Breaking Change** `controller.stop` is now the canonical way to stop or pause a `renature` animation. Previously, if you started an animation by calling `controller.start`, you could only stop or pause it by accessing a returned stop function.
 
 ```js
 const { stop } = controller.start();
@@ -39,7 +49,7 @@ const { stop } = controller.start();
 
 Now, you can just call `controller.stop()`. This codifies and simplifies the API – when you want to imperatively start / resume an animation, use `controller.start`. When you want to stop or pause an animation, whether it was initiated on mount or by `controller.start`, just use `controller.stop`. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/62).
 
-- **Breaking Change** The `immediate` flag was renamed to `pause` and the logic behind it is now inverted. If `pause` is set to `true`, the animation will not start running until `controller.start` has been called or if the component re-renders and `pause` evaluates to `false`. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/62).
+- ⚠️ **Breaking Change** The `immediate` flag was renamed to `pause` and the logic behind it is now inverted. If `pause` is set to `true`, the animation will not start running until `controller.start` has been called or if the component re-renders and `pause` evaluates to `false`. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/62).
 
 [Diff](https://github.com/FormidableLabs/renature/compare/v0.3.0...v0.4.0)
 
@@ -59,7 +69,7 @@ In this release, we allow users to supply their own value for `G`, the Universal
 
 ### Added
 
-- A user-configurable `G` parameter for the `useGravity` and `useGravity2D` hooks. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/50).
+- ✨ A user-configurable `G` parameter for the `useGravity` and `useGravity2D` hooks. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/50).
 
 [Diff](https://github.com/FormidableLabs/renature/compare/v0.2.0...v0.2.1)
 
@@ -70,7 +80,7 @@ In this release, we added type support for animating SVG elements, normalize our
 ### Added
 
 - Type support for SVG elements. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/37).
-- Add support for `box-shadow` as an animatable CSS property. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/41).
+- ✨ Add support for `box-shadow` as an animatable CSS property. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/41).
 
 ### Fixed
 
