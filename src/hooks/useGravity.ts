@@ -23,6 +23,7 @@ export const useGravity = <M extends HTMLElement | SVGElement = any>({
   infinite,
   onFrame,
   onAnimationComplete,
+  disableHardwareAcceleration,
 }: UseGravityArgs): [{ ref: React.MutableRefObject<M | null> }, Controller] => {
   /**
    * Store a ref to the DOM element we'll be animating.
@@ -33,7 +34,10 @@ export const useGravity = <M extends HTMLElement | SVGElement = any>({
   const ref = React.useRef<M | null>(null);
 
   const { controller } = React.useMemo(() => {
-    const interpolators = getInterpolatorsForPairs({ from, to });
+    const interpolators = getInterpolatorsForPairs(
+      { from, to },
+      disableHardwareAcceleration
+    );
 
     return gravity1D({
       config,
@@ -72,7 +76,15 @@ export const useGravity = <M extends HTMLElement | SVGElement = any>({
       },
       infinite,
     });
-  }, [from, to, config, infinite, onFrame, onAnimationComplete]);
+  }, [
+    from,
+    to,
+    config,
+    infinite,
+    onFrame,
+    onAnimationComplete,
+    disableHardwareAcceleration,
+  ]);
 
   React.useLayoutEffect(() => {
     // Declarative animation - start immediately.

@@ -18,7 +18,10 @@ describe('pairs', () => {
 
   describe('getInterpolatorForPair', () => {
     it('should infer a from / to pair of type number and return a numeric interpolator', () => {
-      const pair = { from: { opacity: 0 }, to: { opacity: 1 } };
+      const pair = {
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+      };
       const { interpolator } = getInterpolatorForPair(pair);
 
       const result = interpolator({
@@ -70,6 +73,7 @@ describe('pairs', () => {
       const pair = {
         from: { transform: 'rotate(20rad)' },
         to: { transform: 'rotate(50rad)' },
+        disableHardwareAcceleration: true,
       };
       const { interpolator } = (getInterpolatorForPair(pair) as unknown) as {
         interpolator: Interpolator<string, string>;
@@ -111,6 +115,50 @@ describe('pairs', () => {
       expect(result).toThrowError(
         'from and to values have mismatching types. from type: string does not match to type: number.'
       );
+    });
+
+    describe('with hardware acceleration enabled', () => {
+      it('should append translateZ(0) to a transform animation', () => {
+        const pair = {
+          from: { transform: 'rotate(20rad)' },
+          to: { transform: 'rotate(50rad)' },
+          disableHardwareAcceleration: true,
+        };
+        const { interpolator, values } = getInterpolatorForPair(pair);
+
+        expect(values).toEqual({
+          from: 'rotate(20rad) translateZ(0)',
+          to: 'rotate(50rad) translateZ(0)',
+        });
+
+        const result = interpolator({
+          range: [100, 400],
+          domain: [values.from, values.to],
+          value: 175,
+        });
+        expect(result).toEqual('rotate(27.5rad) translateZ(0)');
+      });
+
+      it('should not append translateZ(0) to a transform animation if translateZ is already being animated', () => {
+        const pair = {
+          from: { transform: 'rotate(20rad) translateZ(0rem)' },
+          to: { transform: 'rotate(50rad) translateZ(10rem)' },
+          disableHardwareAcceleration: true,
+        };
+        const { interpolator, values } = getInterpolatorForPair(pair);
+
+        expect(values).toEqual({
+          from: 'rotate(20rad) translateZ(0rem)',
+          to: 'rotate(50rad) translateZ(10rem)',
+        });
+
+        const result = interpolator({
+          range: [100, 400],
+          domain: [values.from, values.to],
+          value: 175,
+        });
+        expect(result).toEqual('rotate(27.5rad) translateZ(2.5rem)');
+      });
     });
   });
 });

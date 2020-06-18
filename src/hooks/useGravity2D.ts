@@ -14,6 +14,7 @@ type UseGravity2DArgs = {
   delay?: number;
   onFrame?: () => void;
   onAnimationComplete?: () => void;
+  disableHardwareAcceleration?: boolean;
 };
 
 export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
@@ -22,6 +23,7 @@ export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
   delay,
   onFrame,
   onAnimationComplete,
+  disableHardwareAcceleration = false,
 }: UseGravity2DArgs): [
   { ref: React.MutableRefObject<M | null> },
   Controller & Gravity2DController
@@ -40,7 +42,9 @@ export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
         config,
         onUpdate: ({ position: [x, y] }) => {
           moverRef.current &&
-            (moverRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`);
+            (moverRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)${
+              disableHardwareAcceleration ? '' : ' translateZ(0)'
+            }`);
 
           if (onFrame) {
             onFrame();
@@ -52,7 +56,7 @@ export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
           }
         },
       }),
-    [config, onFrame, onAnimationComplete]
+    [config, onFrame, onAnimationComplete, disableHardwareAcceleration]
   );
 
   React.useLayoutEffect(() => {

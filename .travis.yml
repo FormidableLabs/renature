@@ -3,8 +3,7 @@ notifications:
 
 branches:
   only:
-    - master
-    - develop
+    - saturn
     - /^v\d+\.\d+\.\d+/
 
 language: node_js
@@ -58,7 +57,7 @@ jobs:
         - yarn run build
         - yarn run deploy:stage
       deploy:
-        # Deploy master to production
+        # Deploy saturn to production
         - provider: script
           # Build and deploy to production.
           # _Note_: `deploy.script` must be a **single** command string
@@ -68,7 +67,7 @@ jobs:
             yarn run deploy:prod
           skip_cleanup: true
           on:
-            branch: master
+            branch: saturn
 
 env:
   global:

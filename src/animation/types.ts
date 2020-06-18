@@ -24,6 +24,7 @@ export interface AnimationParams {
   infinite?: boolean;
   onFrame?: (progress: number) => void;
   onAnimationComplete?: () => void;
+  disableHardwareAcceleration?: boolean;
 }
 
 export enum PlayState {
