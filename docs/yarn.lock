@@ -8196,6 +8196,24 @@ react-static-plugin-md-pages@^0.1.7:
     unist-util-visit "^2.0.2"
     yaml "^1.7.2"
 
+react-static-plugin-react-router@^7.2.3:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/react-static-plugin-react-router/-/react-static-plugin-react-router-7.4.0.tgz#f23ad9ae841cd1da34951ccbbffc22af732f841a"
+  integrity sha512-4Uef2qL8LwU/MXZ3QtVmLAV7Z+CA8gqO5H/XaPkYb86WoTiY1YETI8E1+mMWnCPfPZZGzItiONLWGbaHMp9Aww==
+
+react-static-plugin-sitemap@^7.2.3:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/react-static-plugin-sitemap/-/react-static-plugin-sitemap-7.4.0.tgz#22062b278a6d1bee44cc6b595281b609122f7d25"
+  integrity sha512-XyKAJLa4DQOHB5mwitTRpJe7nPCdcAZFgguzcR0pNV3dL/zkBGeIBZl+19bEnZWBleSqDAwsvcqFhDWo0PmM+g==
+  dependencies:
+    chalk "^2.4.2"
+    fs-extra "^8.1.0"
+
+react-static-plugin-styled-components@^7.2.2:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/react-static-plugin-styled-components/-/react-static-plugin-styled-components-7.3.0.tgz#3504ae427b0cb7a619d038eb1dcaf7721b6ea3a3"
+  integrity sha512-RIL5qvi54cgir5IykBZD2O9IPT+Lht1vYcgOp2oLke5qe5D5HcXv4ul3puzEcy1Sz3JyaXunCkrr9lqMTX2uZg==
+
 react-static@^7.2.3:
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/react-static/-/react-static-7.4.0.tgz#d18bfb526d2a92950b2c0c5d0cdb56fa3e4d70b4"
