@@ -18,7 +18,7 @@
     "build": "react-static build",
     "serve": "formideploy serve",
     "deploy:prod": "echo 'TODO FORMIDEPLOY -- IMPLEMENT deploy:prod'",
-    "deploy:stage": "formideploy deploy --staging --dryrun",
+    "deploy:stage": "formideploy deploy --staging",
     "prettier-all": "npx prettier --write '{src,static.config,scripts}/**/*.{js,jsx}'",
     "preversion": "yarn run lint && yarn run build",
     "format": "yarn run lint --fix",
