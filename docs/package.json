@@ -17,7 +17,7 @@
     "clean": "rimraf dist",
     "build": "react-static build",
     "serve": "formideploy serve",
-    "deploy:prod": "echo 'TODO FORMIDEPLOY -- IMPLEMENT deploy:prod'",
+    "deploy:prod": "formideploy deploy --production",
     "deploy:stage": "formideploy deploy --staging",
     "prettier-all": "npx prettier --write '{src,static.config,scripts}/**/*.{js,jsx}'",
     "preversion": "yarn run lint && yarn run build",
