@@ -76,6 +76,8 @@ jobs:
 
 env:
   global:
+    # **GitHub**: `GitHub (renature-ci)` "Tokens"
+    # GITHUB_DEPLOYMENT_TOKEN
     # TODO(formideploy): Need GitHub API Key scoped appropriately.
 
     # **Staging**: surge (`Surge.sh`)
