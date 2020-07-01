@@ -5,8 +5,6 @@ branches:
   only:
     - saturn
     - /^v\d+\.\d+\.\d+/
-    # TODO(formideploy): REMOVE BEFORE MERGING
-    - chore/formideploy
 
 language: node_js
 
@@ -67,12 +65,6 @@ jobs:
           skip_cleanup: true
           on:
             branch: saturn
-        # TODO(formideploy): REMOVE BEFORE MERGE
-        - provider: script
-          script: yarn run deploy:prod
-          skip_cleanup: true
-          on:
-            branch: chore/formideploy
 
 env:
   global:
