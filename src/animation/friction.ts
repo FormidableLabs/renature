@@ -101,8 +101,11 @@ export function frictionGroup(animatingElement: FrictionAnimatingElement) {
 
   // If the element is not in the Set...
   if (!animatingElements.has(statefulAnimatingElement)) {
-    // If it has a delay, set a timer to clear delayed state.
-    if (statefulAnimatingElement.state.delayed) {
+    // If it has a delay and is not paused, set a timer to clear delayed state.
+    if (
+      statefulAnimatingElement.state.delayed &&
+      !statefulAnimatingElement.state.paused
+    ) {
       setTimeout(() => {
         statefulAnimatingElement.state.delayed = false;
       }, statefulAnimatingElement.delay);
@@ -132,15 +135,15 @@ export function frictionGroup(animatingElement: FrictionAnimatingElement) {
         );
 
         // Handle starting paused elements on delay if both properties are specified.
-        for (const node of animatingElements) {
-          if (node.state.paused) {
-            if (node.delay) {
+        for (const element of animatingElements) {
+          if (element.state.paused) {
+            if (element.state.delayed) {
               setTimeout(() => {
-                node.state.paused = false;
-              }, node.delay);
-            } else {
-              node.state.paused = false;
+                element.state.delayed = false;
+              }, element.delay);
             }
+
+            element.state.paused = false;
           }
         }
       }
