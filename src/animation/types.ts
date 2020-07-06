@@ -48,6 +48,7 @@ export interface AnimatingElement {
 export interface StatefulAnimatingElement extends AnimatingElement {
   state: {
     mover: Entity;
+    attractor?: Entity;
     playState: PlayState;
     maxDistance: number;
     complete: boolean;

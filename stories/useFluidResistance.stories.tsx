@@ -47,7 +47,7 @@ export const FluidResistanceControlled: React.FC = () => {
       rho: number('rho', 10),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
-      settle: boolean('settle', false),
+      settle: boolean('settle', true),
     },
   });
 
