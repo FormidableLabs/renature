@@ -75,7 +75,8 @@ const animatingElements = new Set<StatefulFrictionAnimatingElement>();
 
 /**
  * A function to take in a newly animating element and add it to the current Set of
- * animating elements. Elements with delay are queued to get added to the Set after timeout.
+ * animating elements. Delayed and paused elements are flagged so that they won't
+ * be animated until their delay has elapsed or pause evlauates to true.
  */
 export function frictionGroup(animatingElement: FrictionAnimatingElement) {
   // Take the initial animating element configuration and extend it with some state properties.
