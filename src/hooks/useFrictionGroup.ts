@@ -29,10 +29,13 @@ export const useFrictionGroup = <M extends HTMLElement | SVGElement = any>(
         const ref = createRef<M>();
 
         // Derive interpolator functions for the supplied CSS properties.
-        const interpolators = getInterpolatorsForPairs({
-          from: props.from,
-          to: props.to,
-        });
+        const interpolators = getInterpolatorsForPairs(
+          {
+            from: props.from,
+            to: props.to,
+          },
+          props.disableHardwareAcceleration
+        );
         const config = props.config || frictionDefaultConfig;
         const maxPosition = getMaxDistanceFriction(config);
 

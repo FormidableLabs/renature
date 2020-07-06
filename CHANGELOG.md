@@ -7,6 +7,21 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.6.0
+
+In this release, we add support for `use<Force>Group` hooks for all three major forces covered by `renature` – friction, gravity, and fluid resistance. These hooks allow you to animate n elements in a single call to `requestAnimationFrame` and to manipulate the physics config and parameters supplied to each.
+
+### Added
+
+- ✨Add `useFrictionGroup`, `useGravityGroup`, and `useFluidResistanceGroup` hooks. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/74).
+- ✨Add `pause` method to `controller`. This allows users to pause an animation without removing the animating node from the tracked set of animating elements. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/74).
+
+### Fixed
+
+- Previously, calls to `controller.start` would always create a separate `requestAnimationFrame` loop even if an existing frame loop was active. We now check if there's an existing `requestAnimationFrame` callback registered and, if so, use that instance rather than creating a new one.
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.5.0...v0.6.0)
+
 ## v0.5.0
 
 In this release, we add support for the `disableHardwareAcceleration` parameter to `renature` hooks. By default, `renature` will attempt to push compatible animations to the GPU (primarily `transform` and `opacity`). If you would like to prevent this behavior, specify `disableHardwareAcceleration: true` in your hooks configuration.
