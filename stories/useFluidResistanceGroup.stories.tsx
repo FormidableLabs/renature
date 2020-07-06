@@ -1,19 +1,19 @@
 import React from 'react';
-import { withKnobs, number } from '@storybook/addon-knobs';
+import { withKnobs, number, boolean } from '@storybook/addon-knobs';
 
-import { useFrictionGroup } from '../src';
+import { useFluidResistanceGroup } from '../src';
 import Button from './components/Button';
 import { getRandomHex } from './utils';
 
 import './index.css';
 
 export default {
-  title: 'FrictionMultiple',
+  title: 'FluidResistanceMultiple',
   decorators: [withKnobs],
 };
 
-export const FrictionMultipleBasic: React.FC = () => {
-  const [nodes] = useFrictionGroup(5, i => ({
+export const FluidResistanceMultipleBasic: React.FC = () => {
+  const [nodes] = useFluidResistanceGroup(5, i => ({
     from: {
       transform: 'translateY(0px)',
       background: getRandomHex(),
@@ -25,9 +25,11 @@ export const FrictionMultipleBasic: React.FC = () => {
       borderRadius: `${Math.floor(Math.random() * 100)}%`,
     },
     config: {
-      mu: number('mu', 0.5),
-      mass: number('mass', 300),
-      initialVelocity: number('velocity', 10),
+      mass: number('mass', 25),
+      rho: number('rho', 10),
+      area: number('area', 20),
+      cDrag: number('cDrag', 0.25),
+      settle: boolean('settle', true),
     },
     delay: i * 500,
     infinite: true,
@@ -42,8 +44,8 @@ export const FrictionMultipleBasic: React.FC = () => {
   );
 };
 
-export const FrictionMultipleEventBased: React.FC = () => {
-  const [nodes, controller] = useFrictionGroup(5, i => ({
+export const FluidResistanceMultipleEventBased: React.FC = () => {
+  const [nodes, controller] = useFluidResistanceGroup(5, i => ({
     from: {
       transform: 'translateY(0px)',
       background: getRandomHex(),
@@ -55,9 +57,11 @@ export const FrictionMultipleEventBased: React.FC = () => {
       borderRadius: `${Math.floor(Math.random() * 100)}%`,
     },
     config: {
-      mu: number('mu', 0.5),
-      mass: number('mass', 300),
-      initialVelocity: number('velocity', 10),
+      mass: number('mass', 25),
+      rho: number('rho', 10),
+      area: number('area', 20),
+      cDrag: number('cDrag', 0.25),
+      settle: boolean('settle', true),
     },
     pause: true,
     delay: i * 1000,

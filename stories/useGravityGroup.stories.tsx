@@ -1,19 +1,19 @@
 import React from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
-import { useFrictionGroup } from '../src';
+import { useGravityGroup } from '../src';
 import Button from './components/Button';
 import { getRandomHex } from './utils';
 
 import './index.css';
 
 export default {
-  title: 'FrictionMultiple',
+  title: 'GravityMultiple',
   decorators: [withKnobs],
 };
 
-export const FrictionMultipleBasic: React.FC = () => {
-  const [nodes] = useFrictionGroup(5, i => ({
+export const GravityMultipleBasic: React.FC = () => {
+  const [nodes] = useGravityGroup(5, i => ({
     from: {
       transform: 'translateY(0px)',
       background: getRandomHex(),
@@ -25,9 +25,9 @@ export const FrictionMultipleBasic: React.FC = () => {
       borderRadius: `${Math.floor(Math.random() * 100)}%`,
     },
     config: {
-      mu: number('mu', 0.5),
-      mass: number('mass', 300),
-      initialVelocity: number('velocity', 10),
+      moverMass: number('moverMass', 10000),
+      attractorMass: number('attractorMass', 1000000000000),
+      r: number('r', 7.5),
     },
     delay: i * 500,
     infinite: true,
@@ -42,8 +42,8 @@ export const FrictionMultipleBasic: React.FC = () => {
   );
 };
 
-export const FrictionMultipleEventBased: React.FC = () => {
-  const [nodes, controller] = useFrictionGroup(5, i => ({
+export const GravityMultipleEventBased: React.FC = () => {
+  const [nodes, controller] = useGravityGroup(5, i => ({
     from: {
       transform: 'translateY(0px)',
       background: getRandomHex(),
@@ -55,9 +55,9 @@ export const FrictionMultipleEventBased: React.FC = () => {
       borderRadius: `${Math.floor(Math.random() * 100)}%`,
     },
     config: {
-      mu: number('mu', 0.5),
-      mass: number('mass', 300),
-      initialVelocity: number('velocity', 10),
+      moverMass: number('moverMass', 10000),
+      attractorMass: number('attractorMass', 1000000000000),
+      r: number('r', 7.5),
     },
     pause: true,
     delay: i * 1000,
