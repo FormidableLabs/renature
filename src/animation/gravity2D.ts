@@ -128,6 +128,7 @@ export function gravity2D({
     controller: {
       start: run,
       stop,
+      pause: () => {},
       updateAttractor,
     },
   };

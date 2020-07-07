@@ -9,7 +9,7 @@ In this section, we'll cover how to control animation states in `renature`. This
 
 ## The `Controller` API
 
-By default, all animations in `renature` will run immediately when your component mounts. Often this may be exactly what you want – an element appears and starts moving! However, you can alter this behavior using `renature`'s `controller` API.
+By default, all animations in `renature` are declarative and will run immediately when your component mounts. Often this may be exactly what you want – an element appears and starts moving! However, you can alter this behavior using `renature`'s `controller` API.
 
 The `controller` is the second object returned by a `renature` hook, and comes with two methods, `start` and `stop`, for interacting with your animation's play state. If you want to start your animation in response to a user event, for example, you can call `controller.start`. Note that you'll need to combine this with `pause: true` in your animation configuration to prevent the animation from immediately running on mount.
 

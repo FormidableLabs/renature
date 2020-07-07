@@ -1,4 +1,5 @@
 import { vector as Vector } from '../core';
+import { Entity } from '../forces';
 
 export type VectorSetter = (values: {
   position: Vector<number>;
@@ -14,11 +15,15 @@ export type Listener = (
 export interface Controller {
   start: () => void;
   stop: () => void;
+  pause: () => void;
 }
 
 export interface AnimationParams {
   onUpdate: VectorSetter;
   onComplete: () => void;
+}
+
+export interface HooksParams {
   pause?: boolean;
   delay?: number;
   infinite?: boolean;
@@ -30,4 +35,24 @@ export interface AnimationParams {
 export enum PlayState {
   Forward = 'forward',
   Reverse = 'reverse',
+}
+
+export interface AnimatingElement {
+  onUpdate: VectorSetter;
+  onComplete: () => void;
+  infinite?: boolean;
+  delay?: number;
+  pause?: boolean;
+}
+
+export interface StatefulAnimatingElement extends AnimatingElement {
+  state: {
+    mover: Entity;
+    attractor?: Entity;
+    playState: PlayState;
+    maxDistance: number;
+    complete: boolean;
+    paused: boolean;
+    delayed: boolean;
+  };
 }
