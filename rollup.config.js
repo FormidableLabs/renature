@@ -119,11 +119,7 @@ const makePlugins = isProduction =>
       extensions,
       include: ['src/**/*'],
       exclude: 'node_modules/**',
-      plugins: [
-        '@babel/plugin-transform-object-assign',
-        '@babel/plugin-transform-for-of',
-        importAllPlugin,
-      ],
+      plugins: ['@babel/plugin-transform-object-assign', importAllPlugin],
     }),
     isProduction &&
       replace({
