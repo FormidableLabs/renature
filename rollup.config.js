@@ -108,8 +108,8 @@ const makePlugins = isProduction =>
     buble({
       transforms: {
         unicodeRegExp: false,
-        dangerousForOf: true,
         dangerousTaggedTemplateString: true,
+        forOf: false,
       },
       objectAssign: 'Object.assign',
       exclude: 'node_modules/**',
@@ -119,7 +119,11 @@ const makePlugins = isProduction =>
       extensions,
       include: ['src/**/*'],
       exclude: 'node_modules/**',
-      plugins: ['@babel/plugin-transform-object-assign', importAllPlugin],
+      plugins: [
+        '@babel/plugin-transform-object-assign',
+        '@babel/plugin-transform-for-of',
+        importAllPlugin,
+      ],
     }),
     isProduction &&
       replace({
