@@ -108,8 +108,8 @@ const makePlugins = isProduction =>
     buble({
       transforms: {
         unicodeRegExp: false,
-        dangerousForOf: true,
         dangerousTaggedTemplateString: true,
+        forOf: false,
       },
       objectAssign: 'Object.assign',
       exclude: 'node_modules/**',
