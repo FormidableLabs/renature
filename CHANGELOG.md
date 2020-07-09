@@ -7,7 +7,15 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
-## v0.6.0
+## v0.6.1
+
+This release includes a critical fix for a bug introduced in v0.6.0. Our Bublé configuration had `danngerousForOf` transpilation configured, so `for...of` loops were operating on `Set`s were incorrectly transpiled, causing animations never to run. This release removes compilation of `for...of` loop since all modern browsers support the synntax for iterating over iterable data structures.
+
+### Fixed
+
+- Remove `dangerousForOf` flag in Bublé config. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/75).
+
+## v0.6.0 (Deprecated)
 
 In this release, we add support for `use<Force>Group` hooks for all three major forces covered by `renature` – friction, gravity, and fluid resistance. These hooks allow you to animate n elements in a single call to `requestAnimationFrame` and to manipulate the physics parameters and configuration applied to each of them.
 
