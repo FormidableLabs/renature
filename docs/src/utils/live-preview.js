@@ -1,17 +1,24 @@
 import {
   useGravity,
-  useFriction,
-  useFluidResistance,
+  useGravityGroup,
   useGravity2D,
+  useFriction,
+  useFrictionGroup,
+  useFluidResistance,
+  useFluidResistanceGroup,
 } from 'renature';
 
 import { Toggle } from '../components/toggle';
 
 export const scope = {
   useGravity,
-  useFriction,
-  useFluidResistance,
+  useGravityGroup,
   useGravity2D,
+  useFriction,
+  useFrictionGroup,
+  useFluidResistance,
+  useFluidResistanceGroup,
+  useFrictionGroup,
   Toggle,
 };
 
