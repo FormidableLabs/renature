@@ -101,11 +101,6 @@ function checkGravityStoppingCondition({
   return isOvershooting;
 }
 
-/**
- * A function to take in a newly animating element and add it to the current Set of
- * animating elements. Delayed and paused elements are flagged so that they won't
- * be animated until their delay has elapsed or pause evlauates to true.
- */
 export function gravityGroup(elements: AnimatingElement<GravityConfig>[]) {
   const initialState = (
     element: AnimatingElement<GravityConfig>

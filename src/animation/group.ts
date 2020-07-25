@@ -46,7 +46,7 @@ export function group<C>(
       if (!isFrameloopActive) {
         isFrameloopActive = true;
         start(
-          update<StatefulAnimatingElement<C>>({
+          update<C>({
             animatingElements,
             ...callbacks,
           })

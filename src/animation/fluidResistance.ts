@@ -118,11 +118,6 @@ function checkFluidResistanceStoppingCondition({
   return state.mover.position[1] >= state.maxDistance;
 }
 
-/**
- * A function to take in a newly animating element and add it to the current Set of
- * animating elements. Delayed and paused elements are flagged so that they won't
- * be animated until their delay has elapsed or pause evlauates to true.
- */
 export function fluidResistanceGroup(
   elements: AnimatingElement<FluidResistanceConfig>[]
 ) {

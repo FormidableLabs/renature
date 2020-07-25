@@ -1,11 +1,15 @@
 import { StatefulAnimatingElement } from '../animation';
 import { Entity } from '../forces';
 
-interface UpdateParams<A> {
-  animatingElements: Set<A>;
-  checkReversePlayState: (animatingElement: A) => void;
-  applyForceForStep: (animatingElement: A) => Entity;
-  checkStoppingCondition: (animatingElement: A) => boolean;
+interface UpdateParams<C> {
+  animatingElements: Set<StatefulAnimatingElement<C>>;
+  checkReversePlayState: (
+    animatingElement: StatefulAnimatingElement<C>
+  ) => void;
+  applyForceForStep: (animatingElement: StatefulAnimatingElement<C>) => Entity;
+  checkStoppingCondition: (
+    animatingElement: StatefulAnimatingElement<C>
+  ) => boolean;
 }
 
 /**
@@ -13,12 +17,12 @@ interface UpdateParams<A> {
  * Iterates through all animating elements in the Set and updates
  * their local animation state.
  */
-export function update<A extends StatefulAnimatingElement>({
+export function update<C>({
   animatingElements,
   checkReversePlayState,
   applyForceForStep,
   checkStoppingCondition,
-}: UpdateParams<A>) {
+}: UpdateParams<C>) {
   return function loop(
     timestamp: DOMHighResTimeStamp,
     lastFrame: number,
