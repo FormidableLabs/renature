@@ -1,12 +1,12 @@
-import { rAF, update } from '../rAF';
 import {
   applyForce,
   fluidResistanceForceV,
   gE,
   getFluidPositionAtTerminalVelocity,
 } from '../forces';
-import { vector as Vector, addf, multf } from '../core';
 import { PlayState, AnimatingElement, StatefulAnimatingElement } from './types';
+import { vector as Vector, addf, multf } from '../core';
+import { group } from './group';
 
 export interface FluidResistanceConfig {
   mass: number;
@@ -16,25 +16,16 @@ export interface FluidResistanceConfig {
   settle?: boolean;
 }
 
-interface FluidResistanceAnimatingElement extends AnimatingElement {
-  config: FluidResistanceConfig;
-}
-
-interface StatefulFluidResistanceAnimatingElement
-  extends StatefulAnimatingElement {
-  config: FluidResistanceConfig;
-}
-
 // A function to apply the drag force on each step in requestAnimationFrame.
 function applyFluidResistanceForceForStep({
   state,
   config,
-}: StatefulFluidResistanceAnimatingElement) {
+}: StatefulAnimatingElement<FluidResistanceConfig>) {
   // If applying a settle effect, reverse the mover's velocity.
   if (
     config.settle &&
-    state.playState === PlayState.Forward &&
-    state.mover.position[1] >= state.maxDistance
+    state.mover.position[1] >= state.maxDistance &&
+    state.playState === PlayState.Forward
   ) {
     state.mover = {
       ...state.mover,
@@ -43,8 +34,8 @@ function applyFluidResistanceForceForStep({
     };
   } else if (
     config.settle &&
-    state.playState === PlayState.Reverse &&
-    state.mover.position[1] <= 0
+    state.mover.position[1] <= 0 &&
+    state.playState === PlayState.Reverse
   ) {
     state.mover = {
       ...state.mover,
@@ -88,7 +79,7 @@ function applyFluidResistanceForceForStep({
 function checkReverseFluidResistancePlayState({
   state,
   config,
-}: StatefulFluidResistanceAnimatingElement) {
+}: StatefulAnimatingElement<FluidResistanceConfig>) {
   const isOvershootingForward =
     state.playState === PlayState.Forward &&
     state.mover.position[1] >= state.maxDistance;
@@ -123,12 +114,9 @@ function checkReverseFluidResistancePlayState({
 
 function checkFluidResistanceStoppingCondition({
   state,
-}: StatefulFluidResistanceAnimatingElement) {
+}: StatefulAnimatingElement<FluidResistanceConfig>) {
   return state.mover.position[1] >= state.maxDistance;
 }
-
-let isFrameloopActive = false;
-const animatingElements = new Set<StatefulFluidResistanceAnimatingElement>();
 
 /**
  * A function to take in a newly animating element and add it to the current Set of
@@ -136,97 +124,27 @@ const animatingElements = new Set<StatefulFluidResistanceAnimatingElement>();
  * be animated until their delay has elapsed or pause evlauates to true.
  */
 export function fluidResistanceGroup(
-  animatingElement: FluidResistanceAnimatingElement
+  elements: AnimatingElement<FluidResistanceConfig>[]
 ) {
-  // Take the initial animating element configuration and extend it with some state properties.
-  const statefulAnimatingElement: StatefulFluidResistanceAnimatingElement = {
-    ...animatingElement,
-    state: {
-      mover: {
-        mass: animatingElement.config.mass,
-        acceleration: [0, 0],
-        velocity: [0, 0],
-        position: [0, 0],
-      },
-      playState: PlayState.Forward,
-      maxDistance: getFluidPositionAtTerminalVelocity(animatingElement.config),
-      complete: false,
-      paused: !!animatingElement.pause,
-      delayed: !!animatingElement.delay,
+  const initialState = (
+    element: AnimatingElement<FluidResistanceConfig>
+  ): StatefulAnimatingElement<FluidResistanceConfig>['state'] => ({
+    mover: {
+      mass: element.config.mass,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [0, 0],
     },
-  };
+    playState: PlayState.Forward,
+    maxDistance: getFluidPositionAtTerminalVelocity(element.config),
+    complete: false,
+    paused: !!element.pause,
+    delayed: !!element.delay,
+  });
 
-  // If the element is not in the Set...
-  if (!animatingElements.has(statefulAnimatingElement)) {
-    // If it has a delay and is not paused, set a timer to clear delayed state.
-    if (
-      statefulAnimatingElement.state.delayed &&
-      !statefulAnimatingElement.state.paused
-    ) {
-      setTimeout(() => {
-        statefulAnimatingElement.state.delayed = false;
-      }, statefulAnimatingElement.delay);
-    }
-
-    animatingElements.add(statefulAnimatingElement);
-  }
-
-  let startFn: () => void = () => {};
-  let pauseFn: () => void = () => {};
-  let stopFn: (
-    element: StatefulFluidResistanceAnimatingElement
-  ) => void = () => {};
-
-  // Only start the frameloop if there are elements to animate.
-  if (animatingElements.size > 0) {
-    const { start, stop } = rAF();
-
-    startFn = () => {
-      if (!isFrameloopActive) {
-        isFrameloopActive = true;
-        start(
-          update<StatefulFluidResistanceAnimatingElement>({
-            animatingElements,
-            checkReversePlayState: checkReverseFluidResistancePlayState,
-            applyForceForStep: applyFluidResistanceForceForStep,
-            checkStoppingCondition: checkFluidResistanceStoppingCondition,
-          })
-        );
-
-        // Handle starting paused elements on delay if both properties are specified.
-        for (const element of animatingElements) {
-          if (element.state.paused) {
-            if (element.state.delayed) {
-              setTimeout(() => {
-                element.state.delayed = false;
-              }, element.delay);
-            }
-
-            element.state.paused = false;
-          }
-        }
-      }
-    };
-
-    pauseFn = () => {
-      stop();
-      isFrameloopActive = false;
-    };
-
-    stopFn = (element: StatefulFluidResistanceAnimatingElement) => {
-      if (animatingElements.has(element)) {
-        animatingElements.delete(element);
-      }
-
-      stop();
-      isFrameloopActive = false;
-    };
-  }
-
-  return {
-    start: startFn,
-    stop: stopFn,
-    pause: pauseFn,
-    element: statefulAnimatingElement,
-  };
+  return group(elements, initialState, {
+    checkReversePlayState: checkReverseFluidResistancePlayState,
+    applyForceForStep: applyFluidResistanceForceForStep,
+    checkStoppingCondition: checkFluidResistanceStoppingCondition,
+  });
 }
