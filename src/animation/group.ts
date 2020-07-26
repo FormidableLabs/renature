@@ -47,7 +47,7 @@ export function group<C>(
   if (animatingElements.size > 0) {
     const { start, stop } = rAF();
 
-    startFn = ({ isImperativeStart } = { isImperativeStart: false }) => {
+    startFn = (c = { isImperativeStart: false }) => {
       if (!isFrameloopActive) {
         isFrameloopActive = true;
         start(
@@ -58,7 +58,7 @@ export function group<C>(
         );
       }
 
-      if (isImperativeStart) {
+      if (c.isImperativeStart) {
         for (const animatingElement of animatingElements) {
           if (animatingElement.state.paused) {
             // Handle starting paused elements on delay if both properties are specified.
