@@ -47,7 +47,7 @@ const StyledContainer = styled.div`
   box-shadow: 1px 1px 20px rgba(20, 20, 20, 0.27);
   font-family: ${p => p.theme.fonts.code};
   overflow: auto;
-  width: 80vw;
+  width: 80%;
 
   > * {
     flex: 0 0 50%;
