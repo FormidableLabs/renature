@@ -5,6 +5,11 @@ import {
 } from './types';
 import { rAF, update } from '../rAF';
 
+/**
+ * A function to take in a set of elements and begin animating them.
+ * Elements that are delayed or paused are flagged for animation once
+ * their delay has elapsed or pause has been set to true.
+ */
 export function group<C>(
   elements: AnimatingElement<C>[],
   initialState: (
@@ -34,7 +39,7 @@ export function group<C>(
     }
   });
 
-  let startFn: () => void = () => {};
+  let startFn: (c?: { isImperativeStart: boolean }) => void = () => {};
   let pauseFn: () => void = () => {};
   let stopFn: (element: StatefulAnimatingElement<C>) => void = () => {};
 
@@ -42,7 +47,7 @@ export function group<C>(
   if (animatingElements.size > 0) {
     const { start, stop } = rAF();
 
-    startFn = () => {
+    startFn = ({ isImperativeStart } = { isImperativeStart: false }) => {
       if (!isFrameloopActive) {
         isFrameloopActive = true;
         start(
@@ -51,7 +56,9 @@ export function group<C>(
             ...callbacks,
           })
         );
+      }
 
+      if (isImperativeStart) {
         for (const animatingElement of animatingElements) {
           if (animatingElement.state.paused) {
             // Handle starting paused elements on delay if both properties are specified.

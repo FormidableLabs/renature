@@ -103,10 +103,13 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
     };
   }, [start, stop, elements]);
 
+  const startAll = useCallback(() => start({ isImperativeStart: true }), [
+    start,
+  ]);
   const stopAll = useCallback(() => elements.forEach(stop), [elements, stop]);
 
   return [
     elements.map(({ ref }) => ({ ref })),
-    { start, stop: stopAll, pause },
+    { start: startAll, stop: stopAll, pause },
   ];
 };
