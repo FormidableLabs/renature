@@ -7,6 +7,8 @@ import {
   fluidResistanceGroup,
   HooksParams,
   Controller,
+  VectorSetter,
+  AnimatingElement,
 } from '../animation';
 import { getFluidPositionAtTerminalVelocity } from '../forces';
 
@@ -16,103 +18,101 @@ export type UseFluidResistanceArgs = CSSPairs &
   };
 
 export const useFluidResistanceGroup = <
-  M extends HTMLElement | SVGElement = any
+  E extends HTMLElement | SVGElement = any
 >(
   n: number,
   fn: (index: number) => UseFluidResistanceArgs
-): [{ ref: React.MutableRefObject<M | null> }[], Controller] => {
-  const nodes = useMemo(
-    () =>
-      new Array(n).fill(undefined).map((_, i) => {
-        // Run the supplied config generator for each node to animate.
-        const props = fn(i);
+): [{ ref: React.RefObject<E | null> }[], Controller] => {
+  const { elements, start, stop, pause } = useMemo(() => {
+    const animatingElements: AnimatingElement<
+      FluidResistanceConfig,
+      E | null
+    >[] = new Array(n).fill(undefined).map((_, i) => {
+      // Run the supplied config generator for each element to animate.
+      const props = fn(i);
 
-        // Create the ref to store the animating node.
-        const ref = createRef<M>();
+      // Create the ref to store the animating element.
+      const ref = createRef<E>();
 
-        // Derive interpolator functions for the supplied CSS properties.
-        const interpolators = getInterpolatorsForPairs(
-          {
-            from: props.from,
-            to: props.to,
-          },
-          props.disableHardwareAcceleration
-        );
-        const config = props.config || fluidResistanceDefaultConfig;
-        const maxPosition = getFluidPositionAtTerminalVelocity(config);
+      // Derive interpolator functions for the supplied CSS properties.
+      const interpolators = getInterpolatorsForPairs(
+        {
+          from: props.from,
+          to: props.to,
+        },
+        props.disableHardwareAcceleration
+      );
+      const config = props.config || fluidResistanceDefaultConfig;
 
-        const { start, stop, pause, element } = fluidResistanceGroup({
-          config,
-          onUpdate: ({ position }) => {
-            interpolators.forEach(({ interpolator, property, values }) => {
-              const value = interpolator({
-                range: [0, maxPosition],
-                domain: [values.from, values.to],
-                value: position[1],
-              });
+      // Determine the maximum position the mover will reach based on the configuration.
+      const maxPosition = getFluidPositionAtTerminalVelocity(config);
 
-              if (ref.current) {
-                ref.current.style[property as any] = `${value}`;
-              }
+      // Define the onUpdate function to execute on each call to requestAnimationFrame.
+      // Interpolate each CSS value being animated according to the progress of the physics tween.
+      const onUpdate: VectorSetter = ({ position }) => {
+        interpolators.forEach(({ interpolator, property, values }) => {
+          const value = interpolator({
+            range: [0, maxPosition],
+            domain: [values.from, values.to],
+            value: position[1],
+          });
 
-              if (props.onFrame) {
-                const progress = position[1] / maxPosition;
-                props.onFrame(progress);
-              }
-            });
-          },
-          onComplete: () => {
-            // Ensure our animation has reached the to value when the physics stopping
-            // condition has been reached.
-            interpolators.forEach(({ property, values }) => {
-              if (
-                ref.current &&
-                ref.current.style[property as any] !== values.to
-              ) {
-                ref.current.style[property as any] = values.to;
-              }
-            });
+          if (ref.current) {
+            ref.current.style[property as any] = `${value}`;
+          }
 
-            if (props.onAnimationComplete) {
-              props.onAnimationComplete();
-            }
-          },
-          infinite: props.infinite,
-          delay: props.delay,
-          pause: props.pause,
+          if (props.onFrame) {
+            const progress = position[1] / maxPosition;
+            props.onFrame(progress);
+          }
+        });
+      };
+
+      // Define the onComplete function to execute when the animation ends.
+      // This mimics the browser's animationend event.
+      const onComplete = () => {
+        // Ensure our animation has reached the to value when the physics stopping
+        // condition has been reached.
+        interpolators.forEach(({ property, values }) => {
+          if (ref.current && ref.current.style[property as any] !== values.to) {
+            ref.current.style[property as any] = values.to;
+          }
         });
 
-        return { props, ref, controller: { start, stop, pause }, element };
-      }),
-    [n, fn]
-  );
+        if (props.onAnimationComplete) {
+          props.onAnimationComplete();
+        }
+      };
 
-  useLayoutEffect(() => {
-    nodes.forEach(({ controller, props }) => {
-      if (!props.pause) {
-        controller.start();
-      }
+      return {
+        ref,
+        config,
+        onUpdate,
+        onComplete,
+        infinite: props.infinite,
+        delay: props.delay,
+        pause: props.pause,
+      };
     });
 
+    return fluidResistanceGroup(animatingElements);
+  }, [n, fn]);
+
+  useLayoutEffect(() => {
+    start();
+
     return () => {
-      nodes.forEach(({ controller, element }) => {
-        controller.stop(element);
-      });
+      elements.forEach(stop);
     };
-  }, [nodes]);
+  }, [start, stop, elements]);
 
-  const startAll = useCallback(
-    () => nodes.forEach(({ controller }) => controller.start()),
-    [nodes]
-  );
-  const pauseAll = useCallback(
-    () => nodes.forEach(({ controller }) => controller.pause()),
-    [nodes]
-  );
-  const stopAll = useCallback(
-    () => nodes.forEach(({ controller, element }) => controller.stop(element)),
-    [nodes]
-  );
+  const startAll = useCallback(() => start({ isImperativeStart: true }), [
+    start,
+  ]);
+  const stopAll = useCallback(() => elements.forEach(stop), [elements, stop]);
 
-  return [nodes, { start: startAll, stop: stopAll, pause: pauseAll }];
+  return [
+    elements.map(({ ref }) => ({ ref })),
+    { start: startAll, stop: stopAll, pause },
+  ];
 };

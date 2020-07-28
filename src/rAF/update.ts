@@ -1,11 +1,7 @@
-import { StatefulAnimatingElement } from '../animation';
-import { Entity } from '../forces';
+import { StatefulAnimatingElement, AnimationCallbacks } from '../animation';
 
-interface UpdateParams<A> {
-  animatingElements: Set<A>;
-  checkReversePlayState: (animatingElement: A) => void;
-  applyForceForStep: (animatingElement: A) => Entity;
-  checkStoppingCondition: (animatingElement: A) => boolean;
+interface UpdateParams<C> extends AnimationCallbacks<C> {
+  animatingElements: Set<StatefulAnimatingElement<C>>;
 }
 
 /**
@@ -13,12 +9,12 @@ interface UpdateParams<A> {
  * Iterates through all animating elements in the Set and updates
  * their local animation state.
  */
-export function update<A extends StatefulAnimatingElement>({
+export function update<C>({
   animatingElements,
   checkReversePlayState,
   applyForceForStep,
   checkStoppingCondition,
-}: UpdateParams<A>) {
+}: UpdateParams<C>) {
   return function loop(
     timestamp: DOMHighResTimeStamp,
     lastFrame: number,

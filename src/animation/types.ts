@@ -37,7 +37,12 @@ export enum PlayState {
   Reverse = 'reverse',
 }
 
-export interface AnimatingElement {
+export interface AnimatingElement<
+  C,
+  E extends HTMLElement | SVGElement | null = any
+> {
+  ref: React.RefObject<E>;
+  config: C;
   onUpdate: VectorSetter;
   onComplete: () => void;
   infinite?: boolean;
@@ -45,7 +50,10 @@ export interface AnimatingElement {
   pause?: boolean;
 }
 
-export interface StatefulAnimatingElement extends AnimatingElement {
+export interface StatefulAnimatingElement<
+  C,
+  E extends HTMLElement | SVGElement = any
+> extends AnimatingElement<C, E> {
   state: {
     mover: Entity;
     attractor?: Entity;
@@ -55,4 +63,14 @@ export interface StatefulAnimatingElement extends AnimatingElement {
     paused: boolean;
     delayed: boolean;
   };
+}
+
+export interface AnimationCallbacks<C> {
+  checkReversePlayState: (
+    animatingElement: StatefulAnimatingElement<C>
+  ) => void;
+  applyForceForStep: (animatingElement: StatefulAnimatingElement<C>) => Entity;
+  checkStoppingCondition: (
+    animatingElement: StatefulAnimatingElement<C>
+  ) => boolean;
 }
