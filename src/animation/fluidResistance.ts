@@ -85,8 +85,10 @@ function checkReverseFluidResistancePlayState({
     state.mover.position[1] >= state.maxDistance;
   const isOvershootingReverse =
     state.playState === PlayState.Reverse && state.mover.position[1] <= 0;
-  // If applying a settle effect with looping, allow the settling to finish before reversing the animation.
-  // We arbitrarily set this for now as a velocity <= 0.5 m/s.
+
+  // If applying a settle effect with looping, allow the settling to
+  // finish before reversing the animation. We arbitrarily set this
+  // for now as a velocity <= 0.5 m / s.
   const isSettled = config.settle
     ? Math.abs(state.mover.velocity[1]) <= 0.5
     : true;
@@ -112,12 +114,15 @@ function checkReverseFluidResistancePlayState({
   }
 }
 
+// A function to check whether or not the mover has achieved terminal velocity.
 function checkFluidResistanceStoppingCondition({
   state,
 }: StatefulAnimatingElement<FluidResistanceConfig>) {
   return state.mover.position[1] >= state.maxDistance;
 }
 
+// A function to take in a set of elements and begin animating them
+// according to the force of fluid resistance.
 export function fluidResistanceGroup(
   elements: AnimatingElement<FluidResistanceConfig>[]
 ) {

@@ -1,15 +1,7 @@
-import { StatefulAnimatingElement } from '../animation';
-import { Entity } from '../forces';
+import { StatefulAnimatingElement, AnimationCallbacks } from '../animation';
 
-interface UpdateParams<C> {
+interface UpdateParams<C> extends AnimationCallbacks<C> {
   animatingElements: Set<StatefulAnimatingElement<C>>;
-  checkReversePlayState: (
-    animatingElement: StatefulAnimatingElement<C>
-  ) => void;
-  applyForceForStep: (animatingElement: StatefulAnimatingElement<C>) => Entity;
-  checkStoppingCondition: (
-    animatingElement: StatefulAnimatingElement<C>
-  ) => boolean;
 }
 
 /**

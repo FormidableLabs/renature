@@ -7,7 +7,7 @@ import { rAF, update } from '../rAF';
 
 /**
  * A function to take in a set of elements and begin animating them.
- * Elements that are delayed or paused are flagged for animation once
+ * Elements that are delayed or paused are instructed to animate once
  * their delay has elapsed or pause has been set to true.
  */
 export function group<C>(
@@ -61,7 +61,7 @@ export function group<C>(
       if (c.isImperativeStart) {
         for (const animatingElement of animatingElements) {
           if (animatingElement.state.paused) {
-            // Handle starting paused elements on delay if both properties are specified.
+            // Handle starting paused elements on a delay if both properties are specified.
             if (animatingElement.state.delayed) {
               setTimeout(() => {
                 animatingElement.state.delayed = false;

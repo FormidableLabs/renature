@@ -10,12 +10,7 @@ export interface GravityConfig {
   G?: number;
 }
 
-/**
- * A function to apply the gravitational force on each step in the course
- * of the animation. First, we derive the force vector applied by the
- * attractor on the mover using gravityForceV. Then we apply that vector to the
- * mover to determine its next acceleration, velocity, and position.
- */
+/// A function to apply the gravitational force on each step in requestAnimationFrame.
 function applyGravitationalForceForStep({
   state: { mover, attractor },
   config,
@@ -88,6 +83,7 @@ function checkReverseGravityPlayState({
   }
 }
 
+// A function to check whether or not the mover has reached the attractor.
 function checkGravityStoppingCondition({
   state,
   config,
@@ -101,6 +97,8 @@ function checkGravityStoppingCondition({
   return isOvershooting;
 }
 
+// A function to take in a set of elements and begin animating them
+// according to the gravitational force.
 export function gravityGroup(elements: AnimatingElement<GravityConfig>[]) {
   const initialState = (
     element: AnimatingElement<GravityConfig>

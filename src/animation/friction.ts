@@ -56,12 +56,15 @@ function checkReverseFrictionPlayState({
   }
 }
 
+// A function to check whether or not the mover has come to rest.
 function checkFrictionStoppingCondition({
-  state: { mover },
+  state,
 }: StatefulAnimatingElement<FrictionConfig>) {
-  return mover.velocity[0] <= 0;
+  return state.mover.velocity[0] <= 0;
 }
 
+// A function to take in a set of elements and begin animating them
+// according to the force of friction.
 export function frictionGroup(elements: AnimatingElement<FrictionConfig>[]) {
   const initialState = (
     element: AnimatingElement<FrictionConfig>
