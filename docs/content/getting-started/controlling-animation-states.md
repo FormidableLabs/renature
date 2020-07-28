@@ -43,7 +43,7 @@ function StartAnimation() {
         className="live-preview__button live-preview__button--lg"
         onClick={controller.start}
       >
-        Run The Animation!
+        Start
       </button>
       <div className="live-preview__mover live-preview__mover--lg" {...props} />
     </div>
@@ -78,13 +78,13 @@ function PauseAnimation() {
           className="live-preview__button live-preview__button--lg"
           onClick={controller.start}
         >
-          Run The Animation!
+          Start
         </button>
         <button
           className="live-preview__button live-preview__button--lg"
           onClick={controller.pause}
         >
-          Pause The Animation!
+          Pause
         </button>
       </div>
       <div className="live-preview__mover live-preview__mover--lg" {...props} />
@@ -118,7 +118,7 @@ function StopAnimation() {
         className="live-preview__button live-preview__button--lg"
         onClick={controller.stop}
       >
-        Stop The Animation!
+        Stop
       </button>
       <div className="live-preview__mover live-preview__mover--lg" {...props} />
     </div>
@@ -130,7 +130,7 @@ You can of course call `controller.stop` in response to more than timers. Any ti
 
 ### Delaying Animations
 
-You can delay animations in `renature` by specifying the `delay` property in your animation configuration. `delay` expects a number in milliseconds and will start the animation once the specified `delay` has elapsed. This is most commonly used for [**grouped animations**](./api.md#grouped-animations) where you want to stagger children animating by a certain time offset.
+You can delay animations in `renature` by specifying the `delay` property in your animation configuration. `delay` expects a number in milliseconds and will start the animation once the specified `delay` has elapsed. This is most commonly used for [**grouped animations**](../api.md#grouped-animations) where you want to stagger children animating by a certain time offset.
 
 ```js live=true
 import React from 'react';
@@ -175,18 +175,18 @@ import React from 'react';
 import { useFrictionGroup } from 'renature';
 
 function InfiniteMover() {
-  function getRandomHex() {
+  const getRandomHex = () => {
     return '#' + Math.floor(Math.random() * 16777215).toString(16);
-  }
+  };
 
   const [nodes] = useFrictionGroup(3, i => ({
     from: {
-      transform: 'translateY(0px)',
+      transform: 'translateX(0px)',
       background: getRandomHex(),
       borderRadius: `${Math.floor(Math.random() * 100)}%`,
     },
     to: {
-      transform: 'translateY(100px)',
+      transform: 'translateX(50px)',
       background: getRandomHex(),
       borderRadius: `${Math.floor(Math.random() * 100)}%`,
     },
