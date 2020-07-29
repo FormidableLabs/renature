@@ -1,4 +1,4 @@
-const code = context => `
+const code = `
 import React from 'react';
 import { useFrictionGroup } from 'renature';
 
@@ -35,8 +35,8 @@ function FrictionGroup() {
 }
 `;
 
-export const groupedAnimations = context => ({
+export const groupedAnimations = {
   title: 'Grouped Animations',
   slug: 'grouped-animations/',
-  code: code(context),
-});
+  code,
+};
