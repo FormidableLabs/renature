@@ -29,7 +29,7 @@ This document contains all information on `renature`'s public facing API.
 
 Each hook in `renature` accepts a `config` object for tweaking the physics parameters of the underlying simulation. These vary force by force.
 
-### useGravity Config
+### useGravity
 
 The force of gravity is modeled using Newton's Law of Universal Gravitation. We use the real value of **G**, the Universal Gravitational Constant, approximated to 6.67428 x 10^-11.
 
@@ -70,9 +70,9 @@ function GravityBasic() {
 }
 ```
 
-### useFriction Config
+### useFriction
 
-The force of friction is modeled using the standard equation for friction.
+The force of friction is modeled using the standard equation of kinetic friction.
 
 ![The force of friction.](../public/friction_equation.svg)
 
@@ -116,7 +116,7 @@ function FrictionBasic() {
 }
 ```
 
-### useFluidResistance Config
+### useFluidResistance
 
 The force of fluid resistance, or the drag force, is modeled using the standard drag equation.
 
@@ -164,13 +164,170 @@ function FluidResistanceBasic() {
 }
 ```
 
+## Grouped Animations
+
+Often when animating, you may want to orchestrate multiple elements at a single time. In `renature`, we call these **grouped animations**. Grouped animations allow you to specify a number of elements to animate and to set the configuration for each of them independently. All grouped animation hooks take a similar form:
+
+```typescript
+const [props] = use<Force>Group(n: number, fn: (index: number) => Config);
+```
+
+### useGravityGroup
+
+`useGravityGroup` will animate `n` elements using Newton's Law of Universal Gravitation. It takes the form:
+
+```typescript
+const [props, controller] = useGravityGroup(n: number, fn: (index: number) => UseGravityArgs)
+```
+
+The configuration object returned by `fn` should match that defined in the [`useGravity`](#usegravity) section above.
+
+#### Example
+
+```js live=true
+import React from 'react';
+import { useGravityGroup } from 'renature';
+
+function GravityGroup() {
+  const [nodes] = useGravityGroup(4, i => ({
+    from: {
+      transform: 'translate(0px, 0px) scale(1) skewY(0deg)',
+      opacity: 0,
+    },
+    to: {
+      transform: 'translate(20px, 20px) scale(1.2) skewY(5deg)',
+      opacity: 1,
+    },
+    config: {
+      moverMass: 10000,
+      attractorMass: 10000000000000,
+      r: 10,
+    },
+    infinite: true,
+    delay: i * 500,
+  }));
+
+  return (
+    <div className="live-preview__stack-h">
+      {nodes.map((props, i) => {
+        return (
+          <div
+            className="live-preview__mover live-preview__mover--lg"
+            {...props}
+          />
+        );
+      })}
+    </div>
+  );
+}
+```
+
+### useFrictionGroup
+
+`useFrictionGroup` will animate `n` elements using the standard equation of friction. It takes the form:
+
+```typescript
+const [props, controller] = useFrictionGroup(n: number, fn: (index: number) => UseFrictionArgs)
+```
+
+The configuration object returned by `fn` should match that defined in the [`useFriction`](#usefriction) section above.
+
+#### Example
+
+```js live=true
+import React from 'react';
+import { useFrictionGroup } from 'renature';
+
+function FrictionGroup() {
+  const [nodes] = useFrictionGroup(4, i => ({
+    from: {
+      transform: 'translateX(0px)',
+      fill: '#FFCE24',
+    },
+    to: {
+      transform: 'translateX(20px)',
+      fill: '#FA24FF',
+    },
+    config: {
+      mu: 0.5,
+      mass: 200,
+      initialVelocity: 5,
+    },
+    delay: i * 500,
+    infinite: true,
+  }));
+
+  return (
+    <div className="live-preview__stack-h">
+      {nodes.map(props => {
+        return (
+          <svg height="100" width="100" viewBox="0 0 100 100">
+            <polygon points="0,0 80,50 0,100" fill="#FFCE24" {...props} />
+          </svg>
+        );
+      })}
+    </div>
+  );
+}
+```
+
+### useFluidResistanceGroup
+
+`useFluidResistanceGroup` will animate `n` elements using the standard drag equation. It takes the form:
+
+```typescript
+const [props, controller] = useFluidResistanceGroup(n: number, fn: (index: number) => UseFluidResistanceArgs)
+```
+
+The configuration object returned by `fn` should match that defined in the [`useFluidResistance`](#usefluidresistance) section above.
+
+#### Example
+
+```js live=true
+import React from 'react';
+import { useFluidResistanceGroup } from 'renature';
+
+function FluidResistanceGroup() {
+  const [nodes] = useFluidResistanceGroup(4, i => ({
+    from: {
+      transform: 'translateY(0px) scale(1)',
+    },
+    to: {
+      transform: 'translateY(100px) scale(0.5)',
+    },
+    config: {
+      mass: 10,
+      rho: 20,
+      area: 20,
+      cDrag: 0.1,
+      settle: true,
+    },
+    delay: i * 500,
+    infinite: true,
+  }));
+
+  return (
+    <div className="live-preview__stack-h">
+      {nodes.map((props, i) => {
+        return (
+          <div
+            className="live-preview__mover live-preview__mover--lg"
+            {...props}
+          />
+        );
+      })}
+    </div>
+  );
+}
+```
+
 ## Working in Two Dimensions
 
 Since everything in `renature` is modeled using two dimensional vectors, the library already comes equipped with the physics it needs to simulate two-dimensional motion. In this way, `renature`'s two-dimensional hooks are more like a small physics drawing engine, allowing you to achieve something simple that you might otherwise do in [p5.js](https://p5js.org/).
 
 Currently, `renature` only supports a single two-dimensional hook – `useGravity2D`. `useGravity2D` is great for producing two-dimensional gravity simulations, using the same `mover` and `attractor` model as `useGravity`. You can find its API below. In the near future we hope to support `useFriction` and `useFluidResistance` in two dimensions.
 
-### useGravity2D Config
+### useGravity2D
 
 The same equation used to calculate the force of gravity in `useGravity` is also used in `useGravity2D`. However, in `useGravity2D` you have a few more parameters to finely tune the simulation.
 
@@ -236,11 +393,12 @@ Every hook in `renature` also returns a special object called a `controller`. Yo
 const [props, controller] = useGravity({ ...config });
 ```
 
-A `controller` provides access to two functions, `start` and `stop`, which allow you to control when your animation begins and ends. They have the following types:
+A `controller` provides access to three functions, `start`, `pause`, and `stop`, which allow you to control when your animation begins and ends. They have the following types:
 
-| Property | Type         | Description                                                                                                                                                           |
-| -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `start`  | `() => void` | A function instructing the animation to start the frame loop and begin animating. Typically used in conjunction with `pause: true`.                                   |
-| `stop`   | `() => void` | A function instructing the animation to stop the frame loop. The animating element will stay in whatever CSS state it had achieved when `controller.stop` was called. |
+| Property | Type         | Description                                                                                                                                                                                                                                                                        |
+| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `start`  | `() => void` | A function instructing the animation to start the frame loop and begin animating. Typically used in conjunction with `pause: true`. If an animation has been paused by calling `controller.pause`, you can use `controller.start` to resume the animation.                         |
+| `pause`  | `() => void` | A function instructing the animation to stop the frame loop. The animating element will stay in whatever CSS state it had achieved when `controller.stop` was called.                                                                                                              |
+| `stop`   | `() => void` | A function instructing the animation to stop the frame loop and destroy all animation state. Once `controller.stop` has been called, the current animation is marked completed and cannot be re-run unless the component containing the hook re-renders with new animation values. |
 
-See [Controlling Animation States](./getting-started/controlling-animation-states.md) for more examples of starting and stopping animations according to events, timers, and effects.
+See [Controlling Animation States](./getting-started/controlling-animation-states.md) for more examples of starting, pausing, and stopping animations according to events, timers, and effects.
