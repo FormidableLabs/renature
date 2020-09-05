@@ -27,38 +27,38 @@ function interpolateBoxShadow(param, param$1, value) {
   var rl = param[0];
   var fromBoxShadow = Parse_box_shadow.parseBoxShadow(param$1[0]);
   var toBoxShadow = Parse_box_shadow.parseBoxShadow(param$1[1]);
-  var offsetX = Interpolate_unit.interpolateUnit(/* tuple */[
+  var offsetX = Interpolate_unit.interpolateUnit([
         rl,
         rh
-      ], /* tuple */[
+      ], [
         fromBoxShadow.offsetX,
         toBoxShadow.offsetX
       ], value);
-  var offsetY = Interpolate_unit.interpolateUnit(/* tuple */[
+  var offsetY = Interpolate_unit.interpolateUnit([
         rl,
         rh
-      ], /* tuple */[
+      ], [
         fromBoxShadow.offsetY,
         toBoxShadow.offsetY
       ], value);
-  var blur = Interpolate_unit.interpolateUnit(/* tuple */[
+  var blur = Interpolate_unit.interpolateUnit([
         rl,
         rh
-      ], /* tuple */[
+      ], [
         fromBoxShadow.blur,
         toBoxShadow.blur
       ], value);
-  var spread = Interpolate_unit.interpolateUnit(/* tuple */[
+  var spread = Interpolate_unit.interpolateUnit([
         rl,
         rh
-      ], /* tuple */[
+      ], [
         fromBoxShadow.spread,
         toBoxShadow.spread
       ], value);
-  var color = Interpolate_color.interpolateColor(/* tuple */[
+  var color = Interpolate_color.interpolateColor([
         rl,
         rh
-      ], /* tuple */[
+      ], [
         colorToRgba(fromBoxShadow.color),
         colorToRgba(toBoxShadow.color)
       ], value);
@@ -76,7 +76,7 @@ function interpolateBoxShadows(range, param, value) {
   var dlBoxShadows = Parse_box_shadow.parseBoxShadows(param[0]);
   var dhBoxShadows = Parse_box_shadow.parseBoxShadows(param[1]);
   return $$Array.mapi((function (i, bsl) {
-                  return interpolateBoxShadow(range, /* tuple */[
+                  return interpolateBoxShadow(range, [
                               bsl,
                               Caml_array.caml_array_get(dhBoxShadows, i)
                             ], value);

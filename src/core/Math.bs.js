@@ -23,7 +23,7 @@ function remapf(param, param$1, value) {
 }
 
 function normalizef(range, value) {
-  return remapf(range, /* tuple */[
+  return remapf(range, [
               0,
               1
             ], value);

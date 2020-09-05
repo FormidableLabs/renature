@@ -64,9 +64,7 @@ export const StyledContainer = styled.div`
 
 export const StyledEditor = styled(LiveEditor)`
   font-size: 1.6rem;
-  min-height: 25rem;
   overflow: auto !important;
-  max-height: 35rem;
 
   * > textarea:focus {
     outline: none;

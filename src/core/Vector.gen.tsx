@@ -1,4 +1,4 @@
-/* TypeScript file generated from Vector.rei by genType. */
+/* TypeScript file generated from Vector.resi by genType. */
 /* eslint-disable import/first */
 
 

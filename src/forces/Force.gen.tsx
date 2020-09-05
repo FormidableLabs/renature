@@ -1,4 +1,4 @@
-/* TypeScript file generated from Force.rei by genType. */
+/* TypeScript file generated from Force.resi by genType. */
 /* eslint-disable import/first */
 
 

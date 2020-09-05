@@ -1,4 +1,4 @@
-/* TypeScript file generated from Math.rei by genType. */
+/* TypeScript file generated from Math.resi by genType. */
 /* eslint-disable import/first */
 
 

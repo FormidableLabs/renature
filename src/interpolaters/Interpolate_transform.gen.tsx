@@ -1,4 +1,4 @@
-/* TypeScript file generated from Interpolate_transform.rei by genType. */
+/* TypeScript file generated from Interpolate_transform.resi by genType. */
 /* eslint-disable import/first */
 
 

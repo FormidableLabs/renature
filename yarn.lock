@@ -5238,10 +5238,10 @@ browserslist@^4.9.1:
     escalade "^3.0.1"
     node-releases "^1.1.58"
 
-bs-platform@^7.3.2:
-  version "7.3.2"
-  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-7.3.2.tgz#301f5c9b4e8cf5713cb60ca22e145e56e793affe"
-  integrity sha512-seJL5g4anK9la4erv+B2o2sMHQCxDF6OCRl9en3hbaUos/S3JsusQ0sPp4ORsbx5eXfHLYBwPljwKXlgpXtsgQ==
+bs-platform@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-8.2.0.tgz#f3f4c06d5710a4c782f0ed030b1fe11e74a0a6d7"
+  integrity sha512-quvmUac/ZxGDsT7L5+6RNXrLPvLHkWFownacaqlwVoyAm770bPyupTRU49ALPGk3HpjfD5eE+lpGdOSPtuwJiA==
 
 bser@^2.0.0:
   version "2.1.1"
@@ -7401,10 +7401,10 @@ gensync@^1.0.0-beta.1:
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.1.tgz#58f4361ff987e5ff6e1e7a210827aa371eaac269"
   integrity sha512-r8EC6NO1sngH/zdD9fiRDLdcgnbayXah+mLgManTaIZJqEC1MZstmnox8KpnI2/fxQwrp5OpCOYWLp4rBl4Jcg==
 
-gentype@^3.21.0:
-  version "3.21.0"
-  resolved "https://registry.yarnpkg.com/gentype/-/gentype-3.21.0.tgz#01ce0ee769326bb4a1249ab0b61ef6f5eaa2324a"
-  integrity sha512-RqDvC9LkoWjdus3Z8x1UVpJD0+INSHVmYFXanzBhbNhya75wI+zVwxdORIrqK8Tuiyhj0eetPWVgqhU9wo17+w==
+gentype@^3.35.0:
+  version "3.35.0"
+  resolved "https://registry.yarnpkg.com/gentype/-/gentype-3.35.0.tgz#ef59baf51ec3a63f826086aedcc3e54e170ed017"
+  integrity sha512-DuYx1r9LF1Un0j656eNFT0sUbUq503mgvT1/FCT5SdWQX3pHUfSbFjQVlXSctw1b2WUyFsvhoClhGfedQZZe1A==
 
 get-caller-file@^2.0.1:
   version "2.0.5"

@@ -19,7 +19,7 @@ function interpolateColor(param, param$1, value) {
   var rInt = Utils.iof(match.r);
   var gInt = Utils.iof(match.g);
   var bInt = Utils.iof(match.b);
-  return "rgba(" + (String(rInt) + (", " + (String(gInt) + (", " + (String(bInt) + (", " + (String(match.a) + ")")))))));
+  return "rgba(" + rInt + ", " + gInt + ", " + bInt + ", " + match.a + ")";
 }
 
 export {

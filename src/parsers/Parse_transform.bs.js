@@ -2,79 +2,9 @@
 
 import * as $$Array from "bs-platform/lib/es6/array.js";
 import * as Parse_unit from "./Parse_unit.bs.js";
-import * as Js_mapperRt from "bs-platform/lib/es6/js_mapperRt.js";
 import * as Parse_number from "./Parse_number.bs.js";
 
-var jsMapperConstantArray = [
-  /* tuple */[
-    -1057888900,
-    "perspective"
-  ],
-  /* tuple */[
-    -914368690,
-    "translate"
-  ],
-  /* tuple */[
-    -887077285,
-    "rotate"
-  ],
-  /* tuple */[
-    -866839798,
-    "skew"
-  ],
-  /* tuple */[
-    -249738851,
-    "rotateX"
-  ],
-  /* tuple */[
-    -249738850,
-    "rotateY"
-  ],
-  /* tuple */[
-    -249738849,
-    "rotateZ"
-  ],
-  /* tuple */[
-    -120664438,
-    "scale"
-  ],
-  /* tuple */[
-    -31746546,
-    "skewX"
-  ],
-  /* tuple */[
-    -31746545,
-    "skewY"
-  ],
-  /* tuple */[
-    -31746544,
-    "skewZ"
-  ],
-  /* tuple */[
-    106728778,
-    "translateX"
-  ],
-  /* tuple */[
-    106728779,
-    "translateY"
-  ],
-  /* tuple */[
-    106728780,
-    "translateZ"
-  ],
-  /* tuple */[
-    1009117838,
-    "scaleX"
-  ],
-  /* tuple */[
-    1009117839,
-    "scaleY"
-  ],
-  /* tuple */[
-    1009117840,
-    "scaleZ"
-  ]
-];
+var _map = {"translate":"translate","translateX":"translateX","translateY":"translateY","translateZ":"translateZ","skew":"skew","skewX":"skewX","skewY":"skewY","skewZ":"skewZ","rotate":"rotate","rotateX":"rotateX","rotateY":"rotateY","rotateZ":"rotateZ","scale":"scale","scaleX":"scaleX","scaleY":"scaleY","scaleZ":"scaleZ","perspective":"perspective"};
 
 var transformRe = /(\w+)\(([^)]*)\)/g;
 
@@ -82,33 +12,33 @@ function testTransform(val_) {
   var transform = transformRe.exec(val_);
   transformRe.lastIndex = 0;
   if (transform !== null) {
-    return transform.filter((function (param, i) {
-                    if (i === 1) {
-                      return true;
-                    } else {
-                      return i === 2;
-                    }
-                  })).every((function (c) {
-                  if (c == null) {
-                    return false;
-                  }
-                  var isTransformUnit = Parse_unit.testUnit(c);
-                  var isTransformNumber = Parse_number.testNumber(c);
-                  var match = Js_mapperRt.revSearch(17, jsMapperConstantArray, c);
-                  var isTransformProperty = match !== undefined;
-                  var isTransformMultiple = c.split(", ").every((function (s) {
-                          if (Parse_unit.testUnit(s)) {
-                            return true;
-                          } else {
-                            return Parse_number.testNumber(s);
-                          }
-                        }));
-                  if (isTransformUnit || isTransformNumber || isTransformProperty) {
+    return transform.filter(function (param, i) {
+                  if (i === 1) {
                     return true;
                   } else {
-                    return isTransformMultiple;
+                    return i === 2;
                   }
-                }));
+                }).every(function (c) {
+                if (c == null) {
+                  return false;
+                }
+                var isTransformUnit = Parse_unit.testUnit(c);
+                var isTransformNumber = Parse_number.testNumber(c);
+                var match = _map[c];
+                var isTransformProperty = match !== undefined;
+                var isTransformMultiple = c.split(", ").every(function (s) {
+                      if (Parse_unit.testUnit(s)) {
+                        return true;
+                      } else {
+                        return Parse_number.testNumber(s);
+                      }
+                    });
+                if (isTransformUnit || isTransformNumber || isTransformProperty) {
+                  return true;
+                } else {
+                  return isTransformMultiple;
+                }
+              });
   } else {
     return false;
   }
@@ -137,13 +67,13 @@ function parseTransform(val_) {
   if (transform === null) {
     return t.contents;
   }
-  var captures = transform.filter((function (param, i) {
-          if (i === 1) {
-            return true;
-          } else {
-            return i === 2;
-          }
-        }));
+  var captures = transform.filter(function (param, i) {
+        if (i === 1) {
+          return true;
+        } else {
+          return i === 2;
+        }
+      });
   $$Array.iteri((function (i, propOrValue) {
           if (i === 0) {
             var init = t.contents;
