@@ -1,4 +1,4 @@
-/* TypeScript file generated from Parse_color.rei by genType. */
+/* TypeScript file generated from Parse_color.resi by genType. */
 /* eslint-disable import/first */
 
 

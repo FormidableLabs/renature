@@ -1,4 +1,4 @@
-/* TypeScript file generated from Gravity.rei by genType. */
+/* TypeScript file generated from Gravity.resi by genType. */
 /* eslint-disable import/first */
 
 

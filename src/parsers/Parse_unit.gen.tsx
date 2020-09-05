@@ -1,4 +1,4 @@
-/* TypeScript file generated from Parse_unit.rei by genType. */
+/* TypeScript file generated from Parse_unit.resi by genType. */
 /* eslint-disable import/first */
 
 

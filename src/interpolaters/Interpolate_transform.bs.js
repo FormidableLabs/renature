@@ -27,10 +27,10 @@ function interpolateTransform(param, param$1, value) {
             return prim.trim();
           }), match$1.split(","));
     transforms = $$Array.mapi((function (i, t) {
-            return Interpolate_unit.interpolateUnit(/* tuple */[
+            return Interpolate_unit.interpolateUnit([
                         rl,
                         rh
-                      ], /* tuple */[
+                      ], [
                         t,
                         Caml_array.caml_array_get(th_1, i)
                       ], value);
@@ -43,7 +43,7 @@ function interpolateTransforms(range, param, value) {
   var dlTransforms = Parse_transform.parseTransforms(param[0]);
   var dhTransforms = Parse_transform.parseTransforms(param[1]);
   return $$Array.mapi((function (i, t) {
-                  return interpolateTransform(range, /* tuple */[
+                  return interpolateTransform(range, [
                               t,
                               Caml_array.caml_array_get(dhTransforms, i)
                             ], value);

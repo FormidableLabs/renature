@@ -1,4 +1,4 @@
-/* TypeScript file generated from Friction.rei by genType. */
+/* TypeScript file generated from Friction.resi by genType. */
 /* eslint-disable import/first */
 
 

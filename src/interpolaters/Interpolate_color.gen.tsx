@@ -1,4 +1,4 @@
-/* TypeScript file generated from Interpolate_color.rei by genType. */
+/* TypeScript file generated from Interpolate_color.resi by genType. */
 /* eslint-disable import/first */
 
 

@@ -27,16 +27,16 @@ yarn
 the Reason source to JavaScript, run:
 
 ```sh
-yarn build:re
+yarn build:res
 
 # Or, to watch for changes and immediately rebuild.
-yarn start:re
+yarn start:res
 ```
 
 To clean the Reason build and remove all JS artifacts:
 
 ```sh
-yarn clean:re
+yarn clean:res
 ```
 
 Once you've built the Reason source, you can run Storybook to open up an interactive playground

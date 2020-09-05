@@ -1,4 +1,4 @@
-/* TypeScript file generated from FluidResistance.rei by genType. */
+/* TypeScript file generated from FluidResistance.resi by genType. */
 /* eslint-disable import/first */
 
 

@@ -1,4 +1,4 @@
-/* TypeScript file generated from Interpolate_unit.rei by genType. */
+/* TypeScript file generated from Interpolate_unit.resi by genType. */
 /* eslint-disable import/first */
 
 

@@ -23,10 +23,12 @@ import { useFriction } from 'renature';
 function FrictionAnimation() {
   const [props] = useFriction({
     from: {
-      transform: 'translateX(-200px)'
+      transform: 'scale(0) rotate(0deg)',
+      background: 'magenta',
     },
     to: {
-      transform: 'translateX(200px)'
+      transform: 'scale(1) rotate(360deg)',
+      background: 'coral',
     },
     config: { mu: 0.5, mass: 300, initialVelocity: 10 },
     infinite: true
@@ -60,14 +62,7 @@ function FluidResistanceAnimation() {
       transform: toggle
         ? 'scale(1) rotate(180deg)'
         : 'scale(0) rotate(0deg)',
-    },
-    config: {
-      mass: 25,
-      rho: 10,
-      area: 20,
-      cDrag: 0.25,
-      settle: true,
-    },
+    }
   });
 
   return (

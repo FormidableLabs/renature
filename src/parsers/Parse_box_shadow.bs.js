@@ -15,18 +15,18 @@ function testBoxShadow(val_) {
   if (val_ === "none") {
     return true;
   }
-  var properties = val_.split(outerWhitespaceRe).filter((function (str) {
-          if (str !== undefined && str !== "inset") {
-            return NormalizeColor.normalizeColor(str) === null;
-          } else {
-            return false;
-          }
-        }));
+  var properties = val_.split(outerWhitespaceRe).filter(function (str) {
+        if (str !== undefined && str !== "inset") {
+          return NormalizeColor.normalizeColor(str) === null;
+        } else {
+          return false;
+        }
+      });
   var n = properties.length;
   if (n >= 2 && n <= 4) {
-    return properties.every((function (p) {
-                  return Parse_unit.testUnit(Belt_Option.getWithDefault(p, ""));
-                }));
+    return properties.every(function (p) {
+                return Parse_unit.testUnit(Belt_Option.getWithDefault(p, ""));
+              });
   } else {
     return false;
   }
@@ -34,13 +34,13 @@ function testBoxShadow(val_) {
 
 function testBoxShadows(val_) {
   var boxShadows = val_.split(outerCommaRe);
-  return boxShadows.every((function (boxShadow) {
-                if (boxShadow !== undefined) {
-                  return testBoxShadow(boxShadow.trim());
-                } else {
-                  return false;
-                }
-              }));
+  return boxShadows.every(function (boxShadow) {
+              if (boxShadow !== undefined) {
+                return testBoxShadow(boxShadow.trim());
+              } else {
+                return false;
+              }
+            });
 }
 
 function parseBoxShadow(val_) {
@@ -53,21 +53,21 @@ function parseBoxShadow(val_) {
   };
   var filteredProperties = $$Array.map((function (s) {
           return Belt_Option.getWithDefault(s, "");
-        }), properties.filter((function (s) {
-              if (s !== undefined) {
-                if (s === "inset") {
-                  inset.contents = true;
-                  return false;
-                } else if (NormalizeColor.normalizeColor(s) !== null) {
-                  color.contents = s;
-                  return false;
-                } else {
-                  return true;
-                }
-              } else {
+        }), properties.filter(function (s) {
+            if (s !== undefined) {
+              if (s === "inset") {
+                inset.contents = true;
                 return false;
+              } else if (NormalizeColor.normalizeColor(s) !== null) {
+                color.contents = s;
+                return false;
+              } else {
+                return true;
               }
-            })));
+            } else {
+              return false;
+            }
+          }));
   var n = filteredProperties.length;
   if (n >= 2 && n <= 4) {
     return {

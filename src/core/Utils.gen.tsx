@@ -1,4 +1,4 @@
-/* TypeScript file generated from Utils.rei by genType. */
+/* TypeScript file generated from Utils.resi by genType. */
 /* eslint-disable import/first */
 
 

@@ -41,4 +41,4 @@ With this knowledge of a moving object's motion vectors and an external force ve
 
 ![The position of an object is equal to its current position plus velocity times time.](../../public/position_equation.svg)
 
-With just these laws, we can build a comprehensive model of motion in two dimensions. To learn more, check out Daniel Shiffman's excellent writing on [Vectors](https://natureofcode.com/book/chapter-1-vectors/) or read [the source](https://github.com/FormidableLabs/renature/blob/saturn/src/core/Vector.re) for our vector math.
+With just these laws, we can build a comprehensive model of motion in two dimensions. To learn more, check out Daniel Shiffman's excellent writing on [Vectors](https://natureofcode.com/book/chapter-1-vectors/) or read [the source](https://github.com/FormidableLabs/renature/blob/saturn/src/core/Vector.res) for our vector math.

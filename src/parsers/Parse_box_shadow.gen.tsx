@@ -1,4 +1,4 @@
-/* TypeScript file generated from Parse_box_shadow.rei by genType. */
+/* TypeScript file generated from Parse_box_shadow.resi by genType. */
 /* eslint-disable import/first */
 
 

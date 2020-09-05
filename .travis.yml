@@ -24,7 +24,7 @@ jobs:
     - &buildReTest
       stage: Build Reason and Test
       script:
-        - yarn build:re
+        - yarn build:res
         - yarn test
     - <<: *buildReTest
       node_js: 12
