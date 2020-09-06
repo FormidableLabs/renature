@@ -6,7 +6,12 @@ interface RAFState {
   listener: Listener;
 }
 
-export const rAF = () => {
+interface RAF {
+  start: (listener: Listener) => void;
+  stop: () => void;
+}
+
+export const rAF = (): RAF => {
   const state: RAFState = {
     lastFrame: typeof window !== 'undefined' ? performance.now() : Date.now(),
     animationFrameId: null,
@@ -19,7 +24,7 @@ export const rAF = () => {
   };
 
   const draw = (timestamp: DOMHighResTimeStamp) => {
-    state.animationFrameId = requestAnimationFrame(timestamp => {
+    state.animationFrameId = requestAnimationFrame((timestamp) => {
       draw(timestamp);
     });
 

@@ -19,7 +19,7 @@ export function update<C>({
     timestamp: DOMHighResTimeStamp,
     lastFrame: number,
     stop: () => void
-  ) {
+  ): void {
     // Obtain the timestamp of the last frame.
     // If this is the first frame, use the current frame timestamp.
     let lastTime = lastFrame !== undefined ? lastFrame : timestamp;
@@ -69,7 +69,7 @@ export function update<C>({
 
     const allAnimationsComplete =
       animatingElements.size > 0 &&
-      Array.from(animatingElements).every(element => element.state.complete);
+      Array.from(animatingElements).every((element) => element.state.complete);
 
     if (allAnimationsComplete) {
       stop();

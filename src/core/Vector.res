@@ -1,3 +1,6 @@
+let foi = float_of_int;
+let iof = int_of_float;
+
 // The core vector type.
 type vector<'a> = ('a, 'a)
 type t<'a> = vector<'a>
@@ -20,7 +23,7 @@ let divf = (~v, ~s) => (fst(v) /. s, snd(v) /. s)
 
 // Vector magnitude.
 let mag = v => {
-  let (x, y) = (fst(v) |> Utils.foi, snd(v) |> Utils.foi)
+  let (x, y) = (fst(v) |> foi, snd(v) |> foi)
   sqrt(x ** 2. +. y ** 2.)
 }
 
@@ -34,7 +37,7 @@ let norm = v => {
   let m = mag(v)
   switch m {
   | 0. => (0., 0.)
-  | _ => divf(~v=(fst(v) |> Utils.foi, snd(v) |> Utils.foi), ~s=m)
+  | _ => divf(~v=(fst(v) |> foi, snd(v) |> foi), ~s=m)
   }
 }
 
@@ -57,9 +60,9 @@ let lerpfV = (~acc, ~target, ~roundness) => {
 
 let lerpV = (~acc, ~target, ~roundness) => {
   let (xf, yf) = lerpfV(
-    ~acc=(fst(acc) |> Utils.foi, snd(acc) |> Utils.foi),
-    ~target=(fst(target) |> Utils.foi, snd(target) |> Utils.foi),
+    ~acc=(fst(acc) |> foi, snd(acc) |> foi),
+    ~target=(fst(target) |> foi, snd(target) |> foi),
     ~roundness,
   )
-  (xf |> Utils.iof, yf |> Utils.iof)
+  (xf |> iof, yf |> iof)
 }

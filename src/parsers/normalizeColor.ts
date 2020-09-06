@@ -1,3 +1,5 @@
+import { rgba as RGBA } from './Parse_color.gen';
+
 /*
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -252,7 +254,7 @@ function hslToRgb(h: number, s: number, l: number) {
   );
 }
 
-export function normalizeColor(color: number | string) {
+export function normalizeColor(color: number | string): number | null {
   let match;
 
   if (typeof color === 'number') {
@@ -273,8 +275,8 @@ export function normalizeColor(color: number | string) {
   if ((match = matchers.rgb.exec(color))) {
     return (
       ((parse255(match[1]) << 24) | // r
-      (parse255(match[2]) << 16) | // g
-      (parse255(match[3]) << 8) | // b
+        (parse255(match[2]) << 16) | // g
+        (parse255(match[3]) << 8) | // b
         0x000000ff) >>> // a
       0
     );
@@ -283,8 +285,8 @@ export function normalizeColor(color: number | string) {
   if ((match = matchers.rgba.exec(color))) {
     return (
       ((parse255(match[1]) << 24) | // r
-      (parse255(match[2]) << 16) | // g
-      (parse255(match[3]) << 8) | // b
+        (parse255(match[2]) << 16) | // g
+        (parse255(match[3]) << 8) | // b
         parse1(match[4])) >>> // a
       0
     );
@@ -294,11 +296,11 @@ export function normalizeColor(color: number | string) {
     return (
       parseInt(
         match[1] +
-        match[1] + // r
-        match[2] +
-        match[2] + // g
-        match[3] +
-        match[3] + // b
+          match[1] + // r
+          match[2] +
+          match[2] + // g
+          match[3] +
+          match[3] + // b
           'ff', // a
         16
       ) >>> 0
@@ -314,11 +316,11 @@ export function normalizeColor(color: number | string) {
     return (
       parseInt(
         match[1] +
-        match[1] + // r
-        match[2] +
-        match[2] + // g
-        match[3] +
-        match[3] + // b
+          match[1] + // r
+          match[2] +
+          match[2] + // g
+          match[3] +
+          match[3] + // b
           match[4] +
           match[4], // a
         16
@@ -353,7 +355,7 @@ export function normalizeColor(color: number | string) {
   return null;
 }
 
-export function rgba(colorInt: number) {
+export function rgba(colorInt: number): RGBA {
   const r = Math.round((colorInt & 0xff000000) >>> 24);
   const g = Math.round((colorInt & 0x00ff0000) >>> 16);
   const b = Math.round((colorInt & 0x0000ff00) >>> 8);

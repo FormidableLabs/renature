@@ -74,3 +74,10 @@ export interface AnimationCallbacks<C> {
     animatingElement: StatefulAnimatingElement<C>
   ) => boolean;
 }
+
+export interface AnimationGroup<C, E extends HTMLElement | SVGElement = any> {
+  elements: StatefulAnimatingElement<C, E>[];
+  start: (c?: { isImperativeStart: boolean }) => void;
+  pause: () => void;
+  stop: (element: StatefulAnimatingElement<C, E>) => void;
+}

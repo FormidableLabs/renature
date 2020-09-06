@@ -1,3 +1,5 @@
+let iof = int_of_float;
+
 let lerpColor = (~acc, ~target, ~roundness) => {
   open Parse_color
   {
@@ -11,6 +13,6 @@ let lerpColor = (~acc, ~target, ~roundness) => {
 let interpolateColor = (~range as (rl, rh), ~domain as (dl, dh), ~value) => {
   let progress = (value -. rl) /. (rh -. rl)
   let {Parse_color.r: r, g, b, a} = lerpColor(~acc=dl, ~target=dh, ~roundness=progress)
-  let (rInt, gInt, bInt) = (Utils.iof(r), Utils.iof(g), Utils.iof(b))
+  let (rInt, gInt, bInt) = (iof(r), iof(g), iof(b))
   j`rgba($rInt, $gInt, $bInt, $a)`
 }

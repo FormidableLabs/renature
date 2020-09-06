@@ -1,4 +1,9 @@
-import { PlayState, AnimatingElement, StatefulAnimatingElement } from './types';
+import {
+  PlayState,
+  AnimatingElement,
+  StatefulAnimatingElement,
+  AnimationGroup,
+} from './types';
 import { getMaxDistanceFriction, frictionForceV, applyForce } from '../forces';
 import { group } from './group';
 
@@ -65,7 +70,9 @@ function checkFrictionStoppingCondition({
 
 // A function to take in a set of elements and begin animating them
 // according to the force of friction.
-export function frictionGroup(elements: AnimatingElement<FrictionConfig>[]) {
+export function frictionGroup(
+  elements: AnimatingElement<FrictionConfig>[]
+): AnimationGroup<FrictionConfig> {
   const initialState = (
     element: AnimatingElement<FrictionConfig>
   ): StatefulAnimatingElement<FrictionConfig>['state'] => ({
