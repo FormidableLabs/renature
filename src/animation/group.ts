@@ -2,6 +2,7 @@ import {
   AnimatingElement,
   StatefulAnimatingElement,
   AnimationCallbacks,
+  AnimationGroup,
 } from './types';
 import { rAF, update } from '../rAF';
 
@@ -16,11 +17,11 @@ export function group<C>(
     element: AnimatingElement<C>
   ) => StatefulAnimatingElement<C>['state'],
   callbacks: AnimationCallbacks<C>
-) {
+): AnimationGroup<C> {
   const animatingElements = new Set<StatefulAnimatingElement<C>>();
   let isFrameloopActive = false;
 
-  elements.forEach(element => {
+  elements.forEach((element) => {
     const animatingElement: StatefulAnimatingElement<C> = {
       ...element,
       state: initialState(element),
@@ -39,9 +40,9 @@ export function group<C>(
     }
   });
 
-  let startFn: (c?: { isImperativeStart: boolean }) => void = () => {};
-  let pauseFn: () => void = () => {};
-  let stopFn: (element: StatefulAnimatingElement<C>) => void = () => {};
+  let startFn: AnimationGroup<C>['start'] = () => {};
+  let pauseFn: AnimationGroup<C>['pause'] = () => {};
+  let stopFn: AnimationGroup<C>['stop'] = () => {};
 
   // Only start the frameloop if there are elements to animate.
   if (animatingElements.size > 0) {

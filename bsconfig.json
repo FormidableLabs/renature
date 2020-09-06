@@ -1,6 +1,7 @@
 {
+  "$schema": "https://raw.githubusercontent.com/rescript-lang/rescript-compiler/master/docs/docson/build-schema.json",
   "name": "renature",
-  "version": "0.1.0",
+  "version": "0.6.3",
   "sources": [
     {
       "dir": "src/core",

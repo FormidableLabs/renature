@@ -7,6 +7,17 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.6.3
+
+This release focuses on an internal migration to ReScript, the new build toolchain for Reason and BuckleScript.
+
+### Changed
+
+- `renature` now uses ReScript (`bs-platform` > @8). PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/87).
+- Enhanced function return types for internals were added in this release. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/88).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.6.2...v0.6.3)
+
 ## v0.6.2
 
 This release fixes issues around the scope of `controller`. v0.6.0 introduced the ability to animate n elements in a single hook instance. However, when using multiple `renature` hooks in the same React tree, calling `controller.start`, `controller.stop`, and `controller.pause` applied to all animating elements, not to _just_ the subset of animating elements created by their corresponding hook. This is fixed in v0.6.2 🌟!
@@ -19,7 +30,7 @@ This release fixes issues around the scope of `controller`. v0.6.0 introduced th
 
 ## v0.6.1
 
-This release includes a critical fix for a bug introduced in v0.6.0. Our Bublé configuration had `danngerousForOf` transpilation configured, so `for...of` loops were operating on `Set`s were incorrectly transpiled, causing animations never to run. This release removes compilation of `for...of` loop since all modern browsers support the synntax for iterating over iterable data structures.
+This release includes a critical fix for a bug introduced in v0.6.0. Our Bublé configuration had `dangerousForOf` transpilation configured, so `for...of` loops operating on `Set`s were incorrectly transpiled, causing animations never to run. This release removes compilation of `for...of` loops since all modern browsers support the syntax for operating on iterable data structures.
 
 ### Fixed
 

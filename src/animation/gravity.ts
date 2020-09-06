@@ -1,4 +1,9 @@
-import { PlayState, AnimatingElement, StatefulAnimatingElement } from './types';
+import {
+  PlayState,
+  AnimatingElement,
+  StatefulAnimatingElement,
+  AnimationGroup,
+} from './types';
 import { gravityForceV, applyForce } from '../forces';
 import { subf, normf } from '../core';
 import { group } from './group';
@@ -99,7 +104,9 @@ function checkGravityStoppingCondition({
 
 // A function to take in a set of elements and begin animating them
 // according to the gravitational force.
-export function gravityGroup(elements: AnimatingElement<GravityConfig>[]) {
+export function gravityGroup(
+  elements: AnimatingElement<GravityConfig>[]
+): AnimationGroup<GravityConfig> {
   const initialState = (
     element: AnimatingElement<GravityConfig>
   ): StatefulAnimatingElement<GravityConfig>['state'] => ({

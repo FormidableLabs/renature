@@ -1,5 +1,5 @@
 @bs.deriving(jsConverter)
-type measurement = [#px | #em | #rem | #vw | #vh | @bs.as("%") #pct | #deg | #rad | #turn]
+type measurement = [#px | #em | #rem | #ch | #vw | #vh | #vmin | #vmax | @bs.as("%") #pct | #deg | #rad | #turn]
 
 type cssUnitRe = {
   value: float,
@@ -12,9 +12,10 @@ type cssUnit = {
 }
 
 let numericRe = %re("/[\d.-]+/")
+@bs.val external parseFloat: string => float = "parseFloat"
 
 let decomposeUnit = (val_: string): cssUnitRe => {
-  let value = Utils.parseFloat(val_)
+  let value = parseFloat(val_)
   let unit = Js.String.replaceByRe(numericRe, "", val_)->measurementFromJs
 
   {value: value, unit: unit}

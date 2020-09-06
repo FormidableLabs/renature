@@ -4,7 +4,12 @@ import {
   gE,
   getFluidPositionAtTerminalVelocity,
 } from '../forces';
-import { PlayState, AnimatingElement, StatefulAnimatingElement } from './types';
+import {
+  PlayState,
+  AnimatingElement,
+  StatefulAnimatingElement,
+  AnimationGroup,
+} from './types';
 import { vector as Vector, addf, multf } from '../core';
 import { group } from './group';
 
@@ -125,7 +130,7 @@ function checkFluidResistanceStoppingCondition({
 // according to the force of fluid resistance.
 export function fluidResistanceGroup(
   elements: AnimatingElement<FluidResistanceConfig>[]
-) {
+): AnimationGroup<FluidResistanceConfig> {
   const initialState = (
     element: AnimatingElement<FluidResistanceConfig>
   ): StatefulAnimatingElement<FluidResistanceConfig>['state'] => ({

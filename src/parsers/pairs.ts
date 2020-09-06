@@ -18,13 +18,21 @@ export interface CSSPairs {
 
 export type CSSProperty = keyof React.CSSProperties;
 
-const parsePair = (pairs: React.CSSProperties) =>
+interface NormalizedPair {
+  property: CSSProperty;
+  value: any;
+}
+
+const parsePair = (pairs: React.CSSProperties): NormalizedPair =>
   Object.entries(pairs).map(([k, v]) => ({
     property: k as CSSProperty,
     value: v,
   }))[0];
 
-export const parsePairs = ({ from, to }: CSSPairs) => ({
+export const parsePairs = ({
+  from,
+  to,
+}: CSSPairs): { from: NormalizedPair; to: NormalizedPair } => ({
   from: parsePair(from),
   to: parsePair(to),
 });
@@ -60,7 +68,7 @@ export function getInterpolatorForPair(
 export function getInterpolatorForPair(
   { from, to }: CSSPairs,
   disableHardwareAcceleration = false
-) {
+): InterpolatedResult<any, any> {
   const {
     from: { value: fromValue, property: fromProperty },
     to: { value: toValue, property: toProperty },
@@ -151,7 +159,7 @@ export function getInterpolatorForPair(
       };
     }
 
-    // Check if the string can be parsed to a unit-based number.
+    // Check if the strings can be parsed to a unit-based number.
     if (testUnit(fromValue) && testUnit(toValue)) {
       return {
         interpolator: interpolateUnit,
@@ -162,24 +170,37 @@ export function getInterpolatorForPair(
         },
       };
     }
-
-    // If no conditions are matched, just return the values passed in with no interpolation.
-    return {
-      interpolator: () => fromValue,
-      property: fromProperty,
-      values: {
-        from: fromValue,
-        to: toValue,
-      },
-    };
   }
+
+  // If all previous parsing fails, fallback to returning the input unchanged.
+  return {
+    interpolator: () => fromValue,
+    property: fromProperty,
+    values: {
+      from: fromValue,
+      to: toValue,
+    },
+  };
 }
+
+export function getInterpolatorsForPairs(
+  pairs: CSSPairs,
+  disableHardwareAcceleration?: boolean
+): InterpolatedResult<number, number>[];
+export function getInterpolatorsForPairs(
+  pairs: CSSPairs,
+  disableHardwareAcceleration?: boolean
+): InterpolatedResult<RGBA, string>[];
+export function getInterpolatorsForPairs(
+  pairs: CSSPairs,
+  disableHardwareAcceleration?: boolean
+): InterpolatedResult<string, string>[];
 
 export function getInterpolatorsForPairs(
   { from, to }: CSSPairs,
   disableHardwareAcceleration = false
-) {
-  return Object.keys(from).map(key => {
+): InterpolatedResult<any, any>[] {
+  return Object.keys(from).map((key) => {
     const f = { [key]: (from as { [cssProperty: string]: any })[key] };
     const t = { [key]: (to as { [cssProperty: string]: any })[key] };
 
