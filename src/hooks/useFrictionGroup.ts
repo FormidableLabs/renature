@@ -1,4 +1,11 @@
-import { createRef, useMemo, useLayoutEffect, useCallback } from 'react';
+import {
+  createRef,
+  useRef,
+  useMemo,
+  useLayoutEffect,
+  useCallback,
+  CSSProperties,
+} from 'react';
 
 import { CSSPairs, getInterpolatorsForPairs } from '../parsers';
 import {
@@ -12,6 +19,12 @@ import {
 } from '../animation';
 import { getMaxDistanceFriction } from '../forces';
 
+let _id = 0;
+const cache = new Map<
+  string,
+  Record<number, Record<keyof CSSProperties, any>>
+>();
+
 export type UseFrictionArgs = CSSPairs &
   HooksParams & {
     config?: FrictionConfig;
@@ -21,6 +34,8 @@ export const useFrictionGroup = <E extends HTMLElement | SVGElement = any>(
   n: number,
   fn: (index: number) => UseFrictionArgs
 ): [{ ref: React.RefObject<E | null> }[], Controller] => {
+  const hookId = useRef(`friction_${_id++}`);
+
   const { elements, start, stop, pause } = useMemo(() => {
     const animatingElements: AnimatingElement<
       FrictionConfig,
@@ -35,7 +50,7 @@ export const useFrictionGroup = <E extends HTMLElement | SVGElement = any>(
       // Derive interpolator functions for the supplied CSS properties.
       const interpolators = getInterpolatorsForPairs(
         {
-          from: props.from,
+          from: cache.get(hookId.current)?.[i] ?? props.from,
           to: props.to,
         },
         props.disableHardwareAcceleration
@@ -63,6 +78,18 @@ export const useFrictionGroup = <E extends HTMLElement | SVGElement = any>(
             const progress = position[0] / maxPosition;
             props.onFrame(progress);
           }
+
+          // Update the global cache of derived animation values.
+          const currentCacheValue =
+            cache.get(hookId.current)?.[i] ||
+            ({} as Record<keyof CSSProperties, any>);
+
+          cache.set(hookId.current, {
+            [i]: {
+              ...currentCacheValue,
+              [property]: value,
+            },
+          });
         });
       };
 
@@ -74,6 +101,18 @@ export const useFrictionGroup = <E extends HTMLElement | SVGElement = any>(
         interpolators.forEach(({ property, values }) => {
           if (ref.current && ref.current.style[property as any] !== values.to) {
             ref.current.style[property as any] = values.to;
+
+            // Update the global cache of derived animation values.
+            const currentCacheValue =
+              cache.get(hookId.current)?.[i] ||
+              ({} as Record<keyof CSSProperties, any>);
+
+            cache.set(hookId.current, {
+              [i]: {
+                ...currentCacheValue,
+                [property]: values.to,
+              },
+            });
           }
         });
 
@@ -97,17 +136,26 @@ export const useFrictionGroup = <E extends HTMLElement | SVGElement = any>(
   }, [n, fn]);
 
   useLayoutEffect(() => {
+    const id = hookId.current;
     start();
 
     return () => {
       elements.forEach(stop);
+
+      // Clean up the global cache of animation values.
+      cache.delete(id);
     };
   }, [start, stop, elements]);
 
   const startAll = useCallback(() => start({ isImperativeStart: true }), [
     start,
   ]);
-  const stopAll = useCallback(() => elements.forEach(stop), [elements, stop]);
+  const stopAll = useCallback(() => {
+    elements.forEach(stop);
+
+    // Clean up the global cache of animation values.
+    cache.delete(hookId.current);
+  }, [elements, stop]);
 
   return [
     elements.map(({ ref }) => ({ ref })),
