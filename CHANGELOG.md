@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.7.0
+
+This release adds better support for interrupted and reactive animations. When an animation is interrupted mid-flight (say, by a change in its `to` parameter or part of its physics `config`), it will begin animating from its curernt position to the new target rather than restarting at its `from` definition. There are no changes to the public API.
+
+### Changed
+
+- Interrupted and reactive animations now start from the cached state of the currently animating object rather than from their `from` config. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/90).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.6.3...v0.7.0)
+
 ## v0.6.3
 
 This release focuses on an internal migration to ReScript, the new build toolchain for Reason and BuckleScript.
