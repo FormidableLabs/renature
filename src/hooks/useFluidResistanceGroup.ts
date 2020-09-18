@@ -48,7 +48,7 @@ export const useFluidResistanceGroup = <
       // Derive interpolator functions for the supplied CSS properties.
       const interpolators = getInterpolatorsForPairs(
         {
-          from: props.from,
+          from: cache.current.get(i) ?? props.from,
           to: props.to,
         },
         props.disableHardwareAcceleration
