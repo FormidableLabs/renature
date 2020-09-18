@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 import { vector as Vector } from '../core';
 import { Entity } from '../forces';
 
@@ -81,3 +83,5 @@ export interface AnimationGroup<C, E extends HTMLElement | SVGElement = any> {
   pause: () => void;
   stop: (element: StatefulAnimatingElement<C, E>) => void;
 }
+
+export type AnimationCache = Map<number, CSSProperties>;

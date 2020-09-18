@@ -1,4 +1,11 @@
-import { createRef, useMemo, useLayoutEffect, useCallback } from 'react';
+import {
+  createRef,
+  useRef,
+  useMemo,
+  useLayoutEffect,
+  useCallback,
+  CSSProperties,
+} from 'react';
 
 import { CSSPairs, getInterpolatorsForPairs } from '../parsers';
 import {
@@ -9,6 +16,7 @@ import {
   Controller,
   VectorSetter,
   AnimatingElement,
+  AnimationCache,
 } from '../animation';
 
 export type UseGravityArgs = CSSPairs &
@@ -20,6 +28,9 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
   n: number,
   fn: (index: number) => UseGravityArgs
 ): [{ ref: React.RefObject<E | null> }[], Controller] => {
+  // Set up a cache to store interpolated CSS state.
+  const cache = useRef<AnimationCache>(new Map());
+
   const { elements, start, stop, pause } = useMemo(() => {
     const animatingElements: AnimatingElement<
       GravityConfig,
@@ -34,7 +45,7 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
       // Derive interpolator functions for the supplied CSS properties.
       const interpolators = getInterpolatorsForPairs(
         {
-          from: props.from,
+          from: cache.current.get(i) ?? props.from,
           to: props.to,
         },
         props.disableHardwareAcceleration
@@ -62,6 +73,15 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
             const progress = position[0] / maxPosition;
             props.onFrame(progress);
           }
+
+          // Update the global cache of derived animation values.
+          const currentCacheValue =
+            cache.current.get(i) ?? ({} as CSSProperties);
+
+          cache.current.set(i, {
+            ...currentCacheValue,
+            [property]: value,
+          });
         });
       };
 
@@ -74,6 +94,15 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
           if (ref.current && ref.current.style[property as any] !== values.to) {
             ref.current.style[property as any] = values.to;
           }
+
+          // Update the global cache of derived animation values.
+          const currentCacheValue =
+            cache.current.get(i) ?? ({} as CSSProperties);
+
+          cache.current.set(i, {
+            ...currentCacheValue,
+            [property]: values.to,
+          });
         });
 
         if (props.onAnimationComplete) {

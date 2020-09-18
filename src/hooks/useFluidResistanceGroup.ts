@@ -1,4 +1,11 @@
-import { createRef, useMemo, useLayoutEffect, useCallback } from 'react';
+import {
+  createRef,
+  useRef,
+  useMemo,
+  useLayoutEffect,
+  useCallback,
+  CSSProperties,
+} from 'react';
 
 import { CSSPairs, getInterpolatorsForPairs } from '../parsers';
 import {
@@ -9,6 +16,7 @@ import {
   Controller,
   VectorSetter,
   AnimatingElement,
+  AnimationCache,
 } from '../animation';
 import { getFluidPositionAtTerminalVelocity } from '../forces';
 
@@ -23,6 +31,9 @@ export const useFluidResistanceGroup = <
   n: number,
   fn: (index: number) => UseFluidResistanceArgs
 ): [{ ref: React.RefObject<E | null> }[], Controller] => {
+  // Set up a cache to store interpolated CSS state.
+  const cache = useRef<AnimationCache>(new Map());
+
   const { elements, start, stop, pause } = useMemo(() => {
     const animatingElements: AnimatingElement<
       FluidResistanceConfig,
@@ -37,7 +48,7 @@ export const useFluidResistanceGroup = <
       // Derive interpolator functions for the supplied CSS properties.
       const interpolators = getInterpolatorsForPairs(
         {
-          from: props.from,
+          from: cache.current.get(i) ?? props.from,
           to: props.to,
         },
         props.disableHardwareAcceleration
@@ -65,6 +76,15 @@ export const useFluidResistanceGroup = <
             const progress = position[1] / maxPosition;
             props.onFrame(progress);
           }
+
+          // Update the global cache of derived animation values.
+          const currentCacheValue =
+            cache.current.get(i) ?? ({} as CSSProperties);
+
+          cache.current.set(i, {
+            ...currentCacheValue,
+            [property]: value,
+          });
         });
       };
 
@@ -76,6 +96,15 @@ export const useFluidResistanceGroup = <
         interpolators.forEach(({ property, values }) => {
           if (ref.current && ref.current.style[property as any] !== values.to) {
             ref.current.style[property as any] = values.to;
+
+            // Update the global cache of derived animation values.
+            const currentCacheValue =
+              cache.current.get(i) ?? ({} as CSSProperties);
+
+            cache.current.set(i, {
+              ...currentCacheValue,
+              [property]: values.to,
+            });
           }
         });
 
