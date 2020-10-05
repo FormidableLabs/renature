@@ -14,7 +14,7 @@ order: 0
 We hope you love `renature` and enjoy learning more about the library! Check out the following sections to get started:
 
 - [**Getting Started**](./getting-started.md) – Learn how to install `renature`, use your first hook, and control animation play states.
-- [**Core Concepts**]('./core-concepts.md) – Interested in the underlying physics and math powering `renature`? Curious to understand the core of how `renature` looks? This section will dive deep into library internals for users and contributors alike.
-- [**API**]('./api.md) – The formal API documentation for `renature`. Complete with live code examples powered by [`react-live`](https://github.com/FormidableLabs/react-live).
+- [**Core Concepts**](core-concepts.md) – Interested in the underlying physics and math powering `renature`? Curious to understand the core of how `renature` looks? This section will dive deep into library internals for users and contributors alike.
+- [**API**](api.md) – The formal API documentation for `renature`. Complete with live code examples powered by [`react-live`](https://github.com/FormidableLabs/react-live).
 
 Can't find what you're looking for? Confused by a particular section of the docs? Catch a typo? Please [open an issue on GitHub](https://github.com/FormidableLabs/renature/issues) or consider [submitting a PR](https://github.com/FormidableLabs/renature/pulls). We love community contributors ❤️
