@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   background: ${({ theme, background }) => background || theme.colors.bgLight};
   text-align: center;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     padding: ${({ noPadding }) => (noPadding ? '0' : '8rem')};
   }
 `;

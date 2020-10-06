@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SvgAnchor = props => (
+const SvgAnchor = (props) => (
   <svg viewBox="0 0 16 16" {...props}>
     <path
       fill="currentColor"

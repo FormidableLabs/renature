@@ -1,4 +1,4 @@
-const code = context => `
+const code = (context) => `
 import React from "react";
 import { useFriction } from "renature";
 
@@ -32,7 +32,7 @@ function BoxShadow() {
 }
 `;
 
-export const boxShadow = context => ({
+export const boxShadow = (context) => ({
   title: 'Box Shadow',
   slug: 'box-shadow/',
   code: code(context),

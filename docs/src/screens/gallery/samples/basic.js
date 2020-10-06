@@ -1,4 +1,4 @@
-const code = context => `
+const code = (context) => `
 import React from 'react';
 import { useGravity } from 'renature';
 
@@ -27,7 +27,7 @@ function Basic() {
 }
 `;
 
-export const basic = context => ({
+export const basic = (context) => ({
   title: 'Basic Transform',
   slug: 'basic-transform/',
   code: code(context),

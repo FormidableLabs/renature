@@ -5,25 +5,25 @@ import ChevronIcon from '../assets/chevron';
 import { underline } from '../styles/mixins';
 
 export const SidebarContainer = styled.div`
-  display: ${p => (p.hidden ? 'none' : 'block')};
+  display: ${(p) => (p.hidden ? 'none' : 'block')};
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   min-height: 100%;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     display: block;
     position: relative;
-    width: ${p => p.theme.layout.sidebar};
-    margin-left: calc(2 * ${p => p.theme.layout.stripes});
+    width: ${(p) => p.theme.layout.sidebar};
+    margin-left: calc(2 * ${(p) => p.theme.layout.stripes});
   }
 `;
 
 export const SidebarStripes = styled.div`
-  border-left: ${p => p.theme.layout.stripes} solid
-    ${p => p.theme.colors.accent};
-  border-right: ${p => p.theme.layout.stripes} solid #5a508f;
+  border-left: ${(p) => p.theme.layout.stripes} solid
+    ${(p) => p.theme.colors.accent};
+  border-right: ${(p) => p.theme.layout.stripes} solid #5a508f;
   position: absolute;
   height: 100%;
   width: 0;
@@ -35,7 +35,7 @@ export const SidebarStripes = styled.div`
 export const SidebarWrapper = styled.aside`
   position: fixed;
   bottom: 0;
-  top: ${p => p.theme.layout.header};
+  top: ${(p) => p.theme.layout.header};
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
 
@@ -44,18 +44,18 @@ export const SidebarWrapper = styled.aside`
   z-index: 1;
   overflow-y: scroll;
   min-height: 100%;
-  line-height: ${p => p.theme.lineHeights.body};
-  font-size: ${p => p.theme.fontSizes.small};
+  line-height: ${(p) => p.theme.lineHeights.body};
+  font-size: ${(p) => p.theme.fontSizes.small};
 
-  padding: ${p => p.theme.spacing.sm} ${p => p.theme.spacing.md};
+  padding: ${(p) => p.theme.spacing.sm} ${(p) => p.theme.spacing.md};
   background-color: #d4cff6;
-  border-right: 1px solid ${p => p.theme.colors.border};
-  border-top: 1px solid ${p => p.theme.colors.border};
+  border-right: 1px solid ${(p) => p.theme.colors.border};
+  border-top: 1px solid ${(p) => p.theme.colors.border};
 
   @media ${({ theme }) => theme.media.sm} {
     border: none;
-    padding-top: ${p => p.theme.spacing.md};
-    width: ${p => p.theme.layout.sidebar};
+    padding-top: ${(p) => p.theme.spacing.md};
+    width: ${(p) => p.theme.layout.sidebar};
   }
 `;
 
@@ -63,16 +63,16 @@ export const SidebarNavItem = styled(NavLink).attrs(() => ({
   activeClassName: 'active',
 }))`
   display: block;
-  margin: ${p => p.theme.spacing.xs} 0;
-  color: ${p => p.theme.colors.text};
-  font-weight: ${p => p.theme.fontWeights.heading};
+  margin: ${(p) => p.theme.spacing.xs} 0;
+  color: ${(p) => p.theme.colors.text};
+  font-weight: ${(p) => p.theme.fontWeights.heading};
   text-decoration: none;
   width: 100%;
   &:hover {
-    color: ${p => p.theme.colors.accent};
+    color: ${(p) => p.theme.colors.accent};
   }
   &.active {
-    color: ${p => p.theme.colors.accent};
+    color: ${(p) => p.theme.colors.accent};
   }
 `;
 
@@ -96,24 +96,24 @@ export const ChevronItem = styled(ChevronIcon).attrs(() => ({
 `;
 
 export const SidebarNavSubItemWrapper = styled.div`
-  padding-left: ${p => p.theme.spacing.sm};
-  margin-bottom: ${p => p.theme.spacing.xs};
+  padding-left: ${(p) => p.theme.spacing.sm};
+  margin-bottom: ${(p) => p.theme.spacing.xs};
 `;
 
 export const SidebarNavSubItem = styled(NavLink).attrs(() => ({}))`
   ${underline()};
 
   display: inline-block;
-  color: ${p => p.theme.colors.passive};
-  font-weight: ${p => p.theme.fontWeights.body};
-  margin-top: ${p => p.theme.spacing.xs};
+  color: ${(p) => p.theme.colors.passive};
+  font-weight: ${(p) => p.theme.fontWeights.body};
+  margin-top: ${(p) => p.theme.spacing.xs};
 
   &:first-child {
     margin-top: 0;
   }
 
   &.active {
-    color: ${p => p.theme.colors.accent};
-    font-weight: ${p => p.theme.fontWeights.heading};
+    color: ${(p) => p.theme.colors.accent};
+    font-weight: ${(p) => p.theme.fontWeights.heading};
   }
 `;

@@ -6,7 +6,7 @@ import { boxShadow } from './box-shadow';
 import { orbit } from './orbit';
 import { groupedAnimations } from './grouped-animations';
 
-export const samples = context => [
+export const samples = (context) => [
   basic(context),
   multipleProperties(context),
   controlled(context),

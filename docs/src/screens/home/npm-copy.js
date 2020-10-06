@@ -15,7 +15,7 @@ const HeroNPMWrapper = styled.div`
 const HeroNPMCopy = styled.p`
   background-color: #d5d5d5;
   height: 4rem;
-  color: ${p => p.theme.colors.button};
+  color: ${(p) => p.theme.colors.button};
   text-align: left;
   padding: 0 1.5rem;
   line-height: 4rem;
@@ -30,17 +30,17 @@ const HeroNPMButton = styled.button`
   height: 4rem;
   margin: 0;
   padding: 0;
-  background: ${p => p.theme.colors.textLight};
+  background: ${(p) => p.theme.colors.textLight};
   transition: background 0.3s ease-out;
   font-size: 1.4rem;
   letter-spacing: 0.01rem;
-  color: ${p => p.theme.colors.button};
+  color: ${(p) => p.theme.colors.button};
   border: 0;
   text-transform: uppercase;
   cursor: copy;
 
   &:hover {
-    background: ${p => p.theme.colors.buttonLightHover};
+    background: ${(p) => p.theme.colors.buttonLightHover};
   }
 `;
 
@@ -48,7 +48,7 @@ const NpmCopy = ({ text }) => {
   const [animating, setAnimating] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
 
-  const handleCopy = React.useCallback(ev => {
+  const handleCopy = React.useCallback((ev) => {
     ev.preventDefault();
     setAnimating(true);
     setCopied(true);

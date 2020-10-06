@@ -14,7 +14,7 @@ export function stack(spacingMobile, spacingTablet = spacingMobile) {
       margin-top: ${spacingMobile}rem;
     }
 
-    @media ${p => p.theme.media.sm} {
+    @media ${(p) => p.theme.media.sm} {
       > * + * {
         margin-top: ${spacingTablet}rem;
       }
@@ -36,7 +36,7 @@ export function stackHorizontal(spacingMobile, spacingTablet = spacingMobile) {
       margin-left: ${spacingMobile}rem;
     }
 
-    @media ${p => p.theme.media.sm} {
+    @media ${(p) => p.theme.media.sm} {
       > * + * {
         margin-left: ${spacingTablet}rem;
       }
@@ -47,7 +47,7 @@ export function stackHorizontal(spacingMobile, spacingTablet = spacingMobile) {
 export const center = css`
   margin-left: auto;
   margin-right: auto;
-  max-width: ${p => p.theme.layout.page};
+  max-width: ${(p) => p.theme.layout.page};
 `;
 
 export function underline({ light } = { light: false }) {
@@ -56,7 +56,7 @@ export function underline({ light } = { light: false }) {
     text-decoration: none;
 
     &::before {
-      background-color: ${p =>
+      background-color: ${(p) =>
         light ? p.theme.colors.buttonLightHover : p.theme.colors.accent};
       bottom: 0;
       content: '';
@@ -68,7 +68,7 @@ export function underline({ light } = { light: false }) {
     }
 
     &:hover {
-      color: ${p =>
+      color: ${(p) =>
         light ? p.theme.colors.buttonLightHover : p.theme.colors.accent};
 
       &::before {

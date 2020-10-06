@@ -19,45 +19,45 @@ import {
 import { scope, removeImportFromPreview } from '../utils/live-preview';
 import AnchorSvg from '../assets/anchor';
 
-const getLanguage = className => {
+const getLanguage = (className) => {
   const res = className.match(/language-(\w+)/);
   return res ? res[1] : null;
 };
 
 const Pre = styled.pre`
-  background: ${p => p.theme.colors.codeBg};
-  border: 1px solid ${p => p.theme.colors.border};
-  border-radius: ${p => p.theme.spacing.xs};
+  background: ${(p) => p.theme.colors.codeBg};
+  border: 1px solid ${(p) => p.theme.colors.border};
+  border-radius: ${(p) => p.theme.spacing.xs};
 
-  font-size: ${p => p.theme.fontSizes.code};
-  line-height: ${p => p.theme.lineHeights.code};
+  font-size: ${(p) => p.theme.fontSizes.code};
+  line-height: ${(p) => p.theme.lineHeights.code};
 
   max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: ${p => p.theme.spacing.sm};
+  padding: ${(p) => p.theme.spacing.sm};
   position: relative;
   white-space: pre;
 `;
 
 const Code = styled.code`
   display: block;
-  font-family: ${p => p.theme.fonts.code};
-  color: ${p => p.theme.colors.code};
+  font-family: ${(p) => p.theme.fonts.code};
+  color: ${(p) => p.theme.colors.code};
   font-variant-ligatures: none;
   font-feature-settings: normal;
   white-space: pre;
 `;
 
-const InlineCode = styled(props => {
+const InlineCode = styled((props) => {
   const children = props.children.replace(/\\\|/g, '|');
   return <code {...props}>{children}</code>;
 })`
-  background: ${p => p.theme.colors.codeBg};
-  color: ${p => p.theme.colors.code};
-  font-family: ${p => p.theme.fonts.code};
-  font-size: ${p => p.theme.fontSizes.small};
-  border-radius: ${p => p.theme.spacing.xs};
+  background: ${(p) => p.theme.colors.codeBg};
+  color: ${(p) => p.theme.colors.code};
+  font-family: ${(p) => p.theme.fonts.code};
+  font-size: ${(p) => p.theme.fontSizes.small};
+  border-radius: ${(p) => p.theme.spacing.xs};
 
   display: inline-block;
   vertical-align: baseline;
@@ -73,23 +73,23 @@ const InlineCode = styled(props => {
 
 const InlineImage = styled.img`
   display: inline-block;
-  margin: 0 ${p => p.theme.spacing.sm} ${p => p.theme.spacing.md} 0;
-  padding: ${p => p.theme.spacing.xs} ${p => p.theme.spacing.sm};
-  border: 1px solid ${p => p.theme.colors.border};
-  border-radius: ${p => p.theme.spacing.xs};
+  margin: 0 ${(p) => p.theme.spacing.sm} ${(p) => p.theme.spacing.md} 0;
+  padding: ${(p) => p.theme.spacing.xs} ${(p) => p.theme.spacing.sm};
+  border: 1px solid ${(p) => p.theme.colors.border};
+  border-radius: ${(p) => p.theme.spacing.xs};
 `;
 
 const ImageWrapper = styled.div`
-  margin: ${p => p.theme.spacing.md} 0;
-  border: 1px solid ${p => p.theme.colors.border};
-  border-radius: ${p => p.theme.spacing.xs};
-  background: ${p => p.theme.colors.bg};
+  margin: ${(p) => p.theme.spacing.md} 0;
+  border: 1px solid ${(p) => p.theme.colors.border};
+  border-radius: ${(p) => p.theme.spacing.xs};
+  background: ${(p) => p.theme.colors.bg};
 
   display: flex;
   flex-direction: column;
 
   & > img {
-    padding: ${p => p.theme.spacing.md};
+    padding: ${(p) => p.theme.spacing.md};
     align-self: center;
     max-height: 60vh;
   }
@@ -99,13 +99,13 @@ const ImageAlt = styled.span.attrs(() => ({
   'aria-hidden': true, // This is just duplicating alt
 }))`
   display: block;
-  padding: ${p => p.theme.spacing.xs} ${p => p.theme.spacing.sm};
-  border-top: 1px solid ${p => p.theme.colors.border};
-  background: ${p => p.theme.colors.codeBg};
-  font-size: ${p => p.theme.fontSizes.small};
+  padding: ${(p) => p.theme.spacing.xs} ${(p) => p.theme.spacing.sm};
+  border-top: 1px solid ${(p) => p.theme.colors.border};
+  background: ${(p) => p.theme.colors.codeBg};
+  font-size: ${(p) => p.theme.fontSizes.small};
 `;
 
-const Image = props => {
+const Image = (props) => {
   const { height, width, alt, src } = props;
   if (height || width) return <InlineImage {...props} />;
 
@@ -178,20 +178,20 @@ HighlightCode.propTypes = {
 };
 
 const Blockquote = styled.blockquote`
-  margin: ${p => p.theme.spacing.md} 0;
-  padding: 0 0 0 ${p => p.theme.spacing.md};
-  border-left: 0.5rem solid ${p => p.theme.colors.border};
-  font-size: ${p => p.theme.fontSizes.small};
+  margin: ${(p) => p.theme.spacing.md} 0;
+  padding: 0 0 0 ${(p) => p.theme.spacing.md};
+  border-left: 0.5rem solid ${(p) => p.theme.colors.border};
+  font-size: ${(p) => p.theme.fontSizes.small};
 
   & > * {
-    margin: ${p => p.theme.spacing.sm} 0;
+    margin: ${(p) => p.theme.spacing.sm} 0;
   }
 `;
 
 const sharedTableCellStyling = css`
-  padding: ${p => p.theme.spacing.xs} ${p => p.theme.spacing.sm};
-  border-left: 1px solid ${p => p.theme.colors.passiveBg};
-  border-bottom: 1px solid ${p => p.theme.colors.passiveBg};
+  padding: ${(p) => p.theme.spacing.xs} ${(p) => p.theme.spacing.sm};
+  border-left: 1px solid ${(p) => p.theme.colors.passiveBg};
+  border-bottom: 1px solid ${(p) => p.theme.colors.passiveBg};
 `;
 
 const TableHeader = styled.th`
@@ -204,9 +204,9 @@ const TableCell = styled.td`
   width: min-content;
   ${sharedTableCellStyling}
 
-  ${p => {
+  ${(p) => {
     const isCodeOnly = React.Children.toArray(p.children).every(
-      x => x.props && x.props.mdxType === 'inlineCode'
+      (x) => x.props && x.props.mdxType === 'inlineCode'
     );
     return (
       isCodeOnly &&
@@ -242,11 +242,11 @@ const TableOverflow = styled.div`
 `;
 
 const Table = styled.table`
-  border: 1px solid ${p => p.theme.colors.passiveBg};
+  border: 1px solid ${(p) => p.theme.colors.passiveBg};
   border-collapse: collapse;
 `;
 
-const TableWithOverflow = props => (
+const TableWithOverflow = (props) => (
   <TableOverflow>
     <Table {...props} />
   </TableOverflow>
@@ -292,7 +292,7 @@ const HeadingText = styled.h1`
 
 const AnchorLink = styled.a`
   display: inline-block;
-  color: ${p => p.theme.colors.accent};
+  color: ${(p) => p.theme.colors.accent};
   padding-right: 0.5rem;
   width: 2rem;
 
@@ -310,15 +310,32 @@ const AnchorIcon = styled(AnchorSvg)`
   height: 100%;
 `;
 
-const Header = tag => ({ id, children }) => {
-  return (
-    <HeadingText as={tag} id={id}>
-      <AnchorLink href={`#${id}`}>
-        <AnchorIcon />
-      </AnchorLink>
-      {children}
-    </HeadingText>
-  );
+const H2 = ({ id, children }) => (
+  <HeadingText as="h2" id={id}>
+    <AnchorLink href={`#${id}`}>
+      <AnchorIcon />
+    </AnchorLink>
+    {children}
+  </HeadingText>
+);
+
+H2.propTypes = {
+  id: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+const H3 = ({ id, children }) => (
+  <HeadingText as="h3" id={id}>
+    <AnchorLink href={`#${id}`}>
+      <AnchorIcon />
+    </AnchorLink>
+    {children}
+  </HeadingText>
+);
+
+H3.propTypes = {
+  id: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 const components = {
@@ -332,8 +349,8 @@ const components = {
   td: TableCell,
   a: MdLink,
   h1: HeadingText,
-  h2: Header('h2'),
-  h3: Header('h3'),
+  h2: H2,
+  h3: H3,
 };
 
 export const MDXComponents = ({ children }) => (

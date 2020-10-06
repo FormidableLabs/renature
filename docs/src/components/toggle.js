@@ -38,7 +38,7 @@ const StyledToggle = styled.div`
     content: '';
     position: absolute;
     display: block;
-    background: ${p => p.theme.colors.accent};
+    background: ${(p) => p.theme.colors.accent};
     height: 2.8rem;
     width: 2.8rem;
     top: 0.1rem;
@@ -51,7 +51,7 @@ const StyledToggle = styled.div`
   }
 
   input:checked + label::before {
-    background: ${p => p.theme.colors.buttonLightHover};
+    background: ${(p) => p.theme.colors.buttonLightHover};
     transition: width 0.2s cubic-bezier(0, 0, 0, 0.1);
   }
 

@@ -8,7 +8,7 @@ export default App;
 
 if (typeof document !== 'undefined') {
   const renderMethod = module.hot ? render : hydrate;
-  const mount = Component => {
+  const mount = (Component) => {
     renderMethod(
       <AppContainer>
         <Component />

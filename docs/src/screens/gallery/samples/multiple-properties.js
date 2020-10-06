@@ -1,4 +1,4 @@
-const code = context => `
+const code = (context) => `
 import React from 'react';
 import { useFriction } from 'renature';
 
@@ -35,7 +35,7 @@ function Mover() {
 }
 `;
 
-export const multipleProperties = context => ({
+export const multipleProperties = (context) => ({
   code: code(context),
   title: 'Multiple CSS Properties',
   slug: 'multiple-css-properties/',

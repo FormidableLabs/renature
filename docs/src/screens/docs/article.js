@@ -20,12 +20,12 @@ const Content = styled.article.attrs(() => ({
   id: 'page-content',
 }))`
   flex: 1;
-  min-height: calc(100vh - ${p => p.theme.layout.header});
-  background: ${p => p.theme.colors.bg};
-  padding: ${p => p.theme.spacing.md};
+  min-height: calc(100vh - ${(p) => p.theme.layout.header});
+  background: ${(p) => p.theme.colors.bg};
+  padding: ${(p) => p.theme.spacing.md};
 
-  @media ${p => p.theme.media.lg} {
-    padding: ${p => p.theme.spacing.lg};
+  @media ${(p) => p.theme.media.lg} {
+    padding: ${(p) => p.theme.spacing.lg};
   }
 
   overflow-wrap: break-word;
@@ -40,19 +40,19 @@ const Legend = styled.aside`
   @media ${({ theme }) => theme.media.lg} {
     display: block;
     position: sticky;
-    background: ${p => p.theme.colors.textLight};
-    top: ${p => p.theme.layout.header};
+    background: ${(p) => p.theme.colors.textLight};
+    top: ${(p) => p.theme.layout.header};
     width: 100%;
-    max-width: ${p => p.theme.layout.legend};
-    padding: ${p => p.theme.spacing.lg} ${p => p.theme.spacing.md};
+    max-width: ${(p) => p.theme.layout.legend};
+    padding: ${(p) => p.theme.spacing.lg} ${(p) => p.theme.spacing.md};
     margin: 0;
   }
 `;
 
 const LegendTitle = styled.h3`
-  font-size: ${p => p.theme.fontSizes.body};
-  font-weight: ${p => p.theme.fontWeights.heading};
-  margin-bottom: ${p => p.theme.spacing.sm};
+  font-size: ${(p) => p.theme.fontSizes.body};
+  font-weight: ${(p) => p.theme.fontWeights.heading};
+  margin-bottom: ${(p) => p.theme.spacing.sm};
 `;
 
 const HeadingList = styled.ul`
@@ -62,18 +62,18 @@ const HeadingList = styled.ul`
 `;
 
 const HeadingItem = styled.li`
-  line-height: ${p => p.theme.lineHeights.heading};
-  margin-bottom: ${p => p.theme.spacing.xs};
+  line-height: ${(p) => p.theme.lineHeights.heading};
+  margin-bottom: ${(p) => p.theme.spacing.xs};
 
   > a {
-    font-size: ${p => p.theme.fontSizes.small};
-    font-weight: ${p => p.theme.fontWeights.body};
-    color: ${p => p.theme.colors.passive};
+    font-size: ${(p) => p.theme.fontSizes.small};
+    font-weight: ${(p) => p.theme.fontWeights.body};
+    color: ${(p) => p.theme.colors.passive};
     text-decoration: none;
     transition: color 0.2s ease-out;
 
     &:hover {
-      color: ${p => p.theme.colors.accent};
+      color: ${(p) => p.theme.colors.accent};
     }
   }
 `;
@@ -82,14 +82,14 @@ const SectionList = () => {
   const page = useMarkdownPage();
   if (!page || !page.headings) return null;
 
-  const headings = page.headings.filter(x => x.depth > 1);
+  const headings = page.headings.filter((x) => x.depth > 1);
   if (headings.length === 0) return null;
 
   return (
     <>
       <LegendTitle>In this section</LegendTitle>
       <HeadingList>
-        {headings.map(heading => (
+        {headings.map((heading) => (
           <HeadingItem key={heading.slug}>
             <a href={`#${heading.slug}`}>{heading.value}</a>
           </HeadingItem>

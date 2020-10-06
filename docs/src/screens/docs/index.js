@@ -15,22 +15,22 @@ const Container = styled.div`
   position: relative;
   display: flex;
   width: 100%;
-  margin-top: ${p => p.theme.layout.header};
-  background: ${p => p.theme.colors.textLight};
+  margin-top: ${(p) => p.theme.layout.header};
+  background: ${(p) => p.theme.colors.textLight};
 `;
 
-export const OpenCloseSidebar = styled.img.attrs(props => ({
+export const OpenCloseSidebar = styled.img.attrs((props) => ({
   src: props.sidebarOpen ? closeButton : burger,
 }))`
   cursor: pointer;
   display: block;
-  margin: ${p => p.theme.spacing.sm} ${p => p.theme.spacing.md};
+  margin: ${(p) => p.theme.spacing.sm} ${(p) => p.theme.spacing.md};
   position: fixed;
   right: 0;
   top: 0;
   z-index: 1;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     display: none;
   }
 `;
@@ -39,7 +39,7 @@ const Docs = ({ isLoading, children }) => {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
   const toggleSidebar = () => {
-    setSidebarOpen(prevOpen => !prevOpen);
+    setSidebarOpen((prevOpen) => !prevOpen);
   };
 
   const closeSidebar = () => {

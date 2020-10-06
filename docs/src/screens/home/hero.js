@@ -17,7 +17,7 @@ const HeroContent = styled.div`
   margin-top: 5rem;
   width: 100%;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-gap: 2rem;
@@ -32,13 +32,13 @@ const HeroContent = styled.div`
 const HeroBadge = styled.div`
   width: 20rem;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     width: 25rem;
     grid-column: 1 / span 5;
     justify-self: center;
   }
 
-  @media ${p => p.theme.media.md} {
+  @media ${(p) => p.theme.media.md} {
     width: 30rem;
     grid-row: 1 / span 2;
   }
@@ -48,7 +48,7 @@ const HeroBodyAndButtons = styled.div`
   ${stack(2)};
   max-width: 30rem;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     grid-column: 6 / span 7;
     max-width: 52rem;
   }
@@ -60,24 +60,24 @@ const HeroTitle = styled.h1`
   text-align: center;
   text-transform: uppercase;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     font-size: 6rem;
     text-align: left;
   }
 
-  @media ${p => p.theme.media.md} {
+  @media ${(p) => p.theme.media.md} {
     font-size: 8rem;
   }
 `;
 
 const HeroBody = styled.p`
-  font-family: ${p => p.theme.fonts.body};
+  font-family: ${(p) => p.theme.fonts.body};
   letter-spacing: 0.16rem;
   font-size: 1.4rem;
   line-height: 2.2rem;
   text-align: center;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     font-size: 2rem;
     line-height: 2.8rem;
     text-align: left;
@@ -88,7 +88,7 @@ const DocumentationButton = styled(Link)`
   flex-basis: 35%;
   height: 4rem;
   font-size: 1.4rem;
-  background: ${p => p.theme.colors.textLight};
+  background: ${(p) => p.theme.colors.textLight};
   transition: background 0.35s ease-out;
   line-height: 4rem;
   text-align: center;
@@ -115,7 +115,7 @@ const HeroNavList = styled.ul`
   font-size: 1.4rem;
   text-align: center;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     grid-column: 1 / span 12;
     grid-row: 2 / span 1;
     margin-top: 2rem;
@@ -123,7 +123,7 @@ const HeroNavList = styled.ul`
     font-size: 1.8rem;
   }
 
-  @media ${p => p.theme.media.md} {
+  @media ${(p) => p.theme.media.md} {
     grid-column: 6 / span 7;
     margin-top: 0;
     max-width: 52rem;
@@ -132,7 +132,7 @@ const HeroNavList = styled.ul`
   & li a {
     ${underline({ light: true })};
 
-    color: ${p => p.theme.colors.textLight};
+    color: ${(p) => p.theme.colors.textLight};
     letter-spacing: 0.1rem;
     transition: color 0.3s ease-out;
     text-transform: uppercase;
@@ -147,7 +147,7 @@ const HeroButtonsContainer = styled.div`
   ${stack(2)};
   justify-content: space-between;
 
-  @media ${p => p.theme.media.md} {
+  @media ${(p) => p.theme.media.md} {
     ${stackHorizontal(2)};
     align-items: center;
 

@@ -11,8 +11,8 @@ const Container = styled.div`
 const Loader = styled.div`
   position: relative;
   margin: 0 auto;
-  width: ${p => p.theme.spacing.xl};
-  top: calc(50% - ${p => p.theme.spacing.xl});
+  width: ${(p) => p.theme.spacing.xl};
+  top: calc(50% - ${(p) => p.theme.spacing.xl});
 
   &:before {
     content: '';
@@ -56,7 +56,7 @@ const Svg = styled.svg`
 `;
 
 const Circle = styled.circle`
-  stroke: ${p => p.theme.colors.accent};
+  stroke: ${(p) => p.theme.colors.accent};
   stroke-dasharray: 1, 200;
   stroke-dashoffset: 0;
   animation: ${dash} 1.5s ease-in-out infinite;
