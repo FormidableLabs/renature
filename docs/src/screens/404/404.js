@@ -9,7 +9,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-  height: ${p => `calc(100vh - ${p.theme.layout.header})`};
+  height: ${(p) => `calc(100vh - ${p.theme.layout.header})`};
 `;
 
 const Heading = styled.h1`
@@ -17,8 +17,8 @@ const Heading = styled.h1`
 `;
 
 const StyledLink = styled(Link)`
-  background: ${p => p.theme.colors.accent};
-  color: ${p => p.theme.colors.textLight};
+  background: ${(p) => p.theme.colors.accent};
+  color: ${(p) => p.theme.colors.textLight};
   text-decoration: none;
   text-transform: uppercase;
   font-size: 2rem;
@@ -28,7 +28,7 @@ const StyledLink = styled(Link)`
   transition: color 0.4s ease-out;
 
   &:hover {
-    color: ${p => p.theme.colors.buttonLightHover};
+    color: ${(p) => p.theme.colors.buttonLightHover};
   }
 `;
 

@@ -1,4 +1,4 @@
-const code = context => `
+const code = (context) => `
 import React from 'react';
 import { useGravity2D } from 'renature';
 
@@ -54,7 +54,7 @@ function Orbit() {
 }
 `;
 
-export const orbit = context => ({
+export const orbit = (context) => ({
   title: 'Orbit',
   slug: 'orbit/',
   code: code(context),

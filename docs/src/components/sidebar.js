@@ -24,16 +24,16 @@ const HeroLogoLink = styled(Link)`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: ${p => p.theme.spacing.sm};
+  margin-bottom: ${(p) => p.theme.spacing.sm};
   align-self: center;
 `;
 
 const HeroLogo = styled.div`
   display: none;
-  width: ${p => p.theme.layout.logo};
-  height: ${p => p.theme.layout.logo};
+  width: ${(p) => p.theme.layout.logo};
+  height: ${(p) => p.theme.layout.logo};
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     display: block;
   }
 `;
@@ -41,8 +41,8 @@ const HeroLogo = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: ${p => p.theme.spacing.xs};
-  padding-bottom: ${p => p.theme.spacing.lg};
+  padding-top: ${(p) => p.theme.spacing.xs};
+  padding-bottom: ${(p) => p.theme.spacing.lg};
 `;
 
 export const relative = (from, to) => {
@@ -96,7 +96,7 @@ const GALLERY_CHILD = [
   },
 ];
 
-const Sidebar = props => {
+const Sidebar = (props) => {
   const location = useLocation();
   const currentPage = useMarkdownPage();
   const tree = useMarkdownTree();
@@ -115,7 +115,7 @@ const Sidebar = props => {
       children = [{ ...tree, children: undefined }, ...children];
     }
 
-    return children.concat(GALLERY_CHILD).map(page => {
+    return children.concat(GALLERY_CHILD).map((page) => {
       const pageChildren = page.children || [];
 
       const isActive = pageChildren.length
@@ -134,7 +134,7 @@ const Sidebar = props => {
 
           {pageChildren.length && isActive ? (
             <SidebarNavSubItemWrapper>
-              {pageChildren.map(childPage => (
+              {pageChildren.map((childPage) => (
                 <SidebarNavSubItem
                   isActive={() => childPage.path === currentPage.path}
                   to={relative(pathname, childPage.path)}

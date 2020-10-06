@@ -18,20 +18,20 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: calc(100vh - ${p => p.theme.layout.header});
-  margin-top: ${p => p.theme.layout.header};
+  height: calc(100vh - ${(p) => p.theme.layout.header});
+  margin-top: ${(p) => p.theme.layout.header};
   padding: 6rem 4rem 4rem 4rem;
-  background: ${p => p.theme.colors.textLight};
+  background: ${(p) => p.theme.colors.textLight};
   overflow: hidden;
 `;
 
 const StyledSampleTitle = styled.h1`
-  color: ${p => p.theme.colors.accent};
-  font-family: ${p => p.theme.fonts.code};
-  font-size: ${p => p.theme.fontSizes.h3};
+  color: ${(p) => p.theme.colors.accent};
+  font-family: ${(p) => p.theme.fonts.code};
+  font-size: ${(p) => p.theme.fontSizes.h3};
 
-  @media ${p => p.theme.media.md} {
-    font-size: ${p => p.theme.fontSizes.h1};
+  @media ${(p) => p.theme.media.md} {
+    font-size: ${(p) => p.theme.fontSizes.h1};
   }
 `;
 
@@ -45,7 +45,7 @@ const StyledContainer = styled.div`
   flex-direction: column-reverse;
   border-radius: 1rem;
   box-shadow: 1px 1px 20px rgba(20, 20, 20, 0.27);
-  font-family: ${p => p.theme.fonts.code};
+  font-family: ${(p) => p.theme.fonts.code};
   overflow: auto;
   width: 80%;
 
@@ -53,7 +53,7 @@ const StyledContainer = styled.div`
     flex: 0 0 50%;
   }
 
-  @media ${p => p.theme.media.md} {
+  @media ${(p) => p.theme.media.md} {
     flex-direction: row;
   }
 `;
@@ -89,7 +89,7 @@ const StyledBack = styled(Link)`
   position: absolute;
   top: 1.5rem;
   left: 4rem;
-  color: ${p => p.theme.colors.accent};
+  color: ${(p) => p.theme.colors.accent};
 
   &::before {
     content: '';

@@ -14,48 +14,48 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${p => p.theme.colors.textLight};
-    color: ${p => p.theme.colors.text};
-    font-family: ${p => p.theme.fonts.body};
-    line-height: ${p => p.theme.lineHeights.body};
-    font-weight: ${p => p.theme.fontWeights.body};
+    background: ${(p) => p.theme.colors.textLight};
+    color: ${(p) => p.theme.colors.text};
+    font-family: ${(p) => p.theme.fonts.body};
+    line-height: ${(p) => p.theme.lineHeights.body};
+    font-weight: ${(p) => p.theme.fontWeights.body};
     text-rendering: optimizeLegibility;
     margin: 0;
     padding: 0;
 
-    font-size: ${p => p.theme.fontSizes.bodySmall};
+    font-size: ${(p) => p.theme.fontSizes.bodySmall};
     
-    @media ${p => p.theme.media.lg} {
-      font-size: ${p => p.theme.fontSizes.body};
+    @media ${(p) => p.theme.media.lg} {
+      font-size: ${(p) => p.theme.fontSizes.body};
     }
   }
 
   a {
-    color: ${p => p.theme.colors.accent};
-    font-weight: ${p => p.theme.fontWeights.links};
+    color: ${(p) => p.theme.colors.accent};
+    font-weight: ${(p) => p.theme.fontWeights.links};
   }
 
   table, pre, p, h1, h2, h3 {
-    margin: 0 0 ${p => p.theme.spacing.md} 0;
+    margin: 0 0 ${(p) => p.theme.spacing.md} 0;
   }
 
   h1, h2, h3 {
-    font-family: ${p => p.theme.fonts.heading};
-    font-weight: ${p => p.theme.fontWeights.heading};
-    line-height: ${p => p.theme.lineHeights.heading};
-    color: ${p => p.theme.colors.heading};
+    font-family: ${(p) => p.theme.fonts.heading};
+    font-weight: ${(p) => p.theme.fontWeights.heading};
+    line-height: ${(p) => p.theme.lineHeights.heading};
+    color: ${(p) => p.theme.colors.heading};
   }
 
   h1 {
-    font-size: ${p => p.theme.fontSizes.h1};
+    font-size: ${(p) => p.theme.fontSizes.h1};
   }
 
   h2 {
-    font-size: ${p => p.theme.fontSizes.h2};
+    font-size: ${(p) => p.theme.fontSizes.h2};
   }
 
   h3 {
-    font-size: ${p => p.theme.fontSizes.h3};
+    font-size: ${(p) => p.theme.fontSizes.h3};
   }
 
   img {
@@ -70,7 +70,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .live-preview__mover {
-    background: ${p => p.theme.colors.accent};
+    background: ${(p) => p.theme.colors.accent};
 
     &--sm {
       height: 5rem;
@@ -143,9 +143,9 @@ export const GlobalStyle = createGlobalStyle`
     height: 2.5rem;
     width: 2.5rem;
     border-radius: 50%;
-    background: ${p => p.theme.colors.textLight};
-    box-shadow: 0 0 0.8rem 0.4rem ${p => p.theme.colors.textLight},
-      0 0 1.6rem 0.8rem ${p => p.theme.colors.accent};
+    background: ${(p) => p.theme.colors.textLight};
+    box-shadow: 0 0 0.8rem 0.4rem ${(p) => p.theme.colors.textLight},
+      0 0 1.6rem 0.8rem ${(p) => p.theme.colors.accent};
   }
 
   .live-preview__attractor-2d {
@@ -167,7 +167,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .live-preview__stroke {
-    stroke: ${p => p.theme.colors.accent};
+    stroke: ${(p) => p.theme.colors.accent};
     stroke-width: 3;
     fill: transparent;
   }
@@ -190,7 +190,7 @@ export const GlobalStyle = createGlobalStyle`
 
   .live-preview__orbiter {
     border-radius: 50%;
-    background: ${p => p.theme.colors.accent};
+    background: ${(p) => p.theme.colors.accent};
 
     &--sm {
       height: 1.5rem;

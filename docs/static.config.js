@@ -41,7 +41,7 @@ export default {
     {
       path: '/gallery',
       template: require.resolve('./src/screens/gallery'),
-      children: samples('gallery').map(sample => ({
+      children: samples('gallery').map((sample) => ({
         path: `${sample.slug}`,
         template: require.resolve('./src/screens/gallery/sample'),
         getData: async () => sample,

@@ -17,11 +17,11 @@ const FeaturesContainer = styled.div`
   grid-template-columns: 1fr;
   grid-gap: 3rem;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media ${p => p.theme.media.md} {
+  @media ${(p) => p.theme.media.md} {
     grid-gap: 5rem;
   }
 `;
@@ -44,7 +44,7 @@ const Features = ({ features }) => (
     <SectionStack>
       <SectionTitle>Features</SectionTitle>
       <FeaturesContainer>
-        {features.map(feature => {
+        {features.map((feature) => {
           return (
             <FeatureCard key={feature.title}>
               <img src={feature.icon} alt={feature.title} />

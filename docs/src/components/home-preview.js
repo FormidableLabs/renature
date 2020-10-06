@@ -19,8 +19,8 @@ const StyledEditorWithTagline = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media ${p => p.theme.media.sm} {
-    flex-direction: ${p => (p.before ? 'row' : 'row-reverse')};
+  @media ${(p) => p.theme.media.sm} {
+    flex-direction: ${(p) => (p.before ? 'row' : 'row-reverse')};
   }
 `;
 
@@ -28,7 +28,7 @@ const StyledTagline = styled.aside`
   flex-basis: 20%;
   padding: 2rem 5rem;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     padding: 0 5rem;
   }
 
@@ -46,19 +46,19 @@ const StyledTagline = styled.aside`
 export const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: ${p => p.theme.fonts.code};
+  font-family: ${(p) => p.theme.fonts.code};
   width: 100%;
   border-radius: 1rem;
   box-shadow: 1px 1px 20px rgba(20, 20, 20, 0.27);
   overflow: hidden;
 
-  @media ${p => p.theme.media.md} {
+  @media ${(p) => p.theme.media.md} {
     flex-direction: ${({ splitVertical }) =>
       splitVertical ? 'row' : 'column'};
   }
 
   > * {
-    flex: ${p => (p.even ? '0 0 50%' : '0 1 auto')};
+    flex: ${(p) => (p.even ? '0 0 50%' : '0 1 auto')};
   }
 `;
 
@@ -82,7 +82,7 @@ export const StyledPreview = styled(({ splitVertical, ...rest }) => (
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: ${p => p.theme.colors.textLight};
+  background: ${(p) => p.theme.colors.textLight};
   min-height: 25rem;
   overflow: hidden;
   flex-grow: ${({ splitVertical }) => (splitVertical ? 1 : 0)};
@@ -94,8 +94,8 @@ export const StyledError = styled(LiveError)`
   justify-content: center;
   padding: 0 2rem;
   margin: 0;
-  background: ${p => p.theme.colors.accent};
-  color: ${p => p.theme.colors.textLight};
+  background: ${(p) => p.theme.colors.accent};
+  color: ${(p) => p.theme.colors.textLight};
   white-space: pre-wrap;
   text-align: left;
   font-size: 0.9em;

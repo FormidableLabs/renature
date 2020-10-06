@@ -11,7 +11,7 @@ const FooterContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     flex-direction: row;
   }
 
@@ -40,7 +40,7 @@ const FooterLinks = styled.ul`
   ${stack(1.5)};
 
   & a {
-    color: ${p => p.theme.colors.textLight};
+    color: ${(p) => p.theme.colors.textLight};
     letter-spacing: 0.1rem;
     transition: opacity 0.4s ease-out;
     text-decoration: none;
@@ -51,7 +51,7 @@ const FooterLinks = styled.ul`
   }
 
   & a:visited {
-    color: ${p => p.theme.colors.textLight};
+    color: ${(p) => p.theme.colors.textLight};
   }
 `;
 
@@ -61,11 +61,11 @@ const FooterDescription = styled.p`
   line-height: 1.6;
   max-width: 56rem;
   text-align: left;
-  color: ${p => p.theme.colors.textLight};
+  color: ${(p) => p.theme.colors.textLight};
   margin: 0;
 
   & a {
-    color: ${p => p.theme.colors.textLight};
+    color: ${(p) => p.theme.colors.textLight};
     letter-spacing: 0.1rem;
     transition: opacity 0.3s ease-out;
   }
@@ -75,7 +75,7 @@ const FooterDescription = styled.p`
   }
 
   & a:visited {
-    color: ${p => p.theme.colors.textLight};
+    color: ${(p) => p.theme.colors.textLight};
   }
 `;
 

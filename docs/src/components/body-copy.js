@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 export const BodyCopy = styled.p`
-  font-family: ${p => p.theme.fonts.body};
+  font-family: ${(p) => p.theme.fonts.body};
   font-size: 1.5rem;
   line-height: 1.5;
   color: ${({ color, theme }) => color || theme.colors.textDark};

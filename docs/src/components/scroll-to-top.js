@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useMarkdownPage } from 'react-static-plugin-md-pages';
 
-const parsePathname = pathname => {
+const parsePathname = (pathname) => {
   const match = pathname && pathname.match(/#[a-z|-]+/);
   return match && match[1];
 };

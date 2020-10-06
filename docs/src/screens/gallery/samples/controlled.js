@@ -1,4 +1,4 @@
-const code = context => `
+const code = (context) => `
 import React from 'react';
 import { useGravity } from 'renature';
 
@@ -43,7 +43,7 @@ function ControlledMover() {
 }
 `;
 
-export const controlled = context => ({
+export const controlled = (context) => ({
   title: 'Controlled Animations',
   slug: 'controlled-animations/',
   code: code(context),

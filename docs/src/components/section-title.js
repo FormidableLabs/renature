@@ -9,11 +9,11 @@ export const SectionTitle = styled.h2`
   width: 100%;
   text-align: center;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     font-size: 4rem;
   }
 
-  @media ${p => p.theme.media.md} {
+  @media ${(p) => p.theme.media.md} {
     font-size: 4.5rem;
   }
 `;

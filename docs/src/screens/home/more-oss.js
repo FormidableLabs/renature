@@ -21,7 +21,7 @@ const OSSCardContainer = styled.div`
   grid-gap: 4rem;
   width: calc(100% - 4rem);
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
   }
@@ -35,7 +35,7 @@ const OSSCard = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     ${stackHorizontal(3)};
 
     justify-content: space-between;
@@ -50,7 +50,7 @@ const OSSBadge = styled.div`
   width: 15rem;
   height: 15rem;
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     flex: 0 0 15rem;
   }
 `;
@@ -60,7 +60,7 @@ const OSSCopyContainer = styled.div`
 `;
 
 const OSSTitle = styled(SecondaryTitle)`
-  color: ${p => p.theme.colors.textLight};
+  color: ${(p) => p.theme.colors.textLight};
   transition: opacity 0.3s ease-out;
   margin: 0;
 
@@ -68,7 +68,7 @@ const OSSTitle = styled(SecondaryTitle)`
     opacity: 0.7;
   }
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     text-align: left;
   }
 `;
@@ -78,9 +78,9 @@ const SectionWrapper = styled(Wrapper)`
 `;
 
 const OSSDescription = styled(BodyCopy)`
-  color: ${p => p.theme.colors.textLight};
+  color: ${(p) => p.theme.colors.textLight};
 
-  @media ${p => p.theme.media.sm} {
+  @media ${(p) => p.theme.media.sm} {
     text-align: left;
   }
 `;
@@ -92,7 +92,7 @@ const MoreOSS = ({ oss }) => (
         More Open Source from Formidable
       </SectionTitle>
       <OSSCardContainer>
-        {oss.cards.map(card => {
+        {oss.cards.map((card) => {
           return (
             <OSSCard key={card.title}>
               <OSSBadge>
