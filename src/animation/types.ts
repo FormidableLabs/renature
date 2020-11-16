@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 
 import { vector as Vector } from '../core';
-import { Entity } from '../forces';
+import { entity as Entity } from '../forces';
 
 export type VectorSetter = (values: {
   position: Vector<number>;

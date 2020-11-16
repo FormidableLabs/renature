@@ -17,7 +17,6 @@ export type entity = {
   readonly velocity: Vector_t<number>; 
   readonly position: Vector_t<number>
 };
-export type Entity = entity;
 
 export const applyForce: (_1:{
   readonly force: Vector_t<number>; 

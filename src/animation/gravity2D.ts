@@ -1,5 +1,5 @@
 import { vector as Vector } from '../core';
-import { Entity, applyForce, gravityForceV } from '../forces';
+import { entity as Entity, applyForce, gravityForceV } from '../forces';
 import { rAF } from '../rAF';
 import { VectorSetter, Listener, AnimationParams, Controller } from './types';
 
