@@ -51,7 +51,6 @@ export function update<C>({
           checkReversePlayState(element);
         }
 
-        // Apply the selected force once for each step.
         element.state.mover = applyForceForStep(element);
       }
 

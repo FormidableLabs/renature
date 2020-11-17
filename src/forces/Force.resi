@@ -1,5 +1,4 @@
-@genType("Entity")
-type entity = {
+export type entity = {
   mass: float,
   acceleration: Vector.t<float>,
   velocity: Vector.t<float>,

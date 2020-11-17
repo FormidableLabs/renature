@@ -5525,10 +5525,10 @@ browserslist@^4.9.1:
     escalade "^3.0.1"
     node-releases "^1.1.58"
 
-bs-platform@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-8.2.0.tgz#f3f4c06d5710a4c782f0ed030b1fe11e74a0a6d7"
-  integrity sha512-quvmUac/ZxGDsT7L5+6RNXrLPvLHkWFownacaqlwVoyAm770bPyupTRU49ALPGk3HpjfD5eE+lpGdOSPtuwJiA==
+bs-platform@^8.3.3:
+  version "8.3.3"
+  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-8.3.3.tgz#68e3796ad0607c55da0f45fe14c0ce0aaf69682c"
+  integrity sha512-ayS5wdvrOX6PxU2wX7O2rLllzsQDzmGq582NNDFwfM6b9HQu7ki242Pc46o2/CnGHHumKVarpX0IZzjC2Llgcg==
 
 bser@^2.0.0:
   version "2.1.1"
@@ -7081,10 +7081,10 @@ eslint-config-prettier@^6.11.0:
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-plugin-react-hooks@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.1.0.tgz#6323fbd5e650e84b2987ba76370523a60f4e7925"
-  integrity sha512-36zilUcDwDReiORXmcmTc6rRumu9JIM3WjSvV0nclHoUQ0CNrX866EwONvLR/UqaeqFutbAnVu8PEmctdo2SRQ==
+eslint-plugin-react-hooks@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.2.0.tgz#8c229c268d468956334c943bb45fc860280f5556"
+  integrity sha512-623WEiZJqxR7VdxFCKLI6d6LLpwJkGPYKODnkH3D7WpOG5KM8yWueBd8TLsNAetEJNF5iJmolaAKO3F8yzyVBQ==
 
 eslint-plugin-react@^7.20.6:
   version "7.20.6"
@@ -7879,10 +7879,10 @@ gensync@^1.0.0-beta.1:
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.1.tgz#58f4361ff987e5ff6e1e7a210827aa371eaac269"
   integrity sha512-r8EC6NO1sngH/zdD9fiRDLdcgnbayXah+mLgManTaIZJqEC1MZstmnox8KpnI2/fxQwrp5OpCOYWLp4rBl4Jcg==
 
-gentype@^3.35.0:
-  version "3.35.0"
-  resolved "https://registry.yarnpkg.com/gentype/-/gentype-3.35.0.tgz#ef59baf51ec3a63f826086aedcc3e54e170ed017"
-  integrity sha512-DuYx1r9LF1Un0j656eNFT0sUbUq503mgvT1/FCT5SdWQX3pHUfSbFjQVlXSctw1b2WUyFsvhoClhGfedQZZe1A==
+gentype@^3.38.0:
+  version "3.38.0"
+  resolved "https://registry.yarnpkg.com/gentype/-/gentype-3.38.0.tgz#ce7f46250b1b2e944055f4837712d8a916d85196"
+  integrity sha512-67FfVy4u4q2xbhPc09mbh5ZLQLnjeqlRZUOTaEJ38wLX9s5Aftr9CdGV7n9J7DtbWpTyXBE4Rs6HNT/75IOFEQ==
 
 get-caller-file@^2.0.1:
   version "2.0.5"
