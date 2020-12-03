@@ -32,4 +32,21 @@ describe("FluidResistance", () => {
       ) |> toEqual(-62.5)
     })
   })
+
+  describe("getFluidPositionAtTerminalVelocity", () => {
+    let mass = 10.
+    let rho = 25.
+    let area = 2.
+    let cDrag = 0.1
+
+    it(
+      "should correctly derive the position of the mover when it reaches terminal velocity",
+      () => {
+        open Expect
+        expect(
+          FluidResistance.getFluidPositionAtTerminalVelocity(~mass, ~rho, ~cDrag, ~area),
+        ) |> toBeSoCloseTo(65.05, ~digits=2)
+      },
+    )
+  })
 })

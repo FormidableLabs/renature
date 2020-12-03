@@ -137,6 +137,11 @@ describe("Vector", () => {
         expect(Vector.norm(v1Int) |> snd) |> toBeSoCloseTo(0.8, ~digits=1)
       },
     )
+
+    it("should return (0., 0.) for a vector with magnitude 0", () => {
+      open Expect
+      expect(Vector.norm((0, 0))) |> toEqual((0., 0.))
+    })
   })
 
   describe("normf", () => {
@@ -155,6 +160,11 @@ describe("Vector", () => {
         expect(Vector.normf(v1Float) |> snd) |> toBeSoCloseTo(0.78, ~digits=2)
       },
     )
+
+    it("should return (0., 0.) for a vector with magnitude 0", () => {
+      open Expect
+      expect(Vector.normf((0., 0.))) |> toEqual((0., 0.))
+    })
   })
 
   describe("lerp", () =>

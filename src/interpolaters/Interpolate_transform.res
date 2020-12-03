@@ -13,7 +13,14 @@ let interpolateTransform = (~range as (rl, rh), ~domain as (dl, dh), ~value) => 
     tl_1 |> Array.mapi((i, t) =>
       Interpolate_unit.interpolateUnit(~range=(rl, rh), ~domain=(t, th_1[i]), ~value)
     )
-  | _ => []
+  | (None, Some(_)) =>
+    Js.Exn.raiseError("The transform for from: '" ++ dl ++ "' could not be parsed.")
+  | (Some(_), None) =>
+    Js.Exn.raiseError("The transform for to: '" ++ dh ++ "' could not be parsed.")
+  | (None, None) =>
+    Js.Exn.raiseError(
+      "The transforms for from: '" ++ dl ++ "' and to: '" ++ dh ++ "' could not be pased.",
+    )
   }
 
   fromTransform.transformProperty->Js.Nullable.toOption->Belt.Option.getWithDefault("") ++

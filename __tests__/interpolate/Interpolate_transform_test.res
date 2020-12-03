@@ -118,6 +118,48 @@ describe("Interpolate_transform", () => {
         ) |> toEqual("translate3d(-5vh, 4vh, 1.25vw)")
       },
     )
+
+    it("should throw an error when the from transform can't be parsed", () => {
+      let from = "not a transform"
+      let to_ = "translateX(100px)"
+
+      open Expect
+      expect(() =>
+        Interpolate_transform.interpolateTransform(
+          ~range=(0., 150.),
+          ~domain=(from, to_),
+          ~value=75.,
+        )
+      ) |> toThrow
+    })
+
+    it("should throw an error when the to transform can't be parsed", () => {
+      let from = "translateX(45px)"
+      let to_ = "not a transform"
+
+      open Expect
+      expect(() =>
+        Interpolate_transform.interpolateTransform(
+          ~range=(0., 150.),
+          ~domain=(from, to_),
+          ~value=75.,
+        )
+      ) |> toThrow
+    })
+
+    it("should throw an error when the from and to transforms can't be parsed", () => {
+      let from = "not a transform"
+      let to_ = "still not a transform"
+
+      open Expect
+      expect(() =>
+        Interpolate_transform.interpolateTransform(
+          ~range=(0., 150.),
+          ~domain=(from, to_),
+          ~value=75.,
+        )
+      ) |> toThrow
+    })
   })
 
   describe("interpolateTransforms", () => {
