@@ -17,7 +17,7 @@
     "check:ts": "tsc --noEmit",
     "build": "rollup -c rollup.config.js",
     "clean": "rimraf ./dist ./node_modules/.cache",
-    "format": "prettier --write src/**/*.ts stories/**/*.tsx",
+    "format": "prettier --write src/**/*.ts stories/**/*.tsx __tests__/**/*.spec.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "preversion": "run-s clean:res clean build:res check:ts lint test build",
     "storybook": "start-storybook -p 6006",
