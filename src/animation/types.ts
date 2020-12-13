@@ -81,7 +81,7 @@ export interface AnimationGroup<C, E extends HTMLElement | SVGElement = any> {
   elements: StatefulAnimatingElement<C, E>[];
   start: (c?: { isImperativeStart: boolean }) => void;
   pause: () => void;
-  stop: (element: StatefulAnimatingElement<C, E>) => void;
+  stop: () => void;
 }
 
 export type AnimationCache = Map<number, CSSProperties>;

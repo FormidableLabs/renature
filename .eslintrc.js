@@ -1,21 +1,20 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: './tsconfig.json',
-  },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'prettier',
     'prettier/@typescript-eslint',
   ],
-  plugins: ['@typescript-eslint', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'react-hooks', 'jest'],
   settings: {
     react: {
       version: 'detect',
     },
+  },
+  env: {
+    'jest/globals': true,
   },
   rules: {
     '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '_' }],

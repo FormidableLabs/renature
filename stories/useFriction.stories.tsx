@@ -54,7 +54,7 @@ export const FrictionControlled: React.FC = () => {
       <Toggle
         checked={toggle}
         onChange={() => {
-          setToggle(prevToggle => !prevToggle);
+          setToggle((prevToggle) => !prevToggle);
         }}
       />
       <div className="mover mover--rotate" {...props} />
@@ -283,7 +283,7 @@ export const FrictionProgress: React.FC = () => {
       mass: number('mass', 30),
       initialVelocity: number('velocity', 10),
     },
-    onFrame: progress => {
+    onFrame: (progress) => {
       if (progressRef.current) {
         progressRef.current.innerHTML = `${progress.toFixed(2)}`;
       }

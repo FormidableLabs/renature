@@ -50,7 +50,7 @@ export const GravityControlled: React.FC = () => {
       <Toggle
         checked={toggle}
         onChange={() => {
-          setToggle(prevToggle => !prevToggle);
+          setToggle((prevToggle) => !prevToggle);
         }}
       />
       <div className="mover mover--rotate" {...props} />

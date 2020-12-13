@@ -130,18 +130,15 @@ export const useFluidResistanceGroup = <
   useLayoutEffect(() => {
     start();
 
-    return () => {
-      elements.forEach(stop);
-    };
-  }, [start, stop, elements]);
+    return stop;
+  }, [start, stop]);
 
   const startAll = useCallback(() => start({ isImperativeStart: true }), [
     start,
   ]);
-  const stopAll = useCallback(() => elements.forEach(stop), [elements, stop]);
 
   return [
     elements.map(({ ref }) => ({ ref })),
-    { start: startAll, stop: stopAll, pause },
+    { start: startAll, stop, pause },
   ];
 };

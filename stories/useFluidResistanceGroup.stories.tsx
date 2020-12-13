@@ -13,7 +13,7 @@ export default {
 };
 
 export const FluidResistanceMultipleBasic: React.FC = () => {
-  const [nodes] = useFluidResistanceGroup(5, i => ({
+  const [nodes] = useFluidResistanceGroup(5, (i) => ({
     from: {
       transform: 'translateY(0px)',
       background: getRandomHex(),
@@ -45,7 +45,7 @@ export const FluidResistanceMultipleBasic: React.FC = () => {
 };
 
 export const FluidResistanceMultipleEventBased: React.FC = () => {
-  const [nodes, controller] = useFluidResistanceGroup(5, i => ({
+  const [nodes, controller] = useFluidResistanceGroup(5, (i) => ({
     from: {
       transform: 'translateY(0px)',
       background: getRandomHex(),

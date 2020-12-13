@@ -81,12 +81,10 @@ export function group<C>(
       isFrameloopActive = false;
     };
 
-    stopFn = (element: StatefulAnimatingElement<C>) => {
-      if (animatingElements.has(element)) {
-        animatingElements.delete(element);
-      }
-
-      pauseFn();
+    stopFn = () => {
+      animatingElements.clear();
+      stop();
+      isFrameloopActive = false;
     };
   }
 

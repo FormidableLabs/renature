@@ -87,13 +87,3 @@ export const Gravity2DCustomG: React.FC = () => {
     </div>
   );
 };
-
-// @ts-ignore
-Gravity2DBasic.story = {
-  name: 'Gravity2D',
-};
-
-// @ts-ignore
-Gravity2DCustomG.story = {
-  name: 'Gravity2DCustomG',
-};
