@@ -33,6 +33,12 @@ describe('group', () => {
     onComplete: jest.fn(),
   };
 
+  const mockCallbacks: AnimationCallbacks<Record<string, unknown>> = {
+    checkReversePlayState: jest.fn(),
+    checkStoppingCondition: jest.fn(),
+    applyForceForStep: jest.fn(),
+  };
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -44,12 +50,6 @@ describe('group', () => {
     >[] = new Array(3).fill(baseElement);
 
     const mockInitialState = jest.fn(() => baseState);
-
-    const mockCallbacks: AnimationCallbacks<Record<string, unknown>> = {
-      checkReversePlayState: jest.fn(),
-      checkStoppingCondition: jest.fn(),
-      applyForceForStep: jest.fn(),
-    };
 
     const { start, stop, pause, elements } = group(
       mockElements,
@@ -83,12 +83,6 @@ describe('group', () => {
         delayed: (element.delay && element.delay > 0) || false,
       })
     );
-
-    const mockCallbacks: AnimationCallbacks<Record<string, unknown>> = {
-      checkReversePlayState: jest.fn(),
-      checkStoppingCondition: jest.fn(),
-      applyForceForStep: jest.fn(),
-    };
 
     const { elements } = group(mockElements, mockInitialState, mockCallbacks);
 
@@ -138,12 +132,6 @@ describe('group', () => {
 
     const mockInitialState = jest.fn(() => baseState);
 
-    const mockCallbacks: AnimationCallbacks<Record<string, unknown>> = {
-      checkReversePlayState: jest.fn(),
-      checkStoppingCondition: jest.fn(),
-      applyForceForStep: jest.fn(),
-    };
-
     const { start } = group(mockElements, mockInitialState, mockCallbacks);
 
     start();
@@ -166,12 +154,6 @@ describe('group', () => {
       ...baseState,
       paused: true,
     }));
-
-    const mockCallbacks: AnimationCallbacks<Record<string, unknown>> = {
-      checkReversePlayState: jest.fn(),
-      checkStoppingCondition: jest.fn(),
-      applyForceForStep: jest.fn(),
-    };
 
     const { start, elements } = group(
       mockElements,
@@ -205,12 +187,6 @@ describe('group', () => {
         delayed: (element.delay && element.delay > 0) || false,
       })
     );
-
-    const mockCallbacks: AnimationCallbacks<Record<string, unknown>> = {
-      checkReversePlayState: jest.fn(),
-      checkStoppingCondition: jest.fn(),
-      applyForceForStep: jest.fn(),
-    };
 
     const { start, elements } = group(
       mockElements,
@@ -274,12 +250,6 @@ describe('group', () => {
 
     const mockInitialState = jest.fn(() => baseState);
 
-    const mockCallbacks: AnimationCallbacks<Record<string, unknown>> = {
-      checkReversePlayState: jest.fn(),
-      checkStoppingCondition: jest.fn(),
-      applyForceForStep: jest.fn(),
-    };
-
     const { start, pause } = group(
       mockElements,
       mockInitialState,
@@ -316,12 +286,6 @@ describe('group', () => {
     >[] = new Array(3).fill(baseElement);
 
     const mockInitialState = jest.fn(() => baseState);
-
-    const mockCallbacks: AnimationCallbacks<Record<string, unknown>> = {
-      checkReversePlayState: jest.fn(),
-      checkStoppingCondition: jest.fn(),
-      applyForceForStep: jest.fn(),
-    };
 
     const { start, stop } = group(
       mockElements,
@@ -360,12 +324,6 @@ describe('group', () => {
 
     const mockInitialState = jest.fn(() => baseState);
 
-    const mockCallbacks: AnimationCallbacks<Record<string, unknown>> = {
-      checkReversePlayState: jest.fn(),
-      checkStoppingCondition: jest.fn(),
-      applyForceForStep: jest.fn(),
-    };
-
     const { start, stop, pause, elements } = group(
       mockElements,
       mockInitialState,
@@ -397,12 +355,6 @@ describe('group', () => {
     >[] = new Array(3).fill(baseElement);
 
     const mockInitialState = jest.fn(() => baseState);
-
-    const mockCallbacks: AnimationCallbacks<Record<string, unknown>> = {
-      checkReversePlayState: jest.fn(),
-      checkStoppingCondition: jest.fn(),
-      applyForceForStep: jest.fn(),
-    };
 
     const { start } = group(mockElements, mockInitialState, mockCallbacks);
 
