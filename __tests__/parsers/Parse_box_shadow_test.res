@@ -40,7 +40,7 @@ describe("Parse_box_shadow", () => {
     )
   })
 
-  describe("testBoxShadows", () =>
+  describe("testBoxShadows", () => {
     testAll(
       "should handle comma separated box-shadows",
       list{"10px 10px rgba(0, 0, 0, 1), -5px -5px -5px #ffffff"},
@@ -49,7 +49,21 @@ describe("Parse_box_shadow", () => {
         expect(Parse_box_shadow.testBoxShadows(boxShadows)) |> toBe(true)
       },
     )
-  )
+
+    testAll(
+      "should return false if the passed in string cannot be interpreted as a set of box-shadows",
+      list{
+        "10px 10px rgba(0, 0, 0, 1), 10px -10px #5678901",
+        "5rem 5rem -1px #fff, not a box-shadow",
+        "definitely not a box-shadow",
+        "testing regex,,,",
+      },
+      boxShadows => {
+        open Expect
+        expect(Parse_box_shadow.testBoxShadows(boxShadows)) |> toBe(false)
+      },
+    )
+  })
 
   describe("parseBoxShadow", () => {
     it("should parse a box-shadow into its discrete parts (offset-x, offset-y)", () => {

@@ -1,3 +1,6 @@
 rollup.config.js
 scripts
-**/*.bs.js
+dist
+docs
+*.bs.js
+*.gen.tsx

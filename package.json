@@ -14,12 +14,11 @@
     "clean:res": "bsb -clean-world",
     "build:res": "bsb -make-world",
     "start:res": "bsb -make-world -w",
-    "build:ts": "tsc",
     "check:ts": "tsc --noEmit",
     "build": "rollup -c rollup.config.js",
     "clean": "rimraf ./dist ./node_modules/.cache",
-    "format": "prettier --write src/**/*.ts",
-    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts stories/**/*.tsx __tests__/**/*.spec.ts",
+    "lint": "eslint . --ext .ts,.tsx",
     "preversion": "run-s clean:res clean build:res check:ts lint test build",
     "storybook": "start-storybook -p 6006",
     "test": "jest"
@@ -53,14 +52,15 @@
     "@types/jest": "^26.0.13",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.0.6",
     "babel-preset-react-app": "^9.1.2",
     "bs-platform": "^8.3.3",
-    "eslint": "^7.8.1",
+    "eslint": "^7.15.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.2.0",
     "gentype": "^3.38.0",
@@ -74,7 +74,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-terser": "^5.2.0",
     "rollup-plugin-typescript2": "^0.25.3",
-    "typescript": "^3.7.3"
+    "typescript": "^4.1.3"
   },
   "peerDependencies": {
     "react": "^16.9.0",
@@ -99,6 +99,5 @@
   "prettier": {
     "singleQuote": true,
     "trailingComma": "es5"
-  },
-  "dependencies": {}
+  }
 }

@@ -13,7 +13,7 @@ export default {
 };
 
 export const GravityMultipleBasic: React.FC = () => {
-  const [nodes] = useGravityGroup(5, i => ({
+  const [nodes] = useGravityGroup(5, (i) => ({
     from: {
       transform: 'translateY(0px)',
       background: getRandomHex(),
@@ -43,7 +43,7 @@ export const GravityMultipleBasic: React.FC = () => {
 };
 
 export const GravityMultipleEventBased: React.FC = () => {
-  const [nodes, controller] = useGravityGroup(5, i => ({
+  const [nodes, controller] = useGravityGroup(5, (i) => ({
     from: {
       transform: 'translateY(0px)',
       background: getRandomHex(),

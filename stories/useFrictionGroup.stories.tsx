@@ -13,7 +13,7 @@ export default {
 };
 
 export const FrictionMultipleBasic: React.FC = () => {
-  const [nodes] = useFrictionGroup(5, i => ({
+  const [nodes] = useFrictionGroup(5, (i) => ({
     from: {
       transform: 'translateY(0px)',
       background: getRandomHex(),
@@ -43,7 +43,7 @@ export const FrictionMultipleBasic: React.FC = () => {
 };
 
 export const FrictionMultipleEventBased: React.FC = () => {
-  const [nodes, controller] = useFrictionGroup(5, i => ({
+  const [nodes, controller] = useFrictionGroup(5, (i) => ({
     from: {
       transform: 'translateY(0px)',
       background: getRandomHex(),
