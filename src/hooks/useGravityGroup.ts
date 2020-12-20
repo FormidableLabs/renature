@@ -74,7 +74,7 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
             props.onFrame(progress);
           }
 
-          // Update the global cache of derived animation values.
+          // Update the cache of derived animation values.
           const currentCacheValue =
             cache.current.get(i) ?? ({} as CSSProperties);
 
@@ -95,7 +95,7 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
             ref.current.style[property as any] = values.to;
           }
 
-          // Update the global cache of derived animation values.
+          // Update the cache of derived animation values.
           const currentCacheValue =
             cache.current.get(i) ?? ({} as CSSProperties);
 

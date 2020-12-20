@@ -77,7 +77,7 @@ export const useFluidResistanceGroup = <
             props.onFrame(progress);
           }
 
-          // Update the global cache of derived animation values.
+          // Update the cache of derived animation values.
           const currentCacheValue =
             cache.current.get(i) ?? ({} as CSSProperties);
 
@@ -97,7 +97,7 @@ export const useFluidResistanceGroup = <
           if (ref.current && ref.current.style[property as any] !== values.to) {
             ref.current.style[property as any] = values.to;
 
-            // Update the global cache of derived animation values.
+            // Update the cache of derived animation values.
             const currentCacheValue =
               cache.current.get(i) ?? ({} as CSSProperties);
 

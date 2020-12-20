@@ -20,7 +20,7 @@ export type CSSProperty = keyof React.CSSProperties;
 
 interface NormalizedPair {
   property: CSSProperty;
-  value: any;
+  value: unknown;
 }
 
 const parsePair = (pairs: React.CSSProperties): NormalizedPair =>
@@ -29,7 +29,7 @@ const parsePair = (pairs: React.CSSProperties): NormalizedPair =>
     value: v,
   }))[0];
 
-export const parsePairs = ({
+const parsePairs = ({
   from,
   to,
 }: CSSPairs): { from: NormalizedPair; to: NormalizedPair } => ({
@@ -71,29 +71,22 @@ export function getInterpolatorForPair(
 ): InterpolatedResult<any, any> {
   const {
     from: { value: fromValue, property: fromProperty },
-    to: { value: toValue, property: toProperty },
+    to: { value: toValue },
   } = parsePairs({ from, to });
 
-  const typeFrom = typeof fromValue;
-  const typeTo = typeof toValue;
-
-  if (typeFrom !== typeTo) {
+  if (typeof fromValue !== typeof toValue) {
     throw new Error(
-      `from and to values have mismatching types. from type: ${typeFrom} does not match to type: ${typeTo}.`
-    );
-  } else if (fromProperty !== toProperty) {
-    throw new Error(
-      `from and to are not the same property. fromProperty: ${fromProperty} does not match toProperty: ${toProperty}.`
+      `from and to values have mismatching types. from type: ${typeof fromValue} does not match to type: ${typeof toValue}.`
     );
   }
 
   /**
-   * If the types of the to and from properties on the animation configuration
+   * If the types of the from and to properties on the animation configuration
    * are both numbers, use remapf as the interpolator. This will map the input
    * range of the animation, [0, position], to the output domain provided by the
    * consumer, i.e. [0, 1].
    */
-  if (typeFrom === 'number' && typeTo === 'number') {
+  if (typeof fromValue === 'number' && typeof toValue === 'number') {
     return {
       interpolator: remapf,
       property: fromProperty,
@@ -104,14 +97,14 @@ export function getInterpolatorForPair(
     };
 
     /**
-     * If the types of the to and from properties on the animation configuration
+     * If the types of the from and to properties on the animation configuration
      * are both strings, we'll need to check a few more conditions to ensure we
      * return the proper interpolator.
      *
      * Test strings in order of complexity, i.e. transforms and box-shadows first,
      * followed by colors and unit values.
      */
-  } else if (typeFrom === 'string' && typeTo === 'string') {
+  } else if (typeof fromValue === 'string' && typeof toValue === 'string') {
     // Check if the strings can be parsed to a valid CSS transform.
     if (testTransforms(fromValue) && testTransforms(toValue)) {
       return {
@@ -151,10 +144,8 @@ export function getInterpolatorForPair(
         interpolator: interpolateColor,
         property: fromProperty,
         values: {
-          /* eslint-disable @typescript-eslint/no-non-null-assertion */
-          from: rgba(normalizeColor(fromValue)!),
-          to: rgba(normalizeColor(toValue)!),
-          /* eslint-enable @typescript-eslint/no-non-null-assertion */
+          from: rgba(normalizeColor(fromValue) ?? 0x00000000),
+          to: rgba(normalizeColor(toValue) ?? 0x00000000),
         },
       };
     }
@@ -172,29 +163,11 @@ export function getInterpolatorForPair(
     }
   }
 
-  // If all previous parsing fails, fallback to returning the input unchanged.
-  return {
-    interpolator: () => fromValue,
-    property: fromProperty,
-    values: {
-      from: fromValue,
-      to: toValue,
-    },
-  };
+  // If all previous parsing fails, throw an error.
+  throw new Error(
+    `Unable to parse configuration from: '${fromValue}' or to: '${toValue}'.`
+  );
 }
-
-export function getInterpolatorsForPairs(
-  pairs: CSSPairs,
-  disableHardwareAcceleration?: boolean
-): InterpolatedResult<number, number>[];
-export function getInterpolatorsForPairs(
-  pairs: CSSPairs,
-  disableHardwareAcceleration?: boolean
-): InterpolatedResult<RGBA, string>[];
-export function getInterpolatorsForPairs(
-  pairs: CSSPairs,
-  disableHardwareAcceleration?: boolean
-): InterpolatedResult<string, string>[];
 
 export function getInterpolatorsForPairs(
   { from, to }: CSSPairs,
@@ -203,6 +176,10 @@ export function getInterpolatorsForPairs(
   return Object.keys(from).map((key) => {
     const f = { [key]: (from as { [cssProperty: string]: any })[key] };
     const t = { [key]: (to as { [cssProperty: string]: any })[key] };
+
+    if (t[key] === undefined) {
+      throw new Error(`Could not find a to value for from property: ${key}.`);
+    }
 
     return getInterpolatorForPair(
       {

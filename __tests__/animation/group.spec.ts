@@ -66,7 +66,7 @@ describe('group', () => {
     expect(elements.every(({ state }) => state === baseState)).toBe(true);
   });
 
-  it('should set modify the delayed state of an element after its delay timeout has elapsed', () => {
+  it('should modify the delayed state of an element after its delay timeout has elapsed', () => {
     jest.useFakeTimers();
 
     const mockElements: AnimatingElement<
