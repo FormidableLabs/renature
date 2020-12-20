@@ -1,45 +1,29 @@
-import {
-  parsePairs,
-  getInterpolatorForPair,
-  Interpolator,
-  rgba,
-} from '../../src/parsers';
+import { getInterpolatorsForPairs } from '../../src/parsers';
 
 describe('pairs', () => {
-  describe('parsePairs', () => {
-    it('should parse a from / to pair to its property and value representations', () => {
-      const pair = { from: { opacity: 0 }, to: { opacity: 1 } };
-      expect(parsePairs(pair)).toEqual({
-        from: { property: 'opacity', value: 0 },
-        to: { property: 'opacity', value: 1 },
-      });
-    });
-  });
-
-  describe('getInterpolatorForPair', () => {
+  describe('getInterpolatorsForPairs', () => {
     it('should infer a from / to pair of type number and return a numeric interpolator', () => {
-      const pair = {
+      const pairs = {
         from: { opacity: 0 },
         to: { opacity: 1 },
       };
-      const { interpolator } = getInterpolatorForPair(pair);
+
+      const [{ interpolator }] = getInterpolatorsForPairs(pairs);
 
       const result = interpolator({
         range: [100, 400],
-        domain: [0.3, 0.5],
+        domain: [pairs.from.opacity, pairs.to.opacity],
         value: 175,
       });
-      expect(result).toEqual(0.35);
+      expect(result).toEqual(0.25);
     });
 
     it('should infer a from / to pair of type string that matches a color and return a color interpolator', () => {
-      const pair = {
+      const pairs = {
         from: { background: '#c86432bf' }, // rgba(200, 100, 50, 0.75)
         to: { background: '#64c84b' }, // rgba(100, 200, 75, 1)
       };
-      const { interpolator } = (getInterpolatorForPair(pair) as unknown) as {
-        interpolator: Interpolator<rgba, string>;
-      };
+      const [{ interpolator }] = getInterpolatorsForPairs(pairs);
 
       const result = interpolator({
         range: [100, 400],
@@ -53,112 +37,151 @@ describe('pairs', () => {
     });
 
     it('should infer a from / to pair of type string that matches a united number and return a unit interpolator', () => {
-      const pair = {
+      const pairs = {
         from: { left: '10px' },
         to: { left: '200px' },
       };
-      const { interpolator } = (getInterpolatorForPair(pair) as unknown) as {
-        interpolator: Interpolator<string, string>;
-      };
+
+      const [{ interpolator }] = getInterpolatorsForPairs(pairs);
 
       const result = interpolator({
         range: [100, 400],
-        domain: ['10px', '200px'],
+        domain: [pairs.from.left, pairs.to.left],
         value: 175,
       });
       expect(result).toEqual('57.5px');
     });
 
     it('should infer a from / to pair of type string that matches a transform and return a transform interpolator', () => {
-      const pair = {
+      const pairs = {
         from: { transform: 'rotate(20rad)' },
         to: { transform: 'rotate(50rad)' },
         disableHardwareAcceleration: true,
       };
-      const { interpolator } = (getInterpolatorForPair(pair) as unknown) as {
-        interpolator: Interpolator<string, string>;
-      };
+      const [{ interpolator }] = getInterpolatorsForPairs(pairs);
 
       const result = interpolator({
         range: [100, 400],
-        domain: ['rotate(20rad)', 'rotate(50rad)'],
+        domain: [pairs.from.transform, pairs.to.transform],
         value: 175,
       });
       expect(result).toEqual('rotate(27.5rad)');
     });
 
+    it('should infer a from / to pair of type string that matches a box-shadow and return a box-shadow interpolator', () => {
+      const pairs = {
+        from: { boxShadow: '10px 10px 10px rgba(0, 0, 0, 1)' },
+        to: { boxShadow: '30px 20px rgba(100, 200, 160, 0)' },
+      };
+      const [{ interpolator }] = getInterpolatorsForPairs(pairs);
+
+      const result = interpolator({
+        range: [100, 400],
+        domain: [pairs.from.boxShadow, pairs.to.boxShadow],
+        value: 175,
+      });
+      expect(result).toEqual('15px 12.5px 7.5px 0px rgba(25, 50, 40, 0.75)');
+    });
+
     it('should throw an error if attempting to animate two different properties', () => {
-      const pair = {
+      const pairs = {
         from: { left: '10px' },
         to: { right: '200px' },
       };
-      const result = () =>
-        (getInterpolatorForPair(pair) as unknown) as {
-          interpolator: Interpolator<string, string>;
-        };
 
-      expect(result).toThrowError(
-        'from and to are not the same property. fromProperty: left does not match toProperty: right.'
+      expect(() => getInterpolatorsForPairs(pairs)).toThrowError(
+        'Could not find a to value for from property: left.'
       );
     });
 
     it('should throw an error if attempting to animate values of different types', () => {
-      const pair = {
+      const pairs = {
         from: { left: '10px' },
         to: { left: 0 },
       };
-      const result = () =>
-        (getInterpolatorForPair(pair) as unknown) as {
-          interpolator: Interpolator<string, string>;
-        };
 
-      expect(result).toThrowError(
+      expect(() => getInterpolatorsForPairs(pairs)).toThrowError(
         'from and to values have mismatching types. from type: string does not match to type: number.'
       );
     });
 
-    describe('with hardware acceleration enabled', () => {
-      it('should append translateZ(0) to a transform animation', () => {
-        const pair = {
-          from: { transform: 'rotate(20rad)' },
-          to: { transform: 'rotate(50rad)' },
-          disableHardwareAcceleration: true,
-        };
-        const { interpolator, values } = getInterpolatorForPair(pair);
+    it('should throw an error if it cannot parse the passed in values', () => {
+      const pairs = {
+        from: { transform: 'try to parse this' },
+        to: { transform: 'if you can' },
+      };
 
-        expect(values).toEqual({
-          from: 'rotate(20rad) translateZ(0)',
-          to: 'rotate(50rad) translateZ(0)',
-        });
+      expect(() => getInterpolatorsForPairs(pairs)).toThrowError(
+        "Unable to parse configuration from: 'try to parse this' or to: 'if you can'"
+      );
+    });
 
-        const result = interpolator({
-          range: [100, 400],
-          domain: [values.from, values.to],
-          value: 175,
-        });
-        expect(result).toEqual('rotate(27.5rad) translateZ(0)');
+    it('should append translateZ(0) to a transform animation', () => {
+      const pairs = {
+        from: { transform: 'rotate(20rad)' },
+        to: { transform: 'rotate(50rad)' },
+        disableHardwareAcceleration: true,
+      };
+      const [{ interpolator, values }] = getInterpolatorsForPairs(pairs);
+
+      expect(values).toEqual({
+        from: 'rotate(20rad) translateZ(0)',
+        to: 'rotate(50rad) translateZ(0)',
       });
 
-      it('should not append translateZ(0) to a transform animation if translateZ is already being animated', () => {
-        const pair = {
-          from: { transform: 'rotate(20rad) translateZ(0rem)' },
-          to: { transform: 'rotate(50rad) translateZ(10rem)' },
-          disableHardwareAcceleration: true,
-        };
-        const { interpolator, values } = getInterpolatorForPair(pair);
-
-        expect(values).toEqual({
-          from: 'rotate(20rad) translateZ(0rem)',
-          to: 'rotate(50rad) translateZ(10rem)',
-        });
-
-        const result = interpolator({
-          range: [100, 400],
-          domain: [values.from, values.to],
-          value: 175,
-        });
-        expect(result).toEqual('rotate(27.5rad) translateZ(2.5rem)');
+      const result = interpolator({
+        range: [100, 400],
+        domain: [values.from, values.to],
+        value: 175,
       });
+      expect(result).toEqual('rotate(27.5rad) translateZ(0)');
+    });
+
+    it('should not append translateZ(0) to a transform animation if translateZ is already being animated', () => {
+      const pairs = {
+        from: { transform: 'rotate(20rad) translateZ(0rem)' },
+        to: { transform: 'rotate(50rad) translateZ(10rem)' },
+        disableHardwareAcceleration: true,
+      };
+      const [{ interpolator, values }] = getInterpolatorsForPairs(pairs);
+
+      expect(values).toEqual({
+        from: 'rotate(20rad) translateZ(0rem)',
+        to: 'rotate(50rad) translateZ(10rem)',
+      });
+
+      const result = interpolator({
+        range: [100, 400],
+        domain: [values.from, values.to],
+        value: 175,
+      });
+      expect(result).toEqual('rotate(27.5rad) translateZ(2.5rem)');
+    });
+
+    it('should get a set of interpolators for many from / to pairs', () => {
+      const pairs = {
+        from: { opacity: 0, transform: 'translateX(10px)' },
+        to: { opacity: 1, transform: 'translateX(20px)' },
+      };
+      const [
+        { interpolator: opacityInterpolator },
+        { interpolator: transformInterpolator },
+      ] = getInterpolatorsForPairs(pairs);
+
+      const opacityResult = opacityInterpolator({
+        range: [100, 400],
+        domain: [pairs.from.opacity, pairs.to.opacity],
+        value: 175,
+      });
+      expect(opacityResult).toEqual(0.25);
+
+      const transformResult = transformInterpolator({
+        range: [100, 400],
+        domain: [pairs.from.transform, pairs.to.transform],
+        value: 175,
+      });
+
+      expect(transformResult).toEqual('translateX(12.5px)');
     });
   });
 });

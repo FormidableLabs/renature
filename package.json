@@ -93,7 +93,8 @@
       "node_modules/(?!(@glennsl/bs-jest|bs-platform)/)"
     ],
     "coveragePathIgnorePatterns": [
-      ".gen.tsx"
+      ".gen.tsx",
+      "/__tests__/test-utils"
     ]
   },
   "prettier": {
