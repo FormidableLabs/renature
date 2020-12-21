@@ -36,7 +36,7 @@ describe('fluidResistance', () => {
     expect(elements).toHaveLength(3);
   });
 
-  it('fluidResistance should return a start function that starts the frameloop', () => {
+  it('should return a start function that starts the frameloop', () => {
     const requestAnimationFrameSpy = jest.spyOn(
       window,
       'requestAnimationFrame'
@@ -70,9 +70,11 @@ describe('fluidResistance', () => {
 
     let prevState = elements.map(({ state }) => state.mover);
 
-    // Animate 10 frames, verifying that the physics state has changed on each frame.
-    // Discard the first frame, which initializes animation state but doesn't begin
-    // applying the force.
+    /**
+     * Animate 10 frames, verifying that the physics state has changed on each frame.
+     * Discard the first frame, which initializes animation state but doesn't begin
+     * applying the force.
+     */
     for (let i = 0; i < 10; i++) {
       mockRAF.step({ count: i === 0 ? 2 : 1 });
 
@@ -107,9 +109,11 @@ describe('fluidResistance', () => {
 
     start();
 
-    // Animate 440 frames, equivalent to 5.5 seconds.
-    // With the baseline physics configuration, we should reach the reversal state
-    // at approximately this time.
+    /**
+     * Animate 440 frames, equivalent to 5.5 seconds.
+     * With the baseline physics configuration, we should
+     * reach the reversal state at approximately this time.
+     */
     mockRAF.step({ count: 440 });
 
     expect(
@@ -131,9 +135,11 @@ describe('fluidResistance', () => {
 
     start();
 
-    // Animate 440 frames, equivalent to 5.5 seconds.
-    // With the baseline physics configuration, we should reach the reversal state
-    // at approximately this time.
+    /**
+     * Animate 440 frames, equivalent to 5.5 seconds.
+     * With the baseline physics configuration, we should
+     * reach the reversal state at approximately this time.
+     */
     mockRAF.step({ count: 440 });
 
     expect(
@@ -148,7 +154,7 @@ describe('fluidResistance', () => {
     ).toBe(true);
   });
 
-  it('should apply a settling effect to the animation if specified', () => {
+  it('should apply a settling effect to the animation if specified in the physics config', () => {
     const mockRAF = new MockRAF();
 
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(mockRAF.rAF);
@@ -175,9 +181,11 @@ describe('fluidResistance', () => {
       true
     );
 
-    // Animate another frame, enough to have triggered the settling effect.
-    // At this point, the velocity vector should be negative, but the play state should
-    // still be forward.
+    /**
+     * Animate another frame, enough to have triggered the settling effect.
+     * At this point, the velocity vector should be negative, but the play
+     * state should still be forward.
+     */
     mockRAF.step({ count: 1 });
     expect(elements.every(({ state }) => state.mover.velocity[1] < 0)).toBe(
       true
