@@ -9,8 +9,8 @@ branches:
 language: node_js
 
 node_js:
-  - 10
   - 12
+  - 14
 
 before_install:
   # Add `aws` CLI tool.
@@ -27,25 +27,25 @@ jobs:
         - yarn build:res
         - yarn test
     - <<: *buildReTest
-      node_js: 12
+      node_js: 14
     - &checkTs
       stage: Check TypeScript
       script:
         - yarn check:ts
     - <<: *checkTs
-      node_js: 12
+      node_js: 14
     - &lint
       stage: Lint
       script:
         - yarn lint
     - <<: *lint
-      node_js: 12
+      node_js: 14
     - &build
       stage: Build
       script:
         - yarn build
     - <<: *build
-      node_js: 12
+      node_js: 14
     - stage: documentation
       node_js: 12
       script:
