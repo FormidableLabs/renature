@@ -64,8 +64,8 @@ export const GlobalStyle = createGlobalStyle`
 
   /* react-live Preview */
   :root {
-    --color-near-black: #011826;
-    --color-deep-blue: #053959;
+    --color-space-black: #011826;
+    --color-space-blue: #053959;
     --color-yellow: #f2cf63;
   }
 
@@ -133,8 +133,8 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
     background: linear-gradient(
-      var(--color-near-black),
-      var(--color-deep-blue)
+      var(--color-space-black),
+      var(--color-space-blue)
     );
     flex: 1;
   }

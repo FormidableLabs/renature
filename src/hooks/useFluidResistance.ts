@@ -6,7 +6,7 @@ import {
   UseFluidResistanceArgs,
 } from './useFluidResistanceGroup';
 
-export const useFluidResistance = <M extends HTMLElement | SVGElement = any>({
+export const useFluidResistance = <E extends HTMLElement | SVGElement = any>({
   from,
   to,
   config = fluidResistanceDefaultConfig,
@@ -16,10 +16,7 @@ export const useFluidResistance = <M extends HTMLElement | SVGElement = any>({
   onFrame,
   onAnimationComplete,
   disableHardwareAcceleration,
-}: UseFluidResistanceArgs): [
-  { ref: React.MutableRefObject<M | null> },
-  Controller
-] => {
+}: UseFluidResistanceArgs): [{ ref: React.RefObject<E> }, Controller] => {
   const [props, controller] = useFluidResistanceGroup(1, () => ({
     from,
     to,

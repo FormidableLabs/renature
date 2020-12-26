@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, FC } from 'react';
 import { withKnobs, number, boolean } from '@storybook/addon-knobs';
 
 import { useFluidResistance } from '../src';
@@ -10,28 +10,28 @@ export default {
   decorators: [withKnobs],
 };
 
-export const FluidResistanceBasic: React.FC = () => {
+export const FluidResistanceBasic: FC = () => {
   const [props] = useFluidResistance<HTMLDivElement>({
     from: {
-      transform: 'translateY(-200%)',
+      transform: 'translateY(-100%)',
     },
     to: {
-      transform: 'translateY(200%)',
+      transform: 'translateY(100%)',
     },
     config: {
-      mass: number('mass', 25),
-      rho: number('rho', 10),
+      mass: number('mass', 20),
+      rho: number('rho', 20),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
       settle: boolean('settle', true),
     },
   });
 
-  return <div {...props} className="mover mover--translate" />;
+  return <div className="mover mover--magenta" {...props} />;
 };
 
-export const FluidResistanceControlled: React.FC = () => {
-  const [toggle, setToggle] = React.useState(true);
+export const FluidResistanceControlled: FC = () => {
+  const [toggle, setToggle] = useState(true);
 
   const [props] = useFluidResistance<HTMLDivElement>({
     from: {
@@ -43,8 +43,8 @@ export const FluidResistanceControlled: React.FC = () => {
       transform: toggle ? 'scale(1) rotate(180deg)' : 'scale(0) rotate(0deg)',
     },
     config: {
-      mass: number('mass', 25),
-      rho: number('rho', 10),
+      mass: number('mass', 20),
+      rho: number('rho', 20),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
       settle: boolean('settle', true),
@@ -54,23 +54,23 @@ export const FluidResistanceControlled: React.FC = () => {
   return (
     <>
       <Toggle
-        checked={toggle}
+        on={toggle}
         onChange={() => {
           setToggle((prevToggle) => !prevToggle);
         }}
       />
-      <div className="mover mover--rotate" {...props} />
+      <div className="mover mover--yellow" {...props} />
     </>
   );
 };
 
-export const FluidResistanceEventBased: React.FC = () => {
+export const FluidResistanceEventBased: FC = () => {
   const [props, controller] = useFluidResistance<HTMLDivElement>({
     from: { transform: 'skewY(0deg)' },
     to: { transform: 'skewY(30deg)' },
     config: {
-      mass: number('mass', 25),
-      rho: number('rho', 10),
+      mass: number('mass', 20),
+      rho: number('rho', 20),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
       settle: boolean('settle', false),
@@ -85,12 +85,12 @@ export const FluidResistanceEventBased: React.FC = () => {
         <Button onClick={controller.start}>Start</Button>
         <Button onClick={controller.stop}>Stop</Button>
       </div>
-      <div className="mover mover--translate" {...props} />
+      <div className="mover mover--magenta" {...props} />
     </>
   );
 };
 
-export const FluidResistanceDelay: React.FC = () => {
+export const FluidResistanceDelay: FC = () => {
   const [props] = useFluidResistance<HTMLDivElement>({
     from: {
       background: '#f25050',
@@ -101,19 +101,19 @@ export const FluidResistanceDelay: React.FC = () => {
       transform: 'scale(1.5) rotate(720deg)',
     },
     config: {
-      mass: number('mass', 25),
-      rho: number('rho', 10),
+      mass: number('mass', 20),
+      rho: number('rho', 20),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
-      settle: boolean('settle', false),
+      settle: boolean('settle', true),
     },
     delay: 2000,
   });
 
-  return <div className="mover mover--scale" {...props} />;
+  return <div className="mover mover--red" {...props} />;
 };
 
-export const FluidResistanceInfinite: React.FC = () => {
+export const FluidResistanceInfinite: FC = () => {
   const [props] = useFluidResistance<HTMLDivElement>({
     from: {
       background: '#f25050',
@@ -124,7 +124,7 @@ export const FluidResistanceInfinite: React.FC = () => {
       transform: 'scale(1.5) rotate(720deg)',
     },
     config: {
-      mass: number('mass', 25),
+      mass: number('mass', 20),
       rho: number('rho', 20),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
@@ -133,10 +133,10 @@ export const FluidResistanceInfinite: React.FC = () => {
     infinite: true,
   });
 
-  return <div className="mover mover--opacity" {...props} />;
+  return <div className="mover mover--purple" {...props} />;
 };
 
-export const FluidResistanceBoxShadow: React.FC = () => {
+export const FluidResistanceBoxShadow: FC = () => {
   const [props] = useFluidResistance<HTMLDivElement>({
     from: {
       boxShadow: '20px 20px 50px teal, -20px -20px 50px orange',
@@ -145,14 +145,14 @@ export const FluidResistanceBoxShadow: React.FC = () => {
       boxShadow: '-20px -20px 0px orange, 20px 20px 0px teal',
     },
     config: {
-      mass: number('mass', 10),
+      mass: number('mass', 20),
       rho: number('rho', 20),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
-      settle: boolean('settle', false),
+      settle: boolean('settle', true),
     },
     infinite: true,
   });
 
-  return <div className="mover mover--opacity" {...props} />;
+  return <div className="mover mover--purple" {...props} />;
 };

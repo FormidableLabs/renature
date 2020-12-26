@@ -30,14 +30,14 @@ export const useFluidResistanceGroup = <
 >(
   n: number,
   fn: (index: number) => UseFluidResistanceArgs
-): [{ ref: React.RefObject<E | null> }[], Controller] => {
+): [{ ref: React.RefObject<E> }[], Controller] => {
   // Set up a cache to store interpolated CSS state.
   const cache = useRef<AnimationCache>(new Map());
 
   const { elements, start, stop, pause } = useMemo(() => {
     const animatingElements: AnimatingElement<
       FluidResistanceConfig,
-      E | null
+      E
     >[] = new Array(n).fill(undefined).map((_, i) => {
       // Run the supplied config generator for each element to animate.
       const props = fn(i);

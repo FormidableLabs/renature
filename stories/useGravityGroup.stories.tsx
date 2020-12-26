@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useGravityGroup } from '../src';
@@ -12,12 +12,12 @@ export default {
   decorators: [withKnobs],
 };
 
-export const GravityMultipleBasic: React.FC = () => {
+export const GravityMultipleBasic: FC = () => {
   const [nodes] = useGravityGroup(5, (i) => ({
     from: {
       transform: 'translateY(0px)',
-      background: getRandomHex(),
-      borderRadius: `${Math.floor(Math.random() * 100)}%`,
+      background: '#7860ed',
+      borderRadius: '10%',
     },
     to: {
       transform: 'translateY(100px)',
@@ -35,19 +35,19 @@ export const GravityMultipleBasic: React.FC = () => {
 
   return (
     <div className="stack-horizontal">
-      {nodes.map(({ ref }, i) => (
-        <div className="mover mover--opacity" ref={ref} key={i} />
+      {nodes.map((props, i) => (
+        <div className="mover mover--purple" key={i} {...props} />
       ))}
     </div>
   );
 };
 
-export const GravityMultipleEventBased: React.FC = () => {
+export const GravityMultipleEventBased: FC = () => {
   const [nodes, controller] = useGravityGroup(5, (i) => ({
     from: {
       transform: 'translateY(0px)',
-      background: getRandomHex(),
-      borderRadius: `${Math.floor(Math.random() * 100)}%`,
+      background: '#7860ed',
+      borderRadius: '10%',
     },
     to: {
       transform: 'translateY(100px)',
@@ -71,8 +71,8 @@ export const GravityMultipleEventBased: React.FC = () => {
         <Button onClick={controller.pause}>Pause</Button>
         <Button onClick={controller.stop}>Stop</Button>
       </div>
-      {nodes.map(({ ref }, i) => (
-        <div className="mover mover--opacity" ref={ref} key={i} />
+      {nodes.map((props, i) => (
+        <div className="mover mover--purple" key={i} {...props} />
       ))}
     </div>
   );

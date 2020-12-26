@@ -13,5 +13,5 @@ export const samples = (context) => [
   pathTracing(context),
   boxShadow(context),
   orbit(context),
-  groupedAnimations,
+  groupedAnimations(context),
 ];

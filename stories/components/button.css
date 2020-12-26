@@ -9,7 +9,7 @@ button {
 
 .button {
   position: relative;
-  background: var(--color-near-black);
+  background: var(--color-space-black);
   color: rgba(255, 255, 255, 0.8);
   box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.2);
   font-size: 1em;
