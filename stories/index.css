@@ -3,15 +3,14 @@
 }
 
 :root {
-  --color-white: #fff;
+  --color-white: #ffffff;
+  --color-renature: #7860ed;
   --color-red: #f25050;
   --color-magenta: #d90467;
-  --color-purple: #a04ad9;
   --color-orange: #f29441;
   --color-yellow: #f2cf63;
-  --color-near-black: #011826;
-  --color-deep-blue: #053959;
-  --color-renature-purple: #7860ed;
+  --color-space-black: #011826;
+  --color-space-blue: #053959;
 }
 
 body {
@@ -21,19 +20,10 @@ body {
 
 #root {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.space {
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(var(--color-near-black), var(--color-deep-blue));
 }
 
 .mover {
@@ -43,20 +33,29 @@ body {
   transform-origin: center;
 }
 
-.mover--opacity {
-  background: var(--color-purple);
+.mover--purple {
+  background: var(--color-renature);
 }
 
-.mover--translate {
+.mover--magenta {
   background: var(--color-magenta);
 }
 
-.mover--rotate {
+.mover--yellow {
   background: var(--color-yellow);
 }
 
-.mover--scale {
+.mover--red {
   background: var(--color-red);
+}
+
+.space {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    var(--color-space-black),
+    var(--color-space-blue)
+  );
 }
 
 .mover-2d {
@@ -64,14 +63,7 @@ body {
   width: 25px;
   border-radius: 50%;
   background: var(--color-white);
-  box-shadow: 0 0 8px 4px var(--color-white), 0 0 16px 8px var(--color-purple);
-}
-
-.mover-2d--secondary {
-  height: 45px;
-  width: 45px;
-  background: var(--color-red);
-  box-shadow: 0 0 10px 5px var(--color-red);
+  box-shadow: 0 0 8px 4px var(--color-white), 0 0 16px 8px var(--color-renature);
 }
 
 .attractor-2d {

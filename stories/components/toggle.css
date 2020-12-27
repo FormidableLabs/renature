@@ -49,7 +49,7 @@
 
 .toggle input:checked + label::before {
   transition: width 0.2s cubic-bezier(0, 0, 0, 0.1);
-  background: var(--color-near-black);
+  background: var(--color-space-black);
 }
 
 .toggle input:checked + label::after {

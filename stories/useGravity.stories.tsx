@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState, FC } from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useGravity } from '../src';
-import './index.css';
-
 import Button from './components/Button';
 import Toggle from './components/Toggle';
+
+import './index.css';
 
 export default {
   title: 'Gravity',
   decorators: [withKnobs],
 };
 
-export const GravityBasic: React.FC = () => {
+export const GravityBasic: FC = () => {
   const [props] = useGravity<HTMLDivElement>({
     from: { opacity: 0 },
     to: { opacity: 1 },
@@ -23,11 +23,11 @@ export const GravityBasic: React.FC = () => {
     },
   });
 
-  return <div className="mover mover--opacity" {...props} />;
+  return <div className="mover mover--purple" {...props} />;
 };
 
-export const GravityControlled: React.FC = () => {
-  const [toggle, setToggle] = React.useState(true);
+export const GravityControlled: FC = () => {
+  const [toggle, setToggle] = useState<boolean>(true);
 
   const [props] = useGravity<HTMLDivElement>({
     from: {
@@ -48,17 +48,17 @@ export const GravityControlled: React.FC = () => {
   return (
     <>
       <Toggle
-        checked={toggle}
+        on={toggle}
         onChange={() => {
           setToggle((prevToggle) => !prevToggle);
         }}
       />
-      <div className="mover mover--rotate" {...props} />
+      <div className="mover mover--yellow" {...props} />
     </>
   );
 };
 
-export const GravityEventBased: React.FC = () => {
+export const GravityEventBased: FC = () => {
   const [props, controller] = useGravity<HTMLDivElement>({
     from: { transform: 'skewY(0deg)' },
     to: { transform: 'skewY(30deg)' },
@@ -77,12 +77,12 @@ export const GravityEventBased: React.FC = () => {
         <Button onClick={controller.start}>Start</Button>
         <Button onClick={controller.stop}>Stop</Button>
       </div>
-      <div className="mover mover--translate" {...props} />
+      <div className="mover mover--magenta" {...props} />
     </>
   );
 };
 
-export const GravityDelay: React.FC = () => {
+export const GravityDelay: FC = () => {
   const [props] = useGravity<HTMLDivElement>({
     from: {
       background: '#f25050',
@@ -100,10 +100,10 @@ export const GravityDelay: React.FC = () => {
     delay: 2000,
   });
 
-  return <div className="mover mover--scale" {...props} />;
+  return <div className="mover mover--red" {...props} />;
 };
 
-export const GravityInfinite: React.FC = () => {
+export const GravityInfinite: FC = () => {
   const [props] = useGravity<HTMLDivElement>({
     from: {
       background: '#f25050',
@@ -121,5 +121,5 @@ export const GravityInfinite: React.FC = () => {
     infinite: true,
   });
 
-  return <div className="mover mover--opacity" {...props} />;
+  return <div className="mover mover--purple" {...props} />;
 };

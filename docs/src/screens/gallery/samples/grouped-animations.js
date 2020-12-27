@@ -1,4 +1,4 @@
-const code = `
+const code = (context) => `
 import React from 'react';
 import { useFrictionGroup } from 'renature';
 
@@ -22,21 +22,30 @@ function FrictionGroup() {
   }));
 
   return (
-    <div className="live-preview__stack-h">
-      {nodes.map(props => {
+    <svg width="${context === 'gallery-preview' ? '220' : '330'}" height="${
+  context === 'gallery-preview' ? '100' : '150'
+}" viewBox="0 0 220 100">
+      {nodes.map((props, i) => {
+        const xOffset = i * 50;
+        const points =
+          xOffset.toString() +
+          ",20 " +
+          (xOffset + 50).toString() +
+          ",50 " +
+          xOffset.toString() +
+          ",80";
+
         return (
-          <svg height="100" width="100" viewBox="0 0 100 100">
-            <polygon points="0,0 80,50 0,100" fill="#FFCE24" {...props} />
-          </svg>
+          <polygon points={points} fill="#FFCE24" key={i} {...props} />
         );
       })}
-    </div>
+    </svg>
   );
 }
 `;
 
-export const groupedAnimations = {
+export const groupedAnimations = (context) => ({
   title: 'Grouped Animations',
   slug: 'grouped-animations/',
-  code,
-};
+  code: code(context),
+});

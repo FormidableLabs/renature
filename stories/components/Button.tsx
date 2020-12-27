@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { FC, MouseEvent } from 'react';
 
 import './button.css';
 
 interface Props {
-  onClick: (ev: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick: (ev: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button: React.FC<Props> = ({ onClick, children }) => (
+const Button: FC<Props> = ({ onClick, children }) => (
   <button className="button" onClick={onClick}>
     {children}
   </button>

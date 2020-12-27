@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useLayoutEffect, FC } from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useGravity2D } from '../src';
@@ -9,11 +9,12 @@ export default {
   decorators: [withKnobs],
 };
 
-export const Gravity2DBasic: React.FC = () => {
-  const [center, setCenter] = React.useState<[number, number]>([0, 0]);
+export const Gravity2DBasic: FC = () => {
+  const [center, setCenter] = useState<[number, number]>([0, 0]);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const root = document.getElementById('root');
+
     if (root) {
       setCenter([root.clientWidth / 2, root.clientHeight / 2]);
     }
@@ -48,11 +49,12 @@ export const Gravity2DBasic: React.FC = () => {
   );
 };
 
-export const Gravity2DCustomG: React.FC = () => {
-  const [center, setCenter] = React.useState<[number, number]>([0, 0]);
+export const Gravity2DCustomG: FC = () => {
+  const [center, setCenter] = useState<[number, number]>([0, 0]);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const root = document.getElementById('root');
+
     if (root) {
       setCenter([root.clientWidth / 2, root.clientHeight / 2]);
     }

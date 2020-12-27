@@ -3,18 +3,18 @@ import React from 'react';
 import './toggle.css';
 
 interface Props {
-  checked: boolean;
+  on: boolean;
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Toggle: React.FC<Props> = ({ onChange, checked }) => (
+const Toggle: React.FC<Props> = ({ onChange, on }) => (
   <div className="toggle">
     <input
       type="checkbox"
       name="toggle"
       id="toggle"
       onChange={onChange}
-      checked={checked}
+      checked={on}
     />
     <label htmlFor="toggle" />
   </div>

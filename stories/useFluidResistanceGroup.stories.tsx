@@ -13,11 +13,11 @@ export default {
 };
 
 export const FluidResistanceMultipleBasic: React.FC = () => {
-  const [nodes] = useFluidResistanceGroup(5, (i) => ({
+  const [nodes] = useFluidResistanceGroup<HTMLDivElement>(5, (i) => ({
     from: {
       transform: 'translateY(0px)',
-      background: getRandomHex(),
-      borderRadius: `${Math.floor(Math.random() * 100)}%`,
+      background: '#7860ed',
+      borderRadius: '10%',
     },
     to: {
       transform: 'translateY(100px)',
@@ -25,10 +25,10 @@ export const FluidResistanceMultipleBasic: React.FC = () => {
       borderRadius: `${Math.floor(Math.random() * 100)}%`,
     },
     config: {
-      mass: number('mass', 25),
-      rho: number('rho', 10),
+      mass: number('mass', 20),
+      rho: number('rho', 20),
       area: number('area', 20),
-      cDrag: number('cDrag', 0.25),
+      cDrag: number('cDrag', 0.1),
       settle: boolean('settle', true),
     },
     delay: i * 500,
@@ -37,8 +37,8 @@ export const FluidResistanceMultipleBasic: React.FC = () => {
 
   return (
     <div className="stack-horizontal">
-      {nodes.map(({ ref }, i) => (
-        <div className="mover mover--opacity" ref={ref} key={i} />
+      {nodes.map((props, i) => (
+        <div className="mover mover--purple" key={i} {...props} />
       ))}
     </div>
   );
@@ -48,8 +48,8 @@ export const FluidResistanceMultipleEventBased: React.FC = () => {
   const [nodes, controller] = useFluidResistanceGroup(5, (i) => ({
     from: {
       transform: 'translateY(0px)',
-      background: getRandomHex(),
-      borderRadius: `${Math.floor(Math.random() * 100)}%`,
+      background: '#7860ed',
+      borderRadius: '10%',
     },
     to: {
       transform: 'translateY(100px)',
@@ -75,8 +75,8 @@ export const FluidResistanceMultipleEventBased: React.FC = () => {
         <Button onClick={controller.pause}>Pause</Button>
         <Button onClick={controller.stop}>Stop</Button>
       </div>
-      {nodes.map(({ ref }, i) => (
-        <div className="mover mover--opacity" ref={ref} key={i} />
+      {nodes.map((props, i) => (
+        <div className="mover mover--purple" key={i} {...props} />
       ))}
     </div>
   );
