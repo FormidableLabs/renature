@@ -97,14 +97,15 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
               ref.current.style[property as any] = values.to;
             }
 
-            // Update the cache of derived animation values.
-            const currentCacheValue =
+            // Clear the cache for this particular property.
+            const { [property]: _animatedProperty, ...currentCacheValue } =
               cache.current.get(i) ?? ({} as CSSProperties);
 
-            cache.current.set(i, {
-              ...currentCacheValue,
-              [property]: values.to,
-            });
+            if (Object.keys(currentCacheValue).length > 0) {
+              cache.current.set(i, currentCacheValue);
+            } else {
+              cache.current.delete(i);
+            }
           });
 
           if (props.onAnimationComplete) {
