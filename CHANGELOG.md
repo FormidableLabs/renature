@@ -7,6 +7,19 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.7.1
+
+This release fixes a subset of issues introduced by the animation caching logic added in v0.7.0. Animations with cached values would not restart from scratch on configuration change due to incorrect cache invalidation logic. This release fixes that behavior, alongside improving TypeScript definitions, optimizating internals, and adding more extensive unit and integration tests.
+
+All changes in this release, with the exception of some TypeScript improvements, are internal and will not affect existing code.
+
+### Fixed
+
+- The animation cache for a `renature` hook is now cleared on animation end. This allows animations to be restarted on configuration change. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/103). Fixes [#101](https://github.com/FormidableLabs/renature/issues/101).
+- `use<Force>Group` hooks now properly handle generics to specify the type of HTML or SVG element being animated. Fixed as part of this PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/102/files).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.7.0...v0.7.1)
+
 ## v0.7.0
 
 This release adds better support for interrupted and reactive animations. When an animation is interrupted mid-flight (say, by a change in its `to` parameter or part of its physics `config`), it will begin animating from its curernt position to the new target rather than restarting at its `from` definition. There are no changes to the public API.
