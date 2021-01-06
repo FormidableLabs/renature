@@ -1,4 +1,4 @@
-import React from 'react';
+import { RefObject, useRef, useMemo, useLayoutEffect } from 'react';
 
 import {
   Gravity2DParams,
@@ -17,7 +17,7 @@ type UseGravity2DArgs = {
   disableHardwareAcceleration?: boolean;
 };
 
-export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
+export const useGravity2D = <E extends HTMLElement | SVGElement = any>({
   config = gravity2DDefaultConfig,
   pause = false,
   delay,
@@ -25,7 +25,7 @@ export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
   onAnimationComplete,
   disableHardwareAcceleration = false,
 }: UseGravity2DArgs): [
-  { ref: React.MutableRefObject<M | null> },
+  { ref: RefObject<E> },
   Controller & Gravity2DController
 ] => {
   /**
@@ -34,9 +34,9 @@ export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
    * is what allows us to directly update the style property
    * without triggering rerenders.
    */
-  const moverRef = React.useRef<M | null>(null);
+  const moverRef = useRef<E>(null);
 
-  const { controller } = React.useMemo(
+  const { controller } = useMemo(
     () =>
       gravity2D({
         config,
@@ -59,7 +59,7 @@ export const useGravity2D = <M extends HTMLElement | SVGElement = any>({
     [config, onFrame, onAnimationComplete, disableHardwareAcceleration]
   );
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (!pause && !delay) {
       controller.start();
     }
