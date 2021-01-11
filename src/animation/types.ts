@@ -18,6 +18,7 @@ export interface Controller {
   start: () => void;
   stop: () => void;
   pause: () => void;
+  set: (to: CSSProperties) => void;
 }
 
 export interface AnimationParams {

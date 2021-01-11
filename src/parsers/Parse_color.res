@@ -1,4 +1,4 @@
-@bs.module("./normalizeColor")
+@bs.module("./normalize-color")
 external normalizeColor: string => Js.Nullable.t<float> = "normalizeColor"
 
 type rgba = {
@@ -8,7 +8,7 @@ type rgba = {
   a: float,
 }
 
-@bs.module("./normalizeColor") external rgba: float => rgba = "rgba"
+@bs.module("./normalize-color") external rgba: float => rgba = "rgba"
 
 let testColor = val_ => normalizeColor(val_) !== Js.Nullable.null
 

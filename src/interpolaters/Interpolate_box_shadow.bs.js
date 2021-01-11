@@ -7,7 +7,7 @@ import * as Caml_option from "bs-platform/lib/es6/caml_option.js";
 import * as Interpolate_unit from "./Interpolate_unit.bs.js";
 import * as Parse_box_shadow from "../parsers/Parse_box_shadow.bs.js";
 import * as Interpolate_color from "./Interpolate_color.bs.js";
-import * as NormalizeColor from "../parsers/normalizeColor";
+import * as NormalizeColor from "../parsers/normalize-color";
 
 function rgba(prim) {
   return NormalizeColor.rgba(prim);

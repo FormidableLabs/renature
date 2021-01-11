@@ -1,4 +1,4 @@
-@bs.module("./normalizeColor")
+@bs.module("./normalize-color")
 external normalizeColor: string => Js.Nullable.t<float> = "normalizeColor"
 
 let outerWhitespaceRe = %re("/(?!\(.*)\s(?![^(]*?\))/g")

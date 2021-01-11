@@ -2,7 +2,7 @@ import { testTransforms } from './Parse_transform.gen';
 import { testBoxShadows } from './Parse_box_shadow.gen';
 import { testColor, rgba as RGBA } from './Parse_color.gen';
 import { testUnit } from './Parse_unit.gen';
-import { rgba, normalizeColor } from './normalizeColor';
+import { rgba, normalizeColor } from './normalize-color';
 import { remapf } from '../core';
 import {
   interpolateTransforms,
@@ -43,7 +43,7 @@ export type Interpolator<T, R> = (params: {
   readonly value: number;
 }) => R;
 
-interface InterpolatedResult<T, R> {
+export interface InterpolatedResult<T, R> {
   interpolator: Interpolator<T, R>;
   property: CSSProperty;
   values: {
