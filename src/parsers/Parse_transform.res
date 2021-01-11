@@ -4,19 +4,23 @@ type transformProperties = [
   | #translateX
   | #translateY
   | #translateZ
+  | #translate3d
   | #skew
   | #skewX
   | #skewY
-  | #skewZ
   | #rotate
   | #rotateX
   | #rotateY
   | #rotateZ
+  | #rotate3d
   | #scale
   | #scaleX
   | #scaleY
   | #scaleZ
+  | #scale3d
   | #perspective
+  | #matrix
+  | #matrix3d
 ]
 
 let transformRe = %re("/(\w+)\(([^)]*)\)/g")

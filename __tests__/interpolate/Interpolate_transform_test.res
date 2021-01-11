@@ -47,8 +47,8 @@ describe("Interpolate_transform", () => {
     })
 
     it("should interpolate a skew in one dimension property", () => {
-      let from = "skewZ(5deg)"
-      let to_ = "skewZ(60deg)"
+      let from = "skewX(5deg)"
+      let to_ = "skewX(60deg)"
 
       open Expect
       expect(
@@ -57,7 +57,7 @@ describe("Interpolate_transform", () => {
           ~domain=(from, to_),
           ~value=75.,
         ),
-      ) |> toEqual("skewZ(32.5deg)")
+      ) |> toEqual("skewX(32.5deg)")
     })
 
     it("should interpolate a perspective in one dimension property", () => {
@@ -189,4 +189,21 @@ describe("Interpolate_transform", () => {
       ) |> toEqual("translate(72.5px, 60px) scale(1.25, 15)")
     })
   })
+
+  it(
+    "should match transforms regardless of order, respecting the order of transforms in the from property in the output",
+    () => {
+      let from = "translate(45px, 100px) scale(1, 5)"
+      let to_ = "scale(1.5, 25) translate(100px, 20px)"
+
+      open Expect
+      expect(
+        Interpolate_transform.interpolateTransforms(
+          ~range=(0., 150.),
+          ~domain=(from, to_),
+          ~value=75.,
+        ),
+      ) |> toEqual("translate(72.5px, 60px) scale(1.25, 15)")
+    },
+  )
 })

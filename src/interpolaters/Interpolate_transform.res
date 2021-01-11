@@ -28,11 +28,31 @@ let interpolateTransform = (~range as (rl, rh), ~domain as (dl, dh), ~value) => 
     ((transforms |> Js.Array.joinWith(", ")) ++ ")"))
 }
 
+let populateTransformRegistry = transforms => {
+  transforms |> Js.Array.reduce((registry, t) => {
+    let property = Js.String.substring(~from=0, ~to_=Js.String.indexOf("(", t), t)
+
+    Js.Dict.set(registry, property, t)
+
+    registry
+  }, Js.Dict.empty())
+}
+
 let interpolateTransforms = (~range, ~domain as (dl, dh), ~value) => {
   let dlTransforms = Parse_transform.parseTransforms(dl)
   let dhTransforms = Parse_transform.parseTransforms(dh)
 
-  dlTransforms
-  |> Array.mapi((i, t) => interpolateTransform(~range, ~domain=(t, dhTransforms[i]), ~value))
+  let dlTransformRegistry = populateTransformRegistry(dlTransforms)
+  let dhTransfromRegistry = populateTransformRegistry(dhTransforms)
+
+  dlTransformRegistry
+  |> Js.Dict.entries
+  |> Js.Array.map(((property, t)) =>
+    interpolateTransform(
+      ~range,
+      ~domain=(t, Js.Dict.unsafeGet(dhTransfromRegistry, property)),
+      ~value,
+    )
+  )
   |> Js.Array.joinWith(" ")
 }

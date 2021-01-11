@@ -4,7 +4,7 @@ import * as $$Array from "bs-platform/lib/es6/array.js";
 import * as Parse_unit from "./Parse_unit.bs.js";
 import * as Parse_number from "./Parse_number.bs.js";
 
-var _map = {"translate":"translate","translateX":"translateX","translateY":"translateY","translateZ":"translateZ","skew":"skew","skewX":"skewX","skewY":"skewY","skewZ":"skewZ","rotate":"rotate","rotateX":"rotateX","rotateY":"rotateY","rotateZ":"rotateZ","scale":"scale","scaleX":"scaleX","scaleY":"scaleY","scaleZ":"scaleZ","perspective":"perspective"};
+var _map = {"translate":"translate","translateX":"translateX","translateY":"translateY","translateZ":"translateZ","translate3d":"translate3d","skew":"skew","skewX":"skewX","skewY":"skewY","rotate":"rotate","rotateX":"rotateX","rotateY":"rotateY","rotateZ":"rotateZ","rotate3d":"rotate3d","scale":"scale","scaleX":"scaleX","scaleY":"scaleY","scaleZ":"scaleZ","scale3d":"scale3d","perspective":"perspective","matrix":"matrix","matrix3d":"matrix3d"};
 
 var transformRe = /(\w+)\(([^)]*)\)/g;
 
