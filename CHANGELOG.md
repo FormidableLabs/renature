@@ -7,6 +7,30 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.7.2
+
+This release improves the way `renature` parses and interpolates CSS transforms. Previously, if you specified multiple transforms in a different order in your `from` and `to` configuration, `renature` would incorrectly interpolate values.
+
+```typescript
+// This would yield unexpected results!
+{
+  from: {
+    transform: 'translateX(10px) skewY(3deg)',
+  },
+  to: {
+    transform: 'skewY(6deg) translateX(20px)'
+  }
+}
+```
+
+With the above configuration, `renature` would try to interpolate between the `translateX` and `skewY` properties rather than matching `translateX` and `skewY` configurations separately. This release adds a fix for this behavior, so you can specify your transforms in any order you like!
+
+### Fixed
+
+- CSS transforms with multiple properties are now matched based on transform property rather than order. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/105).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.7.1...v0.7.2)
+
 ## v0.7.1
 
 This release fixes a subset of issues introduced by the animation caching logic added in v0.7.0. Animations with cached values would not restart from scratch on configuration change due to incorrect cache invalidation logic. This release fixes that behavior, alongside improving TypeScript definitions, optimizating internals, and adding more extensive unit and integration tests.
