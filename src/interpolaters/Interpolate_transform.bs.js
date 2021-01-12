@@ -2,6 +2,7 @@
 
 import * as $$Array from "bs-platform/lib/es6/array.js";
 import * as Js_exn from "bs-platform/lib/es6/js_exn.js";
+import * as Js_dict from "bs-platform/lib/es6/js_dict.js";
 import * as Caml_array from "bs-platform/lib/es6/caml_array.js";
 import * as Belt_Option from "bs-platform/lib/es6/belt_Option.js";
 import * as Caml_option from "bs-platform/lib/es6/caml_option.js";
@@ -42,15 +43,25 @@ function interpolateTransform(param, param$1, value) {
   return Belt_Option.getWithDefault(Caml_option.nullable_to_opt(fromTransform.transformProperty), "") + ("(" + (transforms.join(", ") + ")"));
 }
 
+function populateTransformRegistry(transforms) {
+  return transforms.reduce((function (registry, t) {
+                var property = t.substring(0, t.indexOf("("));
+                registry[property] = t;
+                return registry;
+              }), {});
+}
+
 function interpolateTransforms(range, param, value) {
   var dlTransforms = Parse_transform.parseTransforms(param[0]);
   var dhTransforms = Parse_transform.parseTransforms(param[1]);
-  return $$Array.mapi((function (i, t) {
-                  return interpolateTransform(range, [
-                              t,
-                              Caml_array.get(dhTransforms, i)
-                            ], value);
-                }), dlTransforms).join(" ");
+  var dlTransformRegistry = populateTransformRegistry(dlTransforms);
+  var dhTransfromRegistry = populateTransformRegistry(dhTransforms);
+  return Js_dict.entries(dlTransformRegistry).map(function (param) {
+                return interpolateTransform(range, [
+                            param[1],
+                            dhTransfromRegistry[param[0]]
+                          ], value);
+              }).join(" ");
 }
 
 export {
