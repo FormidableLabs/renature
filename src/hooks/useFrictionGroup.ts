@@ -97,7 +97,7 @@ export const useFrictionGroup = <E extends HTMLElement | SVGElement = any>(
     start,
   ]);
 
-  const set = useCallback<(to: CSSProperties, idx?: number) => void>(
+  const set = useCallback<(target: CSSProperties, idx?: number) => void>(
     (target, idx) => {
       const updatingElements =
         typeof idx !== 'undefined' ? [elements[idx]] : elements;

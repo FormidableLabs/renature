@@ -112,16 +112,19 @@ function parseTransforms(val_) {
   }
 }
 
+function parseSingleValueTransform(defaultValue, unit, defaultUnit) {
+  return defaultValue + Belt_Option.getWithDefault((unit == null) ? undefined : Caml_option.some(unit), defaultUnit);
+}
+
 function parsePotentialMultiValueTransform(value, defaultValue, unit, defaultUnit) {
-  if (!value.includes(",")) {
-    return defaultValue + Belt_Option.getWithDefault((unit == null) ? undefined : Caml_option.some(unit), defaultUnit);
+  if (value.includes(",")) {
+    return value.split(",").map(function (v) {
+                  var match = Parse_unit.parseUnit(v.trim());
+                  return parseSingleValueTransform(defaultValue, match.unit, defaultUnit);
+                }).join(", ");
+  } else {
+    return parseSingleValueTransform(defaultValue, unit, defaultUnit);
   }
-  var units = value.split(",").map(function (v) {
-        return Parse_unit.parseUnit(v.trim());
-      });
-  return units.map(function (param) {
-                return defaultValue + Belt_Option.getWithDefault(Caml_option.nullable_to_opt(param.unit), defaultUnit);
-              }).join(", ");
 }
 
 function getAnimatableNoneForTransform(property, value) {
@@ -134,19 +137,19 @@ function getAnimatableNoneForTransform(property, value) {
     } else if (match$1 === "rotate3d" || match$1 === "skew" || match$1 === "rotate") {
       return parsePotentialMultiValueTransform(value, "0", unit, "deg");
     } else if (match$1 === "scale" || match$1 === "scale3d") {
-      return parsePotentialMultiValueTransform(value, "0", unit, "");
+      return parsePotentialMultiValueTransform(value, "1", unit, "");
     } else if (match$1 === "matrix3d") {
       return "(1, 0, 0, 0,\n    0, 1, 0, 0,\n    0, 0, 1, 0,\n    0, 0, 0, 1)";
     } else if (match$1 === "skewY" || match$1 === "skewX" || match$1 === "rotateZ" || match$1 === "rotateY" || match$1 === "rotateX") {
-      return "0" + Belt_Option.getWithDefault((unit == null) ? undefined : Caml_option.some(unit), "deg");
+      return parseSingleValueTransform("0", unit, "deg");
     } else if (match$1 === "translateZ" || match$1 === "translateY" || match$1 === "translateX") {
-      return "0" + Belt_Option.getWithDefault((unit == null) ? undefined : Caml_option.some(unit), "px");
+      return parseSingleValueTransform("0", unit, "px");
     } else if (match$1 === "matrix") {
       return "(1, 0, 0, 1, 0, 0)";
     } else if (match$1 === "scaleZ" || match$1 === "scaleY" || match$1 === "scaleX") {
       return "1";
     } else {
-      return "0" + Belt_Option.getWithDefault((unit == null) ? undefined : Caml_option.some(unit), "px");
+      return parseSingleValueTransform("0", unit, "px");
     }
   } else {
     return "";

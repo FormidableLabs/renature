@@ -99,21 +99,16 @@ let parseTransforms = val_ => {
   }
 }
 
+let parseSingleValueTransform = (~defaultValue, ~unit, ~defaultUnit) =>
+  defaultValue ++ Js.Nullable.toOption(unit)->Belt.Option.getWithDefault(defaultUnit)
+
 let parsePotentialMultiValueTransform = (~value, ~defaultValue, ~unit, ~defaultUnit) => {
   switch Js.String.includes(",", value) {
-  | true => {
-      let units =
-        value
-        |> Js.String.split(",")
-        |> Js.Array.map(v => Parse_unit.parseUnit(v |> Js.String.trim))
-
-      units
-      |> Js.Array.map(({Parse_unit.unit: unit}) =>
-        defaultValue ++ Js.Nullable.toOption(unit)->Belt.Option.getWithDefault(defaultUnit)
-      )
-      |> Js.Array.joinWith(", ")
-    }
-  | false => defaultValue ++ Js.Nullable.toOption(unit)->Belt.Option.getWithDefault(defaultUnit)
+  | true => value |> Js.String.split(",") |> Js.Array.map(v => {
+      let {unit} = Parse_unit.parseUnit(v |> Js.String.trim)
+      parseSingleValueTransform(~defaultValue, ~unit, ~defaultUnit)
+    }) |> Js.Array.joinWith(", ")
+  | false => parseSingleValueTransform(~defaultValue, ~unit, ~defaultUnit)
   }
 }
 
@@ -121,30 +116,30 @@ let getAnimatableNoneForTransform = (property, value) => {
   let {unit} = Parse_unit.parseUnit(value)
 
   switch property->transformPropertiesFromJs {
-  | Some(#translate)
-  | Some(#translate3d) =>
-    parsePotentialMultiValueTransform(~value, ~defaultValue="0", ~unit, ~defaultUnit="px")
   | Some(#translateX)
   | Some(#translateY)
   | Some(#translateZ) =>
-    "0" ++ Js.Nullable.toOption(unit)->Belt.Option.getWithDefault("px")
+    parseSingleValueTransform(~defaultValue="0", ~unit, ~defaultUnit="px")
+  | Some(#translate)
+  | Some(#translate3d) =>
+    parsePotentialMultiValueTransform(~value, ~defaultValue="0", ~unit, ~defaultUnit="px")
   | Some(#scaleX)
   | Some(#scaleY)
   | Some(#scaleZ) => "1"
   | Some(#scale)
   | Some(#scale3d) =>
-    parsePotentialMultiValueTransform(~value, ~defaultValue="0", ~unit, ~defaultUnit="")
+    parsePotentialMultiValueTransform(~value, ~defaultValue="1", ~unit, ~defaultUnit="")
   | Some(#skewX)
   | Some(#skewY)
   | Some(#rotateX)
   | Some(#rotateY)
   | Some(#rotateZ) =>
-    "0" ++ Js.Nullable.toOption(unit)->Belt.Option.getWithDefault("deg")
+    parseSingleValueTransform(~defaultValue="0", ~unit, ~defaultUnit="deg")
   | Some(#skew)
   | Some(#rotate)
   | Some(#rotate3d) =>
     parsePotentialMultiValueTransform(~value, ~defaultValue="0", ~unit, ~defaultUnit="deg")
-  | Some(#perspective) => "0" ++ Js.Nullable.toOption(unit)->Belt.Option.getWithDefault("px")
+  | Some(#perspective) => parseSingleValueTransform(~defaultValue="0", ~unit, ~defaultUnit="px")
   | Some(#matrix) => "(1, 0, 0, 1, 0, 0)"
   | Some(#matrix3d) => "(1, 0, 0, 0,
     0, 1, 0, 0,

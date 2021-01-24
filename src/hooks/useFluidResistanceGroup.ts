@@ -86,7 +86,7 @@ export const useFluidResistanceGroup = <
     return fluidResistanceGroup(animatingElements);
   }, [n, fn]);
 
-  const set = useCallback<(to: CSSProperties, idx?: number) => void>(
+  const set = useCallback<(target: CSSProperties, idx?: number) => void>(
     (target, idx) => {
       const updatingElements =
         typeof idx !== 'undefined' ? [elements[idx]] : elements;

@@ -1,4 +1,4 @@
-import type { CSSProperties, RefObject, MutableRefObject } from 'react';
+import type { RefObject, MutableRefObject } from 'react';
 
 import type { AnimationCache, VectorSetter } from '../animation';
 import type { InterpolatedResult } from '../parsers';
@@ -72,11 +72,10 @@ export const onComplete = <E extends HTMLElement | SVGElement>({
   interpolators.forEach(({ property, values }) => {
     // Ensure our animation has reached the to value when the physics stopping condition has been reached.
     if (ref.current && ref.current.style[property as any] !== values.to) {
-      ref.current.style[property as any] = values.to;
+      ref.current.style[property as any] = `${values.to}`;
 
       // Clear the cache for this particular property.
-      const { [property]: _, ...cachedValue } =
-        cache.current.get(i) ?? ({} as CSSProperties);
+      const { [property]: _, ...cachedValue } = cache.current.get(i) ?? {};
 
       if (Object.keys(cachedValue).length > 0) {
         cache.current.set(i, cachedValue);
