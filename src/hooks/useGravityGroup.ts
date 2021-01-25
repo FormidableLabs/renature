@@ -5,6 +5,7 @@ import {
   useLayoutEffect,
   useCallback,
   CSSProperties,
+  RefObject,
 } from 'react';
 
 import { CSSPairs, getInterpolatorsForPairs, deriveStyle } from '../parsers';
@@ -28,7 +29,7 @@ export type UseGravityArgs = CSSPairs &
 export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
   n: number,
   fn: (index: number) => UseGravityArgs
-): [{ ref: React.RefObject<E> }[], Controller] => {
+): [{ ref: RefObject<E> }[], Controller] => {
   // Set up a cache to store interpolated CSS state.
   const cache = useRef<AnimationCache>(new Map());
 

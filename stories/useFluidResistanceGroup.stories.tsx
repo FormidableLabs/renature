@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { withKnobs, number, boolean } from '@storybook/addon-knobs';
 
 import { useFluidResistanceGroup } from '../src';
@@ -12,7 +12,7 @@ export default {
   decorators: [withKnobs],
 };
 
-export const FluidResistanceMultipleBasic: React.FC = () => {
+export const FluidResistanceMultipleBasic: FC = () => {
   const [nodes] = useFluidResistanceGroup<HTMLDivElement>(5, (i) => ({
     from: {
       transform: 'translateY(0px)',
@@ -44,7 +44,7 @@ export const FluidResistanceMultipleBasic: React.FC = () => {
   );
 };
 
-export const FluidResistanceMultipleEventBased: React.FC = () => {
+export const FluidResistanceMultipleEventBased: FC = () => {
   const [nodes, controller] = useFluidResistanceGroup(5, (i) => ({
     from: {
       transform: 'translateY(0px)',

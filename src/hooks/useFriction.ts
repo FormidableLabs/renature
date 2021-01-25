@@ -1,4 +1,4 @@
-import React from 'react';
+import type { RefObject } from 'react';
 
 import { Controller, frictionDefaultConfig } from '../animation';
 import { useFrictionGroup, UseFrictionArgs } from './useFrictionGroup';
@@ -13,7 +13,7 @@ export const useFriction = <E extends HTMLElement | SVGElement = any>({
   onFrame,
   onAnimationComplete,
   disableHardwareAcceleration = false,
-}: UseFrictionArgs): [{ ref: React.RefObject<E> }, Controller] => {
+}: UseFrictionArgs): [{ ref: RefObject<E> }, Controller] => {
   const [props, controller] = useFrictionGroup<E>(1, () => ({
     from,
     to,

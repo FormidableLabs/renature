@@ -5,6 +5,7 @@ import {
   useLayoutEffect,
   useCallback,
   CSSProperties,
+  RefObject,
 } from 'react';
 
 import { CSSPairs, getInterpolatorsForPairs, deriveStyle } from '../parsers';
@@ -31,7 +32,7 @@ export const useFluidResistanceGroup = <
 >(
   n: number,
   fn: (index: number) => UseFluidResistanceArgs
-): [{ ref: React.RefObject<E> }[], Controller] => {
+): [{ ref: RefObject<E> }[], Controller] => {
   // Set up a cache to store interpolated CSS state.
   const cache = useRef<AnimationCache>(new Map());
 
