@@ -1,7 +1,7 @@
-@bs.module("../parsers/normalizeColor")
+@bs.module("../parsers/normalize-color")
 external normalizeColor: string => Js.Nullable.t<float> = "normalizeColor"
 
-@bs.module("../parsers/normalizeColor")
+@bs.module("../parsers/normalize-color")
 external rgba: float => Parse_color.rgba = "rgba"
 
 let colorToRgba = color =>

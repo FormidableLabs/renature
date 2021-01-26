@@ -5,19 +5,21 @@ import {
   useLayoutEffect,
   useCallback,
   CSSProperties,
+  RefObject,
 } from 'react';
 
-import { CSSPairs, getInterpolatorsForPairs } from '../parsers';
+import { CSSPairs, getInterpolatorsForPairs, deriveStyle } from '../parsers';
 import {
   GravityConfig,
   gravityDefaultConfig,
   gravityGroup,
   HooksParams,
   Controller,
-  VectorSetter,
   AnimatingElement,
   AnimationCache,
 } from '../animation';
+
+import { onUpdate, onComplete } from './shared';
 
 export type UseGravityArgs = CSSPairs &
   HooksParams & {
@@ -27,7 +29,7 @@ export type UseGravityArgs = CSSPairs &
 export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
   n: number,
   fn: (index: number) => UseGravityArgs
-): [{ ref: React.RefObject<E> }[], Controller] => {
+): [{ ref: RefObject<E> }[], Controller] => {
   // Set up a cache to store interpolated CSS state.
   const cache = useRef<AnimationCache>(new Map());
 
@@ -51,73 +53,24 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
         );
         const config = props.config || gravityDefaultConfig;
 
-        // Determine the maximum position the mover will reach based on the configuration.
-        const maxPosition = config.r;
-
-        // Define the onUpdate function to execute on each call to requestAnimationFrame.
-        // Interpolate each CSS value being animated according to the progress of the physics tween.
-        const onUpdate: VectorSetter = ({ position }) => {
-          interpolators.forEach(({ interpolator, property, values }) => {
-            const value = interpolator({
-              range: [0, maxPosition],
-              domain: [values.from, values.to],
-              value: position[0],
-            });
-
-            if (ref.current) {
-              ref.current.style[property as any] = `${value}`;
-            }
-
-            if (props.onFrame) {
-              const progress = position[0] / maxPosition;
-              props.onFrame(progress);
-            }
-
-            // Update the cache of derived animation values.
-            const currentCacheValue =
-              cache.current.get(i) ?? ({} as CSSProperties);
-
-            cache.current.set(i, {
-              ...currentCacheValue,
-              [property]: value,
-            });
-          });
-        };
-
-        // Define the onComplete function to execute when the animation ends.
-        // This mimics the browser's animationend event.
-        const onComplete = () => {
-          // Ensure our animation has reached the to value when the physics stopping
-          // condition has been reached.
-          interpolators.forEach(({ property, values }) => {
-            if (
-              ref.current &&
-              ref.current.style[property as any] !== values.to
-            ) {
-              ref.current.style[property as any] = values.to;
-            }
-
-            // Clear the cache for this particular property.
-            const { [property]: _animatedProperty, ...currentCacheValue } =
-              cache.current.get(i) ?? ({} as CSSProperties);
-
-            if (Object.keys(currentCacheValue).length > 0) {
-              cache.current.set(i, currentCacheValue);
-            } else {
-              cache.current.delete(i);
-            }
-          });
-
-          if (props.onAnimationComplete) {
-            props.onAnimationComplete();
-          }
-        };
-
         return {
           ref,
           config,
-          onUpdate,
-          onComplete,
+          onUpdate: onUpdate({
+            interpolators,
+            maxPosition: config.r,
+            dimension: 'x',
+            ref,
+            i,
+            cache,
+            onFrame: props.onFrame,
+          }),
+          onComplete: onComplete({
+            interpolators,
+            ref,
+            i,
+            cache,
+          }),
           infinite: props.infinite,
           delay: props.delay,
           pause: props.pause,
@@ -137,8 +90,56 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
     start,
   ]);
 
+  const set = useCallback<(target: CSSProperties, idx?: number) => void>(
+    (target, idx) => {
+      const updatingElements =
+        typeof idx !== 'undefined' ? [elements[idx]] : elements;
+
+      updatingElements.forEach((el, i) => {
+        // Derive props based on the original index, if passed, or the mapped
+        // index if calling controller.set on all elements.
+        const props = fn(idx ?? i);
+
+        // Derive the element's current style for the given to property.
+        const { from, to } = deriveStyle(el.ref.current, target);
+
+        const interpolators = getInterpolatorsForPairs({
+          from,
+          to,
+        });
+
+        const { elements: updatedElements, start } = gravityGroup([
+          {
+            ref: el.ref,
+            config: el.config,
+            onUpdate: onUpdate({
+              interpolators,
+              maxPosition: el.config.r,
+              dimension: 'x',
+              ref: el.ref,
+              i,
+              cache,
+              onFrame: props.onFrame,
+            }),
+            onComplete: onComplete({
+              interpolators,
+              ref: el.ref,
+              i,
+              cache,
+            }),
+            infinite: el.infinite,
+          },
+        ]);
+
+        elements[i].ref = updatedElements[i].ref;
+        start();
+      });
+    },
+    [fn, elements]
+  );
+
   return [
     elements.map(({ ref }) => ({ ref })),
-    { start: startAll, stop, pause },
+    { start: startAll, stop, pause, set },
   ];
 };

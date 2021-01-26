@@ -1,8 +1,10 @@
+import type { CSSProperties } from 'react';
+
 import { testTransforms } from './Parse_transform.gen';
 import { testBoxShadows } from './Parse_box_shadow.gen';
 import { testColor, rgba as RGBA } from './Parse_color.gen';
 import { testUnit } from './Parse_unit.gen';
-import { rgba, normalizeColor } from './normalizeColor';
+import { rgba, normalizeColor } from './normalize-color';
 import { remapf } from '../core';
 import {
   interpolateTransforms,
@@ -12,18 +14,18 @@ import {
 } from '../interpolaters';
 
 export interface CSSPairs {
-  from: React.CSSProperties;
-  to: React.CSSProperties;
+  from: CSSProperties;
+  to: CSSProperties;
 }
 
-export type CSSProperty = keyof React.CSSProperties;
+export type CSSProperty = keyof CSSProperties;
 
 interface NormalizedPair {
   property: CSSProperty;
   value: unknown;
 }
 
-const parsePair = (pairs: React.CSSProperties): NormalizedPair =>
+const parsePair = (pairs: CSSProperties): NormalizedPair =>
   Object.entries(pairs).map(([k, v]) => ({
     property: k as CSSProperty,
     value: v,
@@ -43,7 +45,7 @@ export type Interpolator<T, R> = (params: {
   readonly value: number;
 }) => R;
 
-interface InterpolatedResult<T, R> {
+export interface InterpolatedResult<T, R> {
   interpolator: Interpolator<T, R>;
   property: CSSProperty;
   values: {

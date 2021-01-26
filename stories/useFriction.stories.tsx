@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState, FC } from 'react';
+import React, { useLayoutEffect, useRef, useState, FC, useEffect } from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useFriction } from '../src';
@@ -198,4 +198,39 @@ export const FrictionProgress: FC = () => {
   });
 
   return <span ref={progressRef} style={{ fontSize: '2rem' }} />;
+};
+
+export const FrictionSet: FC = () => {
+  const [props, controller] = useFriction<HTMLDivElement>({
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    config: {
+      mu: number('mu', 0.5),
+      mass: number('mass', 300),
+      initialVelocity: number('velocity', 10),
+    },
+  });
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      controller.set({
+        transform: `translate(${
+          Math.floor(Math.random() * 300) * (Math.random() > 0.5 ? 1 : -1)
+        }px, ${
+          Math.floor(Math.random() * 300) * (Math.random() > 0.5 ? 1 : -1)
+        }px) rotate(${Math.random() * 360}deg) scale(${Math.random()})`,
+        opacity: Math.random(),
+      });
+    }, 2000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [controller]);
+
+  return <div className="mover mover--magenta" {...props} />;
 };
