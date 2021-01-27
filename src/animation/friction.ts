@@ -1,10 +1,11 @@
+import { getMaxDistanceFriction, frictionForceV, applyForce } from '../forces';
+
 import {
   PlayState,
   AnimatingElement,
   StatefulAnimatingElement,
   AnimationGroup,
 } from './types';
-import { getMaxDistanceFriction, frictionForceV, applyForce } from '../forces';
 import { group } from './group';
 
 export interface FrictionConfig {

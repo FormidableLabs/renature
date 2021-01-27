@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Controller, gravityDefaultConfig } from '../animation';
+
 import { useGravityGroup, UseGravityArgs } from './useGravityGroup';
 
 export const useGravity = <E extends HTMLElement | SVGElement = any>({

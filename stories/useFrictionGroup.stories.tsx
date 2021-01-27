@@ -2,6 +2,7 @@ import React, { useCallback, useLayoutEffect, useState, FC } from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useFrictionGroup } from '../src';
+
 import Button from './components/Button';
 import { getRandomHex } from './utils';
 

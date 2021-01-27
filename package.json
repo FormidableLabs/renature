@@ -60,6 +60,7 @@
     "bs-platform": "^8.3.3",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.2.0",

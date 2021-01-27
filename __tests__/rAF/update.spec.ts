@@ -1,4 +1,5 @@
 import { createRef } from 'react';
+
 import { update } from '../../src/rAF';
 import { StatefulAnimatingElement, PlayState } from '../../src/animation';
 import { entity as Entity } from '../../src/forces';

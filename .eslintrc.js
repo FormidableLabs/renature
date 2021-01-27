@@ -4,6 +4,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
     'prettier',
     'prettier/@typescript-eslint',
   ],
@@ -31,5 +34,12 @@ module.exports = {
     'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
     'jest/valid-expect': 'error',
+    'import/newline-after-import': 2,
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+      },
+    ],
   },
 };

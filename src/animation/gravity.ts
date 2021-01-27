@@ -1,11 +1,12 @@
+import { gravityForceV, applyForce } from '../forces';
+import { subf, normf } from '../core';
+
 import {
   PlayState,
   AnimatingElement,
   StatefulAnimatingElement,
   AnimationGroup,
 } from './types';
-import { gravityForceV, applyForce } from '../forces';
-import { subf, normf } from '../core';
 import { group } from './group';
 
 export interface GravityConfig {

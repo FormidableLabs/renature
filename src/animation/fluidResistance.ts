@@ -4,13 +4,14 @@ import {
   gE,
   getFluidPositionAtTerminalVelocity,
 } from '../forces';
+import { vector as Vector, addf, multf } from '../core';
+
 import {
   PlayState,
   AnimatingElement,
   StatefulAnimatingElement,
   AnimationGroup,
 } from './types';
-import { vector as Vector, addf, multf } from '../core';
 import { group } from './group';
 
 export interface FluidResistanceConfig {
