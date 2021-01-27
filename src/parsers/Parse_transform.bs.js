@@ -2,9 +2,19 @@
 
 import * as $$Array from "bs-platform/lib/es6/array.js";
 import * as Parse_unit from "./Parse_unit.bs.js";
+import * as Belt_Option from "bs-platform/lib/es6/belt_Option.js";
+import * as Caml_option from "bs-platform/lib/es6/caml_option.js";
 import * as Parse_number from "./Parse_number.bs.js";
 
 var _map = {"translate":"translate","translateX":"translateX","translateY":"translateY","translateZ":"translateZ","translate3d":"translate3d","skew":"skew","skewX":"skewX","skewY":"skewY","rotate":"rotate","rotateX":"rotateX","rotateY":"rotateY","rotateZ":"rotateZ","rotate3d":"rotate3d","scale":"scale","scaleX":"scaleX","scaleY":"scaleY","scaleZ":"scaleZ","scale3d":"scale3d","perspective":"perspective","matrix":"matrix","matrix3d":"matrix3d"};
+
+function transformPropertiesToJs(param) {
+  return param;
+}
+
+function transformPropertiesFromJs(param) {
+  return _map[param];
+}
 
 var transformRe = /(\w+)\(([^)]*)\)/g;
 
@@ -24,7 +34,7 @@ function testTransform(val_) {
                 }
                 var isTransformUnit = Parse_unit.testUnit(c);
                 var isTransformNumber = Parse_number.testNumber(c);
-                var match = _map[c];
+                var match = transformPropertiesFromJs(c);
                 var isTransformProperty = match !== undefined;
                 var isTransformMultiple = c.split(", ").every(function (s) {
                       if (Parse_unit.testUnit(s)) {
@@ -102,11 +112,58 @@ function parseTransforms(val_) {
   }
 }
 
+function parseSingleValueTransform(defaultValue, unit, defaultUnit) {
+  return defaultValue + Belt_Option.getWithDefault((unit == null) ? undefined : Caml_option.some(unit), defaultUnit);
+}
+
+function parsePotentialMultiValueTransform(value, defaultValue, unit, defaultUnit) {
+  if (value.includes(",")) {
+    return value.split(",").map(function (v) {
+                  var match = Parse_unit.parseUnit(v.trim());
+                  return parseSingleValueTransform(defaultValue, match.unit, defaultUnit);
+                }).join(", ");
+  } else {
+    return parseSingleValueTransform(defaultValue, unit, defaultUnit);
+  }
+}
+
+function getAnimatableNoneForTransform(property, value) {
+  var match = Parse_unit.parseUnit(value);
+  var unit = match.unit;
+  var match$1 = transformPropertiesFromJs(property);
+  if (match$1 !== undefined) {
+    if (match$1 === "translate3d" || match$1 === "translate") {
+      return parsePotentialMultiValueTransform(value, "0", unit, "px");
+    } else if (match$1 === "rotate3d" || match$1 === "skew" || match$1 === "rotate") {
+      return parsePotentialMultiValueTransform(value, "0", unit, "deg");
+    } else if (match$1 === "scale" || match$1 === "scale3d") {
+      return parsePotentialMultiValueTransform(value, "1", unit, "");
+    } else if (match$1 === "matrix3d") {
+      return "(1, 0, 0, 0,\n    0, 1, 0, 0,\n    0, 0, 1, 0,\n    0, 0, 0, 1)";
+    } else if (match$1 === "skewY" || match$1 === "skewX" || match$1 === "rotateZ" || match$1 === "rotateY" || match$1 === "rotateX") {
+      return parseSingleValueTransform("0", unit, "deg");
+    } else if (match$1 === "translateZ" || match$1 === "translateY" || match$1 === "translateX") {
+      return parseSingleValueTransform("0", unit, "px");
+    } else if (match$1 === "matrix") {
+      return "(1, 0, 0, 1, 0, 0)";
+    } else if (match$1 === "scaleZ" || match$1 === "scaleY" || match$1 === "scaleX") {
+      return "1";
+    } else {
+      return parseSingleValueTransform("0", unit, "px");
+    }
+  } else {
+    return "";
+  }
+}
+
 export {
+  transformPropertiesToJs ,
+  transformPropertiesFromJs ,
   testTransform ,
   testTransforms ,
   parseTransform ,
   parseTransforms ,
+  getAnimatableNoneForTransform ,
   
 }
 /* No side effect */

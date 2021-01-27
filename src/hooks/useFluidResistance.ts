@@ -1,4 +1,4 @@
-import React from 'react';
+import type { RefObject } from 'react';
 
 import { Controller, fluidResistanceDefaultConfig } from '../animation';
 
@@ -17,7 +17,7 @@ export const useFluidResistance = <E extends HTMLElement | SVGElement = any>({
   onFrame,
   onAnimationComplete,
   disableHardwareAcceleration,
-}: UseFluidResistanceArgs): [{ ref: React.RefObject<E> }, Controller] => {
+}: UseFluidResistanceArgs): [{ ref: RefObject<E> }, Controller] => {
   const [props, controller] = useFluidResistanceGroup(1, () => ({
     from,
     to,

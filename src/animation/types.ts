@@ -1,7 +1,7 @@
-import { CSSProperties } from 'react';
+import type { CSSProperties, RefObject } from 'react';
 
-import { vector as Vector } from '../core';
-import { entity as Entity } from '../forces';
+import type { vector as Vector } from '../core';
+import type { entity as Entity } from '../forces';
 
 export type VectorSetter = (values: {
   position: Vector<number>;
@@ -18,6 +18,7 @@ export interface Controller {
   start: () => void;
   stop: () => void;
   pause: () => void;
+  set: (to: CSSProperties, i?: number) => void;
 }
 
 export interface AnimationParams {
@@ -43,7 +44,7 @@ export interface AnimatingElement<
   C,
   E extends HTMLElement | SVGElement | null = any
 > {
-  ref: React.RefObject<E>;
+  ref: RefObject<E>;
   config: C;
   onUpdate: VectorSetter;
   onComplete: () => void;

@@ -5,7 +5,7 @@ import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
 import * as Caml_array from "bs-platform/lib/es6/caml_array.js";
 import * as Parse_unit from "./Parse_unit.bs.js";
 import * as Belt_Option from "bs-platform/lib/es6/belt_Option.js";
-import * as NormalizeColor from "./normalizeColor";
+import * as NormalizeColor from "./normalize-color";
 
 var outerWhitespaceRe = /(?!\(.*)\s(?![^(]*?\))/g;
 
@@ -108,4 +108,4 @@ export {
   parseBoxShadows ,
   
 }
-/* ./normalizeColor Not a pure module */
+/* ./normalize-color Not a pure module */

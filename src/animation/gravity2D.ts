@@ -130,6 +130,7 @@ export function gravity2D({
       start: run,
       stop,
       pause: () => {},
+      set: () => {},
       updateAttractor,
     },
   };
