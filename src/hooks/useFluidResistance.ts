@@ -1,6 +1,7 @@
 import type { RefObject } from 'react';
 
 import { Controller, fluidResistanceDefaultConfig } from '../animation';
+
 import {
   useFluidResistanceGroup,
   UseFluidResistanceArgs,

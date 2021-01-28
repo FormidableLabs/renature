@@ -1,6 +1,7 @@
 import { vector as Vector } from '../core';
 import { entity as Entity, applyForce, gravityForceV } from '../forces';
 import { rAF } from '../rAF';
+
 import { VectorSetter, Listener, AnimationParams, Controller } from './types';
 
 interface Gravity2DState {

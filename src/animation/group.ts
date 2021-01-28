@@ -1,10 +1,11 @@
+import { rAF, update } from '../rAF';
+
 import {
   AnimatingElement,
   StatefulAnimatingElement,
   AnimationCallbacks,
   AnimationGroup,
 } from './types';
-import { rAF, update } from '../rAF';
 
 /**
  * A function to take in a set of elements and begin animating them.

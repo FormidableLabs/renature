@@ -1,6 +1,7 @@
 import type { RefObject } from 'react';
 
 import { Controller, frictionDefaultConfig } from '../animation';
+
 import { useFrictionGroup, UseFrictionArgs } from './useFrictionGroup';
 
 export const useFriction = <E extends HTMLElement | SVGElement = any>({

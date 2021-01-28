@@ -1,10 +1,5 @@
 import type { CSSProperties } from 'react';
 
-import { testTransforms } from './Parse_transform.gen';
-import { testBoxShadows } from './Parse_box_shadow.gen';
-import { testColor, rgba as RGBA } from './Parse_color.gen';
-import { testUnit } from './Parse_unit.gen';
-import { rgba, normalizeColor } from './normalize-color';
 import { remapf } from '../core';
 import {
   interpolateTransforms,
@@ -12,6 +7,12 @@ import {
   interpolateColor,
   interpolateUnit,
 } from '../interpolaters';
+
+import { testTransforms } from './Parse_transform.gen';
+import { testBoxShadows } from './Parse_box_shadow.gen';
+import { testColor, rgba as RGBA } from './Parse_color.gen';
+import { testUnit } from './Parse_unit.gen';
+import { rgba, normalizeColor } from './normalize-color';
 
 export interface CSSPairs {
   from: CSSProperties;

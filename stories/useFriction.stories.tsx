@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef, useState, FC, useEffect } from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useFriction } from '../src';
+
 import Button from './components/Button';
 import Toggle from './components/Toggle';
 
