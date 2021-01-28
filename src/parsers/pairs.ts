@@ -1,4 +1,4 @@
-import type { CSSProperties, RefObject } from 'react';
+import type { CSSProperties } from 'react';
 
 import { remapf } from '../core';
 import {
