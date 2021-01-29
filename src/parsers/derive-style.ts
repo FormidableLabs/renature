@@ -12,11 +12,12 @@ export const deriveStyle = (
 
   return Object.entries(to).reduce(
     (acc, [property, value]) => {
+      const currentValue = currentStyle.getPropertyValue(property);
+
       // The computed value of transform is always returned as a matrix.
       // To prevent having to reverse parse the matrix, we build a transform
       // string from the sparse set of transforms present on style, if any.
       if (property === 'transform') {
-        const currentValue = currentStyle.getPropertyValue(property);
         const { from: fromTransform, to: toTransform } = deriveTransforms(
           currentValue,
           to[property] ?? ''
@@ -34,10 +35,14 @@ export const deriveStyle = (
         };
       }
 
+      const fromValue = currentValue
+        ? currentValue
+        : computedStyle.getPropertyValue(property);
+
       const from =
         typeof to[property as keyof CSSProperties] === 'number'
-          ? parseFloat(computedStyle.getPropertyValue(property))
-          : computedStyle.getPropertyValue(property);
+          ? parseFloat(fromValue)
+          : fromValue;
 
       return {
         from: {
