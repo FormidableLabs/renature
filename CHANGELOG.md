@@ -7,6 +7,61 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.8.0
+
+This release adds support for a `set` method on the `controller` returned by a `renature` hook. You can use `controller.set` to animate an element to any CSS state at any time.
+
+To use the `controller.set` API, just call `controller.set` with an object containing the CSS properties you want to animate to. For example, to animate an element to a random `scale` and `opacity` value every 2 seconds, you can do the following:
+
+```typescript
+import React, { useEffect, FC } from 'react';
+import { useFriction } from 'renature';
+
+export const FrictionSet: FC = () => {
+  const [props, controller] = useFriction<HTMLDivElement>({
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    config: {
+      mu: 0.5,
+      mass: 300,
+      initialVelocity: 10,
+    },
+  });
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      // Call controller.set with a random scale transform and opacity!
+      controller.set({
+        transform: `scale(${Math.random()})`,
+        opacity: Math.random(),
+      });
+    }, 2000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [controller]);
+
+  return <div className="mover mover--magenta" {...props} />;
+};
+```
+
+The `controller.set` API is an imperative escape hatch to allow for orchestrating more complex animations after the initial declarative animation has run. You can also animate to new states simply by updating the `to` property of the hook definition.
+
+### Added
+
+- A `set` method is now available on `controller` to imperatively animate to a new CSS state. PRs by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/107) and [here](https://github.com/FormidableLabs/renature/pull/112).
+
+### Fixed
+
+- [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import) was added to standardize `import` statements across the codebase. PR by @jzandag [here](https://github.com/FormidableLabs/renature/pull/110).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.7.2...v0.8.0)
+
 ## v0.7.2
 
 This release improves the way `renature` parses and interpolates CSS transforms. Previously, if you specified multiple transforms in a different order in your `from` and `to` configuration, `renature` would incorrectly interpolate values.
