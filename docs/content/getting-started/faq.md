@@ -1,6 +1,6 @@
 ---
 title: FAQ
-order: 3
+order: 4
 ---
 
 ## Frequently Asked Questions

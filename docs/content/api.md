@@ -64,9 +64,7 @@ function GravityBasic() {
     infinite: true,
   });
 
-  return (
-    <div className="live-preview__mover live-preview__mover--lg" {...props} />
-  );
+  return <div className="lp__m lp__m--lg" {...props} />;
 }
 ```
 
@@ -110,9 +108,7 @@ function FrictionBasic() {
     infinite: true,
   });
 
-  return (
-    <div className="live-preview__mover live-preview__mover--lg" {...props} />
-  );
+  return <div className="lp__m lp__m--lg" {...props} />;
 }
 ```
 
@@ -158,9 +154,7 @@ function FluidResistanceBasic() {
     infinite: true,
   });
 
-  return (
-    <div className="live-preview__mover live-preview__mover--lg" {...props} />
-  );
+  return <div className="lp__m lp__m--lg" {...props} />;
 }
 ```
 
@@ -189,7 +183,7 @@ import React from 'react';
 import { useGravityGroup } from 'renature';
 
 function GravityGroup() {
-  const [nodes] = useGravityGroup(4, i => ({
+  const [nodes] = useGravityGroup(4, (i) => ({
     from: {
       transform: 'translate(0px, 0px) scale(1) skewY(0deg)',
       opacity: 0,
@@ -208,14 +202,9 @@ function GravityGroup() {
   }));
 
   return (
-    <div className="live-preview__stack-h">
+    <div className="lp__stack-h">
       {nodes.map((props, i) => {
-        return (
-          <div
-            className="live-preview__mover live-preview__mover--lg"
-            {...props}
-          />
-        );
+        return <div className="lp__m lp__m--lg" {...props} />;
       })}
     </div>
   );
@@ -239,7 +228,7 @@ import React from 'react';
 import { useFrictionGroup } from 'renature';
 
 function FrictionGroup() {
-  const [nodes] = useFrictionGroup(4, i => ({
+  const [nodes] = useFrictionGroup(4, (i) => ({
     from: {
       transform: 'translateX(0px)',
       fill: '#FFCE24',
@@ -258,8 +247,8 @@ function FrictionGroup() {
   }));
 
   return (
-    <div className="live-preview__stack-h">
-      {nodes.map(props => {
+    <div className="lp__stack-h">
+      {nodes.map((props) => {
         return (
           <svg height="100" width="100" viewBox="0 0 100 100">
             <polygon points="0,0 80,50 0,100" fill="#FFCE24" {...props} />
@@ -288,7 +277,7 @@ import React from 'react';
 import { useFluidResistanceGroup } from 'renature';
 
 function FluidResistanceGroup() {
-  const [nodes] = useFluidResistanceGroup(4, i => ({
+  const [nodes] = useFluidResistanceGroup(4, (i) => ({
     from: {
       transform: 'translateY(0px) scale(1)',
     },
@@ -307,14 +296,9 @@ function FluidResistanceGroup() {
   }));
 
   return (
-    <div className="live-preview__stack-h">
+    <div className="lp__stack-h">
       {nodes.map((props, i) => {
-        return (
-          <div
-            className="live-preview__mover live-preview__mover--lg"
-            {...props}
-          />
-        );
+        return <div className="lp__m lp__m--lg" {...props} />;
       })}
     </div>
   );
@@ -377,9 +361,9 @@ function Gravity2DAnimation() {
   });
 
   return (
-    <div className="live-preview__space" ref={node}>
-      <div className="live-preview__mover-2d" {...props} />
-      <div className="live-preview__attractor-2d" style={center} />
+    <div className="lp__space" ref={node}>
+      <div className="lp__m-2d" {...props} />
+      <div className="lp__attractor-2d" style={center} />
     </div>
   );
 }
@@ -395,10 +379,11 @@ const [props, controller] = useGravity({ ...config });
 
 A `controller` provides access to three functions, `start`, `pause`, and `stop`, which allow you to control when your animation begins and ends. They have the following types:
 
-| Property | Type         | Description                                                                                                                                                                                                                                                                        |
-| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `start`  | `() => void` | A function instructing the animation to start the frame loop and begin animating. Typically used in conjunction with `pause: true`. If an animation has been paused by calling `controller.pause`, you can use `controller.start` to resume the animation.                         |
-| `pause`  | `() => void` | A function instructing the animation to stop the frame loop. The animating element will stay in whatever CSS state it had achieved when `controller.stop` was called.                                                                                                              |
-| `stop`   | `() => void` | A function instructing the animation to stop the frame loop and destroy all animation state. Once `controller.stop` has been called, the current animation is marked completed and cannot be re-run unless the component containing the hook re-renders with new animation values. |
+| Property | Type                                                                  | Description                                                                                                                                                                                                                                                                        |
+| -------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `start`  | `() => void`                                                          | A function instructing the animation to start the frame loop and begin animating. Typically used in conjunction with `pause: true`. If an animation has been paused by calling `controller.pause`, you can use `controller.start` to resume the animation.                         |
+| `pause`  | `() => void`                                                          | A function instructing the animation to stop the frame loop. The animating element will stay in whatever CSS state it had achieved when `controller.stop` was called.                                                                                                              |
+| `stop`   | `() => void`                                                          | A function instructing the animation to stop the frame loop and destroy all animation state. Once `controller.stop` has been called, the current animation is marked completed and cannot be re-run unless the component containing the hook re-renders with new animation values. |
+| `set`    | `(to: { [key: keyof React.CSSProperties]: any }, i?: number) => void` | A function to set all animating elements to a particular CSS state. If you only want to set one element in an animation group to a particular state, pass the index of that element as the second argument to `controller.set`.                                                    |
 
-See [Controlling Animation States](./getting-started/controlling-animation-states.md) for more examples of starting, pausing, and stopping animations according to events, timers, and effects.
+See [Controlling Animation States](./getting-started/controlling-animation-states.md) for more examples of starting, pausing, stopping, and setting animations according to events, timers, and effects.

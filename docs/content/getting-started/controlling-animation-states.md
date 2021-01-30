@@ -1,6 +1,6 @@
 ---
 title: Controlling Animation States
-order: 2
+order: 3
 ---
 
 ## Controlling Animation States
@@ -38,14 +38,11 @@ function StartAnimation() {
   });
 
   return (
-    <div className="live-preview__stack">
-      <button
-        className="live-preview__button live-preview__button--lg"
-        onClick={controller.start}
-      >
+    <div className="lp__stack">
+      <button className="lp__button lp__button--lg" onClick={controller.start}>
         Start
       </button>
-      <div className="live-preview__mover live-preview__mover--lg" {...props} />
+      <div className="lp__m lp__m--lg" {...props} />
     </div>
   );
 }
@@ -72,22 +69,22 @@ function PauseAnimation() {
   });
 
   return (
-    <div className="live-preview__stack-h">
-      <div className="live-preview__stack">
+    <div className="lp__stack-h">
+      <div className="lp__stack">
         <button
-          className="live-preview__button live-preview__button--lg"
+          className="lp__button lp__button--lg"
           onClick={controller.start}
         >
           Start
         </button>
         <button
-          className="live-preview__button live-preview__button--lg"
+          className="lp__button lp__button--lg"
           onClick={controller.pause}
         >
           Pause
         </button>
       </div>
-      <div className="live-preview__mover live-preview__mover--lg" {...props} />
+      <div className="lp__m lp__m--lg" {...props} />
     </div>
   );
 }
@@ -113,14 +110,11 @@ function StopAnimation() {
   });
 
   return (
-    <div className="live-preview__stack">
-      <button
-        className="live-preview__button live-preview__button--lg"
-        onClick={controller.stop}
-      >
+    <div className="lp__stack">
+      <button className="lp__button lp__button--lg" onClick={controller.stop}>
         Stop
       </button>
-      <div className="live-preview__mover live-preview__mover--lg" {...props} />
+      <div className="lp__m lp__m--lg" {...props} />
     </div>
   );
 }
@@ -137,7 +131,7 @@ import React from 'react';
 import { useGravityGroup } from 'renature';
 
 function DelayedMover() {
-  const [nodes, controller] = useGravityGroup(3, i => ({
+  const [nodes, controller] = useGravityGroup(3, (i) => ({
     from: {
       transform: 'rotate(0deg) scale(1)',
     },
@@ -154,12 +148,9 @@ function DelayedMover() {
   }));
 
   return (
-    <div className="live-preview__stack-h">
-      {nodes.map(props => (
-        <div
-          className="live-preview__mover live-preview__mover--lg"
-          {...props}
-        />
+    <div className="lp__stack-h">
+      {nodes.map((props) => (
+        <div className="lp__m lp__m--lg" {...props} />
       ))}
     </div>
   );
@@ -175,11 +166,10 @@ import React from 'react';
 import { useFrictionGroup } from 'renature';
 
 function InfiniteMover() {
-  const getRandomHex = () => {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
-  };
+  const getRandomHex = () =>
+    '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
 
-  const [nodes] = useFrictionGroup(3, i => ({
+  const [nodes] = useFrictionGroup(3, (i) => ({
     from: {
       transform: 'translateX(0px)',
       background: getRandomHex(),
@@ -195,12 +185,9 @@ function InfiniteMover() {
   }));
 
   return (
-    <div className="live-preview__stack-h">
-      {nodes.map(props => (
-        <div
-          className="live-preview__mover live-preview__mover--lg"
-          {...props}
-        />
+    <div className="lp__stack-h">
+      {nodes.map((props) => (
+        <div className="lp__m lp__m--lg" {...props} />
       ))}
     </div>
   );
@@ -208,3 +195,102 @@ function InfiniteMover() {
 ```
 
 Infinite animations oscillate between your `from` and `to` states, creating a "yoyo" effect. They work by running the exact same underlying physics animation in a reversed direction.
+
+### Setting Animations to Arbitrary States
+
+While `renature` emphasizes declarative paradigms for updating animation state, sometimes you want an imperative escape hatch to animate directly to a new CSS state. For these cases, you can use the `controller.set` API.
+
+`controller.set` accepts a `to` style object representing the styles you want your object to animate to. `renature` handles deriving the current state of your animating element and smoothly interpolating to the new values.
+
+```js live=true
+import React from 'react';
+import { useFriction } from 'renature';
+
+function Mover() {
+  const [props, controller] = useFriction({
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    config: {
+      mu: 0.5,
+      mass: 300,
+      initialVelocity: 10,
+    },
+  });
+
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      controller.set({
+        transform: `translateX(${
+          Math.floor(Math.random() * 300) * (Math.random() > 0.5 ? 1 : -1)
+        }px
+          rotate(${Math.random() * 360}deg)
+          scale(${Math.random()})
+        `,
+        opacity: Math.random(),
+      });
+    }, 2000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [controller]);
+
+  return <div className="lp__m lp__m--lg" {...props} />;
+}
+```
+
+### Setting a Single Node to An Arbitrary State
+
+If you're using grouped animations, you can pass a second argument, `i` to `controller.set` to only animate the nth element in a group. For example:
+
+```js live=true
+import React from 'react';
+import { useFrictionGroup } from 'renature';
+
+function App() {
+  const [nodes, controller] = useFrictionGroup(3, (i) => ({
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    config: {
+      mu: 0.5,
+      mass: 300,
+      initialVelocity: 10,
+    },
+    delay: i * 500,
+  }));
+
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      controller.set(
+        {
+          transform: `translateX(${
+            Math.floor(Math.random() * 300) * (Math.random() > 0.5 ? 1 : -1)
+          }px rotate(${Math.random() * 360}deg) scale(${Math.random()})`,
+          opacity: Math.random(),
+        },
+        1
+      );
+    }, 2000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [controller]);
+
+  return (
+    <div className="lp__stack-h">
+      {nodes.map((props) => (
+        <div className="lp__m lp__m--lg" {...props} />
+      ))}
+    </div>
+  );
+}
+```

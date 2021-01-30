@@ -5,6 +5,7 @@ import { pathTracing } from './path-tracing';
 import { boxShadow } from './box-shadow';
 import { orbit } from './orbit';
 import { groupedAnimations } from './grouped-animations';
+import { set } from './set';
 
 export const samples = (context) => [
   basic(context),
@@ -14,4 +15,5 @@ export const samples = (context) => [
   boxShadow(context),
   orbit(context),
   groupedAnimations(context),
+  set(context),
 ];
