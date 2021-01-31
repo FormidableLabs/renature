@@ -4,8 +4,8 @@ import { useGravity } from 'renature';
 
 function Basic() {
   const [props] = useGravity({
-    from: { transform: 'translateX(-10vw)' },
-    to: { transform: 'translateX(10vw)' },
+    from: { transform: 'translateX(-200px)' },
+    to: { transform: 'translateX(200px)' },
     config: {
       moverMass: 10000,
       attractorMass: 1000000000000,
