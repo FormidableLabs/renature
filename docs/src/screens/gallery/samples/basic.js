@@ -4,8 +4,8 @@ import { useGravity } from 'renature';
 
 function Basic() {
   const [props] = useGravity({
-    from: { transform: 'translateX(-10vw)' },
-    to: { transform: 'translateX(10vw)' },
+    from: { transform: 'translateX(-200px)' },
+    to: { transform: 'translateX(200px)' },
     config: {
       moverMass: 10000,
       attractorMass: 1000000000000,
@@ -16,10 +16,8 @@ function Basic() {
 
   return (
     <div
-      className="live-preview__mover ${
-        context === 'gallery-preview'
-          ? 'live-preview__mover--sm'
-          : 'live-preview__mover--lg'
+      className="lp__m ${
+        context === 'gallery-preview' ? 'lp__m--sm' : 'lp__m--lg'
       }"
       {...props}
     />

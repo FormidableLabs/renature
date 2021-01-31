@@ -24,10 +24,8 @@ function Mover() {
 
   return (
     <div
-      className="live-preview__mover ${
-        context === 'gallery-preview'
-          ? 'live-preview__mover--sm'
-          : 'live-preview__mover--lg'
+      className="lp__m ${
+        context === 'gallery-preview' ? 'lp__m--sm' : 'lp__m--lg'
       }"
       {...props}
     />

@@ -36,7 +36,7 @@ function FrictionAnimation() {
 
   return (
     <div
-      className="live-preview__mover live-preview__mover--lg"
+      className="lp__m lp__m--lg"
       {...props}
     />
   );
@@ -66,13 +66,13 @@ function FluidResistanceAnimation() {
   });
 
   return (
-    <div className="live-preview__toggle">
+    <div className="lp__toggle">
       <Toggle
         onChange={() => setToggle(prevToggle => !prevToggle)}
         checked={toggle}
       />
       <div
-        className="live-preview__mover live-preview__mover--lg"
+        className="lp__m lp__m--lg"
         {...props}
       />
     </div>
@@ -114,10 +114,10 @@ function Gravity2DAnimation() {
   });
 
   return (
-    <div className="live-preview__space" ref={node}>
-      <div className="live-preview__mover-2d" {...props} />
+    <div className="lp__space" ref={node}>
+      <div className="lp__m-2d" {...props} />
       <div
-        className="live-preview__attractor-2d"
+        className="lp__attractor-2d"
         style={center}
       />
     </div>

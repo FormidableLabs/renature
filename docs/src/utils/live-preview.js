@@ -15,7 +15,6 @@ export const scope = {
   useGravityGroup,
   useGravity2D,
   useFriction,
-  useFrictionGroup,
   useFluidResistance,
   useFluidResistanceGroup,
   useFrictionGroup,

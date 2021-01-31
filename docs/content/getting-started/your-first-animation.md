@@ -27,15 +27,13 @@ function Mover() {
     infinite: true,
   });
 
-  return (
-    <div className="live-preview__mover live-preview__mover--lg" {...props} />
-  );
+  return <div className="lp__m lp__m--lg" {...props} />;
 }
 ```
 
-`useFriction`, like the others hooks in `renature`, expects a `from` and `to` configuration describing the CSS states you want to animate from and to. These are objects with an arbitrary number of key-value pairs of CSS properties.
+`useFriction`, like the others hooks in `renature`, expects a `from` and `to` configuration describing the CSS states you want to animate from and to. These are objects with an arbitrary number of key-value pairs of CSS properties, just like you'd pass to an element's `style` property in React.
 
-The `config` object represents the parameters that can be used to tweak your physics simulations. You can see the full variety of config options in the [API reference](../api.md#config). These will vary from hook to hook depending on the force that you are using (i.e. gravity, friction, fluid resistance, etc). The best way to see what these parameters do is to begin playing with them in our live code blocks (like the one above 👆). You can read more about `renature`'s physics simulations in the [Core Concepts](../core-concepts.md) section.
+The `config` object represents the parameters that can be used to tweak your physics simulations. You can see the full variety of config options in the [API reference](../api.md#config); these will vary from hook to hook depending on the force that you are using. The best way to see what these parameters do is to play with them in our live code blocks (like the one above 👆). You can read more about `renature`'s physics simulations in the [Core Concepts](../core-concepts.md) section.
 
 ### Animating Multiple Properties
 
@@ -65,9 +63,7 @@ function MoverMultiple() {
     infinite: true,
   });
 
-  return (
-    <div className="live-preview__mover live-preview__mover--lg" {...props} />
-  );
+  return <div className="lp__m lp__m--lg" {...props} />;
 }
 ```
 

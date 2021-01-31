@@ -69,7 +69,7 @@ export const GlobalStyle = createGlobalStyle`
     --color-yellow: #f2cf63;
   }
 
-  .live-preview__mover {
+  .lp__m {
     background: ${(p) => p.theme.colors.accent};
 
     &--sm {
@@ -85,7 +85,7 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-  .live-preview__button {
+  .lp__button {
     display: inline-block;
     color: rgba(255, 255, 255, 0.8);
     background: #011826;
@@ -112,7 +112,7 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-  .live-preview__stack {
+  .lp__stack {
     ${stack(4)};
 
     align-items: center;
@@ -122,14 +122,14 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-  .live-preview__toggle {
+  .lp__toggle {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
   }
 
-  .live-preview__space {
+  .lp__space {
     height: 100%;
     width: 100%;
     background: linear-gradient(
@@ -139,7 +139,7 @@ export const GlobalStyle = createGlobalStyle`
     flex: 1;
   }
 
-  .live-preview__mover-2d {
+  .lp__m-2d {
     height: 2.5rem;
     width: 2.5rem;
     border-radius: 50%;
@@ -148,7 +148,7 @@ export const GlobalStyle = createGlobalStyle`
       0 0 1.6rem 0.8rem ${(p) => p.theme.colors.accent};
   }
 
-  .live-preview__attractor-2d {
+  .lp__attractor-2d {
     position: relative;
     transform: translate(-50%, calc(-50% - 2.5rem));
     height: 5rem;
@@ -158,7 +158,7 @@ export const GlobalStyle = createGlobalStyle`
     box-shadow: 0 0 3rem 1.5rem var(--color-yellow);
   }
 
-  .live-preview__center {
+  .lp__center {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -166,13 +166,13 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
   }
 
-  .live-preview__stroke {
+  .lp__stroke {
     stroke: ${(p) => p.theme.colors.accent};
     stroke-width: 3;
     fill: transparent;
   }
 
-  .live-preview__orbital-center {
+  .lp__orbital-center {
     border-radius: 50%;
     background: var(--color-yellow);
     transform: translateX(50%);
@@ -188,7 +188,7 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-  .live-preview__orbiter {
+  .lp__orbiter {
     border-radius: 50%;
     background: ${(p) => p.theme.colors.accent};
 

@@ -19,22 +19,18 @@ function ControlledMover() {
   });
 
   return (
-    <div className="live-preview__stack">
+    <div className="lp__stack">
       <button
-        className="live-preview__button ${
-          context === 'gallery-preview'
-            ? 'live-preview__button--sm'
-            : 'live-preview__button--lg'
+        className="lp__button ${
+          context === 'gallery-preview' ? 'lp__button--sm' : 'lp__button--lg'
         }"
         onClick={controller.start}
       >
         Run The Animation!
       </button>
       <div
-        className="live-preview__mover ${
-          context === 'gallery-preview'
-            ? 'live-preview__mover--sm'
-            : 'live-preview__mover--lg'
+        className="lp__m ${
+          context === 'gallery-preview' ? 'lp__m--sm' : 'lp__m--lg'
         }"
         {...props}
       />

@@ -32,22 +32,18 @@ function Orbit() {
   });
 
   return (
-    <div className="live-preview__center">
+    <div className="lp__center">
       <div
-        className="live-preview__orbital-center ${
+        className="lp__orbital-center ${
           context === 'gallery-preview'
-            ? 'live-preview__orbital-center--sm'
-            : 'live-preview__orbital-center--lg'
+            ? 'lp__orbital-center--sm'
+            : 'lp__orbital-center--lg'
         }" />
-      <div className="live-preview__orbiter ${
-        context === 'gallery-preview'
-          ? 'live-preview__orbiter--sm'
-          : 'live-preview__orbiter--lg'
+      <div className="lp__orbiter ${
+        context === 'gallery-preview' ? 'lp__orbiter--sm' : 'lp__orbiter--lg'
       }" {...planetOne} />
-      <div className="live-preview__orbiter ${
-        context === 'gallery-preview'
-          ? 'live-preview__orbiter--sm'
-          : 'live-preview__orbiter--lg'
+      <div className="lp__orbiter ${
+        context === 'gallery-preview' ? 'lp__orbiter--sm' : 'lp__orbiter--lg'
       }" {...planetTwo} />
     </div>
   );

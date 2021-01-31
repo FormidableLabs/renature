@@ -124,7 +124,7 @@ Image.propTypes = {
   src: PropTypes.string.isRequired,
 };
 
-const HighlightCode = ({ className = '', live = false, children }) => {
+const HighlightCode = ({ className = '', live = '', children }) => {
   const language = getLanguage(className);
 
   if (live) {
@@ -173,7 +173,7 @@ const HighlightCode = ({ className = '', live = false, children }) => {
 
 HighlightCode.propTypes = {
   className: PropTypes.string,
-  live: PropTypes.bool,
+  live: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
