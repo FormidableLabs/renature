@@ -40,7 +40,8 @@ jobs:
       matrix:
         node-version: [12.x]
     defaults:
-      working-directory: docs
+      run:
+        working-directory: docs
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
