@@ -21,50 +21,52 @@ install:
 
 jobs:
   include:
-    - &buildReTest
-      stage: Build Reason and Test
-      script:
-        - yarn build:res
-        - yarn test
-    - <<: *buildReTest
-      node_js: 14
-    - &checkTs
-      stage: Check TypeScript
-      script:
-        - yarn check:ts
-    - <<: *checkTs
-      node_js: 14
-    - &lint
-      stage: Lint
-      script:
-        - yarn lint
-    - <<: *lint
-      node_js: 14
-    - &build
-      stage: Build
-      script:
-        - yarn build
-    - <<: *build
-      node_js: 14
-    - stage: documentation
-      node_js: 12
-      script:
-        - cd docs
-        - yarn install --frozen-lockfile
-        - yarn run check-ci
-        # Build and deploy to staging.
-        - yarn run clean
-        - yarn run build
-        - yarn run deploy:stage
-      deploy:
-        # Deploy saturn to production
-        - provider: script
-          # Build and deploy to production.
-          # _Note_: `deploy.script` must be a **single** command string
-          script: yarn run deploy:prod
-          skip_cleanup: true
-          on:
-            branch: saturn
+    - script:
+        - "echo TODO REENABLE OR REMOVE WHOLE FILE"
+    # - &buildReTest
+    #   stage: Build Reason and Test
+    #   script:
+    #     - yarn build:res
+    #     - yarn test
+    # - <<: *buildReTest
+    #   node_js: 14
+    # - &checkTs
+    #   stage: Check TypeScript
+    #   script:
+    #     - yarn check:ts
+    # - <<: *checkTs
+    #   node_js: 14
+    # - &lint
+    #   stage: Lint
+    #   script:
+    #     - yarn lint
+    # - <<: *lint
+    #   node_js: 14
+    # - &build
+    #   stage: Build
+    #   script:
+    #     - yarn build
+    # - <<: *build
+    #   node_js: 14
+    # - stage: documentation
+    #   node_js: 12
+    #   script:
+    #     - cd docs
+    #     - yarn install --frozen-lockfile
+    #     - yarn run check-ci
+    #     # Build and deploy to staging.
+    #     - yarn run clean
+    #     - yarn run build
+    #     - yarn run deploy:stage
+    #   deploy:
+    #     # Deploy saturn to production
+    #     - provider: script
+    #       # Build and deploy to production.
+    #       # _Note_: `deploy.script` must be a **single** command string
+    #       script: yarn run deploy:prod
+    #       skip_cleanup: true
+    #       on:
+    #         branch: saturn
 
 env:
   global:
