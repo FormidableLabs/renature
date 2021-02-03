@@ -35,7 +35,10 @@ jobs:
       #   run: yarn build
 
   docs:
-    runs-on: ubuntu-latest
+    # TODO: Switch to `ubuntu-latest` when GH internal migration complete
+    # because it has awscli@2 built in.
+    # See `ubuntu-latest` note in: https://docs.github.com/en/actions/reference/specifications-for-github-hosted-runners#supported-runners-and-hardware-resources
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         node-version: [12.x]
