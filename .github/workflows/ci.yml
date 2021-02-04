@@ -62,3 +62,12 @@ jobs:
           yarn run build
       - name: Deploy docs
         run: yarn run deploy:stage
+        env:
+          GITHUB_DEPLOYMENT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+      # TODO: PROD DEPLOY
+      # TODO: Try to re-use build!
+      # GITHUB_DEPLOYMENT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # AWS_ACCESS_KEY_ID
+      # AWS_SECRET_ACCESS_KEY
