@@ -91,6 +91,7 @@ export const useFluidResistanceGroup = <
     (target, idx) => {
       const updatingElements =
         typeof idx !== 'undefined' ? [elements[idx]] : elements;
+      let start = () => {};
 
       updatingElements.forEach((el, i) => {
         // Derive props based on the original index, if passed, or the mapped
@@ -108,7 +109,7 @@ export const useFluidResistanceGroup = <
         // Determine the maximum position the mover will reach based on the configuration.
         const maxPosition = getFluidPositionAtTerminalVelocity(el.config);
 
-        const { elements: updatedElements, start } = fluidResistanceGroup([
+        const { elements: updatedElements, start: run } = fluidResistanceGroup([
           {
             ref: el.ref,
             config: el.config,
@@ -131,9 +132,11 @@ export const useFluidResistanceGroup = <
           },
         ]);
 
-        elements[i].ref = updatedElements[i].ref;
-        start();
+        elements[idx ?? i].ref = updatedElements[i].ref;
+        start = run;
       });
+
+      start();
     },
     [fn, elements]
   );

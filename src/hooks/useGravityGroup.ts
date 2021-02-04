@@ -94,6 +94,7 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
     (target, idx) => {
       const updatingElements =
         typeof idx !== 'undefined' ? [elements[idx]] : elements;
+      let start = () => {};
 
       updatingElements.forEach((el, i) => {
         // Derive props based on the original index, if passed, or the mapped
@@ -108,7 +109,7 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
           to,
         });
 
-        const { elements: updatedElements, start } = gravityGroup([
+        const { elements: updatedElements, start: run } = gravityGroup([
           {
             ref: el.ref,
             config: el.config,
@@ -131,9 +132,11 @@ export const useGravityGroup = <E extends HTMLElement | SVGElement = any>(
           },
         ]);
 
-        elements[i].ref = updatedElements[i].ref;
-        start();
+        elements[idx ?? i].ref = updatedElements[i].ref;
+        start = run;
       });
+
+      start();
     },
     [fn, elements]
   );

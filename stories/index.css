@@ -94,3 +94,10 @@ body {
 .stack-horizontal > * + * {
   margin-left: 1rem;
 }
+
+.letter {
+  font-weight: 700;
+  color: var(--color-renature);
+  font-size: 4rem;
+  opacity: 0;
+}

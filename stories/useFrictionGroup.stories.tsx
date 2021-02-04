@@ -1,4 +1,10 @@
-import React, { useCallback, useLayoutEffect, useState, FC } from 'react';
+import React, {
+  useCallback,
+  useLayoutEffect,
+  useEffect,
+  useState,
+  FC,
+} from 'react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { useFrictionGroup } from '../src';
@@ -176,5 +182,52 @@ export const FrictionGroupSVG: FC = () => {
         {...nodes[2]}
       />
     </svg>
+  );
+};
+
+const RENATURE = 'RENATURE';
+const translateDirection = () => (Math.random() > 0.5 ? 1 : -1);
+const translateMagnitude = () => Math.floor(Math.random() * 200);
+
+export const FrictionGroupSet: FC = () => {
+  const [nodes, controller] = useFrictionGroup(RENATURE.length, (i) => ({
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    delay: i * 100,
+  }));
+
+  useEffect(() => {
+    let count = 0;
+
+    const intervalId = setInterval(() => {
+      nodes.forEach((_, i) => {
+        const translate =
+          count % 2 === 0
+            ? `translate(${translateMagnitude() * translateDirection()}px, ${
+                translateMagnitude() * translateDirection()
+              }px)`
+            : `translate(0px, 0px)`;
+
+        controller.set({ transform: translate }, i);
+      });
+
+      count += 1;
+    }, 2000);
+
+    return () => clearInterval(intervalId);
+  }, [nodes, controller]);
+
+  return (
+    <div className="stack-horizontal">
+      {nodes.map((props, i) => (
+        <span key={i} className="letter" {...props}>
+          {RENATURE[i]}
+        </span>
+      ))}
+    </div>
   );
 };
