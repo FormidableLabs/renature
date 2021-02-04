@@ -22,7 +22,7 @@
     "prettier-all": "npx prettier --write '{src,static.config,scripts}/**/*.{js,jsx}'",
     "preversion": "yarn run lint && yarn run build",
     "format": "yarn run lint --fix",
-    "lint": "eslint 'src/**/*.js' 'static.config.js'",
+    "lint": "eslint 'src/**/*.js' 'static.config.js' 'formideploy.config.js'",
     "check-ci": "yarn run lint"
   },
   "dependencies": {

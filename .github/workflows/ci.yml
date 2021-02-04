@@ -54,7 +54,7 @@ jobs:
       - name: AWS CLI version
         run: "aws --version"
       # DEBUG STUFF TO REMOVE.
-      - run: "echo PWD=$(pwd)" # TODO: DEBUG REMOVE
+      - run: "echo PWD $(pwd)" # TODO: DEBUG REMOVE
       - run: "echo GITHUB_RUN_ID=${GITHUB_RUN_ID}" # TODO: DEBUG REMOVE
       - run: "echo GITHUB_RUN_NUMBER=${GITHUB_RUN_NUMBER}" # TODO: DEBUG REMOVE
       - run: "echo GITHUB_ACTION=${GITHUB_ACTION}" # TODO: DEBUG REMOVE
