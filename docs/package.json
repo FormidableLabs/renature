@@ -54,7 +54,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "execa": "^4.0.3",
-    "formideploy": "FormidableLabs/formideploy#51d331dc51dd6bb1b78715d5cd1cb522c374a9af",
+    "formideploy": "^0.3.3",
     "prettier": "^2.2.1",
     "prism-react-renderer": "^1.1.1",
     "react-hot-loader": "^4.13.0",
