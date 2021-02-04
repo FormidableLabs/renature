@@ -7,8 +7,7 @@ module.exports = {
   },
   // TODO(GH): Remove this after we've fully dog-fooded our switch to GH actions.
   production: {
-    domain:
-      'tmp-experiment-02.formidable.com.s3-website-us-east-1.amazonaws.com',
+    domain: 'tmp-experiment-02.formidable.com',
     bucket: 'tmp-experiment-02.formidable.com',
   },
 };

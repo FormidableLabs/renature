@@ -22,7 +22,7 @@ install:
 jobs:
   include:
     - script:
-        - "echo TODO REENABLE OR REMOVE WHOLE FILE"
+        - "echo TODO REMOVE WHOLE FILE"
     # - &buildReTest
     #   stage: Build Reason and Test
     #   script:

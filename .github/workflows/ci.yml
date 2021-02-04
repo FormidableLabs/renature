@@ -15,24 +15,23 @@ jobs:
       matrix:
         node-version: [12.x, 14.x]
     steps:
-      - run: "echo TODO_REENABLE BUILD"
-      # - uses: actions/checkout@v2
-      # - name: Use Node.js ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
-      # - name: Install Dependencies
-      #   run: yarn --frozen-lockfile --non-interactive
-      # - name: Build ReScript and Test
-      #   run: |
-      #     yarn build:res
-      #     yarn test
-      # - name: Check TypeScript
-      #   run: yarn check:ts
-      # - name: Lint
-      #   run: yarn lint
-      # - name: Build
-      #   run: yarn build
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: yarn --frozen-lockfile --non-interactive
+      - name: Build ReScript and Test
+        run: |
+          yarn build:res
+          yarn test
+      - name: Check TypeScript
+        run: yarn check:ts
+      - name: Lint
+        run: yarn lint
+      - name: Build
+        run: yarn build
 
   docs:
     # TODO: Switch to `ubuntu-latest` when GH internal migration complete
@@ -53,13 +52,13 @@ jobs:
           node-version: 12.x
       - name: AWS CLI version
         run: "aws --version"
-      # DEBUG STUFF TO REMOVE.
-      - run: "echo PWD $(pwd)" # TODO: DEBUG REMOVE
-      - run: "echo GITHUB_RUN_ID=${GITHUB_RUN_ID}" # TODO: DEBUG REMOVE
-      - run: "echo GITHUB_RUN_NUMBER=${GITHUB_RUN_NUMBER}" # TODO: DEBUG REMOVE
-      - run: "echo GITHUB_ACTION=${GITHUB_ACTION}" # TODO: DEBUG REMOVE
-      - run: "echo GITHUB_SHA=${GITHUB_SHA}" # TODO: DEBUG REMOVE
-      - run: "echo GITHUB_REF=${GITHUB_REF}" # TODO: DEBUG REMOVE
-      - run: "echo GITHUB_HEAD_REF=${GITHUB_HEAD_REF}" # TODO: DEBUG REMOVE
-      - run: "echo GITHUB_REPOSITORY=${GITHUB_REPOSITORY}" # TODO: DEBUG REMOVE
-      - run: "echo GITHUB_SERVER_URL=${GITHUB_SERVER_URL}" # TODO: DEBUG REMOVE
+      - name: Install Dependencies
+        run: yarn --frozen-lockfile --non-interactive
+      - name: Quality checks
+        run: yarn run check-ci
+      - name: Build docs
+        run: |
+          yarn run clean
+          yarn run build
+      - name: Deploy docs
+        run: yarn run deploy:stage
