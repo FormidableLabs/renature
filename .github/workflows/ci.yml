@@ -72,7 +72,7 @@ jobs:
 
       - name: Deploy docs (production)
         if: github.ref == 'refs/heads/saturn'
-        run: yarn run deploy:stage
+        run: yarn run deploy:prod
         env:
           GITHUB_DEPLOYMENT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
