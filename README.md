@@ -13,11 +13,9 @@
   <a href="https://npmjs.com/package/renature">
     <img alt="NPM Version" src="https://img.shields.io/npm/v/renature.svg" />
   </a>
-  <!-- TODO(GH): Get badges back working.
   <a href="https://github.com/FormidableLabs/renature/actions">
-    <img alt="Test Status" src="https://github.com/FormidableLabs/renature/workflows/ci.yml/badge.svg" />
+    <img alt="Test Status" src="https://github.com/FormidableLabs/renature/workflows/renature%20CI/badge.svg?branch=saturn" />
   </a>
-  -->
   <a href="https://bundlephobia.com/result?p=renature">
     <img alt="Minified gzip size" src="https://img.shields.io/bundlephobia/minzip/renature.svg?label=gzip%20size" />
   </a>
