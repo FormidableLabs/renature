@@ -4705,10 +4705,9 @@ formidable-oss-badges@^0.3.4:
   resolved "https://registry.yarnpkg.com/formidable-oss-badges/-/formidable-oss-badges-0.3.5.tgz#875a81d45cf3db849aece33805992d26ca6df061"
   integrity sha512-jvHSQMXujUtncyT3ObkoQgwOzkxdnnAs7XYgJDGSqhGqPF+LZ0y4rS5b6XzaN2BR3hG2e7isVtCNOmb7gxNuYw==
 
-formideploy@^0.3.3:
+formideploy@FormidableLabs/formideploy#6b555bbc710b597a02c0334245a58f227fc50d80:
   version "0.3.3"
-  resolved "https://registry.yarnpkg.com/formideploy/-/formideploy-0.3.3.tgz#1512af5b881b8568516753698c74a9c53d704ec9"
-  integrity sha512-zKtp1vxAloNn9x2hwToq1WMk39b17Rsr82zH5XGBF6Jk0AeqluWrWsEkkRgtpNaHbEFPVzSxzdK4CKQ4fCRKYw==
+  resolved "https://codeload.github.com/FormidableLabs/formideploy/tar.gz/6b555bbc710b597a02c0334245a58f227fc50d80"
   dependencies:
     "@octokit/rest" "^17.8.0"
     chalk "^4.0.0"
