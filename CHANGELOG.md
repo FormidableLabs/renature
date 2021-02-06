@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.8.1
+
+This release fixes a small bug related to the use of the optional index parameter in the `controller.set` API. `controller.set` with the index parameter specified now works as documented.
+
+### Fixed
+
+- The `controller.set` API correctly targets an animating element when called with the index parameter specified. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/116).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.8.0...v0.8.1)
+
 ## v0.8.0
 
 This release adds support for a `set` method on the `controller` returned by a `renature` hook. You can use `controller.set` to animate an element to any CSS state at any time.
