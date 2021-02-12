@@ -171,7 +171,7 @@ const [props] = use<Force>Group(n: number, fn: (index: number) => Config);
 `useGravityGroup` will animate `n` elements using Newton's Law of Universal Gravitation. It takes the form:
 
 ```typescript
-const [props, controller] = useGravityGroup(n: number, fn: (index: number) => UseGravityArgs)
+const [props, controller] = useGravityGroup(n: number, fn: (index: number) => UseGravityParams)
 ```
 
 The configuration object returned by `fn` should match that defined in the [`useGravity`](#usegravity) section above.
@@ -216,7 +216,7 @@ function GravityGroup() {
 `useFrictionGroup` will animate `n` elements using the standard equation of friction. It takes the form:
 
 ```typescript
-const [props, controller] = useFrictionGroup(n: number, fn: (index: number) => UseFrictionArgs)
+const [props, controller] = useFrictionGroup(n: number, fn: (index: number) => UseFrictionParams)
 ```
 
 The configuration object returned by `fn` should match that defined in the [`useFriction`](#usefriction) section above.
@@ -265,7 +265,7 @@ function FrictionGroup() {
 `useFluidResistanceGroup` will animate `n` elements using the standard drag equation. It takes the form:
 
 ```typescript
-const [props, controller] = useFluidResistanceGroup(n: number, fn: (index: number) => UseFluidResistanceArgs)
+const [props, controller] = useFluidResistanceGroup(n: number, fn: (index: number) => UseFluidResistanceParams)
 ```
 
 The configuration object returned by `fn` should match that defined in the [`useFluidResistance`](#usefluidresistance) section above.

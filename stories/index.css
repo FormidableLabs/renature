@@ -77,7 +77,7 @@ body {
 }
 
 .react-logo {
-  stroke: var(--color-renature-purple);
+  stroke: var(--color-renature);
   stroke-width: 3;
   fill: transparent;
 }

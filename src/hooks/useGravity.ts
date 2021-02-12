@@ -2,7 +2,7 @@ import type { RefObject } from 'react';
 
 import { Controller, gravityDefaultConfig } from '../animation';
 
-import { useGravityGroup, UseGravityArgs } from './useGravityGroup';
+import { useGravityGroup, UseGravityParams } from './useGravityGroup';
 
 export const useGravity = <E extends HTMLElement | SVGElement = any>({
   from,
@@ -14,7 +14,7 @@ export const useGravity = <E extends HTMLElement | SVGElement = any>({
   onFrame,
   onAnimationComplete,
   disableHardwareAcceleration,
-}: UseGravityArgs): [{ ref: RefObject<E> }, Controller] => {
+}: UseGravityParams): [{ ref: RefObject<E> }, Controller] => {
   const [props, controller] = useGravityGroup(1, () => ({
     from,
     to,

@@ -4,7 +4,7 @@ import { Controller, fluidResistanceDefaultConfig } from '../animation';
 
 import {
   useFluidResistanceGroup,
-  UseFluidResistanceArgs,
+  UseFluidResistanceParams,
 } from './useFluidResistanceGroup';
 
 export const useFluidResistance = <E extends HTMLElement | SVGElement = any>({
@@ -17,7 +17,7 @@ export const useFluidResistance = <E extends HTMLElement | SVGElement = any>({
   onFrame,
   onAnimationComplete,
   disableHardwareAcceleration,
-}: UseFluidResistanceArgs): [{ ref: RefObject<E> }, Controller] => {
+}: UseFluidResistanceParams): [{ ref: RefObject<E> }, Controller] => {
   const [props, controller] = useFluidResistanceGroup(1, () => ({
     from,
     to,
