@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.8.2
+
+This release is a small, internals-only, performance-related release. It consolidates the core logic of the hooks `renature` exposes into an internal `useForceGroup` hook that all hooks compose.
+
+### Changed
+
+All hooks now compose the internal-only `useForceGroup` hook to centralize animation logic. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/122).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.8.1...v0.8.2)
+
 ## v0.8.1
 
 This release fixes a small bug related to the use of the optional index parameter in the `controller.set` API. `controller.set` with the index parameter specified now works as documented.
