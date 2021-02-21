@@ -29,7 +29,7 @@ export interface AnimationParams {
 export interface HooksParams {
   pause?: boolean;
   delay?: number;
-  infinite?: boolean;
+  repeat?: number;
   onFrame?: (progress: number) => void;
   onAnimationComplete?: () => void;
   disableHardwareAcceleration?: boolean;
@@ -48,7 +48,7 @@ export interface AnimatingElement<
   config: C;
   onUpdate: VectorSetter;
   onComplete: () => void;
-  infinite?: boolean;
+  repeat?: number;
   delay?: number;
   pause?: boolean;
 }
@@ -65,6 +65,7 @@ export interface StatefulAnimatingElement<
     complete: boolean;
     paused: boolean;
     delayed: boolean;
+    repeatCount: number;
   };
 }
 

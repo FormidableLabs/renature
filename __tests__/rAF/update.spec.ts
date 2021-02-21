@@ -29,6 +29,7 @@ describe('update', () => {
       complete: false,
       paused: false,
       delayed: false,
+      repeatCount: 0,
     },
   };
 
@@ -96,7 +97,7 @@ describe('update', () => {
     }
   );
 
-  it('should check the play state for infinite animations', () => {
+  it('should check the play state for repeated animations', () => {
     const onUpdate = jest.fn();
     const mockMoverState: Partial<Entity> = {
       velocity: [2, 0],
@@ -109,7 +110,7 @@ describe('update', () => {
     > = {
       ...baseElement,
       onUpdate,
-      infinite: true,
+      repeat: Infinity,
       state: {
         ...baseElement.state,
         mover: {

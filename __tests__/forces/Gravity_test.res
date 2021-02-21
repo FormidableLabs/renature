@@ -14,7 +14,7 @@ describe("Gravity", () => {
     it("should correctly derive the force of gravity at the Earth's surface", () => {
       let massEarth = 5.97 *. 10. ** 24.
       let massObject = 25.
-      let rEarth = 6.371 *. 10. ** 6.
+      let rEarth = 6.3781 *. 10. ** 6.
 
       open Expect
       expect(
@@ -23,8 +23,8 @@ describe("Gravity", () => {
           ~moverMass=massObject,
           ~r=rEarth,
           (),
-        ) |> Printf.printf("%0.*f\n", 2),
-      ) |> toEqual(0.098 *. massObject |> Printf.printf("%0.*f\n", 2))
+        ) |> Js.Math.round,
+      ) |> toEqual(Gravity.gE *. massObject |> Js.Math.round)
     })
 
     it("should allow for user-supplied values of G", () => {

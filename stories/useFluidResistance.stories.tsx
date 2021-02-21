@@ -77,7 +77,7 @@ export const FluidResistanceEventBased: FC = () => {
       settle: boolean('settle', false),
     },
     pause: true,
-    infinite: true,
+    repeat: Infinity,
   });
 
   return (
@@ -131,7 +131,7 @@ export const FluidResistanceInfinite: FC = () => {
       cDrag: number('cDrag', 0.1),
       settle: boolean('settle', true),
     },
-    infinite: true,
+    repeat: Infinity,
   });
 
   return <div className="mover mover--purple" {...props} />;
@@ -152,7 +152,28 @@ export const FluidResistanceBoxShadow: FC = () => {
       cDrag: number('cDrag', 0.1),
       settle: boolean('settle', true),
     },
-    infinite: true,
+    repeat: Infinity,
+  });
+
+  return <div className="mover mover--purple" {...props} />;
+};
+
+export const FluidResistanceRepeatCount: FC = () => {
+  const [props] = useFluidResistance<HTMLDivElement>({
+    from: {
+      boxShadow: '20px 20px 0px teal, -20px -20px 0px orange',
+    },
+    to: {
+      boxShadow: '-20px -20px 0px orange, 20px 20px 0px teal',
+    },
+    config: {
+      mass: number('mass', 20),
+      rho: number('rho', 20),
+      area: number('area', 20),
+      cDrag: number('cDrag', 0.1),
+      settle: boolean('settle', false),
+    },
+    repeat: 5,
   });
 
   return <div className="mover mover--purple" {...props} />;

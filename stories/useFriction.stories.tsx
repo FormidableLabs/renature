@@ -73,7 +73,7 @@ export const FrictionEventBased: FC = () => {
       initialVelocity: number('velocity', 10),
     },
     pause: true,
-    infinite: true,
+    repeat: Infinity,
   });
 
   return (
@@ -123,7 +123,7 @@ export const FrictionInfinite: FC = () => {
       mass: number('mass', 300),
       initialVelocity: number('velocity', 10),
     },
-    infinite: true,
+    repeat: Infinity,
   });
 
   return <div className="mover mover--red" {...props} />;
@@ -152,7 +152,7 @@ export const FrictionSVG: FC = () => {
       mass: number('mass', 300),
       initialVelocity: number('velocity', 5),
     },
-    infinite: true,
+    repeat: Infinity,
   });
 
   return (

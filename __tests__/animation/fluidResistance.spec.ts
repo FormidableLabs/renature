@@ -95,7 +95,7 @@ describe('fluidResistance', () => {
     }
   });
 
-  it('should check and modify the play state of an infinite animation', () => {
+  it('should check and modify the play state of an repeated animation', () => {
     const mockRAF = new MockRAF();
 
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(mockRAF.rAF);
@@ -103,7 +103,7 @@ describe('fluidResistance', () => {
     const mockElements: AnimatingElement<
       FluidResistanceConfig,
       HTMLElement
-    >[] = new Array(3).fill({ ...baseElement, infinite: true });
+    >[] = new Array(3).fill({ ...baseElement, repeat: Infinity });
 
     const { start, elements } = fluidResistanceGroup(mockElements);
 
@@ -121,7 +121,7 @@ describe('fluidResistance', () => {
     ).toBe(true);
   });
 
-  it('should continually reverse infinite animations when they reach their ending physics conditions', () => {
+  it('should continually reverse repeated animations when they reach their ending physics conditions', () => {
     const mockRAF = new MockRAF();
 
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(mockRAF.rAF);
@@ -129,7 +129,7 @@ describe('fluidResistance', () => {
     const mockElements: AnimatingElement<
       FluidResistanceConfig,
       HTMLElement
-    >[] = new Array(3).fill({ ...baseElement, infinite: true });
+    >[] = new Array(3).fill({ ...baseElement, repeat: Infinity });
 
     const { start, elements } = fluidResistanceGroup(mockElements);
 
@@ -164,7 +164,7 @@ describe('fluidResistance', () => {
       HTMLElement
     >[] = new Array(3).fill({
       ...baseElement,
-      config: { ...baseElement.config, infinite: true, settle: true },
+      config: { ...baseElement.config, repeat: Infinity, settle: true },
     });
 
     const { start, elements } = fluidResistanceGroup(mockElements);

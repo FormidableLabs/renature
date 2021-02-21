@@ -31,7 +31,7 @@ export const GravityMultipleBasic: FC = () => {
       r: number('r', 7.5),
     },
     delay: i * 500,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (
@@ -62,7 +62,7 @@ export const GravityMultipleEventBased: FC = () => {
     },
     pause: true,
     delay: i * 1000,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (

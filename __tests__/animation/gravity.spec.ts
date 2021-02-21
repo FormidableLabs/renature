@@ -94,7 +94,7 @@ describe('gravity', () => {
     }
   });
 
-  it('should check and modify the play state of an infinite animation', () => {
+  it('should check and modify the play state of a repeated animation', () => {
     const mockRAF = new MockRAF();
 
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(mockRAF.rAF);
@@ -102,7 +102,7 @@ describe('gravity', () => {
     const mockElements: AnimatingElement<
       GravityConfig,
       HTMLElement
-    >[] = new Array(3).fill({ ...baseElement, infinite: true });
+    >[] = new Array(3).fill({ ...baseElement, repeat: Infinity });
 
     const { start, elements } = gravityGroup(mockElements);
 
@@ -120,7 +120,7 @@ describe('gravity', () => {
     ).toBe(true);
   });
 
-  it('should continually reverse infinite animations when they reach their ending physics conditions', () => {
+  it('should continually reverse repeated animations when they reach their ending physics conditions', () => {
     const mockRAF = new MockRAF();
 
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(mockRAF.rAF);
@@ -128,7 +128,7 @@ describe('gravity', () => {
     const mockElements: AnimatingElement<
       GravityConfig,
       HTMLElement
-    >[] = new Array(3).fill({ ...baseElement, infinite: true });
+    >[] = new Array(3).fill({ ...baseElement, repeat: Infinity });
 
     const { start, elements } = gravityGroup(mockElements);
 

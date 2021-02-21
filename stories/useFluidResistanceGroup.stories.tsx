@@ -33,7 +33,7 @@ export const FluidResistanceMultipleBasic: FC = () => {
       settle: boolean('settle', true),
     },
     delay: i * 500,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (
@@ -66,7 +66,7 @@ export const FluidResistanceMultipleEventBased: FC = () => {
     },
     pause: true,
     delay: i * 1000,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (

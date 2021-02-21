@@ -69,7 +69,7 @@ export const GravityEventBased: FC = () => {
       r: number('r', 7.5),
     },
     pause: true,
-    infinite: true,
+    repeat: Infinity,
   });
 
   return (
@@ -119,7 +119,7 @@ export const GravityInfinite: FC = () => {
       attractorMass: number('attractorMass', 1000000000000),
       r: number('r', 7.5),
     },
-    infinite: true,
+    repeat: Infinity,
   });
 
   return <div className="mover mover--purple" {...props} />;
