@@ -152,4 +152,56 @@ describe('gravity', () => {
       elements.every(({ state }) => state.playState === PlayState.Forward)
     ).toBe(true);
   });
+
+  it('should end a repeated animation when the specified number of repeats has been eclipsed', () => {
+    const mockRAF = new MockRAF();
+
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(mockRAF.rAF);
+
+    const mockElements: AnimatingElement<
+      GravityConfig,
+      HTMLElement
+    >[] = new Array(3).fill({ ...baseElement, repeat: 3 });
+
+    const { start, elements } = gravityGroup(mockElements);
+
+    start();
+
+    /**
+     * Animate 180 frames, equivalent to 3 seconds.
+     * With the default physics configuration, we should
+     * reach the reversal state at approximately this time.
+     */
+    mockRAF.step({ count: 180 });
+
+    expect(
+      elements.every(
+        ({ state }) =>
+          state.playState === PlayState.Reverse && state.repeatCount === 1
+      )
+    ).toBe(true);
+
+    // Animate another 180 frames and verify that we've switched to the Forward play state.
+    mockRAF.step({ count: 180 });
+
+    expect(
+      elements.every(
+        ({ state }) =>
+          state.playState === PlayState.Forward && state.repeatCount === 2
+      )
+    ).toBe(true);
+
+    // Animate another 180 frames to trigger the final repeat.
+    mockRAF.step({ count: 180 });
+
+    expect(
+      elements.every(
+        ({ state }) =>
+          state.playState === PlayState.Reverse && state.repeatCount === 3
+      )
+    ).toBe(true);
+
+    // Verify that all animations are complete.
+    expect(elements.every(({ state }) => state.complete)).toBe(true);
+  });
 });
