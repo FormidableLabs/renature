@@ -95,7 +95,7 @@ describe('fluidResistance', () => {
     }
   });
 
-  it('should check and modify the play state of an infinite animation', () => {
+  it('should check and modify the play state of a repeated animation', () => {
     const mockRAF = new MockRAF();
 
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(mockRAF.rAF);
@@ -103,7 +103,7 @@ describe('fluidResistance', () => {
     const mockElements: AnimatingElement<
       FluidResistanceConfig,
       HTMLElement
-    >[] = new Array(3).fill({ ...baseElement, infinite: true });
+    >[] = new Array(3).fill({ ...baseElement, repeat: Infinity });
 
     const { start, elements } = fluidResistanceGroup(mockElements);
 
@@ -121,7 +121,7 @@ describe('fluidResistance', () => {
     ).toBe(true);
   });
 
-  it('should continually reverse infinite animations when they reach their ending physics conditions', () => {
+  it('should continually reverse repeated animations when they reach their ending physics conditions', () => {
     const mockRAF = new MockRAF();
 
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(mockRAF.rAF);
@@ -129,7 +129,7 @@ describe('fluidResistance', () => {
     const mockElements: AnimatingElement<
       FluidResistanceConfig,
       HTMLElement
-    >[] = new Array(3).fill({ ...baseElement, infinite: true });
+    >[] = new Array(3).fill({ ...baseElement, repeat: Infinity });
 
     const { start, elements } = fluidResistanceGroup(mockElements);
 
@@ -154,6 +154,58 @@ describe('fluidResistance', () => {
     ).toBe(true);
   });
 
+  it('should end a repeated animation when the specified number of repeats has been eclipsed', () => {
+    const mockRAF = new MockRAF();
+
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(mockRAF.rAF);
+
+    const mockElements: AnimatingElement<
+      FluidResistanceConfig,
+      HTMLElement
+    >[] = new Array(3).fill({ ...baseElement, repeat: 3 });
+
+    const { start, elements } = fluidResistanceGroup(mockElements);
+
+    start();
+
+    /**
+     * Animate 440 frames, equivalent to 5.5 seconds.
+     * With the baseline physics configuration, we should
+     * reach the reversal state at approximately this time.
+     */
+    mockRAF.step({ count: 440 });
+
+    expect(
+      elements.every(
+        ({ state }) =>
+          state.playState === PlayState.Reverse && state.repeatCount === 1
+      )
+    ).toBe(true);
+
+    // Animate another 440 frames and verify that we've switched to the Forward play state.
+    mockRAF.step({ count: 440 });
+
+    expect(
+      elements.every(
+        ({ state }) =>
+          state.playState === PlayState.Forward && state.repeatCount === 2
+      )
+    ).toBe(true);
+
+    // Animate another 440 frames to trigger the final repeat.
+    mockRAF.step({ count: 440 });
+
+    expect(
+      elements.every(
+        ({ state }) =>
+          state.playState === PlayState.Reverse && state.repeatCount === 3
+      )
+    ).toBe(true);
+
+    // Verify that all animations are complete.
+    expect(elements.every(({ state }) => state.complete)).toBe(true);
+  });
+
   it('should apply a settling effect to the animation if specified in the physics config', () => {
     const mockRAF = new MockRAF();
 
@@ -164,7 +216,7 @@ describe('fluidResistance', () => {
       HTMLElement
     >[] = new Array(3).fill({
       ...baseElement,
-      config: { ...baseElement.config, infinite: true, settle: true },
+      config: { ...baseElement.config, repeat: Infinity, settle: true },
     });
 
     const { start, elements } = fluidResistanceGroup(mockElements);

@@ -37,7 +37,7 @@ export const FrictionGroupBasic: FC = () => {
       initialVelocity: number('velocity', 10),
     },
     delay: i * 500,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (
@@ -68,7 +68,7 @@ export const FrictionGroupEventBased: FC = () => {
     },
     pause: true,
     delay: i * 1000,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (
@@ -146,7 +146,7 @@ export const FrictionGroupSVG: FC = () => {
     mu: number('mu', 0.25),
     mass: number('mass', 300),
     initialVelocity: number('velocity', 10),
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (

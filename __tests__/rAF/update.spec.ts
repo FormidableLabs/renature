@@ -29,6 +29,7 @@ describe('update', () => {
       complete: false,
       paused: false,
       delayed: false,
+      repeatCount: 0,
     },
   };
 
@@ -96,7 +97,7 @@ describe('update', () => {
     }
   );
 
-  it('should check the play state for infinite animations', () => {
+  it('should check the play state for repeated animations', () => {
     const onUpdate = jest.fn();
     const mockMoverState: Partial<Entity> = {
       velocity: [2, 0],
@@ -109,7 +110,7 @@ describe('update', () => {
     > = {
       ...baseElement,
       onUpdate,
-      infinite: true,
+      repeat: Infinity,
       state: {
         ...baseElement.state,
         mover: {
@@ -144,6 +145,50 @@ describe('update', () => {
     expect(applyForceForStep).toHaveBeenCalledTimes(16);
     expect(onUpdate).toHaveBeenCalledTimes(1);
     expect(onUpdate).toHaveBeenCalledWith(mockMoverState);
+  });
+
+  it('should call onComplete if the animating element has repeated the specified number of times', () => {
+    const onComplete = jest.fn();
+
+    const element: StatefulAnimatingElement<
+      Record<string, unknown>,
+      HTMLElement
+    > = {
+      ...baseElement,
+      repeat: 2,
+      onComplete,
+      state: {
+        ...baseElement.state,
+        mover: {
+          ...baseElement.state.mover,
+          velocity: [2, 0],
+          position: [5, 0],
+        },
+        repeatCount: 2,
+      },
+    };
+
+    animatingElements.add(element);
+
+    const checkReversePlayState = jest.fn();
+    const applyForceForStep = jest.fn();
+    const checkStoppingCondition = jest.fn();
+    const stop = jest.fn();
+
+    const loop = update({
+      animatingElements,
+      checkReversePlayState,
+      applyForceForStep,
+      checkStoppingCondition,
+    });
+
+    const timestamp = performance.now();
+    // Increment timestamp by 1000 / 60ms to mimic one frame elapsing
+    loop(timestamp + 1000 / 60, timestamp, stop);
+
+    expect(applyForceForStep).toHaveBeenCalledTimes(16);
+    expect(onComplete).toHaveBeenCalledTimes(1);
+    expect(stop).toHaveBeenCalledTimes(1);
   });
 
   it('should call onComplete if the animating element has reached its stopping condition', () => {

@@ -83,7 +83,7 @@ export const useForceGroup = <C, E extends HTMLElement | SVGElement>({
             i,
             cache,
           }),
-          infinite: props.infinite,
+          repeat: props.repeat,
           delay: props.delay,
           pause: props.pause,
         };
@@ -143,7 +143,7 @@ export const useForceGroup = <C, E extends HTMLElement | SVGElement>({
               i,
               cache,
             }),
-            infinite: el.infinite,
+            repeat: el.repeat,
           },
         ]);
 

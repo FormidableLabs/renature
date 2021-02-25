@@ -45,9 +45,9 @@ export function update<C>({
       }
 
       for (let i = 0; i < steps; i++) {
-        // If the element is configured to animate infinitely...
-        if (element.infinite) {
-          // Check if we've reached the stopping condition for infinite animations.
+        // If the element is configured to repeat its animation...
+        if (typeof element.repeat === 'number' && element.repeat >= 0) {
+          // Check if we've reached the reversal condition for repeated animations.
           checkReversePlayState(element);
         }
 
@@ -55,7 +55,10 @@ export function update<C>({
       }
 
       // Conditions for stopping the physics animation.
-      if (!element.infinite && checkStoppingCondition(element)) {
+      if (
+        (!element.repeat && checkStoppingCondition(element)) ||
+        element.state.repeatCount === element.repeat
+      ) {
         element.onComplete();
         element.state.complete = true;
       } else {

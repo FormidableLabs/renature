@@ -40,7 +40,7 @@ function applyGravitationalForceForStep({
  * A function to check the current play state of the gravity animation
  * and potentially reverse it.
  *
- * If a gravity animation has infinite specified in its config _and_
+ * If a gravity animation has repeat specified in its config _and_
  * has reached its physics stopping condition (mover has reached attreactor),
  * we reset the initial parameters and reverse the direction of the animation.
  */
@@ -67,6 +67,7 @@ function checkReverseGravityPlayState({
     }
 
     state.playState = PlayState.Reverse;
+    state.repeatCount++;
   } else if (
     state.mover.position[0] <= 0 &&
     state.playState === PlayState.Reverse
@@ -86,6 +87,7 @@ function checkReverseGravityPlayState({
     }
 
     state.playState = PlayState.Forward;
+    state.repeatCount++;
   }
 }
 
@@ -128,6 +130,7 @@ export function gravityGroup(
     complete: false,
     paused: !!element.pause,
     delayed: !!element.delay,
+    repeatCount: 0,
   });
 
   return group(elements, initialState, {

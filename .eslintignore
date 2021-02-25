@@ -4,3 +4,4 @@ dist
 docs
 *.bs.js
 *.gen.tsx
+.eslintrc.js
