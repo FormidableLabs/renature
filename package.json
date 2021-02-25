@@ -1,6 +1,6 @@
 {
   "name": "renature",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "A physics-based animation library for React inspired by the natural world.",
   "repository": "https://www.github.com/FormidableLabs/renature",
   "bugs": {
