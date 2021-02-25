@@ -7,6 +7,41 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.9.0
+
+This release introduces a new API to `renature` hooks — the `repeat` API.
+
+Previously, the only way to run an animation more than one iteration was to use the `infinite` parameter, set to `true`. However, this doesn't work for cases where you want your animation to run a set number of iterations before coming to a smooth stop.
+
+To support this, the `repeat` parameter replaces the `infinite` parameter in `renature` hooks. You can still create an infinite animation by specifying `repeat: Infinity`, but you can also animate between `from` and `to` a set number of times. For example, the following configuration:
+
+```typescript
+const [props] = useFluidResistance<HTMLDivElement>({
+  from: {
+    boxShadow: '20px 20px 0px teal, -20px -20px 0px orange',
+  },
+  to: {
+    boxShadow: '-20px -20px 0px orange, 20px 20px 0px teal',
+  },
+  config: {
+    mass: 20,
+    rho: 20,
+    area: 20,
+    cDrag: 0.1,
+    settle: false,
+  },
+  repeat: 2,
+});
+```
+
+indicates that, after the animating element has finished its first animation cycle (e.g. has animated from the `from` state to the `to` state), it should repeat the animation two additional times.
+
+### Changed
+
+- ⚠️ The `infinite` parameter for `renature` hooks has been deprecated in favor of `repeat`. You can now repeat a `renature` animation declaratively a set number of iterations before stopping. To run an animation infinitely, specify `repeat: Infinity`. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/123).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.8.2...v0.9.0)
+
 ## v0.8.2
 
 This release is a small, internals-only, performance-related release. It consolidates the core logic of the hooks `renature` exposes into an internal `useForceGroup` hook that all hooks compose.
