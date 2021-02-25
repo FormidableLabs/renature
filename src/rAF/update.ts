@@ -45,7 +45,7 @@ export function update<C>({
       }
 
       for (let i = 0; i < steps; i++) {
-        // If the element is configured to repeat its animation.
+        // If the element is configured to repeat its animation...
         if (typeof element.repeat === 'number' && element.repeat >= 0) {
           // Check if we've reached the reversal condition for repeated animations.
           checkReversePlayState(element);
