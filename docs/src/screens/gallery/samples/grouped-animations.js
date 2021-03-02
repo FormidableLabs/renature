@@ -18,7 +18,7 @@ function FrictionGroup() {
       initialVelocity: 5,
     },
     delay: i * 500,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (

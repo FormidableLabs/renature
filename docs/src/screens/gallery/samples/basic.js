@@ -11,7 +11,7 @@ function Basic() {
       attractorMass: 1000000000000,
       r: 10,
     },
-    infinite: true
+    repeat: Infinity
   });
 
   return (

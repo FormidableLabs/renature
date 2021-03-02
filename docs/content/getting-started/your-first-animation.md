@@ -24,7 +24,7 @@ function Mover() {
       mass: 20,
       initialVelocity: 5,
     },
-    infinite: true,
+    repeat: Infinity,
   });
 
   return <div className="lp__m lp__m--lg" {...props} />;
@@ -60,7 +60,7 @@ function MoverMultiple() {
       mass: 20,
       initialVelocity: 5,
     },
-    infinite: true,
+    repeat: Infinity,
   });
 
   return <div className="lp__m lp__m--lg" {...props} />;

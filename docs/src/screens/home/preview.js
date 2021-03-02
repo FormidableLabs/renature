@@ -31,7 +31,7 @@ function FrictionAnimation() {
       background: 'coral',
     },
     config: { mu: 0.5, mass: 300, initialVelocity: 10 },
-    infinite: true
+    repeat: Infinity
   });
 
   return (

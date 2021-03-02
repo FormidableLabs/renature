@@ -17,7 +17,7 @@ function BoxShadow() {
       mass: 25,
       initialVelocity: 10
     },
-    infinite: true
+    repeat: Infinity
   });
 
   return (
