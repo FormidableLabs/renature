@@ -19,7 +19,7 @@ function Mover() {
       mass: 20,
       initialVelocity: 5,
     },
-    infinite: true,
+    repeat: Infinity,
   });
 
   return (

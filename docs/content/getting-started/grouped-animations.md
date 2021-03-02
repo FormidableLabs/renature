@@ -26,7 +26,7 @@ function GravityGroup() {
       borderRadius: '50%',
     },
     delay: i * 1000,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (
@@ -48,7 +48,7 @@ import React from 'react';
 import { useFrictionGroup } from 'renature';
 
 function FrictionGroup() {
-  const getFromToForIndex = (i) => {
+  const getConfigForIndex = (i) => {
     switch (i) {
       case 0:
         return {
@@ -88,8 +88,8 @@ function FrictionGroup() {
   };
 
   const [nodes] = useFrictionGroup(3, (i) => ({
-    ...getFromToForIndex(i),
-    infinite: true,
+    ...getConfigForIndex(i),
+    repeat: Infinity,
   }));
 
   return (

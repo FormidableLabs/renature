@@ -59,7 +59,7 @@ function SVGPathTracing() {
     mu: 0.25,
     mass: 300,
     initialVelocity: 10,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (

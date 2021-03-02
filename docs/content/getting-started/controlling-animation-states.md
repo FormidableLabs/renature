@@ -5,7 +5,7 @@ order: 3
 
 ## Controlling Animation States
 
-In this section, we'll cover how to control animation states in `renature`. This includes starting, stopping, and delaying animations, as well as running them infinitely.
+In this section, we'll cover how to control animation states in `renature`. This includes starting, stopping, and delaying animations, as well as running them infinitely or a pre-specified number of iterations.
 
 ## The `Controller` API
 
@@ -65,7 +65,7 @@ function PauseAnimation() {
       transform: 'rotate(360deg) scale(0)',
     },
     pause: true, // Signal that the animation should not run on mount.
-    infinite: true,
+    repeat: Infinity,
   });
 
   return (
@@ -106,7 +106,7 @@ function StopAnimation() {
     to: {
       transform: 'rotate(360deg) scale(1)',
     },
-    infinite: true,
+    repeat: Infinity,
   });
 
   return (
@@ -144,7 +144,7 @@ function DelayedMover() {
       r: 7.5,
     },
     delay: i * 500,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (
@@ -159,7 +159,7 @@ function DelayedMover() {
 
 ### Running Animations Infinitely
 
-Sometimes you want your animations to run infinitely, without stopping. You can do this with `renature` by applying `infinite` to your animation configuration. Of course, you can still use `controller.stop` to end the animation whenever you want to.
+Sometimes you want your animations to run infinitely, without stopping. You can do this with `renature` by applying `repeat: Infinity` to your animation configuration. Of course, you can still use `controller.stop` to end the animation whenever you want to.
 
 ```js live=true
 import React from 'react';
@@ -180,7 +180,7 @@ function InfiniteMover() {
       background: getRandomHex(),
       borderRadius: `${Math.floor(Math.random() * 100)}%`,
     },
-    infinite: true, // Specify that the animation should run infinitely.
+    repeat: Infinity, // Specify that the animation should run infinitely.
     delay: i * 500,
   }));
 
@@ -195,6 +195,51 @@ function InfiniteMover() {
 ```
 
 Infinite animations oscillate between your `from` and `to` states, creating a "yoyo" effect. They work by running the exact same underlying physics animation in a reversed direction.
+
+### Running Animations a Specific Number of Times
+
+`renature` also allows you to run an animation a specific number of times. To do this, specify a concrete number greater than 0 for the `repeat` parameter. For example:
+
+```js live=true
+import React from 'react';
+import { useFrictionGroup } from 'renature';
+
+function InfiniteMover() {
+  const getRandomHex = () =>
+    '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
+
+  const [nodes] = useFrictionGroup(3, (i) => ({
+    from: {
+      transform: 'translateX(0px)',
+      background: getRandomHex(),
+      borderRadius: `${Math.floor(Math.random() * 100)}%`,
+    },
+    to: {
+      transform: 'translateX(50px)',
+      background: getRandomHex(),
+      borderRadius: `${Math.floor(Math.random() * 100)}%`,
+    },
+    repeat: 3, // Specify that the animation should repeat three times after the first run.
+    delay: i * 500,
+  }));
+
+  return (
+    <div className="lp__stack-h">
+      {nodes.map((props) => (
+        <div className="lp__m lp__m--lg" {...props} />
+      ))}
+    </div>
+  );
+}
+```
+
+The number specified in `repeat` determines how many times the animation runs **in addition to** the initial run. For example, the above animation runs as follows:
+
+1. Animates from the `from` configuration to the `to` configuration (initial run).
+2. Continually reverses `from` and `to` for the next three iterations, as specified by `repeat`.
+3. Comes to a stop.
+
+This behavior is quite useful when you want an animation to continue for a specific number of iterations and come to a neat stop. You can preemptively stop the animation using `controller.stop`.
 
 ### Setting Animations to Arbitrary States
 

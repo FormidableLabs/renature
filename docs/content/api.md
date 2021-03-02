@@ -20,7 +20,7 @@ This document contains all information on `renature`'s public facing API.
 | `config`                      | `object?`                                   | Optional. The physics parameters used to model the selected force. This varies from force to force. See [Config](#config) below for specific force paramters. If no `config` is supplied, a default set of physics parameters will be supplied by `renature`. |
 | `pause`                       | `boolean?`                                  | Optional. Instructs `renature` to pause the animation on initial mount. If `true`, the animation will not run until `controller.start` is called or until a re-render occurs and `pause` evaluates to `false`. Defaults to `false`.                           |
 | `delay`                       | `number?`                                   | Optional. Instructs `renature` to delay the start of the animation by the provided number of milliseconds. Defaults to `undefined`.                                                                                                                           |
-| `infinite`                    | `boolean?`                                  | Optional. Instructs `renature` to restart the animation in the reverse direction when the animation completes in the forward direction, producing a "yoyo" effect. Defaults to `false`.                                                                       |
+| `repeat`                      | `number?`                                   | Optional. Instructs `renature` to repeat the animation a specific number of times. By default, animations will swap the `from` and `to` values when `repeat` is specified, producing a mirroring animation effect. Defaults to `0`.                           |
 | `onFrame`                     | `?(progress: number) => void`               | Optional. Supply a callback function that `renature` will execute on every call to `requestAnimationFrame`.                                                                                                                                                   |
 | `onAnimationComplete`         | `?() => void`                               | Optional. Supply a callback function that `renature` will run when your animation has completed. If the animation is unmounted before completing, `onAnimationComplete` _will not_ be called.                                                                 |
 | `disableHardwareAcceleration` | `boolean?`                                  | Optional. Prevent `renature` from applying optimizations that push compatible animations to the GPU.                                                                                                                                                          |
@@ -61,7 +61,7 @@ function GravityBasic() {
       attractorMass: 10000000000000,
       r: 10,
     },
-    infinite: true,
+    repeat: Infinity,
   });
 
   return <div className="lp__m lp__m--lg" {...props} />;
@@ -105,7 +105,7 @@ function FrictionBasic() {
       mass: 300,
       initialVelocity: 10,
     },
-    infinite: true,
+    repeat: Infinity,
   });
 
   return <div className="lp__m lp__m--lg" {...props} />;
@@ -151,7 +151,7 @@ function FluidResistanceBasic() {
       cDrag: 0.1,
       settle: true,
     },
-    infinite: true,
+    repeat: Infinity,
   });
 
   return <div className="lp__m lp__m--lg" {...props} />;
@@ -197,7 +197,7 @@ function GravityGroup() {
       attractorMass: 10000000000000,
       r: 10,
     },
-    infinite: true,
+    repeat: Infinity,
     delay: i * 500,
   }));
 
@@ -243,7 +243,7 @@ function FrictionGroup() {
       initialVelocity: 5,
     },
     delay: i * 500,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (
@@ -292,7 +292,7 @@ function FluidResistanceGroup() {
       settle: true,
     },
     delay: i * 500,
-    infinite: true,
+    repeat: Infinity,
   }));
 
   return (
