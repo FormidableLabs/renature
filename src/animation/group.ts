@@ -25,7 +25,6 @@ export function group<C>(
   elements.forEach((element) => {
     const animatingElement: StatefulAnimatingElement<C> = {
       ...element,
-      repeat: typeof element.repeat === 'number' ? element.repeat : 0,
       state: initialState(element),
     };
 

@@ -56,11 +56,14 @@ export function update<C>({
 
       // Conditions for stopping the physics animation.
       // If no repeat is specified and we've reached the stopping condition...
-      if (!element.repeat && checkStoppingCondition(element)) {
+      if (
+        (typeof element.repeat !== 'number' || element.repeat === 0) &&
+        checkStoppingCondition(element)
+      ) {
         element.onComplete();
         element.state.complete = true;
         // If repeat is specified and we've reached the repeat count.
-      } else if (element.repeat === element.state.repeatCount - 1) {
+      } else if (element.repeat === element.state.repeatCount) {
         element.onComplete(element.state.playState);
         element.state.complete = true;
       } else {
