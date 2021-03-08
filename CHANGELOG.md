@@ -7,6 +7,17 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.9.1
+
+This release fixes bugs uncovered in the new `repeat` API outlined in [#124](https://github.com/FormidableLabs/renature/issues/124).
+
+## Fixed
+
+- Specifying an even number for `repeat` no longer leads to an incorrect "jump" to the `to` value specified in the hook config. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/126).
+- Erroneously specifying a `string` value for `repeat` no longer results in an animation extending beyond its bounds. While this will be caught at compile-time by TypeScript users, it's an easy mistake for JavaScript users to make, so we guard against it at runtime. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/126).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.9.0...v0.9.1)
+
 ## v0.9.0
 
 This release introduces a new API to `renature` hooks — the `repeat` API.
