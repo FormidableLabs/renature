@@ -47,7 +47,7 @@ export interface AnimatingElement<
   ref: RefObject<E>;
   config: C;
   onUpdate: VectorSetter;
-  onComplete: () => void;
+  onComplete: (playState?: PlayState) => void;
   repeat?: number;
   delay?: number;
   pause?: boolean;

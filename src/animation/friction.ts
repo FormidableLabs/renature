@@ -93,7 +93,7 @@ export function frictionGroup(
     complete: false,
     paused: !!element.pause,
     delayed: !!element.delay,
-    repeatCount: 0,
+    repeatCount: -1,
   });
 
   return group(elements, initialState, {

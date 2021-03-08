@@ -1,6 +1,6 @@
 import type { RefObject, MutableRefObject } from 'react';
 
-import type { AnimationCache, VectorSetter } from '../animation';
+import { AnimationCache, PlayState, VectorSetter } from '../animation';
 import type { InterpolatedResult } from '../parsers';
 
 interface OnUpdateParams<E extends HTMLElement | SVGElement> {
@@ -68,11 +68,19 @@ export const onComplete = <E extends HTMLElement | SVGElement>({
   i,
   cache,
   onAnimationComplete,
-}: OnCompleteParams<E>) => (): void => {
+}: OnCompleteParams<E>) => (playState?: PlayState): void => {
   interpolators.forEach(({ property, values }) => {
-    // Ensure our animation has reached the to value when the physics stopping condition has been reached.
-    if (ref.current && ref.current.style[property as any] !== values.to) {
-      ref.current.style[property as any] = `${values.to}`;
+    const isNearEnd =
+      (playState === PlayState.Forward &&
+        ref.current?.style[property as any] !== values.to) ||
+      (playState === PlayState.Reverse &&
+        ref.current?.style[property as any] !== values.from);
+
+    // Ensure our animation has reached the ending value when the physics stopping condition has been reached.
+    if (ref.current && isNearEnd) {
+      ref.current.style[property as any] = `${
+        playState === PlayState.Forward ? values.from : values.to
+      }`;
 
       // Clear the cache for this particular property.
       const { [property]: _, ...cachedValue } = cache.current.get(i) ?? {};

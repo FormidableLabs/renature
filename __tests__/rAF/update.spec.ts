@@ -191,6 +191,50 @@ describe('update', () => {
     expect(stop).toHaveBeenCalledTimes(1);
   });
 
+  it('should call onComplete if the repeatCount is not a positive integer (invariant)', () => {
+    const onComplete = jest.fn();
+
+    const element: StatefulAnimatingElement<
+      Record<string, unknown>,
+      HTMLElement
+    > = {
+      ...baseElement,
+      repeat: -5,
+      onComplete,
+      state: {
+        ...baseElement.state,
+        mover: {
+          ...baseElement.state.mover,
+          velocity: [2, 0],
+          position: [5, 0],
+        },
+        repeatCount: -1,
+      },
+    };
+
+    animatingElements.add(element);
+
+    const checkReversePlayState = jest.fn();
+    const applyForceForStep = jest.fn();
+    const checkStoppingCondition = jest.fn().mockImplementation(() => true);
+    const stop = jest.fn();
+
+    const loop = update({
+      animatingElements,
+      checkReversePlayState,
+      applyForceForStep,
+      checkStoppingCondition,
+    });
+
+    const timestamp = performance.now();
+    // Increment timestamp by 1000 / 60ms to mimic one frame elapsing
+    loop(timestamp + 1000 / 60, timestamp, stop);
+
+    expect(applyForceForStep).toHaveBeenCalledTimes(16);
+    expect(onComplete).toHaveBeenCalledTimes(1);
+    expect(stop).toHaveBeenCalledTimes(1);
+  });
+
   it('should call onComplete if the animating element has reached its stopping condition', () => {
     const onComplete = jest.fn();
 

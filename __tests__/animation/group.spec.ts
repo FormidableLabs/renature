@@ -25,7 +25,7 @@ describe('group', () => {
     complete: false,
     paused: false,
     delayed: false,
-    repeatCount: 0,
+    repeatCount: -1,
   };
 
   const baseElement: AnimatingElement<Record<string, unknown>, HTMLElement> = {

@@ -54,11 +54,12 @@ export function update<C>({
         element.state.mover = applyForceForStep(element);
       }
 
-      // Conditions for stopping the physics animation.
-      if (
-        (!element.repeat && checkStoppingCondition(element)) ||
-        element.state.repeatCount === element.repeat
-      ) {
+      const shouldComplete =
+        (typeof element.repeat !== 'number' || element.repeat <= 0) &&
+        checkStoppingCondition(element);
+      const repetitionsEclipsed = element.repeat === element.state.repeatCount;
+
+      if (shouldComplete || repetitionsEclipsed) {
         element.onComplete();
         element.state.complete = true;
       } else {

@@ -143,14 +143,14 @@ export const FluidResistanceBoxShadow: FC = () => {
       boxShadow: '20px 20px 50px teal, -20px -20px 50px orange',
     },
     to: {
-      boxShadow: '-20px -20px 0px orange, 20px 20px 0px teal',
+      boxShadow: '-20px -20px 0px teal, 20px 20px 0px orange',
     },
     config: {
       mass: number('mass', 20),
       rho: number('rho', 20),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
-      settle: boolean('settle', true),
+      settle: boolean('settle', false),
     },
     repeat: Infinity,
   });
@@ -161,19 +161,19 @@ export const FluidResistanceBoxShadow: FC = () => {
 export const FluidResistanceRepeatCount: FC = () => {
   const [props] = useFluidResistance<HTMLDivElement>({
     from: {
-      boxShadow: '20px 20px 0px teal, -20px -20px 0px orange',
+      transform: 'translateX(0px)',
     },
     to: {
-      boxShadow: '-20px -20px 0px orange, 20px 20px 0px teal',
+      transform: 'translateX(100px)',
     },
     config: {
-      mass: number('mass', 20),
+      mass: number('mass', 10),
       rho: number('rho', 20),
       area: number('area', 20),
       cDrag: number('cDrag', 0.1),
       settle: boolean('settle', false),
     },
-    repeat: 5,
+    repeat: 2,
   });
 
   return <div className="mover mover--purple" {...props} />;

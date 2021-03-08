@@ -162,7 +162,7 @@ describe('fluidResistance', () => {
     const mockElements: AnimatingElement<
       FluidResistanceConfig,
       HTMLElement
-    >[] = new Array(3).fill({ ...baseElement, repeat: 3 });
+    >[] = new Array(3).fill({ ...baseElement, repeat: 2 });
 
     const { start, elements } = fluidResistanceGroup(mockElements);
 
@@ -178,7 +178,7 @@ describe('fluidResistance', () => {
     expect(
       elements.every(
         ({ state }) =>
-          state.playState === PlayState.Reverse && state.repeatCount === 1
+          state.playState === PlayState.Reverse && state.repeatCount === 0
       )
     ).toBe(true);
 
@@ -188,7 +188,7 @@ describe('fluidResistance', () => {
     expect(
       elements.every(
         ({ state }) =>
-          state.playState === PlayState.Forward && state.repeatCount === 2
+          state.playState === PlayState.Forward && state.repeatCount === 1
       )
     ).toBe(true);
 
@@ -198,7 +198,7 @@ describe('fluidResistance', () => {
     expect(
       elements.every(
         ({ state }) =>
-          state.playState === PlayState.Reverse && state.repeatCount === 3
+          state.playState === PlayState.Reverse && state.repeatCount === 2
       )
     ).toBe(true);
 
