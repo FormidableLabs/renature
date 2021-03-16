@@ -29,4 +29,5 @@ export const basic = (context) => ({
   title: 'Basic Transform',
   slug: 'basic-transform/',
   code: code(context),
+  demoLink: 'https://codesandbox.io/s/renature-basic-transform-21u2w',
 });

@@ -48,4 +48,5 @@ export const groupedAnimations = (context) => ({
   title: 'Grouped Animations',
   slug: 'grouped-animations/',
   code: code(context),
+  demoLink: 'https://codesandbox.io/s/renature-grouped-animations-drimw',
 });
