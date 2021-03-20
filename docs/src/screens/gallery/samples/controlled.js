@@ -43,4 +43,5 @@ export const controlled = (context) => ({
   title: 'Controlled Animations',
   slug: 'controlled-animations/',
   code: code(context),
+  demoLink: 'https://codesandbox.io/s/renature-controlled-animations-4rwe3',
 });

@@ -46,4 +46,5 @@ export const set = (context) => ({
   code: code(context),
   title: 'controller.set',
   slug: 'controller-set/',
+  demoLink: 'https://codesandbox.io/s/renature-controllerset-6dyj1',
 });

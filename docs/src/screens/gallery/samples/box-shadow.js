@@ -34,4 +34,5 @@ export const boxShadow = (context) => ({
   title: 'Box Shadow',
   slug: 'box-shadow/',
   code: code(context),
+  demoLink: 'https://codesandbox.io/s/renature-box-shadow-1ytkc',
 });

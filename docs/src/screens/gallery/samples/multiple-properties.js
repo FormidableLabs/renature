@@ -37,4 +37,5 @@ export const multipleProperties = (context) => ({
   code: code(context),
   title: 'Multiple CSS Properties',
   slug: 'multiple-css-properties/',
+  demoLink: 'https://codesandbox.io/s/renature-multiple-css-properties-h3oep',
 });

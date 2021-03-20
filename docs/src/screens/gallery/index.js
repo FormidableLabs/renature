@@ -101,8 +101,13 @@ const Gallery = () => {
           </GalleryNav>
         </GalleryHeader>
         <GalleryGrid>
-          {samples('gallery-preview').map(({ title, code, slug }) => (
-            <GalleryPreview key={title} title={title} code={code} slug={slug} />
+          {samples('gallery-preview').map(({ title, code, demoLink }) => (
+            <GalleryPreview
+              key={title}
+              title={title}
+              code={code}
+              demoLink={demoLink}
+            />
           ))}
         </GalleryGrid>
       </Container>

@@ -105,4 +105,5 @@ export const pathTracing = (context) => ({
   code: code(context),
   title: 'SVG Path Tracing',
   slug: 'svg-path-tracing/',
+  demoLink: 'https://codesandbox.io/s/renature-svg-path-tracing-0n8s9',
 });

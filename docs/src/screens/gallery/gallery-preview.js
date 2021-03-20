@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
 import { LiveProvider, LivePreview } from 'react-live';
 
 import { scope, removeImportFromPreview } from '../../utils/live-preview';
@@ -28,7 +27,7 @@ const StyledPreview = styled(LivePreview)`
   background: ${(p) => p.theme.colors.textLight};
 `;
 
-const StyledPreviewTitle = styled(Link)`
+const StyledPreviewTitle = styled.a`
   display: flex;
   align-items: center;
   font-size: ${(p) => p.theme.fontSizes.small};
@@ -55,12 +54,7 @@ const StyledPreviewTitle = styled(Link)`
   }
 `;
 
-const GalleryPreview = ({ title, code, slug }) => {
-  const location = useLocation();
-  const to = `${location.pathname}${
-    location.pathname.endsWith('/') ? slug : '/' + slug
-  }`;
-
+const GalleryPreview = ({ title, code, demoLink }) => {
   return (
     <StyledCard>
       <LiveProvider
@@ -70,7 +64,13 @@ const GalleryPreview = ({ title, code, slug }) => {
       >
         <StyledPreview />
       </LiveProvider>
-      <StyledPreviewTitle to={to}>{title}</StyledPreviewTitle>
+      <StyledPreviewTitle
+        href={demoLink}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {title}
+      </StyledPreviewTitle>
     </StyledCard>
   );
 };
@@ -78,7 +78,7 @@ const GalleryPreview = ({ title, code, slug }) => {
 GalleryPreview.propTypes = {
   title: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
-  slug: PropTypes.string.isRequired,
+  demoLink: PropTypes.string.isRequired,
 };
 
 export default GalleryPreview;
