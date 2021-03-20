@@ -1,7 +1,4 @@
-const code = (context) => `
-import React from 'react';
-import { useGravity } from 'renature';
-
+const code = `
 function ControlledMover() {
   const [props, controller] = useFriction({
     from: {
@@ -15,33 +12,26 @@ function ControlledMover() {
       mass: 50,
       initialVelocity: 1,
     },
-    pause: true, // Signal that the animation should not run on mount.
+    pause: true,
   });
 
   return (
     <div className="lp__stack">
       <button
-        className="lp__button ${
-          context === 'gallery-preview' ? 'lp__button--sm' : 'lp__button--lg'
-        }"
+        className="lp__button lp__button--sm"
         onClick={controller.start}
       >
         Run The Animation!
       </button>
-      <div
-        className="lp__m ${
-          context === 'gallery-preview' ? 'lp__m--sm' : 'lp__m--lg'
-        }"
-        {...props}
-      />
+      <div className="lp__m lp__m--sm" {...props} />
     </div>
   );
 }
 `;
 
-export const controlled = (context) => ({
+export const controlledAnimations = {
   title: 'Controlled Animations',
   slug: 'controlled-animations/',
-  code: code(context),
+  code,
   demoLink: 'https://codesandbox.io/s/renature-controlled-animations-4rwe3',
-});
+};

@@ -1,6 +1,5 @@
 import Document from './src/html';
 import constants from './src/constants';
-import { samples } from './src/screens/gallery/samples';
 
 const basePath = 'open-source/renature';
 
@@ -41,11 +40,6 @@ export default {
     {
       path: '/gallery',
       template: require.resolve('./src/screens/gallery'),
-      children: samples('gallery').map((sample) => ({
-        path: `${sample.slug}`,
-        template: require.resolve('./src/screens/gallery/sample'),
-        getData: async () => sample,
-      })),
     },
     {
       path: '404',

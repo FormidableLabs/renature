@@ -1,7 +1,4 @@
-const code = (context) => `
-import React from 'react';
-import { useFrictionGroup } from 'renature';
-
+const code = `
 function FrictionGroup() {
   const [nodes] = useFrictionGroup(4, i => ({
     from: {
@@ -22,9 +19,7 @@ function FrictionGroup() {
   }));
 
   return (
-    <svg width="${context === 'gallery-preview' ? '220' : '330'}" height="${
-  context === 'gallery-preview' ? '100' : '150'
-}" viewBox="0 0 220 100">
+    <svg width="220" height="100" viewBox="0 0 220 100">
       {nodes.map((props, i) => {
         const xOffset = i * 50;
         const points =
@@ -44,9 +39,9 @@ function FrictionGroup() {
 }
 `;
 
-export const groupedAnimations = (context) => ({
+export const groupedAnimations = {
   title: 'Grouped Animations',
   slug: 'grouped-animations/',
-  code: code(context),
+  code,
   demoLink: 'https://codesandbox.io/s/renature-grouped-animations-drimw',
-});
+};

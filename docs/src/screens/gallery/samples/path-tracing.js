@@ -1,7 +1,4 @@
-const code = (context) => `
-import React from "react";
-import { useFrictionGroup } from "renature";
-
+const code = `
 function SVGPathTracing() {
   const [pathLengths, setPathLengths] = React.useState({
     inner: 0,
@@ -64,10 +61,9 @@ function SVGPathTracing() {
 
   return (
     <svg
-      width="${context === 'gallery-preview' ? 166 : 256}"
-      height="${context === 'gallery-preview' ? 150 : 230}"
+      width="166"
+      height="150"
       viewBox="0 0 256 230"
-      xmlns="http://www.w3.org/2000/svg"
       strokeLinecap="round"
       preserveAspectRatio="xMinYMin meet"
     >
@@ -101,9 +97,9 @@ function SVGPathTracing() {
 }
 `;
 
-export const pathTracing = (context) => ({
-  code: code(context),
+export const pathTracing = {
   title: 'SVG Path Tracing',
   slug: 'svg-path-tracing/',
+  code,
   demoLink: 'https://codesandbox.io/s/renature-svg-path-tracing-0n8s9',
-});
+};

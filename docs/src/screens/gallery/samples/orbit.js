@@ -1,7 +1,4 @@
-const code = (context) => `
-import React from 'react';
-import { useGravity2D } from 'renature';
-
+const code = `
 function Orbit() {
   const config = {
     attractorMass: 1000000000000,
@@ -14,11 +11,10 @@ function Orbit() {
     timeScale: 100,
   };
 
-
   const [planetOne] = useGravity2D({
     config: {
       ...config,
-      initialMoverPosition: [0, ${context === 'gallery-preview' ? -50 : -100}],
+      initialMoverPosition: [0, -50],
       initialMoverVelocity: [1, 0],
     },
   });
@@ -26,7 +22,7 @@ function Orbit() {
   const [planetTwo] = useGravity2D({
     config: {
       ...config,
-      initialMoverPosition: [0, ${context === 'gallery-preview' ? 50 : 100}],
+      initialMoverPosition: [0, 50],
       initialMoverVelocity: [-1, 0],
     },
   });
@@ -34,25 +30,24 @@ function Orbit() {
   return (
     <div className="lp__center">
       <div
-        className="lp__orbital-center ${
-          context === 'gallery-preview'
-            ? 'lp__orbital-center--sm'
-            : 'lp__orbital-center--lg'
-        }" />
-      <div className="lp__orbiter ${
-        context === 'gallery-preview' ? 'lp__orbiter--sm' : 'lp__orbiter--lg'
-      }" {...planetOne} />
-      <div className="lp__orbiter ${
-        context === 'gallery-preview' ? 'lp__orbiter--sm' : 'lp__orbiter--lg'
-      }" {...planetTwo} />
+        className="lp__orbital-center lp__orbital-center--sm"
+      />
+      <div
+        className="lp__orbiter lp__orbiter--sm"
+        {...planetOne}
+      />
+      <div
+        className="lp__orbiter lp__orbiter--sm"
+        {...planetTwo}
+      />
     </div>
   );
 }
 `;
 
-export const orbit = (context) => ({
+export const orbit = {
   title: 'Orbit',
   slug: 'orbit/',
-  code: code(context),
+  code,
   demoLink: 'https://codesandbox.io/s/renature-orbit-7w6z0',
-});
+};
