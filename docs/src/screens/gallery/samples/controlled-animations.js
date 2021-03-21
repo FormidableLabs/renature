@@ -2,10 +2,10 @@ const code = `
 function ControlledMover() {
   const [props, controller] = useFriction({
     from: {
-      transform: 'scale(1), skew(0deg, 0deg)',
+      transform: 'scale(1) skew(0deg, 0deg)',
     },
     to: {
-      transform: 'scale(0), skew(90deg, 90deg)',
+      transform: 'scale(0) skew(90deg, 90deg)',
     },
     config: {
       mu: 0.1,
