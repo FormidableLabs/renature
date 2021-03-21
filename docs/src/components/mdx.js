@@ -1,6 +1,7 @@
+import * as path from 'path';
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as path from 'path';
 import styled, { css } from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
 import { useLocation, Link } from 'react-router-dom';
@@ -9,6 +10,9 @@ import Highlight, { Prism } from 'prism-react-renderer';
 import { LiveProvider } from 'react-live';
 import nightOwlLight from 'prism-react-renderer/themes/nightOwlLight';
 
+import { scope, removeImportFromPreview } from '../utils/live-preview';
+import AnchorSvg from '../assets/anchor';
+
 import { relative } from './sidebar';
 import {
   StyledContainer,
@@ -16,8 +20,6 @@ import {
   StyledError,
   StyledEditor,
 } from './home-preview';
-import { scope, removeImportFromPreview } from '../utils/live-preview';
-import AnchorSvg from '../assets/anchor';
 
 const getLanguage = (className) => {
   const res = className.match(/language-(\w+)/);

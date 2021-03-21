@@ -1,7 +1,19 @@
 module.exports = {
   root: true,
   parser: '@babel/eslint-parser',
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier'],
+  parserOptions: {
+    requireConfigFile: false,
+    babelOptions: {
+      configFile: './.babelrc',
+    },
+  },
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'prettier',
+  ],
   plugins: ['prettier', 'react-hooks'],
   env: {
     browser: true,
@@ -24,5 +36,12 @@ module.exports = {
     'no-console': 'error',
     'no-unused-vars': ['error', { ignoreRestSiblings: true }],
     'no-undef': 'error',
+    'import/newline-after-import': 2,
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+      },
+    ],
   },
 };

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Docs from '../docs';
+
 import NotFoundPage from './404';
 
 const NotFound = () => {

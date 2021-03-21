@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Wrapper } from './wrapper';
 import { theme } from '../styles/theme';
 import { stack } from '../styles/mixins';
-
 import logoFormidableWhite from '../assets/logos/logo_formidable_white.svg';
+
+import { Wrapper } from './wrapper';
 
 const FooterContainer = styled.div`
   display: flex;

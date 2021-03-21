@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Header from './header';
-import Article from './article';
 import Sidebar from '../../components/sidebar';
 import burger from '../../assets/burger.svg';
 import closeButton from '../../assets/close.svg';
 import { center } from '../../styles/mixins';
+
+import Article from './article';
+import Header from './header';
 
 const Container = styled.div`
   ${center}
