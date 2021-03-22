@@ -1,7 +1,4 @@
-const code = (context) => `
-import React from 'react';
-import { useFriction } from 'renature';
-
+const code = `
 function ControllerSet() {
   const [props, controller] = useFriction({
     from: {
@@ -31,20 +28,13 @@ function ControllerSet() {
     };
   }, [controller]);
 
-  return (
-    <div
-      className="lp__m ${
-        context === 'gallery-preview' ? 'lp__m--sm' : 'lp__m--lg'
-      }"
-      {...props}
-    />
-  );
+  return <div className="lp__m lp__m--sm" {...props} />;
 }
 `;
 
-export const set = (context) => ({
-  code: code(context),
+export const set = {
   title: 'controller.set',
   slug: 'controller-set/',
+  code,
   demoLink: 'https://codesandbox.io/s/renature-controllerset-6dyj1',
-});
+};

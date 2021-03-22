@@ -1,8 +1,5 @@
-const code = (context) => `
-import React from 'react';
-import { useGravity } from 'renature';
-
-function Basic() {
+const code = `
+function BasicTransform() {
   const [props] = useGravity({
     from: { transform: 'translateX(-100px)' },
     to: { transform: 'translateX(100px)' },
@@ -14,20 +11,13 @@ function Basic() {
     repeat: Infinity
   });
 
-  return (
-    <div
-      className="lp__m ${
-        context === 'gallery-preview' ? 'lp__m--sm' : 'lp__m--lg'
-      }"
-      {...props}
-    />
-  );
+  return <div className="lp__m lp__m--sm" {...props} />;
 }
 `;
 
-export const basic = (context) => ({
+export const basicTransform = {
   title: 'Basic Transform',
   slug: 'basic-transform/',
-  code: code(context),
+  code,
   demoLink: 'https://codesandbox.io/s/renature-basic-transform-21u2w',
-});
+};

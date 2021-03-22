@@ -9,9 +9,10 @@ import {
 } from 'react-live';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
 
-import { BodyCopy } from './body-copy';
 import { theme } from '../styles/theme';
 import { center } from '../styles/mixins';
+
+import { BodyCopy } from './body-copy';
 
 const StyledEditorWithTagline = styled.div`
   ${center};

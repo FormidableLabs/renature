@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
+import * as path from 'path';
+
 import React, { Fragment, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useBasepath } from 'react-static';
 import { Link, useLocation } from 'react-router-dom';
-import * as path from 'path';
 import { FeaturedBadge } from 'formidable-oss-badges';
-
 import { useMarkdownTree, useMarkdownPage } from 'react-static-plugin-md-pages';
 
 import {

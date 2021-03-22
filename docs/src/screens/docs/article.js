@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useMarkdownPage } from 'react-static-plugin-md-pages';
-import { ScrollToTop } from '../../components/scroll-to-top';
 
+import { ScrollToTop } from '../../components/scroll-to-top';
 import { MDXComponents } from '../../components/mdx';
 
 const Container = styled.main.attrs(() => ({

@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FeaturedBadge } from 'formidable-oss-badges';
 
-import NpmCopy from './npm-copy';
 import { Wrapper } from '../../components/wrapper';
 import { center, stack, stackHorizontal, underline } from '../../styles/mixins';
+
+import NpmCopy from './npm-copy';
 
 const HeroContent = styled.div`
   ${center};

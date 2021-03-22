@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { LiveProvider, LivePreview } from 'react-live';
 
-import { scope, removeImportFromPreview } from '../../utils/live-preview';
+import { scope } from '../../utils/live-preview';
 import Arrow from '../../assets/arrow.svg';
 
 const StyledCard = styled.div`
@@ -54,26 +54,20 @@ const StyledPreviewTitle = styled.a`
   }
 `;
 
-const GalleryPreview = ({ title, code, demoLink }) => {
-  return (
-    <StyledCard>
-      <LiveProvider
-        code={code}
-        scope={scope}
-        transformCode={removeImportFromPreview}
-      >
-        <StyledPreview />
-      </LiveProvider>
-      <StyledPreviewTitle
-        href={demoLink}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {title}
-      </StyledPreviewTitle>
-    </StyledCard>
-  );
-};
+const GalleryPreview = ({ title, code, demoLink }) => (
+  <StyledCard>
+    <LiveProvider code={code} scope={scope}>
+      <StyledPreview />
+    </LiveProvider>
+    <StyledPreviewTitle
+      href={demoLink}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {title}
+    </StyledPreviewTitle>
+  </StyledCard>
+);
 
 GalleryPreview.propTypes = {
   title: PropTypes.string.isRequired,

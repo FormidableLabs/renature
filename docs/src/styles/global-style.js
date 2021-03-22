@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+
 import { stack, stackHorizontal } from './mixins';
 
 export const GlobalStyle = createGlobalStyle`

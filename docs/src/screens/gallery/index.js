@@ -4,10 +4,11 @@ import { useBasepath } from 'react-static';
 import styled from 'styled-components';
 
 import Header from '../docs/header';
-import GalleryPreview from './gallery-preview';
-import { samples } from './samples';
 import { center, stack, stackHorizontal, underline } from '../../styles/mixins';
 import { ScrollToTop } from '../../components/scroll-to-top';
+
+import GalleryPreview from './gallery-preview';
+import { samples } from './samples';
 
 const Container = styled.div`
   ${center};
@@ -101,7 +102,7 @@ const Gallery = () => {
           </GalleryNav>
         </GalleryHeader>
         <GalleryGrid>
-          {samples('gallery-preview').map(({ title, code, demoLink }) => (
+          {samples.map(({ title, code, demoLink }) => (
             <GalleryPreview
               key={title}
               title={title}

@@ -1,7 +1,4 @@
-const code = (context) => `
-import React from "react";
-import { useFriction } from "renature";
-
+const code = `
 function BoxShadow() {
   const [props] = useFriction({
     from: {
@@ -20,19 +17,13 @@ function BoxShadow() {
     repeat: Infinity
   });
 
-  return (
-    <div
-      className="lp__m ${
-        context === 'gallery-preview' ? 'lp__m--sm' : 'lp__m--lg'
-      }"
-    {...props} />
-  );
+  return <div className="lp__m lp__m--sm" {...props} />;
 }
 `;
 
-export const boxShadow = (context) => ({
+export const boxShadow = {
   title: 'Box Shadow',
   slug: 'box-shadow/',
-  code: code(context),
+  code,
   demoLink: 'https://codesandbox.io/s/renature-box-shadow-1ytkc',
-});
+};

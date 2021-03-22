@@ -1,7 +1,4 @@
-const code = (context) => `
-import React from 'react';
-import { useFriction } from 'renature';
-
+const code = `
 function Mover() {
   const [props] = useFriction({
     from: {
@@ -22,20 +19,13 @@ function Mover() {
     repeat: Infinity,
   });
 
-  return (
-    <div
-      className="lp__m ${
-        context === 'gallery-preview' ? 'lp__m--sm' : 'lp__m--lg'
-      }"
-      {...props}
-    />
-  );
+  return <div className="lp__m lp__m--sm" {...props} />;
 }
 `;
 
-export const multipleProperties = (context) => ({
-  code: code(context),
+export const multipleProperties = {
   title: 'Multiple CSS Properties',
   slug: 'multiple-css-properties/',
+  code,
   demoLink: 'https://codesandbox.io/s/renature-multiple-css-properties-h3oep',
-});
+};
