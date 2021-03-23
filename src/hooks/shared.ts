@@ -1,7 +1,7 @@
-import type { RefObject, MutableRefObject } from 'react';
+import type { RefObject, MutableRefObject, CSSProperties } from 'react';
 
 import { AnimationCache, PlayState, VectorSetter } from '../animation';
-import type { InterpolatedResult } from '../parsers';
+import type { CSSPairs, InterpolatedResult } from '../parsers';
 
 interface OnUpdateParams<E extends HTMLElement | SVGElement> {
   interpolators: InterpolatedResult<any, any>[];
@@ -94,4 +94,32 @@ export const onComplete = <E extends HTMLElement | SVGElement>({
   });
 
   onAnimationComplete?.();
+};
+
+interface CheckCacheParams {
+  cache: MutableRefObject<AnimationCache>;
+  index: number;
+  from: CSSProperties;
+  to: CSSProperties;
+}
+
+export const checkAnimationCache = ({
+  cache,
+  index,
+  from,
+  to,
+}: CheckCacheParams): CSSPairs => {
+  const cachedFrom = cache.current.get(index);
+
+  if (cachedFrom && Object.keys(cachedFrom) === Object.keys(to)) {
+    return {
+      from: cachedFrom,
+      to,
+    };
+  }
+
+  return {
+    from,
+    to,
+  };
 };

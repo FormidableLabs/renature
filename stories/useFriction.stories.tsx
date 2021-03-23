@@ -118,6 +118,14 @@ export const FrictionInfinite: FC = () => {
       background: '#a04ad9',
       transform: 'scale(1.5) rotate(720deg)',
     },
+    reducedMotion: {
+      from: {
+        opacity: 0,
+      },
+      to: {
+        opacity: 1,
+      },
+    },
     config: {
       mu: number('mu', 0.5),
       mass: number('mass', 300),
