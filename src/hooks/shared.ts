@@ -103,6 +103,12 @@ interface CheckCacheParams {
   to: CSSProperties;
 }
 
+/**
+ * The checkAnimationCache functions inspects the hook's local animation cache to see
+ * if there are animation properties applied. It also checks if the cached properties
+ * match that of the to configuration, signaling it's safe to animate. Otherwise, use
+ * the from and to specified in the configuration.
+ */
 export const checkAnimationCache = ({
   cache,
   index,
