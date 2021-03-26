@@ -3,9 +3,7 @@ import { useState, useEffect } from 'react';
 const query = '(prefers-reduced-motion: no-preference)';
 
 const getInitialState = () =>
-  typeof window === 'undefined'
-    ? true
-    : !window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  typeof window === 'undefined' ? true : !window.matchMedia(query).matches;
 
 export const usePrefersReducedMotion = (): boolean => {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(

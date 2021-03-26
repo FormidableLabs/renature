@@ -17,7 +17,12 @@ import {
   AnimationGroup,
 } from '../animation';
 
-import { checkAnimationCache, onComplete, onUpdate } from './shared';
+import {
+  checkAnimationCache,
+  deriveAccessibleFromTo,
+  onComplete,
+  onUpdate,
+} from './shared';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 
 type UseForceGroupConfig<C> = CSSPairs & HooksParams & { config?: C };
@@ -54,10 +59,14 @@ export const useForceGroup = <C, E extends HTMLElement | SVGElement>({
         // Create the ref to store the animating element.
         const ref = createRef<E>();
 
-        const { from, to } =
-          props.reducedMotion && prefersReducedMotion
-            ? props.reducedMotion
-            : { from: props.from, to: props.to };
+        // Derive the from and to values to use, taking into account both an end
+        // user's reduced motion preference and the specified reducedMotion config.
+        const { from, to } = deriveAccessibleFromTo({
+          prefersReducedMotion,
+          from: props.from,
+          to: props.to,
+          reducedMotion: props.reducedMotion,
+        });
 
         // Derive interpolator functions for the supplied CSS properties.
         // Read from the cache, if populated, to determine the from value.
