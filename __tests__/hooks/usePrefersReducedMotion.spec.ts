@@ -3,6 +3,15 @@ import { renderHook } from '@testing-library/react-hooks';
 import { usePrefersReducedMotion } from '../../src/hooks/usePrefersReducedMotion';
 
 describe('usePrefersReducedMotion', () => {
+  afterAll(() => {
+    // jsdom does not implement window.matchMedia, so we mock it in this suite.
+    // Ensure this is reset to undefined at the end of the suite.
+    // TS will complain about the assignment to undefined, but we can safely ignore it here.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.matchMedia = undefined;
+  });
+
   it.each([
     { query: 'no-preference', prefersReducedMotion: false },
     { query: 'reduce', prefersReducedMotion: true },
