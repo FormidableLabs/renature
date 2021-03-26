@@ -17,7 +17,13 @@ import {
   AnimationGroup,
 } from '../animation';
 
-import { onComplete, onUpdate } from './shared';
+import {
+  checkAnimationCache,
+  deriveAccessibleFromTo,
+  onComplete,
+  onUpdate,
+} from './shared';
+import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 
 type UseForceGroupConfig<C> = CSSPairs & HooksParams & { config?: C };
 
@@ -41,6 +47,8 @@ export const useForceGroup = <C, E extends HTMLElement | SVGElement>({
   // Set up a cache to store interpolated CSS state.
   const cache = useRef<AnimationCache>(new Map());
 
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   const { elements, start, stop, pause } = useMemo(() => {
     const animatingElements: AnimatingElement<C, E>[] = new Array(n)
       .fill(undefined)
@@ -51,13 +59,19 @@ export const useForceGroup = <C, E extends HTMLElement | SVGElement>({
         // Create the ref to store the animating element.
         const ref = createRef<E>();
 
+        // Derive the from and to values to use, taking into account both an end
+        // user's reduced motion preference and the specified reducedMotion config.
+        const { from, to } = deriveAccessibleFromTo({
+          prefersReducedMotion,
+          from: props.from,
+          to: props.to,
+          reducedMotion: props.reducedMotion,
+        });
+
         // Derive interpolator functions for the supplied CSS properties.
         // Read from the cache, if populated, to determine the from value.
         const interpolators = getInterpolatorsForPairs(
-          {
-            from: cache.current.get(i) ?? props.from,
-            to: props.to,
-          },
+          checkAnimationCache({ cache, index: i, from, to }),
           props.disableHardwareAcceleration
         );
         const config = props.config || defaultConfig;
@@ -90,7 +104,15 @@ export const useForceGroup = <C, E extends HTMLElement | SVGElement>({
       });
 
     return deriveGroup(animatingElements);
-  }, [n, fn, defaultConfig, getMaxDistance, deriveGroup, dimension]);
+  }, [
+    n,
+    fn,
+    defaultConfig,
+    getMaxDistance,
+    deriveGroup,
+    dimension,
+    prefersReducedMotion,
+  ]);
 
   useLayoutEffect(() => {
     start();

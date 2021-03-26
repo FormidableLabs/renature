@@ -14,6 +14,7 @@ export const useFriction = <E extends HTMLElement | SVGElement = any>({
   onFrame,
   onAnimationComplete,
   disableHardwareAcceleration = false,
+  reducedMotion,
 }: UseFrictionParams): [{ ref: RefObject<E> }, Controller] => {
   const [props, controller] = useFrictionGroup<E>(1, () => ({
     from,
@@ -25,6 +26,7 @@ export const useFriction = <E extends HTMLElement | SVGElement = any>({
     onFrame,
     onAnimationComplete,
     disableHardwareAcceleration,
+    reducedMotion,
   }));
 
   return [props[0], controller];

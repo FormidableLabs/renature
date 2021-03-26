@@ -1,7 +1,7 @@
-import type { RefObject, MutableRefObject } from 'react';
+import type { RefObject, MutableRefObject, CSSProperties } from 'react';
 
 import { AnimationCache, PlayState, VectorSetter } from '../animation';
-import type { InterpolatedResult } from '../parsers';
+import type { CSSPairs, InterpolatedResult } from '../parsers';
 
 interface OnUpdateParams<E extends HTMLElement | SVGElement> {
   interpolators: InterpolatedResult<any, any>[];
@@ -94,4 +94,86 @@ export const onComplete = <E extends HTMLElement | SVGElement>({
   });
 
   onAnimationComplete?.();
+};
+
+interface DeriveAccessibleFromToParams {
+  prefersReducedMotion: boolean;
+  from: CSSProperties;
+  to: CSSProperties;
+  reducedMotion?: {
+    from: CSSProperties;
+    to: CSSProperties;
+  };
+}
+
+/**
+ * The deriveAccessibleFromTo function determines the correct from / to
+ * combination to use for accessible animations. The algorithm:
+ *
+ * - If a user does not prefer reduced motion, return the base from / to combination.
+ * - If the user does prefer reduced motion and there's a reducedMotion config applied,
+ *   return the reducedMotion config.
+ * - Else, immediately animate to the "to" state on the first frame to avoid animations
+ *   when a user explicitly prefers reduced motion.
+ */
+export const deriveAccessibleFromTo = ({
+  prefersReducedMotion,
+  from,
+  to,
+  reducedMotion,
+}: DeriveAccessibleFromToParams): CSSPairs => {
+  if (!prefersReducedMotion) {
+    return {
+      from,
+      to,
+    };
+  }
+
+  if (prefersReducedMotion && reducedMotion) {
+    return reducedMotion;
+  }
+
+  return {
+    from: to,
+    to,
+  };
+};
+
+interface CheckAnimationCacheParams {
+  cache: MutableRefObject<AnimationCache>;
+  index: number;
+  from: CSSProperties;
+  to: CSSProperties;
+}
+
+/**
+ * The checkAnimationCache functions inspects the hook's local animation cache to see
+ * if there are animation properties applied. It also checks if the cached properties
+ * match that of the "to" configuration, signaling it's safe to animate. Otherwise, use
+ * the from and to specified in the configuration.
+ */
+export const checkAnimationCache = ({
+  cache,
+  index,
+  from,
+  to,
+}: CheckAnimationCacheParams): CSSPairs => {
+  const cachedFrom = cache.current.get(index);
+
+  if (
+    cachedFrom &&
+    Object.keys(cachedFrom).every((k) =>
+      Object.prototype.hasOwnProperty.call(to, k)
+    )
+  ) {
+    return {
+      from: cachedFrom,
+      to,
+    };
+  }
+
+  return {
+    from,
+    to,
+  };
 };

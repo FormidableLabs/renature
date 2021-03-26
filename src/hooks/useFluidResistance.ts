@@ -17,6 +17,7 @@ export const useFluidResistance = <E extends HTMLElement | SVGElement = any>({
   onFrame,
   onAnimationComplete,
   disableHardwareAcceleration,
+  reducedMotion,
 }: UseFluidResistanceParams): [{ ref: RefObject<E> }, Controller] => {
   const [props, controller] = useFluidResistanceGroup(1, () => ({
     from,
@@ -28,6 +29,7 @@ export const useFluidResistance = <E extends HTMLElement | SVGElement = any>({
     onFrame,
     onAnimationComplete,
     disableHardwareAcceleration,
+    reducedMotion,
   }));
 
   return [props[0], controller];

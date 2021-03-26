@@ -5,3 +5,4 @@ export * from './useFriction';
 export * from './useFrictionGroup';
 export * from './useFluidResistance';
 export * from './useFluidResistanceGroup';
+export * from './usePrefersReducedMotion';

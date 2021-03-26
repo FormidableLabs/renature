@@ -33,6 +33,10 @@ export interface HooksParams {
   onFrame?: (progress: number) => void;
   onAnimationComplete?: () => void;
   disableHardwareAcceleration?: boolean;
+  reducedMotion?: {
+    from: CSSProperties;
+    to: CSSProperties;
+  };
 }
 
 export enum PlayState {

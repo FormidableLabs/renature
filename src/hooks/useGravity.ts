@@ -14,6 +14,7 @@ export const useGravity = <E extends HTMLElement | SVGElement = any>({
   onFrame,
   onAnimationComplete,
   disableHardwareAcceleration,
+  reducedMotion,
 }: UseGravityParams): [{ ref: RefObject<E> }, Controller] => {
   const [props, controller] = useGravityGroup(1, () => ({
     from,
@@ -25,6 +26,7 @@ export const useGravity = <E extends HTMLElement | SVGElement = any>({
     onFrame,
     onAnimationComplete,
     disableHardwareAcceleration,
+    reducedMotion,
   }));
 
   return [props[0], controller];
