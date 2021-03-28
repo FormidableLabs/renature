@@ -7,11 +7,49 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.10.0
+
+This release adds a new API to support accessible animations in `renature`. Consumers now have a first-class API for defining the `from` / `to` configuration to use if a user has the `prefers-reduced-motion: reduce` media feature enabled.
+
+To enable accessible animations, add a `reducedMotion` configuration object with `from` / `to` keys in your hook's configuration, like so:
+
+```typescript
+const [props] = useFriction<HTMLDivElement>({
+  from: {
+    transform: 'scale(1) rotate(0deg)',
+  },
+  to: {
+    transform: 'scale(1.5) rotate(720deg)',
+  },
+  reducedMotion: {
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+  },
+});
+```
+
+With this configuration, a user who specifies `prefers-reduced-motion: reduce` will see `opacity` animated from 0 to 1. Likewise, a user whose device or operating system does not implement the `prefers-reduced-motion` media feature will see `opacity` animated from 0 to 1. In this way, we enable the accessible animation by default. Finally, if a user has `prefers-reduced-motion: reduce` and no `reducedMotion` object is specified, the user will see no animation and the animated object will be immediately transitioned to the `to` state in a single frame update.
+
+### Added
+
+- ✨ The `reducedMotion` configuration object was added to support accessible animations on `useFriction`, `useFrictionGroup`, `useGravity`, `useGravityGroup`, and `useFluidResistance` and `useFluidResistanceGroup` hooks. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/132).
+
+### Fixed
+
+- Storybook was upgraded from v5 to v6. PR by @gingeriffic [here](https://github.com/FormidableLabs/renature/pull/131).
+- All demos on the `/gallery` route of the docs site were moved to CodeSandbox. PR by @gingeriffic [here](https://github.com/FormidableLabs/renature/pull/129).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.9.1...v0.10.0)
+
 ## v0.9.1
 
 This release fixes bugs uncovered in the new `repeat` API outlined in [#124](https://github.com/FormidableLabs/renature/issues/124).
 
-## Fixed
+### Fixed
 
 - Specifying an even number for `repeat` no longer leads to an incorrect "jump" to the `to` value specified in the hook config. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/126).
 - Erroneously specifying a `string` value for `repeat` no longer results in an animation extending beyond its bounds. While this will be caught at compile-time by TypeScript users, it's an easy mistake for JavaScript users to make, so we guard against it at runtime. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/126).

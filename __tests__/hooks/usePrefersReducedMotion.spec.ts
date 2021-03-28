@@ -8,7 +8,7 @@ describe('usePrefersReducedMotion', () => {
     // Ensure this is reset to undefined at the end of the suite.
     // TS will complain about the assignment to undefined, but we can safely ignore it here.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error
     window.matchMedia = undefined;
   });
 
