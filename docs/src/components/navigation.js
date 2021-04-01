@@ -101,19 +101,26 @@ export const SidebarNavSubItemWrapper = styled.div`
 `;
 
 export const SidebarNavSubItem = styled(NavLink).attrs(() => ({}))`
-  ${underline()};
+  /* ${underline()}; */
 
   display: block;
   color: ${(p) => p.theme.colors.passive};
   font-weight: ${(p) => p.theme.fontWeights.body};
   margin-top: ${(p) => p.theme.spacing.xs};
+  text-decoration: none;
+  transition: color 0.2s ease-out;
 
   &:first-child {
     margin-top: 0;
   }
 
+  &:hover {
+    color: ${(p) => p.theme.colors.accent};
+  }
+
   &.active {
     color: ${(p) => p.theme.colors.accent};
     font-weight: ${(p) => p.theme.fontWeights.heading};
+    text-decoration: underline dotted ${(p) => p.theme.colors.accent};
   }
 `;

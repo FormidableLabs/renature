@@ -34,6 +34,7 @@ export const GlobalStyle = createGlobalStyle`
   a {
     color: ${(p) => p.theme.colors.accent};
     font-weight: ${(p) => p.theme.fontWeights.links};
+    text-decoration: underline dotted ${(p) => p.theme.colors.accent};
   }
 
   table, pre, p, h1, h2, h3 {
