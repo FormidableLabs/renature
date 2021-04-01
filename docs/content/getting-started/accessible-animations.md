@@ -61,7 +61,7 @@ We encourage you to _always_ specify a `reducedMotion` configuration for your `r
 
 ### `usePrefersReducedMotion`
 
-Internally, `renature` uses the `usePrefersReducedMotion` hook to determine whether or not an end user prefers reduced motion. We also expose this hook as part of `renature`'s public API so that you can use it to make additional accessibility decisions in a way that works best for your end users. For example, if you want to use the [`controller.set` API](./getting-started/controlling-animation-states.md#setting-animations-to-arbitrary-states) but conditionally set your animating element to a different state based on whether or not your end user preferred reduced motion, you could do the following.
+Internally, `renature` uses the `usePrefersReducedMotion` hook to determine whether or not an end user prefers reduced motion. We also expose this hook as part of `renature`'s public API so that you can use it to make additional accessibility decisions in a way that works best for your end users. For example, if you want to use the [`controller.set` API](./controlling-animation-states.md#setting-animations-to-arbitrary-states) but conditionally set your animating element to a different state based on whether or not your end user prefers reduced motion, you could do the following.
 
 ```js live=true
 import React from 'react';
