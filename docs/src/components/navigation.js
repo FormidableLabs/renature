@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import ChevronIcon from '../assets/chevron';
-import { underline } from '../styles/mixins';
 
 export const SidebarContainer = styled.div`
   display: ${(p) => (p.hidden ? 'none' : 'block')};
@@ -101,14 +100,12 @@ export const SidebarNavSubItemWrapper = styled.div`
 `;
 
 export const SidebarNavSubItem = styled(NavLink).attrs(() => ({}))`
-  /* ${underline()}; */
-
   display: block;
   color: ${(p) => p.theme.colors.passive};
   font-weight: ${(p) => p.theme.fontWeights.body};
   margin-top: ${(p) => p.theme.spacing.xs};
   text-decoration: none;
-  transition: color 0.2s ease-out;
+  transition: color 0.3s ease-out;
 
   &:first-child {
     margin-top: 0;

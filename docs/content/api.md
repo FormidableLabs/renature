@@ -30,7 +30,7 @@ This document contains all information on `renature`'s public facing API.
 
 Each hook in `renature` accepts a `config` object for tweaking the physics parameters of the underlying simulation. These vary force by force.
 
-### useGravity
+### `useGravity`
 
 The force of gravity is modeled using Newton's Law of Universal Gravitation. We use the real value of **G**, the Universal Gravitational Constant, approximated to 6.67428 x 10^-11.
 
@@ -69,7 +69,7 @@ function GravityBasic() {
 }
 ```
 
-### useFriction
+### `useFriction`
 
 The force of friction is modeled using the standard equation of kinetic friction.
 
@@ -113,7 +113,7 @@ function FrictionBasic() {
 }
 ```
 
-### useFluidResistance
+### `useFluidResistance`
 
 The force of fluid resistance, or the drag force, is modeled using the standard drag equation.
 
@@ -167,7 +167,7 @@ Often when animating, you may want to orchestrate multiple elements at a single 
 const [props] = use<Force>Group(n: number, fn: (index: number) => Config);
 ```
 
-### useGravityGroup
+### `useGravityGroup`
 
 `useGravityGroup` will animate `n` elements using Newton's Law of Universal Gravitation. It takes the form:
 
@@ -212,7 +212,7 @@ function GravityGroup() {
 }
 ```
 
-### useFrictionGroup
+### `useFrictionGroup`
 
 `useFrictionGroup` will animate `n` elements using the standard equation of friction. It takes the form:
 
@@ -261,7 +261,7 @@ function FrictionGroup() {
 }
 ```
 
-### useFluidResistanceGroup
+### `useFluidResistanceGroup`
 
 `useFluidResistanceGroup` will animate `n` elements using the standard drag equation. It takes the form:
 
@@ -312,7 +312,7 @@ Since everything in `renature` is modeled using two dimensional vectors, the lib
 
 Currently, `renature` only supports a single two-dimensional hook – `useGravity2D`. `useGravity2D` is great for producing two-dimensional gravity simulations, using the same `mover` and `attractor` model as `useGravity`. You can find its API below. In the near future we hope to support `useFriction` and `useFluidResistance` in two dimensions.
 
-### useGravity2D
+### `useGravity2D`
 
 The same equation used to calculate the force of gravity in `useGravity` is also used in `useGravity2D`. However, in `useGravity2D` you have a few more parameters to finely tune the simulation.
 
@@ -391,7 +391,7 @@ See [Controlling Animation States](./getting-started/controlling-animation-state
 
 ## Accessibility
 
-To support [accessible animations](./getting-started/accessible-animations.md), `renature` provides the `reducedMotion` parameter on its core hooks. This allows authors using `renature` to easily define how an animation should run if the user prefers `reducedMotion`, i.e. by switching out a `transform` animation for an `opacity` animation. In addition, `renature` also exposes the `usePrefersReducedMotion` hook to allow consumers to easily get access to a `boolean` value indicating whether or not the end user prefers reduced motion.
+To support [accessible animations](./getting-started/accessible-animations.md), `renature` provides the `reducedMotion` parameter on its core hooks. This allows authors using `renature` to easily define how an animation should run if the user prefers reduced motion, i.e. by switching out a `transform` animation for an `opacity` animation. In addition, `renature` also exposes the `usePrefersReducedMotion` hook to give consumers easy access to a `boolean` value indicating whether or not the end user prefers reduced motion.
 
 ### `usePrefersReducedMotion`
 
@@ -435,10 +435,9 @@ function Mover() {
             transform: `translateX(${
               Math.floor(Math.random() * 300) * (Math.random() > 0.5 ? 1 : -1)
             }px
-          rotate(${Math.random() * 360}deg)
-          scale(${Math.random()})
-        `,
-            opacity: Math.random(),
+              rotate(${Math.random() * 360}deg)
+              scale(${Math.random()})
+            `,
           };
 
       controller.set(target);

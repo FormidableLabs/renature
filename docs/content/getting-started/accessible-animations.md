@@ -5,11 +5,11 @@ order: 4
 
 ## Accessible Animations
 
-Accessibility is vitally important to all aspects of web development and animation is no exception! To support accessible animations, `renature` provides a first-class API to define how an animation should run if an end user prefers reduced motion (i.e. has the [`prefers-reduced-motion: reduce` CSS media feature enabled](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) at the operating system or browser level.)
+Accessibility is vitally important to all aspects of web development and animation is no exception! To support accessible animations, `renature` provides a first-class API to define how an animation should run if an end user prefers reduced motion (i.e. has the [`prefers-reduced-motion: reduce` CSS media feature enabled](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) at the operating system or browser level).
 
 ### The `reducedMotion` Parameter
 
-When you write your `renature` hook, you can specify a `reducedMotion` object as part of the hook's parameters. `reducedMotion` is an object containing `from` and `to` properties, which represent the states to animate from and to when a user prefers reduced motion. Note that these properties will be used instead of the top-level `from` and `to` to perform the animation.
+When you write your `renature` hook, you can specify a `reducedMotion` object as part of the hook's configuration. `reducedMotion` is an object containing `from` and `to` properties, which represent the states to animate from and to when a user prefers reduced motion. Note that these properties will be used instead of the top-level `from` and `to` to perform the animation.
 
 To give you a sense of what this looks like, enable reduced motion in your accessibility settings and see how the example below changes:
 
@@ -47,7 +47,7 @@ function Mover() {
 
 You'll notice that rather than animating the `transform` property, `renature` animates the `opacity` property. You could, of course, specify a different `from` and `to` configuration inside of the `reducedMotion` parameter. Just be mindful that this will be the configuration `renature` will use to animate elements for users who prefer _reduced motion_.
 
-`renature` will also set up an event listener to detect changes in the end user's reduced motion preference. If a user changes this preference while an animation is executing, `renature` will immediately switch the `from` / `to` configuration it uses to match this preference. Taking the example above, if a user switches their reduced motion preference to `reduce` while the animating element is part way through the `transform` animation (say 50px), `renature` will immediately stop animating `transform` and start the `opacity` animation from the `from` state (`opacity: 1`). Likewise, if a user then switches their reduced motion preference to `no-preference`, the `transform` animation will resume.
+`renature` will also set up an event listener to detect changes in the end user's reduced motion preference. If a user changes this preference while an animation is executing, `renature` will immediately switch the `from` / `to` configuration it uses to match this preference. Taking the example above, if a user switches their reduced motion preference to `reduce` while the animating element is part way through the `transform` animation, `renature` will immediately stop animating `transform` and start the `opacity` animation from the `from` state (`opacity: 1`). Likewise, if a user then switches their reduced motion preference to `no-preference`, the `transform` animation will start from the beginning.
 
 For more information on accessible animations and reduced motion, check out [Section 2.3 of the WCAG guidelines](https://www.w3.org/WAI/WCAG21/Understanding/three-flashes-or-below-threshold).
 
@@ -61,7 +61,7 @@ We encourage you to _always_ specify a `reducedMotion` configuration for your `r
 
 ### `usePrefersReducedMotion`
 
-Internally, `renature` uses the `usePrefersReducedMotion` hook to determine whether or not an end user prefers reduced motion. We also expose this hook as part of `renature`'s public API so that you can use it to make additional accessibility decisions in a way that works best for your end users. For example, if you want to use the `controller.set` API but conditionally set your animating element to a different state based on whether or not your end user preferred reduced motion, you could do the following.
+Internally, `renature` uses the `usePrefersReducedMotion` hook to determine whether or not an end user prefers reduced motion. We also expose this hook as part of `renature`'s public API so that you can use it to make additional accessibility decisions in a way that works best for your end users. For example, if you want to use the [`controller.set` API](./getting-started/controlling-animation-states.md#setting-animations-to-arbitrary-states) but conditionally set your animating element to a different state based on whether or not your end user preferred reduced motion, you could do the following.
 
 ```js live=true
 import React from 'react';
@@ -99,10 +99,9 @@ function Mover() {
             transform: `translateX(${
               Math.floor(Math.random() * 300) * (Math.random() > 0.5 ? 1 : -1)
             }px
-          rotate(${Math.random() * 360}deg)
-          scale(${Math.random()})
-        `,
-            opacity: Math.random(),
+              rotate(${Math.random() * 360}deg)
+              scale(${Math.random()})
+            `,
           };
 
       controller.set(target);
