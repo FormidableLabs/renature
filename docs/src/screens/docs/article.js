@@ -5,6 +5,7 @@ import { useMarkdownPage } from 'react-static-plugin-md-pages';
 
 import { ScrollToTop } from '../../components/scroll-to-top';
 import { MDXComponents } from '../../components/mdx';
+import { overflowEllipsis } from '../../styles/mixins';
 
 const Container = styled.main.attrs(() => ({
   className: 'page-content',
@@ -62,6 +63,8 @@ const HeadingList = styled.ul`
 `;
 
 const HeadingItem = styled.li`
+  ${overflowEllipsis};
+
   line-height: ${(p) => p.theme.lineHeights.heading};
   margin-bottom: ${(p) => p.theme.spacing.xs};
 

@@ -81,7 +81,7 @@ const InlineImage = styled.img`
   border-radius: ${(p) => p.theme.spacing.xs};
 `;
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled.span`
   margin: ${(p) => p.theme.spacing.md} 0;
   border: 1px solid ${(p) => p.theme.colors.border};
   border-radius: ${(p) => p.theme.spacing.xs};

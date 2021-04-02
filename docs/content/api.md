@@ -13,23 +13,24 @@ This document contains all information on `renature`'s public facing API.
 
 ### Shared Parameters
 
-| Property                      | Type                                        | Description                                                                                                                                                                                                                                                   |
-| ----------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `from`                        | `{ [key: keyof React.CSSProperties]: any }` | The CSS property or properties you're animating **from**. Accepts an arbitrary number of key-value pairs.                                                                                                                                                     |
-| `to`                          | `{ [key: keyof React.CSSProperties]: any }` | The CSS property or properties you're animating **to**. Accepts an arbitrary number of key-value pairs.                                                                                                                                                       |
-| `config`                      | `object?`                                   | Optional. The physics parameters used to model the selected force. This varies from force to force. See [Config](#config) below for specific force paramters. If no `config` is supplied, a default set of physics parameters will be supplied by `renature`. |
-| `pause`                       | `boolean?`                                  | Optional. Instructs `renature` to pause the animation on initial mount. If `true`, the animation will not run until `controller.start` is called or until a re-render occurs and `pause` evaluates to `false`. Defaults to `false`.                           |
-| `delay`                       | `number?`                                   | Optional. Instructs `renature` to delay the start of the animation by the provided number of milliseconds. Defaults to `undefined`.                                                                                                                           |
-| `repeat`                      | `number?`                                   | Optional. Instructs `renature` to repeat the animation a specific number of times. By default, animations will swap the `from` and `to` values when `repeat` is specified, producing a mirroring animation effect. Defaults to `0`.                           |
-| `onFrame`                     | `?(progress: number) => void`               | Optional. Supply a callback function that `renature` will execute on every call to `requestAnimationFrame`.                                                                                                                                                   |
-| `onAnimationComplete`         | `?() => void`                               | Optional. Supply a callback function that `renature` will run when your animation has completed. If the animation is unmounted before completing, `onAnimationComplete` _will not_ be called.                                                                 |
-| `disableHardwareAcceleration` | `boolean?`                                  | Optional. Prevent `renature` from applying optimizations that push compatible animations to the GPU.                                                                                                                                                          |
+| Property                      | Type                                                                                               | Description                                                                                                                                                                                                                                                   |
+| ----------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `from`                        | `{ [key: keyof React.CSSProperties]: any }`                                                        | The CSS property or properties you're animating **from**. Accepts an arbitrary number of key-value pairs.                                                                                                                                                     |
+| `to`                          | `{ [key: keyof React.CSSProperties]: any }`                                                        | The CSS property or properties you're animating **to**. Accepts an arbitrary number of key-value pairs.                                                                                                                                                       |
+| `reducedMotion`               | `{ from: { [key: keyof React.CSSProperties]: any }, to: { [key: keyof React.CSSProperties]: any }` | Optional. The animation configuration to use if the end user prefers reduced motion. If unspecified and the end user prefers reduced motion, the animating element will be set immediately to the `to` state to avoid potentially harmful animation.          |
+| `config`                      | `object?`                                                                                          | Optional. The physics parameters used to model the selected force. This varies from force to force. See [Config](#config) below for specific force paramters. If no `config` is supplied, a default set of physics parameters will be supplied by `renature`. |
+| `pause`                       | `boolean?`                                                                                         | Optional. Instructs `renature` to pause the animation on initial mount. If `true`, the animation will not run until `controller.start` is called or until a re-render occurs and `pause` evaluates to `false`. Defaults to `false`.                           |
+| `delay`                       | `number?`                                                                                          | Optional. Instructs `renature` to delay the start of the animation by the provided number of milliseconds. Defaults to `undefined`.                                                                                                                           |
+| `repeat`                      | `number?`                                                                                          | Optional. Instructs `renature` to repeat the animation a specific number of times. By default, animations will swap the `from` and `to` values when `repeat` is specified, producing a mirroring animation effect. Defaults to `0`.                           |
+| `onFrame`                     | `?(progress: number) => void`                                                                      | Optional. Supply a callback function that `renature` will execute on every call to `requestAnimationFrame`.                                                                                                                                                   |
+| `onAnimationComplete`         | `?() => void`                                                                                      | Optional. Supply a callback function that `renature` will run when your animation has completed. If the animation is unmounted before completing, `onAnimationComplete` _will not_ be called.                                                                 |
+| `disableHardwareAcceleration` | `boolean?`                                                                                         | Optional. Prevent `renature` from applying optimizations that push compatible animations to the GPU.                                                                                                                                                          |
 
 ### Config
 
 Each hook in `renature` accepts a `config` object for tweaking the physics parameters of the underlying simulation. These vary force by force.
 
-### useGravity
+### `useGravity`
 
 The force of gravity is modeled using Newton's Law of Universal Gravitation. We use the real value of **G**, the Universal Gravitational Constant, approximated to 6.67428 x 10^-11.
 
@@ -68,7 +69,7 @@ function GravityBasic() {
 }
 ```
 
-### useFriction
+### `useFriction`
 
 The force of friction is modeled using the standard equation of kinetic friction.
 
@@ -112,7 +113,7 @@ function FrictionBasic() {
 }
 ```
 
-### useFluidResistance
+### `useFluidResistance`
 
 The force of fluid resistance, or the drag force, is modeled using the standard drag equation.
 
@@ -166,7 +167,7 @@ Often when animating, you may want to orchestrate multiple elements at a single 
 const [props] = use<Force>Group(n: number, fn: (index: number) => Config);
 ```
 
-### useGravityGroup
+### `useGravityGroup`
 
 `useGravityGroup` will animate `n` elements using Newton's Law of Universal Gravitation. It takes the form:
 
@@ -204,14 +205,14 @@ function GravityGroup() {
   return (
     <div className="lp__stack-h">
       {nodes.map((props, i) => {
-        return <div className="lp__m lp__m--lg" {...props} />;
+        return <div key={i} className="lp__m lp__m--lg" {...props} />;
       })}
     </div>
   );
 }
 ```
 
-### useFrictionGroup
+### `useFrictionGroup`
 
 `useFrictionGroup` will animate `n` elements using the standard equation of friction. It takes the form:
 
@@ -248,9 +249,9 @@ function FrictionGroup() {
 
   return (
     <div className="lp__stack-h">
-      {nodes.map((props) => {
+      {nodes.map((props, i) => {
         return (
-          <svg height="100" width="100" viewBox="0 0 100 100">
+          <svg key={i} height="100" width="100" viewBox="0 0 100 100">
             <polygon points="0,0 80,50 0,100" fill="#FFCE24" {...props} />
           </svg>
         );
@@ -260,7 +261,7 @@ function FrictionGroup() {
 }
 ```
 
-### useFluidResistanceGroup
+### `useFluidResistanceGroup`
 
 `useFluidResistanceGroup` will animate `n` elements using the standard drag equation. It takes the form:
 
@@ -298,7 +299,7 @@ function FluidResistanceGroup() {
   return (
     <div className="lp__stack-h">
       {nodes.map((props, i) => {
-        return <div className="lp__m lp__m--lg" {...props} />;
+        return <div key={i} className="lp__m lp__m--lg" {...props} />;
       })}
     </div>
   );
@@ -311,7 +312,7 @@ Since everything in `renature` is modeled using two dimensional vectors, the lib
 
 Currently, `renature` only supports a single two-dimensional hook – `useGravity2D`. `useGravity2D` is great for producing two-dimensional gravity simulations, using the same `mover` and `attractor` model as `useGravity`. You can find its API below. In the near future we hope to support `useFriction` and `useFluidResistance` in two dimensions.
 
-### useGravity2D
+### `useGravity2D`
 
 The same equation used to calculate the force of gravity in `useGravity` is also used in `useGravity2D`. However, in `useGravity2D` you have a few more parameters to finely tune the simulation.
 
@@ -387,3 +388,66 @@ A `controller` provides access to three functions, `start`, `pause`, and `stop`,
 | `set`    | `(to: { [key: keyof React.CSSProperties]: any }, i?: number) => void` | A function to set all animating elements to a particular CSS state. If you only want to set one element in an animation group to a particular state, pass the index of that element as the second argument to `controller.set`.                                                    |
 
 See [Controlling Animation States](./getting-started/controlling-animation-states.md) for more examples of starting, pausing, stopping, and setting animations according to events, timers, and effects.
+
+## Accessibility
+
+To support [accessible animations](./getting-started/accessible-animations.md), `renature` provides the `reducedMotion` parameter on its core hooks. This allows authors using `renature` to easily define how an animation should run if the user prefers reduced motion, i.e. by switching out a `transform` animation for an `opacity` animation. In addition, `renature` also exposes the `usePrefersReducedMotion` hook to give consumers easy access to a `boolean` value indicating whether or not the end user prefers reduced motion.
+
+### `usePrefersReducedMotion`
+
+The `usePrefersReducedMotion` hook is called with no arguments. It is SSR-safe by default, so you can use it in your Next or Gatsby application without fear.
+
+#### Example
+
+```js live=true
+import React from 'react';
+import { useFriction, usePrefersReducedMotion } from 'renature';
+
+function Mover() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const [props, controller] = useFriction({
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    reducedMotion: {
+      from: {
+        background: 'orange',
+      },
+      to: {
+        background: 'steelblue',
+      },
+    },
+    config: {
+      mu: 0.5,
+      mass: 300,
+      initialVelocity: 10,
+    },
+  });
+
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      const target = prefersReducedMotion
+        ? { opacity: Math.random() }
+        : {
+            transform: `translateX(${
+              Math.floor(Math.random() * 300) * (Math.random() > 0.5 ? 1 : -1)
+            }px
+              rotate(${Math.random() * 360}deg)
+              scale(${Math.random()})
+            `,
+          };
+
+      controller.set(target);
+    }, 2000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [controller, prefersReducedMotion]);
+
+  return <div className="lp__m lp__m--lg" {...props} />;
+}
+```

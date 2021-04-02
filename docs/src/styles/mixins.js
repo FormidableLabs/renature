@@ -77,3 +77,9 @@ export function underline({ light } = { light: false }) {
     }
   `;
 }
+
+export const overflowEllipsis = css`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
