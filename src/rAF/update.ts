@@ -66,6 +66,7 @@ export function update<C>({
         element.onUpdate({
           velocity: element.state.mover.velocity,
           position: element.state.mover.position,
+          acceleration: element.state.mover.acceleration,
         });
       }
     }

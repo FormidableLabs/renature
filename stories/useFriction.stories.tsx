@@ -199,7 +199,7 @@ export const FrictionProgress: FC = () => {
       mass: number('mass', 30),
       initialVelocity: number('velocity', 10),
     },
-    onFrame: (progress) => {
+    onFrame: ({ progress }) => {
       if (progressRef.current) {
         progressRef.current.innerText = `${progress.toFixed(2)}`;
       }

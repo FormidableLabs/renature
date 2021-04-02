@@ -1,5 +1,6 @@
 import { RefObject, useRef, useMemo, useLayoutEffect } from 'react';
 
+import { vector as Vector } from '../core';
 import {
   Gravity2DParams,
   gravity2D,
@@ -8,11 +9,17 @@ import {
   gravity2DDefaultConfig,
 } from '../animation';
 
+interface OnFrameParams {
+  position: Vector<number>;
+  velocity: Vector<number>;
+  acceleration: Vector<number>;
+}
+
 type UseGravity2DArgs = {
   config?: Gravity2DParams['config'];
   pause?: boolean;
   delay?: number;
-  onFrame?: () => void;
+  onFrame?: (onFrameParams: OnFrameParams) => void;
   onAnimationComplete?: () => void;
   disableHardwareAcceleration?: boolean;
 };
@@ -40,14 +47,16 @@ export const useGravity2D = <E extends HTMLElement | SVGElement = any>({
     () =>
       gravity2D({
         config,
-        onUpdate: ({ position: [x, y] }) => {
+        onUpdate: ({ position, velocity, acceleration }) => {
           moverRef.current &&
-            (moverRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)${
+            (moverRef.current.style.transform = `translate(${position[0]}px, ${
+              position[1]
+            }px) translate(-50%, -50%)${
               disableHardwareAcceleration ? '' : ' translateZ(0)'
             }`);
 
           if (onFrame) {
-            onFrame();
+            onFrame({ position, velocity, acceleration });
           }
         },
         onComplete: () => {

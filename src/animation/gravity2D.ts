@@ -112,6 +112,7 @@ export function gravity2D({
     onUpdate({
       position: state.mover.position,
       velocity: state.mover.velocity,
+      acceleration: state.mover.acceleration,
     });
   };
 

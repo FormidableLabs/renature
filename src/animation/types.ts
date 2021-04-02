@@ -5,7 +5,8 @@ import type { entity as Entity } from '../forces';
 
 export type VectorSetter = (values: {
   position: Vector<number>;
-  velocity?: Vector<number>;
+  velocity: Vector<number>;
+  acceleration: Vector<number>;
 }) => void;
 
 export type Listener = (
@@ -26,11 +27,18 @@ export interface AnimationParams {
   onComplete: () => void;
 }
 
+interface OnFrameParams {
+  progress: number;
+  position: Vector<number>;
+  velocity: Vector<number>;
+  acceleration: Vector<number>;
+}
+
 export interface HooksParams {
   pause?: boolean;
   delay?: number;
   repeat?: number;
-  onFrame?: (progress: number) => void;
+  onFrame?: (onFrameParams: OnFrameParams) => void;
   onAnimationComplete?: () => void;
   disableHardwareAcceleration?: boolean;
   reducedMotion?: {
