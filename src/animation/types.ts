@@ -3,11 +3,13 @@ import type { CSSProperties, RefObject } from 'react';
 import type { vector as Vector } from '../core';
 import type { entity as Entity } from '../forces';
 
-export type VectorSetter = (values: {
+interface MotionVectors {
   position: Vector<number>;
   velocity: Vector<number>;
   acceleration: Vector<number>;
-}) => void;
+}
+
+export type VectorSetter = (values: MotionVectors) => void;
 
 export type Listener = (
   timestamp: DOMHighResTimeStamp,
@@ -27,18 +29,11 @@ export interface AnimationParams {
   onComplete: () => void;
 }
 
-interface OnFrameParams {
-  progress: number;
-  position: Vector<number>;
-  velocity: Vector<number>;
-  acceleration: Vector<number>;
-}
-
 export interface HooksParams {
   pause?: boolean;
   delay?: number;
   repeat?: number;
-  onFrame?: (onFrameParams: OnFrameParams) => void;
+  onFrame?: (progress: number, motionVectors: MotionVectors) => void;
   onAnimationComplete?: () => void;
   disableHardwareAcceleration?: boolean;
   reducedMotion?: {

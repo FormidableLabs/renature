@@ -49,7 +49,7 @@ export const onUpdate = <E extends HTMLElement | SVGElement>({
 
     if (onFrame) {
       const progress = position[0] / maxPosition;
-      onFrame({ progress, position, velocity, acceleration });
+      onFrame(progress, { position, velocity, acceleration });
     }
 
     // Update the cache of derived animation values.
