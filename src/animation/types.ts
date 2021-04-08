@@ -9,7 +9,7 @@ interface MotionVectors {
   acceleration: Vector<number>;
 }
 
-export type VectorSetter = (values: MotionVectors) => void;
+export type VectorSetter = (motionVectors: MotionVectors) => void;
 
 export type Listener = (
   timestamp: DOMHighResTimeStamp,

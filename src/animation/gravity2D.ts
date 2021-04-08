@@ -23,7 +23,6 @@ export interface Gravity2DParams extends AnimationParams {
     };
     G?: number;
   };
-  onUpdate: VectorSetter;
 }
 
 export interface Gravity2DController extends Controller {

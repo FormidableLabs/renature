@@ -1,25 +1,19 @@
 import { RefObject, useRef, useMemo, useLayoutEffect } from 'react';
 
-import { vector as Vector } from '../core';
 import {
   Gravity2DParams,
   gravity2D,
   Controller,
   Gravity2DController,
   gravity2DDefaultConfig,
+  VectorSetter,
 } from '../animation';
-
-interface OnFrameParams {
-  position: Vector<number>;
-  velocity: Vector<number>;
-  acceleration: Vector<number>;
-}
 
 type UseGravity2DArgs = {
   config?: Gravity2DParams['config'];
   pause?: boolean;
   delay?: number;
-  onFrame?: (onFrameParams: OnFrameParams) => void;
+  onFrame?: VectorSetter;
   onAnimationComplete?: () => void;
   disableHardwareAcceleration?: boolean;
 };
