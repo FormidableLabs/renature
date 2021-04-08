@@ -1,6 +1,11 @@
 import type { RefObject, MutableRefObject, CSSProperties } from 'react';
 
-import { AnimationCache, PlayState, VectorSetter } from '../animation';
+import {
+  AnimationCache,
+  HooksParams,
+  PlayState,
+  VectorSetter,
+} from '../animation';
 import type { CSSPairs, InterpolatedResult } from '../parsers';
 
 interface OnUpdateParams<E extends HTMLElement | SVGElement> {
@@ -10,7 +15,7 @@ interface OnUpdateParams<E extends HTMLElement | SVGElement> {
   ref: RefObject<E>;
   i: number;
   cache: MutableRefObject<AnimationCache>;
-  onFrame?: (progress: number) => void;
+  onFrame?: HooksParams['onFrame'];
 }
 
 /**
@@ -26,7 +31,11 @@ export const onUpdate = <E extends HTMLElement | SVGElement>({
   i,
   cache,
   onFrame,
-}: OnUpdateParams<E>): VectorSetter => ({ position }) => {
+}: OnUpdateParams<E>): VectorSetter => ({
+  position,
+  velocity,
+  acceleration,
+}) => {
   interpolators.forEach(({ interpolator, property, values }) => {
     const value = interpolator({
       range: [0, maxPosition],
@@ -40,7 +49,7 @@ export const onUpdate = <E extends HTMLElement | SVGElement>({
 
     if (onFrame) {
       const progress = position[0] / maxPosition;
-      onFrame(progress);
+      onFrame(progress, { position, velocity, acceleration });
     }
 
     // Update the cache of derived animation values.

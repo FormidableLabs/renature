@@ -6,13 +6,14 @@ import {
   Controller,
   Gravity2DController,
   gravity2DDefaultConfig,
+  VectorSetter,
 } from '../animation';
 
 type UseGravity2DArgs = {
   config?: Gravity2DParams['config'];
   pause?: boolean;
   delay?: number;
-  onFrame?: () => void;
+  onFrame?: VectorSetter;
   onAnimationComplete?: () => void;
   disableHardwareAcceleration?: boolean;
 };
@@ -40,14 +41,16 @@ export const useGravity2D = <E extends HTMLElement | SVGElement = any>({
     () =>
       gravity2D({
         config,
-        onUpdate: ({ position: [x, y] }) => {
+        onUpdate: ({ position, velocity, acceleration }) => {
           moverRef.current &&
-            (moverRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)${
+            (moverRef.current.style.transform = `translate(${position[0]}px, ${
+              position[1]
+            }px) translate(-50%, -50%)${
               disableHardwareAcceleration ? '' : ' translateZ(0)'
             }`);
 
           if (onFrame) {
-            onFrame();
+            onFrame({ position, velocity, acceleration });
           }
         },
         onComplete: () => {

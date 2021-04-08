@@ -23,7 +23,6 @@ export interface Gravity2DParams extends AnimationParams {
     };
     G?: number;
   };
-  onUpdate: VectorSetter;
 }
 
 export interface Gravity2DController extends Controller {
@@ -112,6 +111,7 @@ export function gravity2D({
     onUpdate({
       position: state.mover.position,
       velocity: state.mover.velocity,
+      acceleration: state.mover.acceleration,
     });
   };
 

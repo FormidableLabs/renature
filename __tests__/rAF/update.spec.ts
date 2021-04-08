@@ -102,6 +102,7 @@ describe('update', () => {
     const mockMoverState: Partial<Entity> = {
       velocity: [2, 0],
       position: [5, 0],
+      acceleration: [-1.5, -2],
     };
 
     const element: StatefulAnimatingElement<
