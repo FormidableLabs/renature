@@ -7,6 +7,56 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.10.1
+
+This release adds in a slight modification to the `onFrame` API. Previously, `onFrame` only gave you access to a single value, `progress`. `progress` is a decimal number between 0 and 1 representing the progress of an animation, with 0 being the beginning and 1 being the end. `useGravity2D` was an exception; since this hook animates infinitely by default, `progress` is not a defined value and was never supplied.
+
+In v0.10.1, you can now access the physics motion vectors (`position`, `velocity`, and `acceleration`) of your animating element inside of the `onFrame` callback, like so:
+
+```typescript
+const [props] = useFriction<HTMLDivElement>({
+  from: {
+    transform: 'scale(1) rotate(0deg)',
+  },
+  to: {
+    transform: 'scale(1.5) rotate(720deg)',
+  },
+  onFrame: (progress, { position, velocity, acceleration }) => {
+    // Execute some code on each call to requestAnimationFrame using any of the four values above.
+    // For example, we could modify the document body's opacity to match the x component of the velocity vector.
+    document.body.style.opacity = velocity[0];
+  },
+});
+```
+
+For `useGravity2D`, the API is just slightly different, with no `progress` argument supplied:
+
+```typescript
+useGravity2D({
+  config: {
+    attractorMass: 1000000000000,
+    moverMass: 10000,
+    attractorPosition: [center.left, center.top],
+    initialMoverPosition: [center.left, center.top - 100],
+    initialMoverVelocity: [1, 0],
+    threshold: {
+      min: 20,
+      max: 100,
+    },
+    timeScale: 100,
+  },
+  onFrame: ({ position, velocity, acceleration }) => {
+    // Execute some code on each call to requestAnimationFrame!
+  },
+});
+```
+
+### Changed
+
+- ✨ The `onFrame` callback now receives the motion vectors of the animating element as arguments. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/136).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.10.0...v0.10.1)
+
 ## v0.10.0
 
 This release adds a new API to support accessible animations in `renature`. Consumers now have a first-class API for defining the `from` / `to` configuration to use if a user has the `prefers-reduced-motion: reduce` media feature enabled.
