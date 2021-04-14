@@ -24,10 +24,9 @@
     "test": "jest"
   },
   "keywords": [
-    "ReasonML",
     "TypeScript",
+    "ReScript",
     "React",
-    "BuckleScript",
     "Animation",
     "Physics"
   ],
