@@ -288,7 +288,7 @@ const StyledTableList = styled.ul`
 
   list-style-type: none;
   padding: 0;
-  margin-bottom: 2.75rem;
+  margin-bottom: ${(p) => p.theme.spacing.md};
 `;
 
 const TBody = ({ children }) => <StyledTableList>{children}</StyledTableList>;
