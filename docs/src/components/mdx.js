@@ -346,6 +346,12 @@ Tr.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+const Td = ({ children }) => <>{children}</>;
+
+Td.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 const components = {
   pre: Pre,
   img: Image,
@@ -356,7 +362,7 @@ const components = {
   thead: () => null,
   tbody: TBody,
   tr: Tr,
-  td: ({ children }) => children,
+  td: Td,
   a: MdLink,
   h1: HeadingText,
   h2: H2,
