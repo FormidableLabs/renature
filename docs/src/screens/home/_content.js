@@ -17,7 +17,7 @@ const content = {
     {
       title: 'An animation library for physics nerds',
       description:
-        'Renature emphasizes mathematical precision and correctness, all backed by the type safety and speed of ReasonML.',
+        'Renature emphasizes mathematical precision and correctness, all backed by the type safety and speed of ReScript.',
       icon: require('../../assets/feature-3.svg'),
     },
   ],

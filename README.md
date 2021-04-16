@@ -35,7 +35,7 @@
 
 - 🎣 A small set of declarative React hooks for animating with ease.
 - 🌌 Support for non-traditional physics-based animations using gravity, friction, fluid resistance, and more.
-- 🧮 Mathematically accurate and type-safe physics, powered by [ReasonML](https://reasonml.github.io/).
+- 🧮 Mathematically accurate and type-safe physics, powered by [ReScript](https://rescript-lang.org/).
 - 🔁 Start, stop, delay, and loop animations with our Controller API.
 - 0️⃣ A tiny animation library with zero dependencies!
 

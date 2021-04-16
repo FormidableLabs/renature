@@ -76,17 +76,20 @@ const GravityBasic: React.FC = () => {
 We then look at the `from` and `to` properties you provided to `useGravity` and build an output **domain**. In the above example we have three output domains:
 
 ```reason
-let domainOpacity = (0, 1);
-let domainTranslateX = (0, 100);
-let domainScale = (0.5, 2);
+let domainOpacity = (0, 1)
+let domainTranslateX = (0, 100)
+let domainScale = (0.5, 2)
 ```
 
 Using linear interpolation, we can determine where along the `mover`'s path we are. Let's say we're at `position` `(25, 0)`, a third of the way to our ending position. With this information, we can interpolate a CSS value in each output **domain**.
 
 ```reason
-let opacity = 25. /. 75. *. (1. -. 0.) +. 0. = 0.333;
-let translateX = 25. / 75. *. (100. -. 0.) +. 0. = 33.3;
-let scale = 25. /. 75. *. (2. -. 0.5) +. 0.5 = 1.;
+let opacity = 25. /. 75. *. (1. -. 0.) +. 0.
+// Results in 0.333
+let translateX = 25. / 75. *. (100. -. 0.) +. 0.
+// Results in 33.3
+let scale = 25. /. 75. *. (2. -. 0.5) +. 0.5
+// Results in 1
 ```
 
 In this way we can interpolate a `position` in our physics simulation to a CSS value between user-supplied `from` and `to` states, smoothly animating your elements from one to the other. We run these calculations on every frame the browser renders using `requestAnimationFrame`.

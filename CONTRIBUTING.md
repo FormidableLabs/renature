@@ -23,8 +23,8 @@ Please don't use `npm` to respect the lockfile.
 yarn
 ```
 
-`renature` is implemented in a combination of ReasonML and TypeScript. To compile
-the Reason source to JavaScript, run:
+`renature` is implemented in a combination of ReScript and TypeScript. To compile
+the ReScript source to JavaScript, run:
 
 ```sh
 yarn build:res
@@ -33,13 +33,13 @@ yarn build:res
 yarn start:res
 ```
 
-To clean the Reason build and remove all JS artifacts:
+To clean the ReScript build and remove all JS artifacts:
 
 ```sh
 yarn clean:res
 ```
 
-Once you've built the Reason source, you can run Storybook to open up an interactive playground
+Once you've built the ReScript source, you can run Storybook to open up an interactive playground
 for developing features on `renature`. Simply run:
 
 ```sh

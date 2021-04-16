@@ -2,7 +2,7 @@ import * as path from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
 import { useLocation, Link } from 'react-router-dom';
 import { useMarkdownPage } from 'react-static-plugin-md-pages';
@@ -11,6 +11,7 @@ import { LiveProvider } from 'react-live';
 import nightOwlLight from 'prism-react-renderer/themes/nightOwlLight';
 
 import { scope, removeImportFromPreview } from '../utils/live-preview';
+import { stack, stackHorizontal } from '../styles/mixins';
 import AnchorSvg from '../assets/anchor';
 
 import { relative } from './sidebar';
@@ -190,70 +191,6 @@ const Blockquote = styled.blockquote`
   }
 `;
 
-const sharedTableCellStyling = css`
-  padding: ${(p) => p.theme.spacing.xs} ${(p) => p.theme.spacing.sm};
-  border-left: 1px solid ${(p) => p.theme.colors.passiveBg};
-  border-bottom: 1px solid ${(p) => p.theme.colors.passiveBg};
-`;
-
-const TableHeader = styled.th`
-  text-align: left;
-  white-space: nowrap;
-  ${sharedTableCellStyling}
-`;
-
-const TableCell = styled.td`
-  width: min-content;
-  ${sharedTableCellStyling}
-
-  ${(p) => {
-    const isCodeOnly = React.Children.toArray(p.children).every(
-      (x) => x.props && x.props.mdxType === 'inlineCode'
-    );
-    return (
-      isCodeOnly &&
-      css`
-        background-color: ${p.theme.colors.codeBg};
-
-        & > ${InlineCode} {
-          background: none;
-          padding: 0;
-          margin: 0;
-        }
-      `
-    );
-  }}
-
-  &:last-child {
-    min-width: 20rem;
-    width: max-content;
-  }
-
-  &:first-child {
-    white-space: nowrap;
-  }
-
-  &:nth-child(2) {
-    overflow-wrap: break-word;
-    min-width: 20rem;
-  }
-`;
-
-const TableOverflow = styled.div`
-  overflow-x: scroll;
-`;
-
-const Table = styled.table`
-  border: 1px solid ${(p) => p.theme.colors.passiveBg};
-  border-collapse: collapse;
-`;
-
-const TableWithOverflow = (props) => (
-  <TableOverflow>
-    <Table {...props} />
-  </TableOverflow>
-);
-
 const MdLink = ({ href, children }) => {
   const location = useLocation();
   const currentPage = useMarkdownPage();
@@ -340,15 +277,92 @@ H3.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+const Table = ({ children }) => <>{children}</>;
+
+Table.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const StyledTableList = styled.ul`
+  ${stack(1.5, 2)};
+
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: ${(p) => p.theme.spacing.md};
+`;
+
+const TBody = ({ children }) => <StyledTableList>{children}</StyledTableList>;
+
+TBody.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const StyledProperty = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin-bottom: ${(p) => p.theme.spacing.xs};
+
+  @media ${(p) => p.theme.media.sm} {
+    ${stackHorizontal(0.5, 1)};
+  }
+
+  pre {
+    color: ${(p) => p.theme.colors.code};
+    background: ${(p) => p.theme.colors.codeBg};
+    margin-bottom: 0;
+    padding: 0.2em;
+    border-radius: ${(p) => p.theme.spacing.xs};
+  }
+`;
+
+const StyledPropertyName = styled.p`
+  color: ${(p) => p.theme.colors.accent};
+  font-size: ${(p) => p.theme.fontSizes.body};
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-bottom: ${(p) => p.theme.spacing.xs};
+`;
+
+const StyledTr = styled.li`
+  margin-bottom: 1rem;
+`;
+
+const Tr = ({ children }) => {
+  const [name, type, description] = children;
+
+  return (
+    <StyledTr>
+      <StyledProperty>
+        <StyledPropertyName>{name}</StyledPropertyName>
+        <pre>{type}</pre>
+      </StyledProperty>
+      {description}
+    </StyledTr>
+  );
+};
+
+Tr.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const Td = ({ children }) => <>{children}</>;
+
+Td.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 const components = {
   pre: Pre,
   img: Image,
   blockquote: Blockquote,
   inlineCode: InlineCode,
   code: HighlightCode,
-  table: TableWithOverflow,
-  th: TableHeader,
-  td: TableCell,
+  table: Table,
+  thead: () => null,
+  tbody: TBody,
+  tr: Tr,
+  td: Td,
   a: MdLink,
   h1: HeadingText,
   h2: H2,
