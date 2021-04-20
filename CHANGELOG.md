@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.10.2
+
+This release fixes a small bug in the `onAnimationComplete` implementation. In [#122](https://github.com/FormidableLabs/renature/pull/122), we accidentally introduced a regression by not passing the `onAnimationComplete` callback to the internal `onComplete` function. This release addresses that regression.
+
+### Fixed
+
+- The `onAnimationComplete` callback is called when an animation completes if supplied by the end user. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/139).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.10.1...v0.10.2)
+
 ## v0.10.1
 
 This release adds in a slight modification to the `onFrame` API. Previously, `onFrame` only gave you access to a single value, `progress`. `progress` is a decimal number between 0 and 1 representing the progress of an animation, with 0 being the beginning and 1 being the end. `useGravity2D` was an exception; since this hook animates infinitely by default, `progress` is not a defined value and was never supplied.
