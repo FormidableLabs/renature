@@ -6,8 +6,7 @@ import {
 } from '../forces';
 import { vector as Vector, addf, multf } from '../core';
 
-import {
-  PlayState,
+import type {
   AnimatingElement,
   StatefulAnimatingElement,
   AnimationGroup,
@@ -31,7 +30,7 @@ function applyFluidResistanceForceForStep({
   if (
     config.settle &&
     state.mover.position[1] >= state.maxDistance &&
-    state.playState === PlayState.Forward
+    state.playState === 'forward'
   ) {
     state.mover = {
       ...state.mover,
@@ -41,7 +40,7 @@ function applyFluidResistanceForceForStep({
   } else if (
     config.settle &&
     state.mover.position[1] <= 0 &&
-    state.playState === PlayState.Reverse
+    state.playState === 'reverse'
   ) {
     state.mover = {
       ...state.mover,
@@ -61,7 +60,7 @@ function applyFluidResistanceForceForStep({
   const netForce = addf({
     v1: dragForce,
     v2:
-      state.playState === PlayState.Forward
+      state.playState === 'forward'
         ? gravitationalForce
         : multf({ v: gravitationalForce, s: -1 }),
   });
@@ -85,12 +84,13 @@ function applyFluidResistanceForceForStep({
 function checkReverseFluidResistancePlayState({
   state,
   config,
+  repeatType,
 }: StatefulAnimatingElement<FluidResistanceConfig>) {
   const isOvershootingForward =
-    state.playState === PlayState.Forward &&
+    state.playState === 'forward' &&
     state.mover.position[1] >= state.maxDistance;
   const isOvershootingReverse =
-    state.playState === PlayState.Reverse && state.mover.position[1] <= 0;
+    state.playState === 'reverse' && state.mover.position[1] <= 0;
 
   // If applying a settle effect with looping, allow the settling to
   // finish before reversing the animation. We arbitrarily set this
@@ -100,23 +100,34 @@ function checkReverseFluidResistancePlayState({
     : true;
 
   if ((isOvershootingForward || isOvershootingReverse) && isSettled) {
-    if (state.playState === PlayState.Forward) {
-      state.mover = {
-        ...state.mover,
-        acceleration: [0, 0],
-        velocity: [0, 0],
-        position: [0, state.maxDistance],
-      };
-      state.playState = PlayState.Reverse;
-      state.repeatCount++;
-    } else if (state.playState === PlayState.Reverse) {
+    if (repeatType === 'loop') {
       state.mover = {
         ...state.mover,
         acceleration: [0, 0],
         velocity: [0, 0],
         position: [0, 0],
       };
-      state.playState = PlayState.Forward;
+
+      state.repeatCount++;
+    } else if (state.playState === 'forward') {
+      state.mover = {
+        ...state.mover,
+        acceleration: [0, 0],
+        velocity: [0, 0],
+        position: [0, state.maxDistance],
+      };
+
+      state.playState = 'reverse';
+      state.repeatCount++;
+    } else if (state.playState === 'reverse') {
+      state.mover = {
+        ...state.mover,
+        acceleration: [0, 0],
+        velocity: [0, 0],
+        position: [0, 0],
+      };
+
+      state.playState = 'forward';
       state.repeatCount++;
     }
   }
@@ -143,7 +154,7 @@ export function fluidResistanceGroup(
       velocity: [0, 0],
       position: [0, 0],
     },
-    playState: PlayState.Forward,
+    playState: 'forward',
     maxDistance: getFluidPositionAtTerminalVelocity(element.config),
     complete: false,
     paused: !!element.pause,

@@ -29,10 +29,13 @@ export interface AnimationParams {
   onComplete: () => void;
 }
 
+type RepeatType = 'loop' | 'mirror';
+
 export interface HooksParams {
   pause?: boolean;
   delay?: number;
   repeat?: number;
+  repeatType?: RepeatType;
   onFrame?: (progress: number, motionVectors: MotionVectors) => void;
   onAnimationComplete?: () => void;
   disableHardwareAcceleration?: boolean;
@@ -42,10 +45,7 @@ export interface HooksParams {
   };
 }
 
-export enum PlayState {
-  Forward = 'forward',
-  Reverse = 'reverse',
-}
+export type PlayState = 'forward' | 'reverse';
 
 export interface AnimatingElement<
   C,
@@ -56,6 +56,7 @@ export interface AnimatingElement<
   onUpdate: VectorSetter;
   onComplete: (playState?: PlayState) => void;
   repeat?: number;
+  repeatType?: RepeatType;
   delay?: number;
   pause?: boolean;
 }

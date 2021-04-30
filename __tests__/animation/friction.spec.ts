@@ -5,7 +5,6 @@ import {
   AnimatingElement,
   FrictionConfig,
   frictionGroup,
-  PlayState,
 } from '../../src/animation';
 
 describe('friction', () => {
@@ -123,9 +122,9 @@ describe('friction', () => {
      */
     mockRAF.step({ count: 130 });
 
-    expect(
-      elements.every(({ state }) => state.playState === PlayState.Reverse)
-    ).toBe(true);
+    expect(elements.every(({ state }) => state.playState === 'reverse')).toBe(
+      true
+    );
   });
 
   it('should continually reverse repeated animations when they reach their ending physics conditions', () => {
@@ -149,16 +148,16 @@ describe('friction', () => {
      */
     mockRAF.step({ count: 130 });
 
-    expect(
-      elements.every(({ state }) => state.playState === PlayState.Reverse)
-    ).toBe(true);
+    expect(elements.every(({ state }) => state.playState === 'reverse')).toBe(
+      true
+    );
 
     // Animate another 130 frames and verify that we've switched to the Forward play state.
     mockRAF.step({ count: 130 });
 
-    expect(
-      elements.every(({ state }) => state.playState === PlayState.Forward)
-    ).toBe(true);
+    expect(elements.every(({ state }) => state.playState === 'forward')).toBe(
+      true
+    );
   });
 
   it('should end a repeated animation when the specified number of repeats has been eclipsed', () => {
@@ -184,8 +183,7 @@ describe('friction', () => {
 
     expect(
       elements.every(
-        ({ state }) =>
-          state.playState === PlayState.Reverse && state.repeatCount === 0
+        ({ state }) => state.playState === 'reverse' && state.repeatCount === 0
       )
     ).toBe(true);
 
@@ -194,8 +192,7 @@ describe('friction', () => {
 
     expect(
       elements.every(
-        ({ state }) =>
-          state.playState === PlayState.Forward && state.repeatCount === 1
+        ({ state }) => state.playState === 'forward' && state.repeatCount === 1
       )
     ).toBe(true);
 
@@ -204,8 +201,7 @@ describe('friction', () => {
 
     expect(
       elements.every(
-        ({ state }) =>
-          state.playState === PlayState.Reverse && state.repeatCount === 2
+        ({ state }) => state.playState === 'reverse' && state.repeatCount === 2
       )
     ).toBe(true);
 

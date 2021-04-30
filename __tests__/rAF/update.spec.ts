@@ -1,7 +1,7 @@
 import { createRef } from 'react';
 
 import { update } from '../../src/rAF';
-import { StatefulAnimatingElement, PlayState } from '../../src/animation';
+import type { StatefulAnimatingElement } from '../../src/animation';
 import { entity as Entity } from '../../src/forces';
 
 describe('update', () => {
@@ -24,7 +24,7 @@ describe('update', () => {
         acceleration: [0, 0],
         mass: 10,
       },
-      playState: PlayState.Forward,
+      playState: 'forward',
       maxDistance: 50,
       complete: false,
       paused: false,

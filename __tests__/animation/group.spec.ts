@@ -1,10 +1,9 @@
 import { createRef } from 'react';
 
-import {
+import type {
   AnimatingElement,
   StatefulAnimatingElement,
   AnimationCallbacks,
-  PlayState,
 } from '../../src/animation';
 import { group } from '../../src/animation/group';
 import * as updater from '../../src/rAF/update';
@@ -20,7 +19,7 @@ describe('group', () => {
       acceleration: [0, 0],
       mass: 10,
     },
-    playState: PlayState.Forward,
+    playState: 'forward',
     maxDistance: 50,
     complete: false,
     paused: false,

@@ -1,6 +1,6 @@
 import type { RefObject, MutableRefObject, CSSProperties } from 'react';
 
-import {
+import type {
   AnimationCache,
   HooksParams,
   PlayState,
@@ -80,15 +80,15 @@ export const onComplete = <E extends HTMLElement | SVGElement>({
 }: OnCompleteParams<E>) => (playState?: PlayState): void => {
   interpolators.forEach(({ property, values }) => {
     const isNearEnd =
-      (playState === PlayState.Forward &&
+      (playState === 'forward' &&
         ref.current?.style[property as any] !== values.to) ||
-      (playState === PlayState.Reverse &&
+      (playState === 'reverse' &&
         ref.current?.style[property as any] !== values.from);
 
     // Ensure our animation has reached the ending value when the physics stopping condition has been reached.
     if (ref.current && isNearEnd) {
       ref.current.style[property as any] = `${
-        playState === PlayState.Forward ? values.from : values.to
+        playState === 'forward' ? values.from : values.to
       }`;
 
       // Clear the cache for this particular property.
