@@ -48,7 +48,12 @@ function checkReverseGravityPlayState({
   config,
   repeatType,
 }: StatefulAnimatingElement<GravityConfig>) {
-  if (state.mover.position[0] >= config.r && repeatType === 'loop') {
+  const isOvershootingForward =
+    state.mover.position[0] >= config.r && state.playState === 'forward';
+  const isOvershootingReverse =
+    state.mover.position[0] <= 0 && state.playState === 'reverse';
+
+  if (isOvershootingForward && repeatType === 'loop') {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],
@@ -64,10 +69,7 @@ function checkReverseGravityPlayState({
     }
 
     state.repeatCount++;
-  } else if (
-    state.mover.position[0] >= config.r &&
-    state.playState === 'forward'
-  ) {
+  } else if (isOvershootingForward) {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],
@@ -84,7 +86,7 @@ function checkReverseGravityPlayState({
 
     state.playState = 'reverse';
     state.repeatCount++;
-  } else if (state.mover.position[0] <= 0 && state.playState === 'reverse') {
+  } else if (isOvershootingReverse) {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],

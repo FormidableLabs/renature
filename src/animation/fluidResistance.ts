@@ -99,37 +99,35 @@ function checkReverseFluidResistancePlayState({
     ? Math.abs(state.mover.velocity[1]) <= 0.5
     : true;
 
-  if ((isOvershootingForward || isOvershootingReverse) && isSettled) {
-    if (repeatType === 'loop') {
-      state.mover = {
-        ...state.mover,
-        acceleration: [0, 0],
-        velocity: [0, 0],
-        position: [0, 0],
-      };
+  if (isOvershootingForward && isSettled && repeatType === 'loop') {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [0, 0],
+    };
 
-      state.repeatCount++;
-    } else if (state.playState === 'forward') {
-      state.mover = {
-        ...state.mover,
-        acceleration: [0, 0],
-        velocity: [0, 0],
-        position: [0, state.maxDistance],
-      };
+    state.repeatCount++;
+  } else if (isOvershootingForward && isSettled) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [0, state.maxDistance],
+    };
 
-      state.playState = 'reverse';
-      state.repeatCount++;
-    } else if (state.playState === 'reverse') {
-      state.mover = {
-        ...state.mover,
-        acceleration: [0, 0],
-        velocity: [0, 0],
-        position: [0, 0],
-      };
+    state.playState = 'reverse';
+    state.repeatCount++;
+  } else if (isOvershootingReverse && isSettled) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [0, 0],
+    };
 
-      state.playState = 'forward';
-      state.repeatCount++;
-    }
+    state.playState = 'forward';
+    state.repeatCount++;
   }
 }
 

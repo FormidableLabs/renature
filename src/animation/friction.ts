@@ -40,7 +40,12 @@ function checkReverseFrictionPlayState({
   config,
   repeatType,
 }: StatefulAnimatingElement<FrictionConfig>) {
-  if (state.mover.velocity[0] <= 0 && repeatType === 'loop') {
+  const isOvershootingForward =
+    state.mover.velocity[0] <= 0 && state.playState === 'forward';
+  const isOvershootingReverse =
+    state.mover.velocity[0] >= 0 && state.playState === 'reverse';
+
+  if (isOvershootingForward && repeatType === 'loop') {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],
@@ -49,7 +54,7 @@ function checkReverseFrictionPlayState({
     };
 
     state.repeatCount++;
-  } else if (state.mover.velocity[0] <= 0 && state.playState === 'forward') {
+  } else if (isOvershootingForward) {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],
@@ -59,7 +64,7 @@ function checkReverseFrictionPlayState({
 
     state.playState = 'reverse';
     state.repeatCount++;
-  } else if (state.mover.velocity[0] >= 0 && state.playState === 'reverse') {
+  } else if (isOvershootingReverse) {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],
