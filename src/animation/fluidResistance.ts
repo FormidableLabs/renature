@@ -30,9 +30,7 @@ function applyFluidResistanceForceForStep({
     state.mover.position[1] >= state.maxDistance &&
     state.playState === 'forward';
   const isOvershootingReverse =
-    config.settle &&
-    state.mover.position[1] <= 0 &&
-    state.playState === 'reverse';
+    state.mover.position[1] <= 0 && state.playState === 'reverse';
 
   // If applying a settle effect, reverse the mover's velocity.
   if (isOvershootingForward && config.settle) {
