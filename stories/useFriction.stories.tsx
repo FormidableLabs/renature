@@ -132,7 +132,7 @@ export const FrictionInfinite: FC = () => {
       initialVelocity: number('velocity', 10),
     },
     repeat: Infinity,
-    repeatType: select('Repeat Type', ['mirror', 'loop'], 'mirror'),
+    repeatType: select('repeatType', ['mirror', 'loop'], 'mirror'),
   });
 
   return <div className="mover mover--red" {...props} />;

@@ -132,7 +132,7 @@ export const FluidResistanceInfinite: FC = () => {
       settle: boolean('settle', true),
     },
     repeat: Infinity,
-    repeatType: select('Repeat Type', ['mirror', 'loop'], 'mirror'),
+    repeatType: select('repeatType', ['mirror', 'loop'], 'mirror'),
   });
 
   return <div className="mover mover--purple" {...props} />;

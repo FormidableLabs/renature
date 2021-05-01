@@ -120,7 +120,7 @@ export const GravityInfinite: FC = () => {
       r: number('r', 7.5),
     },
     repeat: Infinity,
-    repeatType: select('Repeat Type', ['mirror', 'loop'], 'mirror'),
+    repeatType: select('repeatType', ['mirror', 'loop'], 'mirror'),
   });
 
   return <div className="mover mover--purple" {...props} />;
