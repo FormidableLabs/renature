@@ -1,5 +1,5 @@
 import React, { useState, FC } from 'react';
-import { withKnobs, number, boolean } from '@storybook/addon-knobs';
+import { withKnobs, number, boolean, select } from '@storybook/addon-knobs';
 
 import { useFluidResistance } from '../src';
 
@@ -132,6 +132,7 @@ export const FluidResistanceInfinite: FC = () => {
       settle: boolean('settle', true),
     },
     repeat: Infinity,
+    repeatType: select('repeatType', ['mirror', 'loop'], 'mirror'),
   });
 
   return <div className="mover mover--purple" {...props} />;

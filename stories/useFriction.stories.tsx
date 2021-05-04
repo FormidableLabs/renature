@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState, FC, useEffect } from 'react';
-import { withKnobs, number } from '@storybook/addon-knobs';
+import { withKnobs, number, select } from '@storybook/addon-knobs';
 
 import { useFriction } from '../src';
 
@@ -132,6 +132,7 @@ export const FrictionInfinite: FC = () => {
       initialVelocity: number('velocity', 10),
     },
     repeat: Infinity,
+    repeatType: select('repeatType', ['mirror', 'loop'], 'mirror'),
   });
 
   return <div className="mover mover--red" {...props} />;

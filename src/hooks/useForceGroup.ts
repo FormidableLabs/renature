@@ -99,6 +99,7 @@ export const useForceGroup = <C, E extends HTMLElement | SVGElement>({
             onAnimationComplete: props.onAnimationComplete,
           }),
           repeat: props.repeat,
+          repeatType: props.repeatType,
           delay: props.delay,
           pause: props.pause,
         };

@@ -6,8 +6,7 @@ import {
 } from '../forces';
 import { vector as Vector, addf, multf } from '../core';
 
-import {
-  PlayState,
+import type {
   AnimatingElement,
   StatefulAnimatingElement,
   AnimationGroup,
@@ -27,22 +26,20 @@ function applyFluidResistanceForceForStep({
   state,
   config,
 }: StatefulAnimatingElement<FluidResistanceConfig>) {
-  // If applying a settle effect, reverse the mover's velocity.
-  if (
-    config.settle &&
+  const isOvershootingForward =
     state.mover.position[1] >= state.maxDistance &&
-    state.playState === PlayState.Forward
-  ) {
+    state.playState === 'forward';
+  const isOvershootingReverse =
+    state.mover.position[1] <= 0 && state.playState === 'reverse';
+
+  // If applying a settle effect, reverse the mover's velocity.
+  if (isOvershootingForward && config.settle) {
     state.mover = {
       ...state.mover,
       velocity: multf({ v: state.mover.velocity, s: -1 }),
       position: [0, state.maxDistance],
     };
-  } else if (
-    config.settle &&
-    state.mover.position[1] <= 0 &&
-    state.playState === PlayState.Reverse
-  ) {
+  } else if (isOvershootingReverse && config.settle) {
     state.mover = {
       ...state.mover,
       velocity: multf({ v: state.mover.velocity, s: -1 }),
@@ -56,14 +53,14 @@ function applyFluidResistanceForceForStep({
     velocity: state.mover.velocity,
     cDrag: config.cDrag,
   });
-
   const gravitationalForce: Vector<number> = [0, state.mover.mass * gE];
+
   const netForce = addf({
     v1: dragForce,
-    v2:
-      state.playState === PlayState.Forward
-        ? gravitationalForce
-        : multf({ v: gravitationalForce, s: -1 }),
+    v2: multf({
+      v: gravitationalForce,
+      s: state.playState === 'forward' ? 1 : -1,
+    }),
   });
 
   return applyForce({
@@ -85,12 +82,13 @@ function applyFluidResistanceForceForStep({
 function checkReverseFluidResistancePlayState({
   state,
   config,
+  repeatType,
 }: StatefulAnimatingElement<FluidResistanceConfig>) {
   const isOvershootingForward =
-    state.playState === PlayState.Forward &&
+    state.playState === 'forward' &&
     state.mover.position[1] >= state.maxDistance;
   const isOvershootingReverse =
-    state.playState === PlayState.Reverse && state.mover.position[1] <= 0;
+    state.playState === 'reverse' && state.mover.position[1] <= 0;
 
   // If applying a settle effect with looping, allow the settling to
   // finish before reversing the animation. We arbitrarily set this
@@ -99,26 +97,35 @@ function checkReverseFluidResistancePlayState({
     ? Math.abs(state.mover.velocity[1]) <= 0.5
     : true;
 
-  if ((isOvershootingForward || isOvershootingReverse) && isSettled) {
-    if (state.playState === PlayState.Forward) {
-      state.mover = {
-        ...state.mover,
-        acceleration: [0, 0],
-        velocity: [0, 0],
-        position: [0, state.maxDistance],
-      };
-      state.playState = PlayState.Reverse;
-      state.repeatCount++;
-    } else if (state.playState === PlayState.Reverse) {
-      state.mover = {
-        ...state.mover,
-        acceleration: [0, 0],
-        velocity: [0, 0],
-        position: [0, 0],
-      };
-      state.playState = PlayState.Forward;
-      state.repeatCount++;
-    }
+  if (isOvershootingForward && isSettled && repeatType === 'loop') {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [0, 0],
+    };
+
+    state.repeatCount++;
+  } else if (isOvershootingForward && isSettled) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [0, state.maxDistance],
+    };
+
+    state.playState = 'reverse';
+    state.repeatCount++;
+  } else if (isOvershootingReverse && isSettled) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [0, 0],
+    };
+
+    state.playState = 'forward';
+    state.repeatCount++;
   }
 }
 
@@ -143,7 +150,7 @@ export function fluidResistanceGroup(
       velocity: [0, 0],
       position: [0, 0],
     },
-    playState: PlayState.Forward,
+    playState: 'forward',
     maxDistance: getFluidPositionAtTerminalVelocity(element.config),
     complete: false,
     paused: !!element.pause,

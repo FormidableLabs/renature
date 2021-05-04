@@ -5,7 +5,6 @@ import {
   AnimatingElement,
   FluidResistanceConfig,
   fluidResistanceGroup,
-  PlayState,
 } from '../../src/animation';
 
 describe('fluidResistance', () => {
@@ -116,9 +115,9 @@ describe('fluidResistance', () => {
      */
     mockRAF.step({ count: 440 });
 
-    expect(
-      elements.every(({ state }) => state.playState === PlayState.Reverse)
-    ).toBe(true);
+    expect(elements.every(({ state }) => state.playState === 'reverse')).toBe(
+      true
+    );
   });
 
   it('should continually reverse repeated animations when they reach their ending physics conditions', () => {
@@ -142,16 +141,16 @@ describe('fluidResistance', () => {
      */
     mockRAF.step({ count: 440 });
 
-    expect(
-      elements.every(({ state }) => state.playState === PlayState.Reverse)
-    ).toBe(true);
+    expect(elements.every(({ state }) => state.playState === 'reverse')).toBe(
+      true
+    );
 
     // Animate another 440 frames and verify that we've switched to the Forward play state.
     mockRAF.step({ count: 440 });
 
-    expect(
-      elements.every(({ state }) => state.playState === PlayState.Forward)
-    ).toBe(true);
+    expect(elements.every(({ state }) => state.playState === 'forward')).toBe(
+      true
+    );
   });
 
   it('should end a repeated animation when the specified number of repeats has been eclipsed', () => {
@@ -177,8 +176,7 @@ describe('fluidResistance', () => {
 
     expect(
       elements.every(
-        ({ state }) =>
-          state.playState === PlayState.Reverse && state.repeatCount === 0
+        ({ state }) => state.playState === 'reverse' && state.repeatCount === 0
       )
     ).toBe(true);
 
@@ -187,8 +185,7 @@ describe('fluidResistance', () => {
 
     expect(
       elements.every(
-        ({ state }) =>
-          state.playState === PlayState.Forward && state.repeatCount === 1
+        ({ state }) => state.playState === 'forward' && state.repeatCount === 1
       )
     ).toBe(true);
 
@@ -197,8 +194,7 @@ describe('fluidResistance', () => {
 
     expect(
       elements.every(
-        ({ state }) =>
-          state.playState === PlayState.Reverse && state.repeatCount === 2
+        ({ state }) => state.playState === 'reverse' && state.repeatCount === 2
       )
     ).toBe(true);
 
@@ -226,9 +222,9 @@ describe('fluidResistance', () => {
     // Animate to the last frame before crossing the maxDistance threshold.
     mockRAF.step({ count: 511 });
 
-    expect(
-      elements.every(({ state }) => state.playState === PlayState.Forward)
-    ).toBe(true);
+    expect(elements.every(({ state }) => state.playState === 'forward')).toBe(
+      true
+    );
     expect(elements.every(({ state }) => state.mover.velocity[1] > 0)).toBe(
       true
     );
@@ -242,8 +238,8 @@ describe('fluidResistance', () => {
     expect(elements.every(({ state }) => state.mover.velocity[1] < 0)).toBe(
       true
     );
-    expect(
-      elements.every(({ state }) => state.playState === PlayState.Forward)
-    ).toBe(true);
+    expect(elements.every(({ state }) => state.playState === 'forward')).toBe(
+      true
+    );
   });
 });

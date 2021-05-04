@@ -1,8 +1,7 @@
 import { gravityForceV, applyForce } from '../forces';
 import { subf, normf } from '../core';
 
-import {
-  PlayState,
+import type {
   AnimatingElement,
   StatefulAnimatingElement,
   AnimationGroup,
@@ -47,31 +46,14 @@ function applyGravitationalForceForStep({
 function checkReverseGravityPlayState({
   state,
   config,
+  repeatType,
 }: StatefulAnimatingElement<GravityConfig>) {
-  if (
-    state.mover.position[0] >= config.r &&
-    state.playState === PlayState.Forward
-  ) {
-    state.mover = {
-      ...state.mover,
-      acceleration: [0, 0],
-      velocity: [0, 0],
-      position: [config.r, 0],
-    };
+  const isOvershootingForward =
+    state.mover.position[0] >= config.r && state.playState === 'forward';
+  const isOvershootingReverse =
+    state.mover.position[0] <= 0 && state.playState === 'reverse';
 
-    if (state.attractor) {
-      state.attractor = {
-        ...state.attractor,
-        position: [0, 0],
-      };
-    }
-
-    state.playState = PlayState.Reverse;
-    state.repeatCount++;
-  } else if (
-    state.mover.position[0] <= 0 &&
-    state.playState === PlayState.Reverse
-  ) {
+  if (isOvershootingForward && repeatType === 'loop') {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],
@@ -86,7 +68,40 @@ function checkReverseGravityPlayState({
       };
     }
 
-    state.playState = PlayState.Forward;
+    state.repeatCount++;
+  } else if (isOvershootingForward) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [config.r, 0],
+    };
+
+    if (state.attractor) {
+      state.attractor = {
+        ...state.attractor,
+        position: [0, 0],
+      };
+    }
+
+    state.playState = 'reverse';
+    state.repeatCount++;
+  } else if (isOvershootingReverse) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [0, 0],
+      position: [0, 0],
+    };
+
+    if (state.attractor) {
+      state.attractor = {
+        ...state.attractor,
+        position: [config.r, 0],
+      };
+    }
+
+    state.playState = 'forward';
     state.repeatCount++;
   }
 }
@@ -125,7 +140,7 @@ export function gravityGroup(
       velocity: [0, 0],
       position: [element.config.r, 0],
     },
-    playState: PlayState.Forward,
+    playState: 'forward',
     maxDistance: element.config.r,
     complete: false,
     paused: !!element.pause,

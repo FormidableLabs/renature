@@ -1,5 +1,5 @@
 import React, { useState, FC } from 'react';
-import { withKnobs, number } from '@storybook/addon-knobs';
+import { withKnobs, number, select } from '@storybook/addon-knobs';
 
 import { useGravity } from '../src';
 
@@ -120,6 +120,7 @@ export const GravityInfinite: FC = () => {
       r: number('r', 7.5),
     },
     repeat: Infinity,
+    repeatType: select('repeatType', ['mirror', 'loop'], 'mirror'),
   });
 
   return <div className="mover mover--purple" {...props} />;

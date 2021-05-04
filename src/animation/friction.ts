@@ -1,7 +1,6 @@
 import { getMaxDistanceFriction, frictionForceV, applyForce } from '../forces';
 
-import {
-  PlayState,
+import type {
   AnimatingElement,
   StatefulAnimatingElement,
   AnimationGroup,
@@ -39,27 +38,41 @@ function applyFrictionForceForStep({
 function checkReverseFrictionPlayState({
   state,
   config,
+  repeatType,
 }: StatefulAnimatingElement<FrictionConfig>) {
-  if (state.mover.velocity[0] <= 0 && state.playState === PlayState.Forward) {
-    state.mover = {
-      ...state.mover,
-      acceleration: [0, 0],
-      velocity: [config.initialVelocity * -1, 0],
-      position: [state.maxDistance, 0],
-    };
-    state.playState = PlayState.Reverse;
-    state.repeatCount++;
-  } else if (
-    state.mover.velocity[0] >= 0 &&
-    state.playState === PlayState.Reverse
-  ) {
+  const isOvershootingForward =
+    state.mover.velocity[0] <= 0 && state.playState === 'forward';
+  const isOvershootingReverse =
+    state.mover.velocity[0] >= 0 && state.playState === 'reverse';
+
+  if (isOvershootingForward && repeatType === 'loop') {
     state.mover = {
       ...state.mover,
       acceleration: [0, 0],
       velocity: [config.initialVelocity, 0],
       position: [0, 0],
     };
-    state.playState = PlayState.Forward;
+
+    state.repeatCount++;
+  } else if (isOvershootingForward) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [config.initialVelocity * -1, 0],
+      position: [state.maxDistance, 0],
+    };
+
+    state.playState = 'reverse';
+    state.repeatCount++;
+  } else if (isOvershootingReverse) {
+    state.mover = {
+      ...state.mover,
+      acceleration: [0, 0],
+      velocity: [config.initialVelocity, 0],
+      position: [0, 0],
+    };
+
+    state.playState = 'forward';
     state.repeatCount++;
   }
 }
@@ -85,7 +98,7 @@ export function frictionGroup(
       velocity: [element.config.initialVelocity, 0],
       position: [0, 0],
     },
-    playState: PlayState.Forward,
+    playState: 'forward',
     maxDistance: getMaxDistanceFriction({
       mu: element.config.mu,
       initialVelocity: element.config.initialVelocity,
