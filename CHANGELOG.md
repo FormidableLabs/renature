@@ -7,6 +7,20 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.11.0
+
+This release adds support for a new `repeatType` API. `repeatType` describes how repeated animations should run. Valid values are `'loop'` and `'mirror'`; `'mirror'` is the default.
+
+If `'loop'` is specified, the animation will run from its `from` state to its `to` state, and then "jump" back to the `from` state to start the animation over. This is akin to `animation-direction: normal` in CSS animations.
+
+If `'mirror'` is specified, the animation will alternate between its `from` and `to` values. This is the behavior `renature` has always had and is the default if `repeatType` is not specified. It is akin to `animation-direction: alternate` in CSS animations.
+
+### Added
+
+- The `repeatType` parameter can now be passed to configure how repeated animations should be run. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/143).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.10.2...v0.11.0)
+
 ## v0.10.2
 
 This release fixes a small bug in the `onAnimationComplete` implementation. In [#122](https://github.com/FormidableLabs/renature/pull/122), we accidentally introduced a regression by not passing the `onAnimationComplete` callback to the internal `onComplete` function. This release addresses that regression.
