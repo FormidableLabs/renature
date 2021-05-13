@@ -6,6 +6,7 @@ import { boxShadow } from './box-shadow';
 import { orbit } from './orbit';
 import { groupedAnimations } from './grouped-animations';
 import { set } from './set';
+import { repeatType } from './repeat-type';
 
 export const samples = [
   basicTransform,
@@ -16,4 +17,5 @@ export const samples = [
   orbit,
   groupedAnimations,
   set,
+  repeatType,
 ];
