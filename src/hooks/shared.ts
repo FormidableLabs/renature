@@ -8,6 +8,21 @@ import type {
 } from '../animation';
 import type { CSSPairs, InterpolatedResult } from '../parsers';
 
+/**
+ * The onUpdate callback executes on each call to requestAnimationFrame.
+ * Each individual CSS pair has its own interpolator function to return an
+ * interpolated result based on the state of the physics tween.
+ *
+ * @param interpolators – an array of independent interpolations of animated CSS properties.
+ * @param maxPosition – the max distance the mover in the underlying physics simulation can
+ * reach before the animation is considered complete.
+ * @param dimension – the axis the mover in the underlying physics simulation is traveling along.
+ * @param ref – the ref attached to the animating element.
+ * @param i – the index of the the animating element in its animation group.
+ * @param cache – the animation cache tracking the currently interpolated animation value
+ * for all elements in an animation group.
+ * @param onFrame – the user-supplied callback to run on each frame.
+ */
 interface OnUpdateParams<E extends HTMLElement | SVGElement> {
   interpolators: InterpolatedResult<any, any>[];
   maxPosition: number;
@@ -18,11 +33,6 @@ interface OnUpdateParams<E extends HTMLElement | SVGElement> {
   onFrame?: HooksParams['onFrame'];
 }
 
-/**
- * The onUpdate callback to execute on each call to requestAnimationFrame.
- * Each individual CSS pair has its own interpolator function to return an
- * interpolated result based on the state of the physics tween.
- */
 export const onUpdate = <E extends HTMLElement | SVGElement>({
   interpolators,
   maxPosition,
@@ -62,6 +72,19 @@ export const onUpdate = <E extends HTMLElement | SVGElement>({
   });
 };
 
+/**
+ * The onComplete callback is called when an animation finishes. It ensures
+ * that an animating element reaches its configured ending animation state,
+ * depending on the playState of the animation (if repeated) or the state
+ * of its physics tween.
+ *
+ * @param interpolators – an array of independent interpolations of animated CSS properties.
+ * @param ref – the ref attached to the animating element.
+ * @param i – the index of the the animating element in its animation group.
+ * @param cache – the animation cache tracking the currently interpolated animation value
+ * for all elements in an animation group.
+ * @param onAnimationComplete – the user-supplied callback to run when the animation completes.
+ */
 interface OnCompleteParams<E extends HTMLElement | SVGElement> {
   interpolators: InterpolatedResult<any, any>[];
   ref: RefObject<E>;
@@ -70,7 +93,6 @@ interface OnCompleteParams<E extends HTMLElement | SVGElement> {
   onAnimationComplete?: () => void;
 }
 
-// The onComplete callback to execute when an animation finishes.
 export const onComplete = <E extends HTMLElement | SVGElement>({
   interpolators,
   ref,
@@ -79,26 +101,23 @@ export const onComplete = <E extends HTMLElement | SVGElement>({
   onAnimationComplete,
 }: OnCompleteParams<E>) => (playState?: PlayState): void => {
   interpolators.forEach(({ property, values }) => {
-    const isNearEnd =
-      (playState === 'forward' &&
-        ref.current?.style[property as any] !== values.to) ||
-      (playState === 'reverse' &&
-        ref.current?.style[property as any] !== values.from);
+    switch (playState) {
+      case 'forward':
+        ref.current && (ref.current.style[property as any] = `${values.from}`);
+        break;
+      case 'reverse':
+      default:
+        ref.current && (ref.current.style[property as any] = `${values.to}`);
+        break;
+    }
 
-    // Ensure our animation has reached the ending value when the physics stopping condition has been reached.
-    if (ref.current && isNearEnd) {
-      ref.current.style[property as any] = `${
-        playState === 'forward' ? values.from : values.to
-      }`;
+    // Clear the cache for this particular CSS property.
+    const { [property]: _, ...cachedValue } = cache.current.get(i) ?? {};
 
-      // Clear the cache for this particular property.
-      const { [property]: _, ...cachedValue } = cache.current.get(i) ?? {};
-
-      if (Object.keys(cachedValue).length > 0) {
-        cache.current.set(i, cachedValue);
-      } else {
-        cache.current.delete(i);
-      }
+    if (Object.keys(cachedValue).length > 0) {
+      cache.current.set(i, cachedValue);
+    } else {
+      cache.current.delete(i);
     }
   });
 

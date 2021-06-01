@@ -59,8 +59,11 @@ export function update<C>({
         checkStoppingCondition(element);
       const repetitionsEclipsed = element.repeat === element.state.repeatCount;
 
-      if (shouldComplete || repetitionsEclipsed) {
+      if (shouldComplete) {
         element.onComplete();
+        element.state.complete = true;
+      } else if (repetitionsEclipsed) {
+        element.onComplete(element.state.playState);
         element.state.complete = true;
       } else {
         element.onUpdate({
