@@ -37,6 +37,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.10.1",
     "@babel/plugin-transform-object-assign": "^7.10.1",
     "@babel/preset-env": "^7.10.1",
+    "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.10.1",
     "@glennsl/bs-jest": "^0.5.1",
     "@rollup/plugin-buble": "^0.21.0",
@@ -46,6 +47,8 @@
     "@storybook/addon-knobs": "^6.1.21",
     "@storybook/addons": "^6.1.21",
     "@storybook/react": "^6.1.21",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.7",
     "@testing-library/react-hooks": "^5.1.0",
     "@types/jest": "^26.0.13",
     "@types/react": "^16.9.43",
@@ -82,7 +85,7 @@
   "jest": {
     "testMatch": [
       "<rootDir>/__tests__/**/*_test.bs.js",
-      "<rootDir>/__tests__/**/*.spec.ts"
+      "<rootDir>/__tests__/**/*.spec.ts?(x)"
     ],
     "transform": {
       "^.+\\.jsx?$": "<rootDir>/scripts/jest-transform-esm.js",
@@ -94,6 +97,9 @@
     "coveragePathIgnorePatterns": [
       ".gen.tsx",
       "/__tests__/test-utils"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupTests.ts"
     ]
   },
   "prettier": {

@@ -16,5 +16,10 @@
     "strict": true,
     "target": "esnext"
   },
-  "include": ["src/**/*", "__tests__/**/*.ts", "stories/**/*.tsx"]
+  "include": [
+    "src/**/*",
+    "__tests__/**/*.ts",
+    "stories/**/*.tsx",
+    "setupTests.ts"
+  ]
 }
