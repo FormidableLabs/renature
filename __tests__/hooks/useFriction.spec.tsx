@@ -71,11 +71,33 @@ describe('useFriction', () => {
 
       await waitForAnimation();
 
-      const node = getByTestId('node');
-      const currentOpacity = parseFloat(node.style.opacity);
+      const animatingNode = getByTestId('node');
+      const currentOpacity = parseFloat(animatingNode.style.opacity);
 
       expect(currentOpacity).toBeGreaterThan(0);
       expect(currentOpacity).toBeLessThan(1);
+    });
+
+    it('should complete the animation', async () => {
+      const Component = () => {
+        const [props] = useFriction({
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        });
+
+        return <div data-testid="node" {...props} />;
+      };
+
+      const { getByTestId } = render(<Component />);
+
+      // Animate for 3 seconds. This should be enough time for the animation
+      // to have reached its completed state.
+      await waitForAnimation({ timeout: 3000, waitForTimeout: 3500 });
+
+      const animatingNode = getByTestId('node');
+      expect(animatingNode).toHaveStyle({
+        opacity: 1,
+      });
     });
 
     it('should not animate the specified property if pause is set to true', async () => {
@@ -93,8 +115,8 @@ describe('useFriction', () => {
 
       await waitForAnimation();
 
-      const node = getByTestId('node');
-      expect(node).not.toHaveAttribute('style');
+      const animatingNode = getByTestId('node');
+      expect(animatingNode).not.toHaveAttribute('style');
     });
 
     it('should begin animation if pause switches to true on a subsequent render', async () => {
@@ -112,15 +134,15 @@ describe('useFriction', () => {
 
       await waitForAnimation();
 
-      const node = getByTestId('node');
-      expect(node).not.toHaveAttribute('style');
+      const animatingNode = getByTestId('node');
+      expect(animatingNode).not.toHaveAttribute('style');
 
       // Re-render Component with pause set to false.
       rerender(<Component pause={false} />);
 
       await waitForAnimation();
 
-      const currentOpacity = parseFloat(node.style.opacity);
+      const currentOpacity = parseFloat(animatingNode.style.opacity);
 
       expect(currentOpacity).toBeGreaterThan(0);
       expect(currentOpacity).toBeLessThan(1);
@@ -143,14 +165,14 @@ describe('useFriction', () => {
 
       // The animating element should not have animated yet, since waitForAnimation
       // will only wait for half a second by default.
-      const node = getByTestId('node');
-      expect(node).not.toHaveAttribute('style');
+      const animatingNode = getByTestId('node');
+      expect(animatingNode).not.toHaveAttribute('style');
 
       // Wait an additional full second. By this point, 1500 seconds will have elapsed,
       // meaning that the 1000 ms delay will be exceeded and the animation should be running.
       await waitForAnimation({ timeout: 1000, waitForTimeout: 1500 });
 
-      const currentOpacity = parseFloat(node.style.opacity);
+      const currentOpacity = parseFloat(animatingNode.style.opacity);
 
       expect(currentOpacity).toBeGreaterThan(0);
       expect(currentOpacity).toBeLessThan(1);
