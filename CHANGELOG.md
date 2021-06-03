@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file. If a change
 
 The format is based on Keep a Changelog.
 
+## v0.11.1
+
+This release fixes a small regression in the way animations complete. When we introduced the `repeat` API in v0.9.0, we also introduced more complexity around when animations are considered "done". This resulted in occasional instances where an animation wouldn't reach its exact `to` state; for example, an `opacity` animation from 0 to 1 might complete at `opacity: 0.99927361`. This release fixes that behavior to ensure we reach the exact final `to` state in both repeated and non-repeated animations.
+
+### Fixed
+
+- ⚠️ All animations reach their exact `to` state on completion, or `from` state for odd-numbered `repeat` counts. PR by @parkerziegler [here](https://github.com/FormidableLabs/renature/pull/155).
+
+[Diff](https://github.com/FormidableLabs/renature/compare/v0.11.0...v0.11.1)
+
 ## v0.11.0
 
 This release adds support for a new `repeatType` API. `repeatType` describes how repeated animations should run. Valid values are `'loop'` and `'mirror'`; `'mirror'` is the default.
