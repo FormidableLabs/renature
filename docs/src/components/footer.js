@@ -27,7 +27,7 @@ const FooterLeft = styled.div`
 `;
 
 const FooterLogo = styled.img`
-  width: 10rem;
+  width: 7rem;
   margin-right: 3rem;
 `;
 

@@ -60,15 +60,15 @@ const HeaderText = styled.p`
 `;
 
 const HeaderLogo = styled.img`
-  width: 4rem;
+  width: 3rem;
   margin-top: 1rem;
 
   @media ${(p) => p.theme.media.sm} {
-    width: 6rem;
+    width: 4rem;
   }
 
   @media ${(p) => p.theme.media.md} {
-    width: 8rem;
+    width: 6rem;
   }
 `;
 
