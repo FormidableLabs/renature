@@ -10,7 +10,7 @@ import { initGoogleTagManager } from './google-tag-manager';
 
 const App = () => {
   useEffect(() => {
-    initGoogleTagManager()
+    initGoogleTagManager();
   }, []);
 
   return (
