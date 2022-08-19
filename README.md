@@ -10,6 +10,9 @@
 
   <br />
   <br />
+  <a href="https://github.com/FormidableLabs/renature#maintenance-status">
+    <img alt="Maintenance Status" src="https://img.shields.io/badge/maintenance-archived-red.svg" />
+  </a>
   <a href="https://npmjs.com/package/renature">
     <img alt="NPM Version" src="https://img.shields.io/npm/v/renature.svg" />
   </a>
@@ -18,9 +21,6 @@
   </a>
   <a href="https://bundlephobia.com/result?p=renature">
     <img alt="Minified gzip size" src="https://img.shields.io/bundlephobia/minzip/renature.svg?label=gzip%20size" />
-  </a>
-  <a href="https://github.com/FormidableLabs/renature#maintenance-status">
-    <img alt="Maintenance Status" src="https://img.shields.io/badge/maintenance-archived-red.svg" />
   </a>
 
   <br />
