@@ -20,7 +20,7 @@
     <img alt="Minified gzip size" src="https://img.shields.io/bundlephobia/minzip/renature.svg?label=gzip%20size" />
   </a>
   <a href="https://github.com/FormidableLabs/renature#maintenance-status">
-    <img alt="Maintenance Status" src="https://img.shields.io/badge/maintenance-active-green.svg" />
+    <img alt="Maintenance Status" src="https://img.shields.io/badge/maintenance-archived-red.svg" />
   </a>
 
   <br />
