@@ -178,10 +178,10 @@ const Hero = () => {
         </HeroBodyAndButtons>
         <HeroNavList>
           <li>
-            <Link to="docs/">Docs</Link>
+            <Link to="./docs/">Docs</Link>
           </li>
           <li>
-            <Link to="gallery/">Gallery</Link>
+            <Link to="./gallery/">Gallery</Link>
           </li>
           <li>
             <a
