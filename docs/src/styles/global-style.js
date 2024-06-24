@@ -204,4 +204,20 @@ export const GlobalStyle = createGlobalStyle`
       width: 3rem;
     }
   }
+
+  .lp__wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .lp__replay {
+    position: absolute;
+    bottom: 0;
+    right: 1rem;
+  }
 `;

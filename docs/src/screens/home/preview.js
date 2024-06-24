@@ -8,6 +8,8 @@ import { LivePreview } from '../../components/home-preview';
 import { theme } from '../../styles/theme';
 import { stack } from '../../styles/mixins';
 import { scope, removeImportFromPreview } from '../../utils/live-preview';
+import refreshArrows from '../../assets/refresh_cw.svg';
+
 
 const PreviewStack = styled.div`
   ${stack(11.25)}
@@ -35,10 +37,16 @@ function FrictionAnimation() {
   });
 
   return (
-    <div
-      className="lp__m lp__m--lg"
-      {...props}
-    />
+    <div className="lp__wrapper">
+      <div
+        className="lp__m lp__m--lg"
+        {...props}
+      />
+      <div
+        className="lp__replay">
+        Refresh
+      </div>
+    </div>
   );
 }
 `;
